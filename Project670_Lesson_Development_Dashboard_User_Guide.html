@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project 670 Delivery Plan — User Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --stride-blue:#2127C2; --stride-blue-med:#2A72CB; --stride-blue-light:#BAD9EF;
+  --stride-navy:#000E64; --stride-orange:#EF6100;
+  --bg:#F4F8FC; --card:#FFFFFF; --line:#DCE6F2; --line-2:#C7D5E8;
+  --ink:#0A1438; --ink-2:#2E3A5C; --ink-3:#6E7891; --ink-4:#B0B8CC;
+  --good:#1F7A3E; --warn:#B85C00; --risk:#B0202A;
+  --subj-math-bg:#DCE7F8; --subj-math-ink:var(--stride-blue);
+  --subj-ela-bg:#DDE7F2;  --subj-ela-ink:var(--stride-navy);
+  --subj-sci-bg:#D8EAF7;  --subj-sci-ink:var(--stride-blue-med);
+  --subj-ss-bg:#FCE6CC;   --subj-ss-ink:#A04400;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin:0; padding:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  line-height:1.6;
+}
+.layout { display:grid; grid-template-columns: 280px 1fr; max-width:1280px; margin:0 auto; min-height:100vh; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+/* Sidebar TOC */
+.toc {
+  background:#fff; border-right:1px solid var(--line);
+  padding:28px 24px; position:sticky; top:0; align-self:start;
+  max-height:100vh; overflow-y:auto;
+}
+.toc .brand {
+  display:flex; align-items:center; gap:12px; margin-bottom:24px;
+  padding-bottom:18px; border-bottom:1px solid var(--line);
+}
+.toc .brand svg { height:32px; }
+.toc .brand .lbl {
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:500; font-size:15px; color:var(--ink);
+  line-height:1.2;
+}
+.toc .brand .lbl small { display:block; font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.08em; margin-top:3px; }
+.toc h3 {
+  font-size:10.5px; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--ink-3);
+  margin:20px 0 10px;
+}
+.toc ol { list-style:none; padding:0; margin:0; counter-reset:n; }
+.toc li { counter-increment:n; }
+.toc a {
+  display:flex; align-items:baseline; gap:8px;
+  padding:7px 0; color:var(--ink-2);
+  text-decoration:none; font-size:13.5px;
+  border-left:2px solid transparent; padding-left:10px; margin-left:-12px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.toc a::before {
+  content: counter(n, decimal-leading-zero);
+  color:var(--ink-4); font-family:'Space Grotesk', sans-serif;
+  font-size:11px; font-weight:600;
+}
+.toc a:hover { color:var(--ink); background:rgba(33,39,194,0.04); }
+.toc a.active { color:var(--stride-blue); border-left-color:var(--stride-blue); font-weight:600; }
+
+/* Main */
+main { padding:36px 48px 80px; }
+@media (max-width: 720px) { main { padding:24px 18px; } }
+
+main h1 {
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600; font-size:36px; letter-spacing:-0.02em;
+  margin:0 0 6px; color:var(--ink);
+}
+main .subtitle {
+  font-size:15px; color:var(--ink-3); margin:0 0 30px;
+  border-bottom:1px solid var(--line); padding-bottom:18px;
+}
+
+section.guide-section { margin:48px 0 0; padding-top:8px; }
+section.guide-section h2 {
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600; font-size:24px; letter-spacing:-0.01em;
+  color:var(--ink); margin:0 0 6px;
+  display:flex; align-items:baseline; gap:14px;
+}
+section.guide-section h2 .num {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:18px; color:var(--ink-4); font-weight:500;
+}
+section.guide-section h2 small {
+  font-size:12px; font-weight:500; color:var(--ink-3);
+  text-transform:uppercase; letter-spacing:0.12em;
+}
+section.guide-section .lede {
+  font-size:15px; color:var(--ink-2); margin:0 0 18px;
+}
+main h3 {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:16px; font-weight:600; color:var(--ink);
+  margin:22px 0 8px; letter-spacing:-0.005em;
+}
+main p { margin:8px 0 12px; color:var(--ink-2); font-size:14.5px; }
+main p strong { color:var(--ink); }
+main code {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size:13px; background:#EEF3FA; color:var(--stride-navy);
+  padding:1px 6px; border-radius:3px;
+}
+main ul, main ol { padding-left:24px; color:var(--ink-2); }
+main li { margin:6px 0; font-size:14.5px; }
+main li strong { color:var(--ink); }
+
+.note {
+  background:#FFFCE6; border:1px solid #F0E4B0;
+  border-radius:8px; padding:12px 16px;
+  font-size:13.5px; color:#5C4A00;
+  margin:16px 0;
+}
+.note strong { color:#3E3000; }
+.tip {
+  background:#E6F4EA; border:1px solid #B4DCC0;
+  border-radius:8px; padding:12px 16px;
+  font-size:13.5px; color:#1B5C2E;
+  margin:16px 0;
+}
+.tip strong { color:#0F3D1F; }
+
+.mockup {
+  background:#fff; border:1px solid var(--line);
+  border-radius:10px; padding:18px 20px; margin:14px 0;
+  box-shadow:0 1px 3px rgba(0,14,100,0.04);
+}
+.mockup .mtitle {
+  font-size:10.5px; font-weight:700; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--ink-3); margin-bottom:12px;
+}
+
+/* Mockup: filter bar */
+.mock-filterbar { display:flex; flex-wrap:wrap; gap:10px 14px; align-items:end; }
+.mock-filterbar .lbl { display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--ink-3); }
+.mock-filterbar .sel {
+  background:#fff; border:1px solid var(--line-2); border-radius:6px;
+  padding:6px 24px 6px 10px; font-size:12px; color:var(--ink);
+  position:relative; min-width:140px;
+}
+.mock-filterbar .sel::after {
+  content:'▼'; position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  font-size:9px; color:var(--ink-3);
+}
+.mock-filterbar .btn {
+  font-size:12px; padding:7px 14px; border:1px solid var(--line-2);
+  border-radius:6px; background:#fff; color:var(--ink-2); cursor:pointer;
+}
+
+/* Mockup: KPI tiles */
+.mock-kpi-row { display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; }
+@media (max-width: 920px) { .mock-kpi-row { grid-template-columns:repeat(2, 1fr); } }
+.mock-kpi {
+  background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+}
+.mock-kpi .lbl { font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-3); }
+.mock-kpi .num { font-family:'Space Grotesk',sans-serif; font-size:22px; color:var(--ink); line-height:1.05; margin:3px 0 2px; }
+.mock-kpi .num.blue { color:var(--stride-blue); }
+.mock-kpi .num.good { color:var(--good); }
+.mock-kpi .num.warn { color:var(--warn); }
+.mock-kpi .sub { font-size:10.5px; color:var(--ink-3); }
+
+/* Mockup: month card */
+.mock-month-row { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+@media (max-width: 720px) { .mock-month-row { grid-template-columns:repeat(2, 1fr); } }
+.mock-month {
+  background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+}
+.mock-month .name { font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); }
+.mock-month .total { font-family:'Space Grotesk',sans-serif; font-size:24px; color:var(--stride-blue); line-height:1; margin:3px 0 8px; }
+.mock-month .row { display:grid; grid-template-columns:40px 1fr 24px; gap:6px; align-items:center; font-size:10.5px; margin:3px 0; }
+.mock-month .bar { background:#E8EDF5; height:5px; border-radius:2px; overflow:hidden; }
+.mock-month .bar > div { height:100%; }
+.mock-month .bar.math > div { background:var(--subj-math-ink); }
+.mock-month .bar.ela > div { background:var(--subj-ela-ink); }
+.mock-month .bar.sci > div { background:var(--subj-sci-ink); }
+.mock-month .bar.ss > div { background:var(--subj-ss-ink); }
+.mock-month .ct { text-align:right; color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
+
+/* Mockup: calendar mini */
+.mock-cal { display:grid; grid-template-columns: repeat(7, 32px); gap:3px; }
+.mock-cal .h { font-size:9px; font-weight:600; color:var(--ink-3); text-align:center; padding:2px 0; text-transform:uppercase; }
+.mock-cal .d {
+  height:32px; border:1px solid var(--line); border-radius:3px;
+  background:#fff; padding:2px 3px; font-size:9px; color:var(--ink-2); position:relative;
+}
+.mock-cal .d.outside { background:transparent; border:0; }
+.mock-cal .d.today { outline:2px solid var(--stride-orange); outline-offset:-2px; }
+.mock-cal .d .ct {
+  display:inline-block; background:var(--stride-blue); color:#fff;
+  font-size:8.5px; font-weight:700; padding:0 4px; border-radius:7px;
+  position:absolute; bottom:3px; right:3px;
+}
+
+/* Mockup: cross-tab */
+table.mock-xt { width:100%; border-collapse:collapse; font-size:12px; }
+table.mock-xt th, table.mock-xt td { padding:5px 8px; border-bottom:1px solid var(--line); text-align:right; }
+table.mock-xt th:first-child, table.mock-xt td:first-child { text-align:left; }
+table.mock-xt th { background:#FAFCFF; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-3); font-weight:600; }
+table.mock-xt td.tint { background:rgba(33,39,194,0.15); color:#fff; font-weight:600; }
+table.mock-xt td.tint2 { background:rgba(33,39,194,0.08); font-weight:600; }
+table.mock-xt td.t { font-weight:700; background:#FAFCFF; }
+
+.tabs-mock { display:inline-flex; gap:2px; background:#E8EDF5; padding:3px; border-radius:6px; margin-bottom:8px; }
+.tabs-mock .tab { padding:5px 11px; font-size:11.5px; font-weight:500; color:var(--ink-2); border-radius:4px; }
+.tabs-mock .tab.active { background:#fff; color:var(--stride-blue); box-shadow:0 1px 2px rgba(0,14,100,0.08); font-weight:600; }
+
+/* Mockup: schedule (table grouped) */
+.mock-schedule-tools { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap; }
+.mock-schedule-tools .search { background:#fff; border:1px solid var(--line-2); border-radius:6px; padding:5px 10px; font-size:11.5px; color:var(--ink-3); min-width:160px; }
+.mock-schedule-tools .copy { font-size:11.5px; padding:5px 11px; border:1px solid var(--line-2); border-radius:6px; background:#fff; color:var(--ink-2); }
+table.mock-sched { width:100%; border-collapse:collapse; font-size:11.5px; background:#fff; }
+table.mock-sched th { background:#FAFCFF; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); font-weight:600; padding:6px 8px; text-align:left; border-bottom:1px solid var(--line-2); }
+table.mock-sched td { padding:5px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
+table.mock-sched tr.gh td { background:#DBE3F6; font-weight:700; color:var(--stride-blue); border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2); }
+table.mock-sched tr.gh td strong { color:var(--ink); }
+table.mock-sched .subj-pill {
+  display:inline-block; font-size:10px; font-weight:600;
+  padding:1px 7px; border-radius:8px;
+}
+table.mock-sched .subj-pill.math { background:var(--subj-math-bg); color:var(--subj-math-ink); }
+table.mock-sched .subj-pill.ela { background:var(--subj-ela-bg); color:var(--subj-ela-ink); }
+table.mock-sched .subj-pill.sci { background:var(--subj-sci-bg); color:var(--subj-sci-ink); }
+table.mock-sched .subj-pill.ss { background:var(--subj-ss-bg); color:var(--subj-ss-ink); }
+table.mock-sched .badge {
+  display:inline-block; font-size:10px; font-weight:600;
+  padding:1px 6px; border-radius:3px; margin-left:6px;
+}
+table.mock-sched .pill-count {
+  background:var(--stride-blue); color:#fff;
+  font-size:10.5px; padding:1px 8px; border-radius:8px;
+  display:inline-block; margin-left:6px; font-weight:700;
+}
+table.mock-sched tr.gh .badge.math { background:var(--subj-math-bg); color:var(--subj-math-ink); }
+table.mock-sched tr.gh .badge.ela { background:var(--subj-ela-bg); color:var(--subj-ela-ink); }
+table.mock-sched tr.gh .badge.sci { background:var(--subj-sci-bg); color:var(--subj-sci-ink); }
+table.mock-sched tr.gh .badge.ss { background:var(--subj-ss-bg); color:var(--subj-ss-ink); }
+
+/* Annotation callout (red arrow + label) */
+.callout { display:flex; align-items:center; gap:10px; margin:10px 0; font-size:13px; color:var(--ink-2); }
+.callout .num {
+  background:var(--stride-orange); color:#fff;
+  width:24px; height:24px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:13px; flex-shrink:0;
+}
+
+/* Step-by-step list */
+ol.steps { padding-left:0; list-style:none; counter-reset:step; }
+ol.steps li {
+  counter-increment:step; padding:10px 12px 10px 44px; position:relative;
+  background:#fff; border:1px solid var(--line); border-radius:6px;
+  margin:8px 0; font-size:14px; color:var(--ink-2);
+}
+ol.steps li::before {
+  content: counter(step);
+  position:absolute; left:10px; top:50%; transform:translateY(-50%);
+  width:24px; height:24px; border-radius:50%;
+  background:var(--stride-blue); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:12px;
+}
+ol.steps li strong { color:var(--ink); }
+
+footer.guide-footer {
+  margin-top:80px; padding-top:24px; border-top:1px solid var(--line);
+  color:var(--ink-3); font-size:12.5px;
+}
+
+/* Stride wordmark */
+.wordmark text { font-family:'Space Grotesk','Inter',sans-serif; }
+
+/* Embedded data row pills inside .mock-sched (Master in stride-blue) */
+.deriv-master { color:var(--stride-blue); font-weight:700; font-size:11px; }
+.deriv-pct { color:var(--ink-2); font-weight:600; font-size:11px; }
+
+/* Section number in heading */
+.section-num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; border-radius:50%;
+  background:var(--stride-blue); color:#fff;
+  font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+  flex-shrink:0;
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc">
+    <div class="brand">
+      <svg viewBox="0 0 230 60" xmlns="http://www.w3.org/2000/svg" class="wordmark" aria-label="Stride">
+        <text x="0" y="48" font-weight="700" font-size="56" letter-spacing="-2" fill="#2127C2">Stride</text>
+        <rect x="135.5" y="9" width="13" height="13" fill="#EF6100"/>
+      </svg>
+      <div class="lbl">User Guide<small>Project 670 · Delivery Plan</small></div>
+    </div>
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#sec-overview">What this dashboard shows</a></li>
+      <li><a href="#sec-open">Opening the dashboard</a></li>
+      <li><a href="#sec-layout">The big picture</a></li>
+      <li><a href="#sec-filters">Using the filters</a></li>
+      <li><a href="#sec-delivery-window">Delivery Window KPIs</a></li>
+      <li><a href="#sec-month-cards">Monthly subject breakdown</a></li>
+      <li><a href="#sec-calendars">Daily calendars</a></li>
+      <li><a href="#sec-monthly-tabs">Deliveries by month tabs</a></li>
+      <li><a href="#sec-schedule">Delivery schedule list</a></li>
+      <li><a href="#sec-export">Copying to Excel / CSV</a></li>
+      <li><a href="#sec-faq">Common tasks &amp; FAQ</a></li>
+    </ol>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <h1>Project 670 — Delivery Plan (Lesson Development)</h1>
+    <p class="subtitle">A walk-through of every section of the dashboard, what each number means, and how to find the slice of data you need.</p>
+
+    <section id="sec-overview" class="guide-section">
+      <h2><span class="section-num">1</span> What this dashboard shows</h2>
+      <p class="lede">The dashboard answers the question stakeholders ask most often: <strong>"When are we delivering what, and to whom?"</strong></p>
+      <p>It focuses on the final delivery milestone — <strong>"Deliver and SO" (LearningMate)</strong> — for every course in Project 670, broken down by State, Subject, Grade, and Derivative type.</p>
+      <p>Every chart, table, and calendar on the page reads from the same underlying course list (1,000 courses across 4 subjects and 30 MPS states), so picking a filter at the top instantly recalculates everything below.</p>
+    </section>
+
+    <section id="sec-open" class="guide-section">
+      <h2><span class="section-num">2</span> Opening the dashboard</h2>
+      <ol class="steps">
+        <li>Open the dashboard by clicking the link your administrator shared with you. The dashboard loads directly in your browser (Chrome, Edge, or Safari recommended).</li>
+        <li>Wait a moment for the page to load. The header reads <strong>Project 670 Dashboard · Lesson Development · Status &amp; Risk</strong>.</li>
+        <li>If a section looks empty when the page first loads, scroll up and click the <strong>Reset</strong> button on the right side of the filter bar — it clears any stale filter state that may have been saved during a previous session.</li>
+      </ol>
+      <div class="tip"><strong>Tip:</strong> Force-refresh with <code>Ctrl+Shift+R</code> (Windows) or <code>Cmd+Shift+R</code> (Mac) any time the dashboard looks stuck — that forces the browser to re-load the page and discard any cached versions.</div>
+    </section>
+
+    <section id="sec-layout" class="guide-section">
+      <h2><span class="section-num">3</span> The big picture</h2>
+      <p>The page is organized top-to-bottom in this order:</p>
+      <ol>
+        <li><strong>Brand bar</strong> — Stride wordmark, the project title, and the LearningMate co-mark on the right.</li>
+        <li><strong>Top navigation</strong> — currently a single tab, <em>Delivery Plan</em>, showing the active section.</li>
+        <li><strong>Filter bar (sticky)</strong> — stays glued to the top of the viewport as you scroll so you can refine the data from anywhere on the page.</li>
+        <li><strong>Delivery Window</strong> — 5 headline KPI tiles (Start, End, Window, Total, Busiest Day).</li>
+        <li><strong>By Month · Subject Breakdown</strong> — one card per month with subject mix bars.</li>
+        <li><strong>Daily Calendars</strong> — one full calendar grid per month with per-day delivery counts.</li>
+        <li><strong>Deliveries by Month</strong> — a tab card showing State × Month, Subject × Month, or Grade Group × Month cross-tabs.</li>
+        <li><strong>Delivery Schedule · Expandable List</strong> — a single flat table with date / state / subject grouping tabs and a Copy-to-Excel button.</li>
+      </ol>
+    </section>
+
+    <section id="sec-filters" class="guide-section">
+      <h2><span class="section-num">4</span> Using the filters</h2>
+      <p class="lede">The filter bar at the top controls <strong>every</strong> view below it. Changing a filter immediately re-renders KPIs, calendars, cross-tabs, and the schedule.</p>
+
+      <div class="mockup">
+        <div class="mtitle">Filter bar</div>
+        <div class="mock-filterbar">
+          <div class="lbl">Subject <div class="sel">All subjects</div></div>
+          <div class="lbl">State <div class="sel">All states</div></div>
+          <div class="lbl">Grade group <div class="sel">All grade groups</div></div>
+          <div class="lbl">Derivative <div class="sel">All</div></div>
+          <div style="margin-left:auto"><div class="btn">Reset</div></div>
+        </div>
+      </div>
+
+      <h3>Subject</h3>
+      <p><strong>Click to open</strong>, hold <code>Ctrl</code> (Windows) or <code>Cmd</code> (Mac) and click to select multiple subjects. The default is <strong>All subjects</strong> (Math, ELA, Science, Social Studies).</p>
+
+      <h3>State</h3>
+      <p>Single-select dropdown showing all 30 MPS states. Pick one to drill into a single state's delivery plan, or leave on <strong>All states</strong>.</p>
+
+      <h3>Grade group (multi-select with grouped buckets)</h3>
+      <p>This dropdown has two sections:</p>
+      <ul>
+        <li><strong>Grouped buckets</strong> at the top — pick these to slice by delivery stream:
+          <ul>
+            <li><strong>Grade 3-5 (group)</strong> — all elementary courses across Grade 3, 4, and 5</li>
+            <li><strong>Grade 6-12 SEM A (group)</strong> — every Semester A delivery for Grade 6 through Highschool</li>
+            <li><strong>Grade 6-12 SEM B (group)</strong> — every Semester B delivery for Grade 6 through Highschool</li>
+          </ul>
+        </li>
+        <li><strong>Individual grades</strong> below — Grade 3, Grade 4, …, Grade 8, Highschool. Pick a single grade or hold Ctrl/Cmd and click several.</li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> To see <em>everything except elementary</em>, hold Ctrl/Cmd and click both <strong>Grade 6-12 SEM A</strong> and <strong>Grade 6-12 SEM B</strong>. To see a specific grade like just Grade 7, click <strong>Grade 7</strong> in the individual list (don't select the grouped buckets).</div>
+
+      <h3>Derivative</h3>
+      <p>Three options:</p>
+      <ul>
+        <li><strong>All</strong> — every course (1,000 courses)</li>
+        <li><strong>Master only</strong> — only courses tagged "Master" in the spreadsheet (117 courses)</li>
+        <li><strong>Derivatives only</strong> — everything else (60%, 80%, 40% variants — 883 courses)</li>
+      </ul>
+
+      <h3>Reset</h3>
+      <p>Restores all filters to their defaults (all subjects, all states, all grade groups, all derivatives). Use this any time the dashboard looks unexpectedly empty.</p>
+    </section>
+
+    <section id="sec-delivery-window" class="guide-section">
+      <h2><span class="section-num">5</span> Delivery Window <small>The headline numbers</small></h2>
+      <p class="lede">Five KPI tiles at the top of the Delivery Plan section answer the most-asked questions in seconds.</p>
+
+      <div class="mockup">
+        <div class="mtitle">Delivery Window KPI tiles</div>
+        <div class="mock-kpi-row">
+          <div class="mock-kpi"><div class="lbl">Start Date</div><div class="num blue">May 15</div><div class="sub">Friday, 2026</div></div>
+          <div class="mock-kpi"><div class="lbl">End Date</div><div class="num blue">Aug 10</div><div class="sub">Monday, 2026</div></div>
+          <div class="mock-kpi"><div class="lbl">Window</div><div class="num">88 days</div><div class="sub">63 business days &middot; 4 months</div></div>
+          <div class="mock-kpi"><div class="lbl">Total Deliveries</div><div class="num good">1,000</div><div class="sub">Avg 15.9 / business day</div></div>
+          <div class="mock-kpi"><div class="lbl">Busiest Day</div><div class="num warn">145</div><div class="sub">Jun 26, 2026</div></div>
+        </div>
+      </div>
+
+      <ul>
+        <li><strong>Start Date</strong> — the earliest "Deliver and SO" date among the courses currently visible (after filters).</li>
+        <li><strong>End Date</strong> — the latest "Deliver and SO" date.</li>
+        <li><strong>Window</strong> — number of calendar days between Start and End, plus the count of business days (Mon–Fri) inside that window and how many calendar months it spans.</li>
+        <li><strong>Total Deliveries</strong> — count of courses whose Deliver and SO date falls inside this window. Also shows the average deliveries per business day.</li>
+        <li><strong>Busiest Day</strong> — the single day with the most deliveries scheduled, and the date it falls on.</li>
+      </ul>
+      <div class="note"><strong>Reading tip:</strong> If you've filtered down (e.g., picked State = Florida), all five tiles update to show Florida's start, end, and busiest day — not the project-wide ones.</div>
+    </section>
+
+    <section id="sec-month-cards" class="guide-section">
+      <h2><span class="section-num">6</span> By Month · Subject Breakdown</h2>
+      <p class="lede">One card per month, showing the deliveries scheduled that month broken down by subject.</p>
+
+      <div class="mockup">
+        <div class="mtitle">Monthly subject breakdown cards</div>
+        <div class="mock-month-row">
+          <div class="mock-month">
+            <div class="name">May 2026</div>
+            <div class="total">19</div>
+            <div style="font-size:10.5px;color:var(--ink-3);margin-bottom:6px">deliveries this month</div>
+            <div class="row"><span>Math</span><div class="bar math"><div style="width:80%"></div></div><span class="ct">8</span></div>
+            <div class="row"><span>ELA</span><div class="bar ela"><div style="width:70%"></div></div><span class="ct">7</span></div>
+            <div class="row"><span>Sci</span><div class="bar sci"><div style="width:40%"></div></div><span class="ct">4</span></div>
+            <div class="row"><span>SS</span><div class="bar ss"><div style="width:0%"></div></div><span class="ct">0</span></div>
+          </div>
+          <div class="mock-month">
+            <div class="name">June 2026</div>
+            <div class="total">481</div>
+            <div style="font-size:10.5px;color:var(--ink-3);margin-bottom:6px">deliveries this month</div>
+            <div class="row"><span>Math</span><div class="bar math"><div style="width:46%"></div></div><span class="ct">107</span></div>
+            <div class="row"><span>ELA</span><div class="bar ela"><div style="width:100%"></div></div><span class="ct">232</span></div>
+            <div class="row"><span>Sci</span><div class="bar sci"><div style="width:52%"></div></div><span class="ct">120</span></div>
+            <div class="row"><span>SS</span><div class="bar ss"><div style="width:9%"></div></div><span class="ct">22</span></div>
+          </div>
+          <div class="mock-month">
+            <div class="name">July 2026</div>
+            <div class="total">218</div>
+            <div style="font-size:10.5px;color:var(--ink-3);margin-bottom:6px">deliveries this month</div>
+            <div class="row"><span>Math</span><div class="bar math"><div style="width:100%"></div></div><span class="ct">146</span></div>
+            <div class="row"><span>ELA</span><div class="bar ela"><div style="width:14%"></div></div><span class="ct">20</span></div>
+            <div class="row"><span>Sci</span><div class="bar sci"><div style="width:14%"></div></div><span class="ct">21</span></div>
+            <div class="row"><span>SS</span><div class="bar ss"><div style="width:21%"></div></div><span class="ct">31</span></div>
+          </div>
+          <div class="mock-month">
+            <div class="name">August 2026</div>
+            <div class="total">282</div>
+            <div style="font-size:10.5px;color:var(--ink-3);margin-bottom:6px">deliveries this month</div>
+            <div class="row"><span>Math</span><div class="bar math"><div style="width:80%"></div></div><span class="ct">117</span></div>
+            <div class="row"><span>ELA</span><div class="bar ela"><div style="width:68%"></div></div><span class="ct">99</span></div>
+            <div class="row"><span>Sci</span><div class="bar sci"><div style="width:27%"></div></div><span class="ct">39</span></div>
+            <div class="row"><span>SS</span><div class="bar ss"><div style="width:18%"></div></div><span class="ct">27</span></div>
+          </div>
+        </div>
+      </div>
+
+      <ul>
+        <li>The large blue number is the <strong>total deliveries that month</strong> after your filters.</li>
+        <li>Each subject row shows: subject name, a colored bar (length is proportional to that subject's share of the month), and the exact count on the right.</li>
+        <li>Subject colors stay consistent everywhere on the dashboard: Math = primary blue, ELA = navy, Science = medium blue, Social Studies = orange.</li>
+      </ul>
+    </section>
+
+    <section id="sec-calendars" class="guide-section">
+      <h2><span class="section-num">7</span> Daily Calendars</h2>
+      <p class="lede">A familiar month-grid view of every delivery day. Useful for spotting crunch dates and clear stretches.</p>
+
+      <div class="mockup">
+        <div class="mtitle">June 2026 calendar (excerpt)</div>
+        <div class="mock-cal">
+          <div class="h">Sun</div><div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div><div class="h">Sat</div>
+          <div class="d outside"></div><div class="d">1</div><div class="d">2<span class="ct">3</span></div><div class="d">3<span class="ct">5</span></div><div class="d">4<span class="ct">4</span></div><div class="d">5<span class="ct">3</span></div><div class="d">6</div>
+          <div class="d">7</div><div class="d">8</div><div class="d">9</div><div class="d">10</div><div class="d">11<span class="ct">11</span></div><div class="d">12<span class="ct">25</span></div><div class="d">13</div>
+          <div class="d">14</div><div class="d">15</div><div class="d">16<span class="ct">18</span></div><div class="d">17</div><div class="d">18<span class="ct">19</span></div><div class="d">19<span class="ct">3</span></div><div class="d">20</div>
+          <div class="d">21</div><div class="d">22<span class="ct">4</span></div><div class="d">23<span class="ct">4</span></div><div class="d">24</div><div class="d">25<span class="ct">76</span></div><div class="d">26<span class="ct">145</span></div><div class="d">27</div>
+          <div class="d">28</div><div class="d">29<span class="ct">60</span></div><div class="d">30<span class="ct">101</span></div><div class="d outside"></div><div class="d outside"></div><div class="d outside"></div><div class="d outside"></div>
+        </div>
+      </div>
+
+      <ul>
+        <li>Each cell is one day. Blank cells (no count pill) have zero scheduled deliveries.</li>
+        <li>The <strong>blue pill</strong> on a day shows the total count of deliveries scheduled for that day.</li>
+        <li>The four colored tick marks under the day number represent Math / ELA / Science / Social Studies counts — quick proportional snapshot of that day's subject mix.</li>
+        <li><strong>Today is outlined in orange.</strong></li>
+        <li>Click any day that has deliveries to open a popup showing the exact courses, states, and codes being delivered that day.</li>
+      </ul>
+      <div class="tip"><strong>Use this when:</strong> a stakeholder asks "what's the schedule look like on Friday of week 4?" or "what's our heaviest week?". The visual density tells the story immediately.</div>
+    </section>
+
+    <section id="sec-monthly-tabs" class="guide-section">
+      <h2><span class="section-num">8</span> Deliveries by Month <small>(State / Subject / Grade Group)</small></h2>
+      <p class="lede">Three cross-tab views in a single tab card. Click a tab to swap between them. Each one is rows × months, with the cell being a count of deliveries.</p>
+
+      <div class="mockup">
+        <div class="mtitle">Deliveries by Month — State × Month (active)</div>
+        <div class="tabs-mock">
+          <div class="tab active">State × Month</div>
+          <div class="tab">Subject × Month</div>
+          <div class="tab">Grade Group × Month</div>
+        </div>
+        <table class="mock-xt">
+          <thead><tr><th>State</th><th>May 26</th><th>Jun 26</th><th>Jul 26</th><th>Aug 26</th><th class="t">Total</th></tr></thead>
+          <tbody>
+            <tr><td>Louisiana</td><td></td><td class="tint">21</td><td>9</td><td class="tint">17</td><td class="t">47</td></tr>
+            <tr><td>Tennessee</td><td></td><td class="tint">22</td><td>8</td><td class="tint">16</td><td class="t">46</td></tr>
+            <tr><td>Arkansas</td><td>3</td><td class="tint">19</td><td>7</td><td class="tint2">11</td><td class="t">40</td></tr>
+            <tr><td>Missouri</td><td></td><td class="tint2">15</td><td>8</td><td class="tint">16</td><td class="t">39</td></tr>
+            <tr><td>Alabama</td><td></td><td class="tint">24</td><td>8</td><td></td><td class="t">32</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><strong>Tab 1 — State × Month:</strong> 30 rows (one per MPS state), sorted by total. The "deep blue" cells call out the heaviest months for that state.</li>
+        <li><strong>Tab 2 — Subject × Month:</strong> 4 rows (Math, ELA, Science, Social Studies). Useful for "is June really an ELA month?" type questions.</li>
+        <li><strong>Tab 3 — Grade Group × Month:</strong> 7 rows (Grade 3 → Highschool). Useful for "when is most of our Highschool work landing?".</li>
+        <li>The <strong>Total</strong> column on the right is the row total; the <strong>Total</strong> row at the bottom is the column total; the grand total in the bottom-right corner is the count of all visible deliveries.</li>
+        <li>Cells are tinted from light to dark blue based on relative magnitude — high values stand out at a glance.</li>
+      </ul>
+      <div class="note"><strong>Note:</strong> Only one tab is visible at a time. Click between the three tab buttons to switch. The previously-active tab is preserved — re-clicking doesn't re-fetch data.</div>
+    </section>
+
+    <section id="sec-schedule" class="guide-section">
+      <h2><span class="section-num">9</span> Delivery Schedule · Expandable List <small>All courses in one place</small></h2>
+      <p class="lede">This is the most detailed view. Every course appears as a row, grouped by delivery date (or by state / subject if you switch tabs).</p>
+
+      <div class="mockup">
+        <div class="mtitle">Delivery Schedule — By Subject grouping</div>
+        <div class="mock-schedule-tools">
+          <div class="tabs-mock">
+            <div class="tab">By Delivery Date</div>
+            <div class="tab">By State</div>
+            <div class="tab active">By Subject</div>
+          </div>
+          <div class="search">Search rows…</div>
+          <div style="display:flex;gap:6px">
+            <div class="copy">📋 Copy to Excel</div>
+            <div class="copy">⬇ CSV</div>
+          </div>
+        </div>
+        <table class="mock-sched">
+          <thead><tr><th>Date</th><th>Subject</th><th>State</th><th>Grade</th><th>Type</th><th>Deriv.</th><th>Course</th></tr></thead>
+          <tbody>
+            <tr class="gh"><td colspan="7"><strong>Math</strong> · 15 delivery days · 378 courses<span class="pill-count">378</span></td></tr>
+            <tr><td>May 15</td><td><span class="subj-pill math">Math</span></td><td>California</td><td>Grade 3</td><td>Full Year</td><td><span class="deriv-master">Master</span></td><td><strong>Math 3 E1</strong></td></tr>
+            <tr><td>May 22</td><td><span class="subj-pill math">Math</span></td><td>California</td><td>Grade 4</td><td>Full Year</td><td><span class="deriv-master">Master</span></td><td><strong>Math 4 E1</strong></td></tr>
+            <tr><td>May 22</td><td><span class="subj-pill math">Math</span></td><td>California</td><td>Grade 5</td><td>Full Year</td><td><span class="deriv-master">Master</span></td><td><strong>Math 5 E1</strong></td></tr>
+            <tr><td>May 27</td><td><span class="subj-pill math">Math</span></td><td>California</td><td>6 Sem A</td><td>Sem</td><td><span class="deriv-master">Master</span></td><td><strong>MTH06AE4 Math 6</strong></td></tr>
+            <tr class="gh"><td colspan="7"><strong>ELA</strong> · 14 delivery days · 358 courses<span class="pill-count">358</span></td></tr>
+            <tr><td>May 18</td><td><span class="subj-pill ela">ELA</span></td><td>California</td><td>Grade 3</td><td>Full Year</td><td><span class="deriv-pct">60%</span></td><td><strong>ELA 3 CA</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How to read it</h3>
+      <ul>
+        <li><strong>Group header rows</strong> (the light-blue rows with bold text) separate sections. They show the group name (a date, state, or subject), the count, and a colored pill with the total.</li>
+        <li><strong>Course rows</strong> below each header show: the delivery date, subject pill, state, grade, type (Sem / Full Year), derivative (Master in blue, or 60% / 80% / 40%), course name (bold), and course code.</li>
+        <li>The first column displays the date in bold when grouping by State or Subject (because date varies within the group). When grouping by Date, dates are dimmer in the body rows since the date is already in the header.</li>
+      </ul>
+
+      <h3>The three grouping tabs</h3>
+      <ul>
+        <li><strong>By Delivery Date</strong> (default) — One section per unique delivery day, sorted chronologically. Best for "what are we shipping next Friday?".</li>
+        <li><strong>By State</strong> — One section per state, sorted by total volume. Best for stakeholder calls with a single state.</li>
+        <li><strong>By Subject</strong> — Four sections (Math, ELA, Science, Social Studies). Best when reviewing subject-team workload.</li>
+      </ul>
+
+      <h3>Search</h3>
+      <p>Type into the <strong>Search rows…</strong> box to filter rows in real time. The search matches against date, state, subject, course name, course code, derivative, and Sem A/B. For example, type <code>algebra</code> to see only Algebra courses, or <code>louisiana grade 7</code> to find Louisiana's Grade 7 deliveries.</p>
+    </section>
+
+    <section id="sec-export" class="guide-section">
+      <h2><span class="section-num">10</span> Copying to Excel / CSV</h2>
+      <p class="lede">Two buttons next to the search box let you take the current view out of the browser.</p>
+
+      <h3>Copy to Excel</h3>
+      <p>Click <strong>Copy to Excel</strong>. The current filtered view is copied to your clipboard as <strong>tab-separated values</strong>. Open Excel (or Google Sheets), click any empty cell, and press <code>Ctrl+V</code> (Windows) or <code>Cmd+V</code> (Mac). Each course becomes one row with these columns:</p>
+      <ul>
+        <li>Delivery Date, Weekday, Subject, State, Grade, Grade Group, Type, Sem, Derivative, Course Name, Course Code, Focus Course Name</li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> The clipboard contains every row that's currently visible after filters and search. So you can filter to e.g. <em>Math + State=Florida + Grade 6-12 SEM A</em>, then click Copy to Excel and only those rows land in your spreadsheet.</div>
+
+      <h3>CSV</h3>
+      <p>Click <strong>CSV</strong>. The same data downloads as a properly-quoted CSV file with a date-stamped filename (<code>Project670_Delivery_Schedule_2026-05-13.csv</code>). Works even when clipboard permissions are restricted.</p>
+    </section>
+
+    <section id="sec-faq" class="guide-section">
+      <h2><span class="section-num">11</span> Common tasks &amp; FAQ</h2>
+
+      <h3>"When does state X finish delivering?"</h3>
+      <ol class="steps">
+        <li>Set the <strong>State</strong> filter to that state.</li>
+        <li>Look at the <strong>End Date</strong> tile under Delivery Window.</li>
+        <li>Optionally open the <strong>Delivery Schedule</strong> section and scroll to the last group header for that state to see the exact courses.</li>
+      </ol>
+
+      <h3>"Which subject is heaviest in July?"</h3>
+      <ol class="steps">
+        <li>Scroll to <strong>Deliveries by Month</strong> and click the <strong>Subject × Month</strong> tab.</li>
+        <li>Read down the <strong>Jul 26</strong> column to find the largest count.</li>
+      </ol>
+
+      <h3>"Show me all Grade 6-12 Sem A deliveries"</h3>
+      <ol class="steps">
+        <li>Open the <strong>Grade group</strong> filter.</li>
+        <li>Click <strong>Grade 6-12 SEM A (group)</strong> in the Grouped buckets section.</li>
+        <li>Everything below re-renders to show only that slice.</li>
+      </ol>
+
+      <h3>"I need to send today's delivery list to a colleague"</h3>
+      <ol class="steps">
+        <li>Apply your filters.</li>
+        <li>Optionally type today's date into the <strong>Search rows…</strong> box to limit further.</li>
+        <li>Click <strong>Copy to Excel</strong>, paste into an email, or <strong>CSV</strong> to attach a file.</li>
+      </ol>
+
+      <h3>"Master vs Derivatives — what's the difference?"</h3>
+      <p>In the source spreadsheet, each course is tagged with a Derivatives column: <code>Master</code>, <code>60%</code>, <code>80%</code>, or <code>40%</code>. The Derivative filter exposes two shortcuts:</p>
+      <ul>
+        <li><strong>Master only</strong> — courses tagged Master (the canonical source course). 117 courses.</li>
+        <li><strong>Derivatives only</strong> — every other course (the percentage variants derived from Masters). 883 courses.</li>
+      </ul>
+
+      <h3>"The dashboard looks empty after I changed something"</h3>
+      <p>Click <strong>Reset</strong> in the filter bar. Your filter combination may have produced zero matches — Reset clears everything to defaults.</p>
+
+      <h3>"I need a printout"</h3>
+      <p>Use your browser's <strong>Print</strong> function (<code>Ctrl+P</code> / <code>Cmd+P</code>). The dashboard has a print stylesheet that hides interactive elements and lays the content out cleanly across pages. From the Print dialog, choose <em>Save as PDF</em> to get a portable file.</p>
+
+      <footer class="guide-footer">
+        Project 670 · Delivery Plan · User Guide
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// Highlight current TOC item as the user scrolls
+(function() {
+  const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+  const sections = tocLinks.map(function(a) { return document.querySelector(a.getAttribute('href')); });
+  function onScroll() {
+    let active = sections[0];
+    for (let i = 0; i < sections.length; i++) {
+      const s = sections[i];
+      if (s && s.getBoundingClientRect().top < 140) active = s;
+    }
+    tocLinks.forEach(function(a, i) { a.classList.toggle('active', sections[i] === active); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  // Smooth-scroll TOC links
+  tocLinks.forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', a.getAttribute('href')); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

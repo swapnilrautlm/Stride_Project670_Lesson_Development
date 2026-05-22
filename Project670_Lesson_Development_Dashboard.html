@@ -1059,10 +1059,10 @@ table.acc-table tbody tr:last-child td { border-bottom: 0; }
 /* Fallback for older browsers without :has(). The filter bar children appear in this order:
    Subject, State, Grade group, Owning team(4), Derivative, Status(6), From(7), To(8), filter-actions.
    Hide children 4, 6, 7, 8. */
-.filter-bar > label:nth-child(4),  /* Owning team */
-.filter-bar > label:nth-child(6),  /* Status */
-.filter-bar > label:nth-child(7),  /* From */
-.filter-bar > label:nth-child(8)   /* To */
+.filter-bar:not(#v2FilterBar) > label:nth-child(4),  /* Owning team */
+.filter-bar:not(#v2FilterBar) > label:nth-child(6),  /* Status */
+.filter-bar:not(#v2FilterBar) > label:nth-child(7),  /* From */
+.filter-bar:not(#v2FilterBar) > label:nth-child(8)   /* To */
 { display: none; }
 
 /* Tabs for the three Month cross-tabs */
@@ -1112,11 +1112,48 @@ table.delivery-flat thead th {
 /* === v2 (May 21) === */
 /* ---------- v2: section visibility (tab-driven) ---------- */
 section#sec-delivery-may21 { display: none; }
+section#sec-course-inventory { display: none; }
+
+/* v2 active (default) */
 body.v2-active section#sec-delivery { display: none; }
+body.v2-active section#sec-course-inventory { display: none; }
 body.v2-active section#sec-delivery-may21 { display: block; }
 body.v2-active #filterBar { display: none !important; }
-body:not(.v2-active) #v2FilterBar { display: none !important; }
 body.v2-active #v2FilterBar { display: flex !important; }
+
+/* course-inventory active */
+body.ci-active section#sec-delivery { display: none; }
+body.ci-active section#sec-delivery-may21 { display: none; }
+body.ci-active section#sec-course-inventory { display: block; }
+body.ci-active #filterBar { display: none !important; }
+body.ci-active #v2FilterBar { display: none !important; }
+
+/* legacy v1 (no class) */
+body:not(.v2-active):not(.ci-active) #v2FilterBar { display: none !important; }
+
+/* Course Inventory banner */
+.ci-banner {
+  background: #FFF6E5;
+  border: 1px solid #E8B66A;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin: 0 0 18px;
+  font-size: 13px; color: var(--stride-navy);
+}
+.ci-banner strong { color: var(--stride-orange); }
+
+/* Master vs Derivatives cross-tabs (filter-aware) */
+.v2-mvd-host .xt-tabs { margin-bottom: 12px; }
+.v2-mvd-host .mvd-pane { display: none; }
+.v2-mvd-host .mvd-pane.active { display: block; }
+.mvd-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.mvd-table th, .mvd-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+.mvd-table th:first-child, .mvd-table td:first-child { text-align: left; font-weight: 600; }
+.mvd-table thead th { background: var(--idle-bg); font-weight: 600; color: var(--ink-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mvd-table tbody tr:hover { background: #f6f8ff; }
+.mvd-table tfoot td { font-weight: 700; background: #f6f6fa; border-top: 2px solid var(--ink-2); }
+.mvd-table .col-master { color: var(--stride-blue); font-weight: 600; }
+.mvd-table .col-deriv { color: var(--ink-2); }
 
 /* v2 banner */
 .v2-banner {
@@ -1289,6 +1326,15 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
 .flash-highlight { animation: pulseHighlight 1.2s ease-out 2; border-color: var(--stride-blue) !important; }
 
 </style>
+
+<style>
+/* Clickable month cards (v2) */
+.v2-month-card { cursor: pointer; transition: transform 0.08s ease, box-shadow 0.12s ease, border-color 0.12s ease; }
+.v2-month-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(33,39,194,0.10); border-color: var(--stride-blue); }
+.v2-month-card:focus-visible { outline: 2px solid var(--stride-blue); outline-offset: 2px; }
+.v2-month-card-active { border-color: var(--stride-blue) !important; box-shadow: 0 0 0 2px rgba(33,39,194,0.18); background: #f4f6ff; }
+.v2-month-card-active .month-total { color: var(--stride-blue); }
+</style>
 </head>
 <body>
 
@@ -1315,6 +1361,7 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
   <nav class="topnav">
     <button class="tab tab-old" data-tab="sec-delivery">Delivery Plan – Shared on May 13</button>
     <button class="tab tab-new active" data-tab="sec-delivery-may21">Updated Delivery Plan May 21</button>
+    <button class="tab tab-ci" data-tab="sec-course-inventory">Course Inventory</button>
     <div class="right">
       <span class="mode-tag demo" id="modeTag" title="Demo data: actuals are simulated from planned dates relative to the current TODAY value.">DEMO DATA</span>
       <span class="mode-tag compare" id="compareTag" style="display:none">COMPARE MODE</span>
@@ -1605,7 +1652,15 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
     <select id="v2-f-deriv">
       <option value="all">All</option>
       <option value="Master">Master only</option>
-      <option value="Derivatives">Derivatives only (60% / 80% / 40%)</option>
+      <option value="80%">80% derivatives</option>
+      <option value="60%">60% derivatives</option>
+      <option value="40%">40% derivatives</option>
+      <option value="Derivatives">All derivatives (60% / 80% / 40%)</option>
+    </select>
+  </label>
+  <label>Month
+    <select id="v2-f-month">
+      <option value="all">All months</option>
     </select>
   </label>
   <div class="filter-actions"><button class="btn" id="v2-f-reset">Reset</button></div>
@@ -1627,6 +1682,20 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
   <div class="section-eyebrow">By Month &middot; Subject Breakdown</div>
   <div class="month-summary-row" id="v2-deliveryMonthCards"></div>
 
+  <!-- Master vs Derivatives breakdown (filter-aware) -->
+  <div class="section-eyebrow">Master vs Derivatives Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(reflects current filters)</span></div>
+  <div class="card v2-mvd-host">
+    <p class="card-sub">How many Master vs Derivative courses are being delivered. Use the inner tabs to slice by Subject, State, or Grade Band. Counts respect every filter above (Subject, State, Grade Group, Grade Band, Type, Sem A/B, Derivative, Month).</p>
+    <div class="xt-tabs" role="tablist" aria-label="Master vs Derivatives slice">
+      <button class="xt-tab active" data-v2mvd="subject">By Subject</button>
+      <button class="xt-tab" data-v2mvd="state">By State</button>
+      <button class="xt-tab" data-v2mvd="gradeBand">By Grade Band</button>
+    </div>
+    <div class="mvd-pane active" data-v2mvd-pane="subject"><div id="v2-mvd-subject"></div></div>
+    <div class="mvd-pane" data-v2mvd-pane="state"><div id="v2-mvd-state"></div></div>
+    <div class="mvd-pane" data-v2mvd-pane="gradeBand"><div id="v2-mvd-gradeBand"></div></div>
+  </div>
+
   <div class="section-eyebrow">Daily Calendars</div>
   <div class="card">
     <p class="card-sub">Each calendar cell shows the number of deliveries planned that day. Subject ratios are shown as a small stacked bar. Click any day with deliveries to see the full course list.</p>
@@ -1638,22 +1707,6 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
       <span style="margin-left:14px;color:var(--stride-orange)">&#9632; Today</span>
     </div>
     <div class="cal-monthgrid" id="v2-deliveryCalendars"></div>
-  </div>
-
-  <div class="section-eyebrow" id="v2-rollupDistinctHeader">Distinct Course Rollup</div>
-  <p class="rollup-note">SEM A + SEM B for the same base course count as <strong>1 distinct course</strong>. Full Year and Sem Only count as 1 each. Totals below reflect the full 996 raw entries / 629 distinct courses — they do not change with filters.</p>
-  <div class="card" id="v2-rollupDistinct"></div>
-
-  <div class="section-eyebrow">Deliveries by Month</div>
-  <div class="card v2-xt-host">
-    <div class="xt-tabs" role="tablist">
-      <button class="xt-tab active" data-v2xt="state">State × Month</button>
-      <button class="xt-tab" data-v2xt="subject">Subject × Month</button>
-      <button class="xt-tab" data-v2xt="grade">Grade Group × Month</button>
-    </div>
-    <div class="xt-pane active" data-v2xt-pane="state"><div class="crosstab-wrap" id="v2-deliveryStateMonth"></div></div>
-    <div class="xt-pane" data-v2xt-pane="subject"><div class="crosstab-wrap" id="v2-deliverySubjMonth"></div></div>
-    <div class="xt-pane" data-v2xt-pane="grade"><div class="crosstab-wrap" id="v2-deliveryGradeMonth"></div></div>
   </div>
 
   <div class="section-eyebrow">Delivery Schedule &middot; Expandable List</div>
@@ -1674,8 +1727,34 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
     <div class="delivery-flat-wrap"><div class="scroll-area" id="v2-deliveryAccordion"></div></div>
   </div>
 
+  <!-- Deliveries by Month (moved to bottom) -->
+  <div class="section-eyebrow">Deliveries by Month</div>
+  <div class="card v2-xt-host">
+    <div class="xt-tabs" role="tablist">
+      <button class="xt-tab active" data-v2xt="state">State × Month</button>
+      <button class="xt-tab" data-v2xt="subject">Subject × Month</button>
+      <button class="xt-tab" data-v2xt="grade">Grade Group × Month</button>
+    </div>
+    <div class="xt-pane active" data-v2xt-pane="state"><div class="crosstab-wrap" id="v2-deliveryStateMonth"></div></div>
+    <div class="xt-pane" data-v2xt-pane="subject"><div class="crosstab-wrap" id="v2-deliverySubjMonth"></div></div>
+    <div class="xt-pane" data-v2xt-pane="grade"><div class="crosstab-wrap" id="v2-deliveryGradeMonth"></div></div>
+  </div>
+
+</section>
+
+<!-- ============== COURSE INVENTORY (static rollups) ============== -->
+<section id="sec-course-inventory" class="page-break">
+
+  <div class="ci-banner no-print">
+    <strong>Static catalogue.</strong> Course Inventory totals describe the <strong>996 raw entries / 629 distinct courses</strong> in the May 21 list.
+  </div>
+
+  <div class="section-eyebrow">Distinct Course Rollup</div>
+  <p class="rollup-note">SEM A + SEM B for the same base course count as <strong>1 distinct course</strong>. Full Year and Sem Only count as 1 each.</p>
+  <div class="card" id="v2-rollupDistinct"></div>
+
   <div class="section-eyebrow">Master vs Derivatives Rollup</div>
-  <p class="rollup-note"><strong>Master</strong> = original master course. <strong>40% / 60% / 80%</strong> = state-specific derivatives. <strong>Distinct</strong> counts pair SEM A + SEM B as 1 production unit. Totals below reflect the full 996 raw entries — they do not change with filters.</p>
+  <p class="rollup-note"><strong>Master</strong> = original master course. <strong>40% / 60% / 80%</strong> = state-specific derivatives. <strong>Distinct</strong> counts pair SEM A + SEM B as 1 production unit.</p>
   <div class="card" id="v2-rollupMaster"></div>
 
 </section>
@@ -4023,7 +4102,7 @@ window.P670_DATA_V2 = {"stages":[{"name":"Completed in Brightspot","owner":"Lear
   const GRADES_LIST_V2 = Array.from(new Set(COURSES_V2.map(function(c){return c.gr;}).filter(Boolean))).sort();
 
   window.STATE_V2 = window.STATE_V2 || {
-    filters: { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all' }
+    filters: { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all', month:'all' }
   };
   let v2AccGrouping = 'date';
   let v2AccSearch = '';
@@ -4071,6 +4150,15 @@ const ggSel = f.gradeGroups || ['all'];
     }
     if (f.deriv === 'Master' && c.dv !== 'Master') return false;
     if (f.deriv === 'Derivatives' && c.dv === 'Master') return false;
+    if (f.deriv === '80%' && c.dv !== '80%') return false;
+    if (f.deriv === '60%' && c.dv !== '60%') return false;
+    if (f.deriv === '40%' && c.dv !== '40%') return false;
+    if (f.month && f.month !== 'all') {
+      var d6 = c.p && c.p[6];
+      if (!d6) return false;
+      // p[6] is an iso-ish 'YYYY-MM-DD' string; compare first 7 chars
+      if (String(d6).slice(0,7) !== f.month) return false;
+    }
     return true;
   }
   function filteredCoursesV2() { return COURSES_V2.filter(applyFilterV2); }
@@ -4133,16 +4221,8 @@ const ggSel = f.gradeGroups || ['all'];
       '<div class="kpi"><div class="label">Start Date</div><div class="num blue">' + fmtDateShortV2(first) + '</div><div class="sub">' + first.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + first.getFullYear() + '</div></div>' +
       '<div class="kpi"><div class="label">End Date</div><div class="num blue">' + fmtDateShortV2(last) + '</div><div class="sub">' + last.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + last.getFullYear() + '</div></div>' +
       '<div class="kpi"><div class="label">Window</div><div class="num">' + spanDays + ' days</div><div class="sub">' + bizDays + ' business days &middot; ' + monthly.length + ' month' + (monthly.length===1?'':'s') + '</div></div>' +
-      '<div class="kpi click-rollup" id="v2-kpi-total" title="Click to view Distinct Course Rollup"><div class="label">Total Deliveries</div><div class="num good">' + series.length.toLocaleString() + '</div><div class="sub">Avg ' + avgPerBiz.toFixed(1) + ' / business day</div><div class="hint">Click for Distinct Course Rollup ↓</div></div>' +
+      '<div class="kpi" id="v2-kpi-total"><div class="label">Total Deliveries</div><div class="num good">' + series.length.toLocaleString() + '</div><div class="sub">Avg ' + avgPerBiz.toFixed(1) + ' / business day</div></div>' +
       '<div class="kpi"><div class="label">Busiest Day</div><div class="num warn">' + busiest.total + '</div><div class="sub">' + (busiest.date ? fmtDateV2(busiest.date) : '—') + '</div></div>';
-    // Click on Total Deliveries scrolls to rollup
-    const totalEl = document.getElementById('v2-kpi-total');
-    if (totalEl) totalEl.addEventListener('click', function() {
-      const t = document.getElementById('v2-rollupDistinct');
-      const eyebrow = document.getElementById('v2-rollupDistinctHeader');
-      if (eyebrow) eyebrow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (t) { t.classList.add('flash-highlight'); setTimeout(function(){ t.classList.remove('flash-highlight'); }, 2500); }
-    });
   }
 
   function renderMonthCardsV2() {
@@ -4157,12 +4237,30 @@ const ggSel = f.gradeGroups || ['all'];
         const pct = (v / subjMax) * 100;
         return '<div class="row"><span class="name">' + subjShortV2(s) + '</span><div class="barwrap"><div class="bar ' + subjClassV2(s) + '" style="width:' + pct.toFixed(0) + '%"></div></div><span class="count">' + v + '</span></div>';
       }).join('');
-      return '<div class="month-card">' +
+      const mk = m.key; // YYYY-MM
+      const isSel = (window.STATE_V2.filters.month === mk);
+      return '<div class="month-card v2-month-card' + (isSel ? ' v2-month-card-active' : '') + '" data-v2month="' + eEsc(mk) + '" role="button" tabindex="0" title="Click to filter the entire tab to ' + eEsc(monthLabelV2(m.date)) + '">' +
         '<div class="month-name">' + eEsc(monthLabelV2(m.date)) + '</div>' +
         '<div class="month-total">' + m.total.toLocaleString() + '</div>' +
         '<div class="month-sub">deliveries this month</div>' +
         '<div class="subj-breakdown">' + rows + '</div></div>';
     }).join('');
+
+    // wire clicks: clicking a card sets / toggles the Month filter
+    Array.from(host.querySelectorAll('.v2-month-card')).forEach(function(card) {
+      card.addEventListener('click', function() {
+        const k = card.getAttribute('data-v2month');
+        const cur = window.STATE_V2.filters.month || 'all';
+        const next = (cur === k) ? 'all' : k; // click selected card again -> clear
+        window.STATE_V2.filters.month = next;
+        const sel = document.getElementById('v2-f-month');
+        if (sel) sel.value = next;
+        renderV2All();
+      });
+      card.addEventListener('keydown', function(ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); card.click(); }
+      });
+    });
   }
 
   function renderCalendarsV2() {
@@ -4326,6 +4424,79 @@ const ggSel = f.gradeGroups || ['all'];
     }
     return result;
   }
+  function renderMvDBreakdownV2() {
+    const filtered = filteredCoursesV2();
+    // Build aggregations by Subject, State, GradeBand. For each key, count Master vs 40% vs 60% vs 80%.
+    function buildAgg(keyFn) {
+      const map = new Map();
+      for (let i = 0; i < filtered.length; i++) {
+        const c = filtered[i];
+        const k = keyFn(c);
+        if (k == null || k === '') continue;
+        if (!map.has(k)) map.set(k, { key:k, m:0, d40:0, d60:0, d80:0, total:0 });
+        const o = map.get(k);
+        const dv = c.dv || '';
+        if (dv === 'Master') o.m++;
+        else if (dv === '40%') o.d40++;
+        else if (dv === '60%') o.d60++;
+        else if (dv === '80%') o.d80++;
+        o.total++;
+      }
+      return Array.from(map.values()).sort(function(a,b){ return b.total - a.total; });
+    }
+    function renderTable(dimLabel, rows) {
+      if (!rows.length) {
+        return '<div style="padding:16px;color:var(--ink-3);font-size:12px;">No courses match the current filters.</div>';
+      }
+      let tot = { m:0, d40:0, d60:0, d80:0, total:0 };
+      let h = '<div style="overflow-x:auto"><table class="mvd-table"><thead><tr>' +
+        '<th>' + eEsc(dimLabel) + '</th>' +
+        '<th class="col-master">Master</th>' +
+        '<th class="col-deriv">80%</th>' +
+        '<th class="col-deriv">60%</th>' +
+        '<th class="col-deriv">40%</th>' +
+        '<th>Derivatives</th>' +
+        '<th>Total</th>' +
+        '<th>% Master</th>' +
+        '</tr></thead><tbody>';
+      for (let i = 0; i < rows.length; i++) {
+        const r = rows[i];
+        tot.m += r.m; tot.d40 += r.d40; tot.d60 += r.d60; tot.d80 += r.d80; tot.total += r.total;
+        const deriv = r.d40 + r.d60 + r.d80;
+        const pctM = r.total > 0 ? (r.m / r.total * 100) : 0;
+        h += '<tr>' +
+          '<td>' + eEsc(r.key) + '</td>' +
+          '<td class="col-master">' + r.m + '</td>' +
+          '<td class="col-deriv">' + r.d80 + '</td>' +
+          '<td class="col-deriv">' + r.d60 + '</td>' +
+          '<td class="col-deriv">' + r.d40 + '</td>' +
+          '<td>' + deriv + '</td>' +
+          '<td><strong>' + r.total + '</strong></td>' +
+          '<td>' + pctM.toFixed(0) + '%</td>' +
+          '</tr>';
+      }
+      const dT = tot.d40 + tot.d60 + tot.d80;
+      const pctT = tot.total > 0 ? (tot.m / tot.total * 100) : 0;
+      h += '</tbody><tfoot><tr>' +
+        '<td>Total</td>' +
+        '<td class="col-master">' + tot.m + '</td>' +
+        '<td class="col-deriv">' + tot.d80 + '</td>' +
+        '<td class="col-deriv">' + tot.d60 + '</td>' +
+        '<td class="col-deriv">' + tot.d40 + '</td>' +
+        '<td>' + dT + '</td>' +
+        '<td>' + tot.total + '</td>' +
+        '<td>' + pctT.toFixed(0) + '%</td>' +
+        '</tr></tfoot></table></div>';
+      return h;
+    }
+    const subjAgg = buildAgg(function(c){ return c.s; });
+    const stateAgg = buildAgg(function(c){ return c.st; });
+    const bandAgg = buildAgg(function(c){ return c.gb; });
+    const elS = document.getElementById('v2-mvd-subject');   if (elS) elS.innerHTML = renderTable('Subject', subjAgg);
+    const elSt = document.getElementById('v2-mvd-state');    if (elSt) elSt.innerHTML = renderTable('State', stateAgg);
+    const elB = document.getElementById('v2-mvd-gradeBand'); if (elB) elB.innerHTML = renderTable('Grade Band', bandAgg);
+  }
+
   function renderRollupDistinct() {
     const host = document.getElementById('v2-rollupDistinct');
     if (!host) return;
@@ -4654,6 +4825,25 @@ const ggSel = f.gradeGroups || ['all'];
       '<optgroup label="Individual grades">' +
         GRADE_GROUPS_V2.map(function(g){return '<option value="' + eEsc(g) + '">' + eEsc(g) + '</option>';}).join('') +
       '</optgroup>';
+
+    // Month dropdown — collect all distinct YYYY-MM keys from p[6]
+    const monthSel = document.getElementById('v2-f-month');
+    if (monthSel) {
+      const keys = new Set();
+      for (let i = 0; i < COURSES_V2.length; i++) {
+        const d = COURSES_V2[i].p && COURSES_V2[i].p[6];
+        if (d) keys.add(String(d).slice(0,7));
+      }
+      const arr = Array.from(keys).sort();
+      const monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const opts = arr.map(function(k){
+        const y = parseInt(k.slice(0,4),10), m = parseInt(k.slice(5,7),10);
+        return '<option value="' + eEsc(k) + '">' + monthName[m-1] + ' ' + y + '</option>';
+      }).join('');
+      const cur = window.STATE_V2.filters.month || 'all';
+      monthSel.innerHTML = '<option value="all">All months</option>' + opts;
+      monthSel.value = cur;
+    }
   }
   function readV2Filters() {
     const subj = Array.from(document.querySelectorAll('#v2-f-subject option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
@@ -4666,6 +4856,8 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
     window.STATE_V2.filters.type = document.getElementById('v2-f-type').value;
     window.STATE_V2.filters.semAB = document.getElementById('v2-f-semab').value;
     window.STATE_V2.filters.deriv = document.getElementById('v2-f-deriv').value;
+    const mEl = document.getElementById('v2-f-month');
+    window.STATE_V2.filters.month = mEl ? mEl.value : 'all';
   }
   function resetV2Filters() {
     window.STATE_V2.filters = { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all' };
@@ -4673,6 +4865,8 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
     document.getElementById('v2-f-type').value = 'all';
     document.getElementById('v2-f-semab').value = 'all';
     document.getElementById('v2-f-deriv').value = 'all';
+    const mEl = document.getElementById('v2-f-month');
+    if (mEl) mEl.value = 'all';
     renderV2All();
   }
 
@@ -4682,18 +4876,27 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
     try { renderCalendarsV2(); } catch(e) { console.error('v2 cals:', e.message); }
     try { renderAllCrosstabsV2(); } catch(e) { console.error('v2 ct:', e.message); }
     try { renderScheduleV2(); } catch(e) { console.error('v2 sched:', e.message); }
+    try { renderMvDBreakdownV2(); } catch(e) { console.error('v2 mvd:', e.message); }
     try { renderRollupDistinct(); } catch(e) { console.error('v2 distinct:', e.message); }
     try { renderRollupMaster(); } catch(e) { console.error('v2 master:', e.message); }
   }
 
   function bindV2() {
     populateV2Filters();
-    ['v2-f-subject','v2-f-state','v2-f-gradeband','v2-f-gradegroup','v2-f-type','v2-f-semab','v2-f-deriv'].forEach(function(id) {
+    ['v2-f-subject','v2-f-state','v2-f-gradeband','v2-f-gradegroup','v2-f-type','v2-f-semab','v2-f-deriv','v2-f-month'].forEach(function(id) {
       const el = document.getElementById(id);
       if (el) el.addEventListener('change', function(){ readV2Filters(); renderV2All(); });
     });
     const reset = document.getElementById('v2-f-reset');
     if (reset) reset.addEventListener('click', resetV2Filters);
+    // MvD inner tabs
+    Array.from(document.querySelectorAll('.v2-mvd-host .xt-tab')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        const want = b.dataset.v2mvd;
+        Array.from(document.querySelectorAll('.v2-mvd-host .xt-tab')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        Array.from(document.querySelectorAll('.v2-mvd-host .mvd-pane')).forEach(function(p){ p.classList.toggle('active', p.dataset.v2mvdPane === want); });
+      });
+    });
     // Cross-tab inner tabs
     Array.from(document.querySelectorAll('.v2-xt-host .xt-tab')).forEach(function(b) {
       b.addEventListener('click', function() {
@@ -4727,6 +4930,7 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
     function activate(target) {
       buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.tab === target); });
       document.body.classList.toggle('v2-active', target === 'sec-delivery-may21');
+      document.body.classList.toggle('ci-active', target === 'sec-course-inventory');
     }
     buttons.forEach(function(b) {
       b.addEventListener('click', function() { activate(b.dataset.tab); });
@@ -4735,8 +4939,9 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
     activate('sec-delivery-may21');
     // Re-assert correct tab active state on every scroll (overrides legacy anchor-based listener)
     window.addEventListener('scroll', function() {
-      const v2 = document.body.classList.contains('v2-active');
-      const target = v2 ? 'sec-delivery-may21' : 'sec-delivery';
+      let target = 'sec-delivery';
+      if (document.body.classList.contains('v2-active')) target = 'sec-delivery-may21';
+      else if (document.body.classList.contains('ci-active')) target = 'sec-course-inventory';
       buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.tab === target); });
     }, { passive: true });
   }

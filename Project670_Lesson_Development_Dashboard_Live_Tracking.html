@@ -1866,6 +1866,19 @@ body.insights-active #livedpFilterBar { display: none !important; }
 
 /* ============== DRILL DOWN TAB (added 2026-05-27) ============== */
 section#sec-drilldown { display: none; }
+/* Brand-themed background for the whole Drill Down view so cards and
+   sections sit on a soft tint rather than naked white. */
+body.drilldown-active section#sec-drilldown {
+  background: linear-gradient(180deg,
+    #f7f9ff 0%,
+    #fbfaf6 320px,
+    #f7f9ff 640px,
+    #fbfaf6 100%);
+  padding: 18px 22px 32px 22px;
+  border-radius: 12px;
+  margin-top: 8px;
+  border: 1px solid var(--stride-blue-light);
+}
 body.drilldown-active section#sec-delivery { display: none; }
 body.drilldown-active section#sec-delivery-may21 { display: none; }
 body.drilldown-active section#sec-course-inventory { display: none; }
@@ -1882,8 +1895,12 @@ body.drilldown-active #livedpFilterBar { display: none !important; }
 
 .dd-filter-bar {
   display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: end;
-  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
+  border: 1px solid var(--stride-blue-light);
+  border-left: 4px solid var(--stride-blue);
+  border-radius: 8px;
   padding: 14px 16px; margin-bottom: 18px;
+  box-shadow: 0 1px 3px rgba(33,39,194,0.04);
 }
 .dd-filter-bar .dd-field { display: flex; flex-direction: column; gap: 4px; }
 .dd-filter-bar label {
@@ -1928,9 +1945,14 @@ body.drilldown-active #livedpFilterBar { display: none !important; }
 
 .dd-course-header {
   display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center;
-  padding: 12px 14px; background: linear-gradient(180deg, #f5f8ff 0%, #fdfeff 100%);
-  border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(33,39,194,0.06) 0%, rgba(239,97,0,0.04) 100%);
+  border: 1px solid var(--stride-blue-light);
+  border-left: 4px solid var(--stride-orange);
+  border-radius: 8px; margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(33,39,194,0.05);
 }
+.dd-course-header .dd-ch-title { color: var(--stride-navy) !important; }
 .dd-course-header .dd-ch-title { font-size: 16px; font-weight: 700; color: var(--ink-1); }
 .dd-course-header .dd-ch-sub { font-size: 12px; color: var(--ink-3); }
 .dd-course-header .dd-ch-meta { font-size: 12px; color: var(--ink-2); }
@@ -2035,11 +2057,16 @@ body.drilldown-active #livedpFilterBar { display: none !important; }
 .dd-accordion-controls button:hover { background: var(--bg); }
 /* Summary tables that sit above the Identity and Workflow views */
 .dd-summary-card {
-  border: 1px solid var(--line); border-radius: 8px; background: white;
-  padding: 12px 14px; margin-bottom: 14px;
+  border: 1px solid var(--stride-blue-light);
+  border-left: 4px solid var(--stride-blue-med);
+  border-radius: 8px;
+  background: white;
+  padding: 14px 16px; margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(33,39,194,0.04);
 }
 .dd-summary-card h4 {
-  margin: 0 0 8px 0; font-size: 13px; font-weight: 700; color: var(--ink-1);
+  margin: 0 0 8px 0; font-size: 13px; font-weight: 700;
+  color: var(--stride-navy);
   text-transform: uppercase; letter-spacing: 0.04em;
 }
 .dd-summary-card .dd-summary-sub {
@@ -2135,6 +2162,174 @@ body.drilldown-active #livedpFilterBar { display: none !important; }
 .dd-identity-grouped-meta {
   font-size: 11px; color: var(--ink-3); display: inline-block;
   background: var(--bg); padding: 1px 7px; border-radius: 4px; margin-left: 6px;
+}
+
+/* Metadata KPI cards (Start Date / Completed in Brightspot / Deliver and SO) */
+.dd-kpi-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px; margin-bottom: 16px;
+}
+.dd-kpi-card {
+  background: white;
+  border: 1px solid var(--stride-blue-light);
+  border-top: 3px solid var(--stride-blue-med);
+  border-radius: 8px;
+  padding: 14px 16px; position: relative;
+  display: flex; flex-direction: column; gap: 4px;
+  box-shadow: 0 1px 3px rgba(33,39,194,0.04);
+}
+.dd-kpi-card.dd-kpi-accent-start   { border-top-color: var(--stride-blue); }
+.dd-kpi-card.dd-kpi-accent-bsp     { border-top-color: var(--stride-blue-med); }
+.dd-kpi-card.dd-kpi-accent-deliver { border-top-color: var(--stride-orange); }
+.dd-kpi-card.dd-kpi-accent-start   .dd-kpi-label { color: var(--stride-blue); }
+.dd-kpi-card.dd-kpi-accent-bsp     .dd-kpi-label { color: var(--stride-blue-med); }
+.dd-kpi-card.dd-kpi-accent-deliver .dd-kpi-label { color: var(--stride-orange); }
+.dd-kpi-card .dd-kpi-value { color: var(--stride-navy); }
+.dd-kpi-card .dd-kpi-label {
+  font-size: 10.5px; color: var(--ink-3); text-transform: uppercase;
+  letter-spacing: 0.05em; font-weight: 700;
+}
+.dd-kpi-card .dd-kpi-value {
+  font-size: 22px; font-weight: 700; color: var(--ink-1); line-height: 1.1;
+  margin-top: 2px;
+}
+.dd-kpi-card .dd-kpi-value.dd-kpi-muted { color: var(--ink-3); font-weight: 600; font-size: 16px; }
+.dd-kpi-card .dd-kpi-sub  { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+.dd-kpi-card .dd-kpi-footnote {
+  margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line);
+  font-size: 11.5px; color: var(--ink-2); line-height: 1.55;
+}
+.dd-kpi-card .dd-kpi-footnote .dd-kpi-fn-row {
+  display: flex; justify-content: space-between; gap: 8px;
+}
+.dd-kpi-card .dd-kpi-footnote .dd-kpi-fn-label { color: var(--ink-3); }
+.dd-kpi-card .dd-kpi-footnote .dd-kpi-fn-val { color: var(--ink-1); font-weight: 600; text-align: right; }
+.dd-kpi-card .dd-kpi-footnote .dd-kpi-fn-val.dd-kpi-empty { color: var(--ink-3); font-weight: 400; }
+.dd-kpi-card .dd-kpi-status-pill {
+  display: inline-block; padding: 2px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+}
+.dd-kpi-card .dd-kpi-status-pill.completed     { background: var(--good-bg);  color: var(--good); }
+.dd-kpi-card .dd-kpi-status-pill.wip           { background: #fff5e6;         color: #c2671d; }
+.dd-kpi-card .dd-kpi-status-pill.fixesRequired { background: #fce4e8;         color: #a71d2a; }
+.dd-kpi-card .dd-kpi-status-pill.blocked       { background: var(--risk-bg);  color: var(--risk); }
+.dd-kpi-card .dd-kpi-status-pill.yts           { background: var(--bg);       color: var(--ink-3); }
+.dd-kpi-card .dd-kpi-status-pill.na            { background: #ececec;         color: #777; }
+.dd-kpi-card .dd-kpi-status-pill.unknown       { background: var(--bg);       color: var(--ink-3); }
+.dd-kpi-card.dd-kpi-multi-note {
+  font-size: 11px; color: var(--ink-3); padding: 4px 10px;
+  border: 1px dashed var(--line); background: var(--bg); border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* Workflow Matrix view - stages as columns, lessons as rows */
+.dd-matrix-legend {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 22px;
+  padding: 12px 14px; background: white; border: 1px solid var(--line);
+  border-radius: 8px; margin-bottom: 12px; font-size: 12px;
+}
+.dd-matrix-legend .dd-leg-item { display: flex; align-items: baseline; gap: 8px; }
+.dd-matrix-legend .dd-leg-num {
+  display: inline-block; min-width: 18px; text-align: right;
+  font-weight: 700; color: var(--ink-2);
+}
+.dd-matrix-legend .dd-leg-name { color: var(--ink-1); }
+
+.dd-status-legend {
+  display: flex; flex-wrap: wrap; gap: 14px; padding: 8px 14px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+  margin-bottom: 14px; font-size: 11.5px;
+}
+.dd-status-legend .dd-leg-swatch {
+  display: inline-block; width: 12px; height: 12px; border-radius: 3px;
+  vertical-align: -2px; margin-right: 5px; border: 1px solid rgba(0,0,0,0.08);
+}
+.dd-status-legend .dd-leg-swatch.completed     { background: var(--good); }
+.dd-status-legend .dd-leg-swatch.wip           { background: #f0a04b; }
+.dd-status-legend .dd-leg-swatch.fixesRequired { background: #e85d75; }
+.dd-status-legend .dd-leg-swatch.blocked       { background: var(--risk); }
+.dd-status-legend .dd-leg-swatch.yts           { background: #d4d8df; }
+.dd-status-legend .dd-leg-swatch.na            { background: #ababab; }
+
+.dd-matrix-wrap {
+  border: 1px solid var(--line); border-radius: 8px; background: white;
+  overflow: auto; max-height: 75vh;
+}
+.dd-matrix-table { border-collapse: separate; border-spacing: 0; font-size: 11.5px; }
+.dd-matrix-table th, .dd-matrix-table td {
+  padding: 4px 6px; vertical-align: middle; white-space: nowrap;
+}
+.dd-matrix-table thead th {
+  background: white; color: var(--ink-1); font-weight: 700;
+  text-align: center; border-bottom: 2px solid var(--line);
+  position: sticky; top: 0; z-index: 3;
+  font-size: 12px;
+}
+.dd-matrix-table thead th.dd-mh-summary {
+  text-align: right; padding-right: 12px; color: var(--ink-2);
+  background: var(--bg); font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.dd-matrix-table thead th.dd-mh-stagecol { min-width: 50px; }
+.dd-matrix-table thead tr.dd-mh-summary-row th {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg); font-weight: 700; font-size: 11px;
+  position: sticky;
+}
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-completed th     { background: rgba(31,140,76,0.06);  color: var(--good); }
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-wip th           { background: rgba(240,160,75,0.08); color: #b8651f; }
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-fixesRequired th { background: rgba(232,93,117,0.07); color: #a71d2a; }
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-blocked th       { background: rgba(176,32,42,0.07);  color: var(--risk); }
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-yts th           { background: rgba(212,216,223,0.20); color: var(--ink-2); }
+.dd-matrix-table thead tr.dd-mh-summary-row.dd-mh-na th            { background: #ececec; color: #777; }
+.dd-matrix-table thead tr.dd-mh-summary-row th.dd-mh-label {
+  text-align: right; padding-right: 12px; text-transform: none; letter-spacing: 0;
+  font-weight: 600;
+}
+.dd-matrix-table thead tr.dd-mh-summary-row th.dd-mh-cnt {
+  text-align: center; font-variant-numeric: tabular-nums;
+}
+.dd-matrix-table thead tr.dd-mh-summary-row th.dd-mh-cnt.dd-mh-zero { color: var(--ink-3); opacity: 0.45; font-weight: 400; }
+.dd-matrix-table thead tr.dd-mh-stage-num-row th {
+  border-bottom: 2px solid var(--line);
+  background: white; padding-top: 8px; padding-bottom: 8px;
+}
+/* Frozen left columns for lesson identity */
+.dd-matrix-table .dd-mc-lesson {
+  position: sticky; left: 0; background: white; z-index: 2;
+  border-right: 2px solid var(--line); padding: 6px 12px;
+  min-width: 220px; text-align: left;
+}
+.dd-matrix-table thead .dd-mc-lesson { z-index: 4; background: white; }
+.dd-matrix-table tbody tr:hover .dd-mc-lesson { background: #f7f9ff; }
+.dd-matrix-table tbody tr:hover td { background: #fafbff; }
+.dd-matrix-table .dd-mc-lesson .dd-mc-title { font-weight: 600; color: var(--ink-1); }
+.dd-matrix-table .dd-mc-lesson .dd-mc-meta { font-size: 10.5px; color: var(--ink-3); margin-top: 1px; }
+/* Cells */
+.dd-matrix-cell {
+  display: inline-block; width: 28px; height: 22px; border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.05);
+  vertical-align: middle;
+  cursor: default;
+}
+.dd-matrix-cell.completed     { background: var(--good); }
+.dd-matrix-cell.wip           { background: #f0a04b; }
+.dd-matrix-cell.fixesRequired { background: #e85d75; }
+.dd-matrix-cell.blocked       { background: var(--risk); }
+.dd-matrix-cell.yts           { background: #e2e6ec; border-color: #c4c9d2; }
+.dd-matrix-cell.na            { background: #ababab; }
+.dd-matrix-cell.unknown       { background: #f4f4f4; border-color: #d8d8d8; }
+.dd-matrix-table td.dd-mc-cell { text-align: center; padding: 4px 6px; }
+.dd-matrix-table tbody td { border-bottom: 1px solid #f0f2f5; }
+
+.dd-matrix-controls {
+  display: flex; gap: 10px; align-items: center; margin: 10px 0;
+  font-size: 12px;
+}
+.dd-matrix-controls label { color: var(--ink-2); }
+.dd-matrix-controls select {
+  padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px;
+  font-size: 12px; background: white;
 }
 /* ============== END DRILL DOWN TAB CSS ============== */
 
@@ -9392,6 +9587,43 @@ function livedp_export(format) {
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  // Normalize any reasonable date input ("2026-06-19", "Jun 5", "June 5, 2026",
+  // Date object) to a compact "MMM D" form ("Jun 19", "Jun 5") to match the
+  // way state sheets display dates everywhere else in the dashboard. If the
+  // input is empty or not parseable, returns it back as a string (or "" if
+  // empty), so non-date displays (statuses, names) pass through unchanged.
+  const DD_MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function ddFormatDate(v) {
+    if (v === null || v === undefined) return '';
+    if (v instanceof Date) {
+      if (isNaN(v.getTime())) return '';
+      return DD_MONTH_ABBR[v.getMonth()] + ' ' + v.getDate();
+    }
+    let s = String(v).trim();
+    if (!s) return '';
+    // Already in "MMM D" / "MMM D, YYYY"? Trim the year if present, keep the rest.
+    const mDMY = s.match(/^([A-Za-z]{3,})\s+(\d{1,2})(?:,?\s*\d{4})?$/);
+    if (mDMY) {
+      const mon = mDMY[1].substring(0, 3);
+      const mon2 = mon.charAt(0).toUpperCase() + mon.substring(1).toLowerCase();
+      return mon2 + ' ' + Number(mDMY[2]);
+    }
+    // ISO "YYYY-MM-DD" (web-app dateStr output)
+    const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (iso) {
+      const monIdx = Number(iso[2]) - 1;
+      if (monIdx >= 0 && monIdx < 12) {
+        return DD_MONTH_ABBR[monIdx] + ' ' + Number(iso[3]);
+      }
+    }
+    // Fall back to Date parsing
+    const d = new Date(s);
+    if (!isNaN(d.getTime())) {
+      return DD_MONTH_ABBR[d.getMonth()] + ' ' + d.getDate();
+    }
+    return s;   // pass-through (not a date)
+  }
+
   // ============================================================
   //  SETUP - called the first time the Drill Down tab is clicked
   // ============================================================
@@ -9640,9 +9872,10 @@ function livedp_export(format) {
       : '';
     const viewToggle =
       '<div class="dd-view-toggle">' +
-        '<button data-ddview="identity"  class="' + (window._ddCurrentView === 'identity'  ? 'active' : '') + '">Identity (cols A&ndash;P)</button>' +
+        '<button data-ddview="identity"  class="' + (window._ddCurrentView === 'identity'  ? 'active' : '') + '">Metadata</button>' +
         '<button data-ddview="workflow"  class="' + (window._ddCurrentView === 'workflow'  ? 'active' : '') + '">Workflow Stages (Q&ndash;BZ)</button>' +
         '<button data-ddview="lessons"   class="' + (window._ddCurrentView === 'lessons'   ? 'active' : '') + '">Lesson Cards</button>' +
+        '<button data-ddview="matrix"    class="' + (window._ddCurrentView === 'matrix'    ? 'active' : '') + '">Workflow Matrix</button>' +
         '<button data-ddview="attention" class="' + (window._ddCurrentView === 'attention' ? 'active' : '') + '">Fixes &amp; Blocked' + attentionBadge + '</button>' +
       '</div>';
 
@@ -9669,6 +9902,9 @@ function livedp_export(format) {
     } else if (window._ddCurrentView === 'lessons') {
       body.innerHTML = renderLessonCardsView(rows, data);
       wireLessonCardsView(body);
+    } else if (window._ddCurrentView === 'matrix') {
+      body.innerHTML = renderWorkflowMatrixView(rows, data);
+      wireWorkflowMatrixView(body, rows, data);
     } else if (window._ddCurrentView === 'attention') {
       body.innerHTML = renderAttentionView(rows, data);
     } else {
@@ -9683,9 +9919,128 @@ function livedp_export(format) {
   //             (so 180 lessons sharing one baseline collapse into 1 row)
   // ============================================================
   function renderIdentityView(rows, data) {
-    return renderCurrentStageSummary(rows) +
+    return renderCourseKpiCards(rows, data) +
+           renderCurrentStageSummary(rows) +
            renderIdentityGroupedTable(rows) +
            renderGradeDashboardForState(data);
+  }
+
+  // ---- Course-level KPI cards: Start / Completed in Brightspot / Deliver & SO
+  function renderCourseKpiCards(rows, data) {
+    // Course-level Start Date comes from the state sheet's Baseline Start
+    // (col P, same for all lessons of a single course). For multi-course HS
+    // tabs we pick the earliest start so the headline still means something.
+    const startDateValues = rows.map(r => String(r.baselineStart || '').trim()).filter(Boolean);
+    const uniqStarts = Array.from(new Set(startDateValues));
+    let startHeadline = '';
+    let startSub = '';
+    if (uniqStarts.length === 1) {
+      startHeadline = ddFormatDate(uniqStarts[0]);
+    } else if (uniqStarts.length > 1) {
+      // Sort by parsed date; fall back to alpha if parse fails
+      const sorted = uniqStarts.slice().sort((a, b) => {
+        const da = Date.parse(a), db = Date.parse(b);
+        if (!isNaN(da) && !isNaN(db)) return da - db;
+        return String(a).localeCompare(String(b));
+      });
+      startHeadline = ddFormatDate(sorted[0]);
+      startSub = uniqStarts.length + ' distinct start dates &mdash; earliest shown';
+    } else {
+      startHeadline = '—';
+    }
+
+    // Find the matching course(s) from the live Grade_Dashboard snapshot so
+    // we can show Completed-in-Brightspot (milestone 1) and Deliver-and-SO
+    // (milestone 7) baseline/plan/actual/status.
+    const matchingCourses = ddFindMatchingCourses(data);
+    let course = null;
+    let multiNote = '';
+    if (matchingCourses.length === 1) {
+      course = matchingCourses[0];
+    } else if (matchingCourses.length > 1) {
+      // Pick the first one but flag the rest. In Drill Down the Focus Course
+      // dropdown lets the user narrow to one if they want per-course detail.
+      course = matchingCourses[0];
+      multiNote = matchingCourses.length + ' courses in this state. The cards below reflect &ldquo;' +
+                  ddEsc(course.focusName || course.focusCourseName || course.baseCourseName || '') +
+                  '&rdquo;. Pick a specific Focus Course in the filter bar to switch.';
+    }
+
+    const m1 = (course && course.milestones && course.milestones[0]) || null;
+    const m7 = (course && course.milestones && course.milestones[6]) || null;
+
+    // Build a card. The headline is the baseline date; the footnote lists
+    // Plan / Actual / Status with proper colors. This is what the user wants
+    // surfaced "upfront" so the team doesn't have to drill in.
+    function dateCard(label, milestone, accentCls) {
+      const baselineFmt = milestone && milestone.baseline ? ddFormatDate(milestone.baseline) : '';
+      const headline = baselineFmt || '—';
+      const planFmt   = milestone && milestone.plan   ? ddFormatDate(milestone.plan)   : '';
+      const actualFmt = milestone && milestone.actual ? ddFormatDate(milestone.actual) : '';
+      const statusVal = milestone && milestone.status ? milestone.status : '';
+      const statusCls = ddClassifyStatus(statusVal);
+      const driftVal = milestone && milestone.drift !== undefined && milestone.drift !== null ? milestone.drift : '';
+
+      let footnote = '<div class="dd-kpi-footnote">';
+      footnote += '<div class="dd-kpi-fn-row"><span class="dd-kpi-fn-label">Plan</span>' +
+                  '<span class="dd-kpi-fn-val' + (planFmt ? '' : ' dd-kpi-empty') + '">' + ddEsc(planFmt || '—') + '</span></div>';
+      footnote += '<div class="dd-kpi-fn-row" style="margin-top:3px;"><span class="dd-kpi-fn-label">Actual</span>' +
+                  '<span class="dd-kpi-fn-val' + (actualFmt ? '' : ' dd-kpi-empty') + '">' + ddEsc(actualFmt || '—') + '</span></div>';
+      footnote += '<div class="dd-kpi-fn-row" style="margin-top:5px;align-items:center;"><span class="dd-kpi-fn-label">Status</span>' +
+                  '<span class="dd-kpi-fn-val">' +
+                    (statusVal
+                      ? '<span class="dd-kpi-status-pill ' + statusCls + '">' + ddEsc(statusVal) + '</span>'
+                      : '<span class="dd-kpi-fn-val dd-kpi-empty">—</span>') +
+                  (driftVal !== '' && Number(driftVal) > 0 ? ' <span style="color:var(--risk);font-size:11px;margin-left:6px;">+' + Number(driftVal) + 'd</span>' : '') +
+                  '</span></div>';
+      footnote += '</div>';
+
+      const valueClass = (headline === '—') ? 'dd-kpi-value dd-kpi-muted' : 'dd-kpi-value';
+      return '<div class="dd-kpi-card' + (accentCls ? ' ' + accentCls : '') + '">' +
+               '<div class="dd-kpi-label">' + ddEsc(label) + '</div>' +
+               '<div class="' + valueClass + '">' + headline + '</div>' +
+               '<div class="dd-kpi-sub">Baseline date</div>' +
+               footnote +
+             '</div>';
+    }
+
+    let html = '';
+    if (multiNote) {
+      html += '<div class="dd-kpi-multi-note">' + multiNote + '</div>';
+    }
+    html += '<div class="dd-kpi-row">';
+    // Start Date card (no plan/actual; this is a course definition value)
+    html += '<div class="dd-kpi-card dd-kpi-accent-start">' +
+              '<div class="dd-kpi-label">Start Date</div>' +
+              '<div class="dd-kpi-value' + (startHeadline === '—' ? ' dd-kpi-muted' : '') + '">' + startHeadline + '</div>' +
+              '<div class="dd-kpi-sub">' + (startSub || 'Course starts on') + '</div>' +
+            '</div>';
+    // Completed in Brightspot (milestone 1)
+    html += dateCard((m1 && m1.name) || 'Completed in Brightspot', m1, 'dd-kpi-accent-bsp');
+    // Deliver and SO (milestone 7)
+    html += dateCard((m7 && m7.name) || 'Deliver and SO', m7, 'dd-kpi-accent-deliver');
+    html += '</div>';
+    return html;
+  }
+
+  // Helper: find the rows in P670_LIVE.courses that match the current
+  // Drill Down selection (subject + grade + state, optionally focus course).
+  function ddFindMatchingCourses(data) {
+    if (!data || !window.P670_LIVE || !window.P670_LIVE.courses) return [];
+    const subj  = (data.subject || '').toLowerCase().trim();
+    const grade = (data.grade   || '').toLowerCase().trim();
+    const state = (data.state   || '').toLowerCase().trim();
+    const focus = (data.focusCourse || '').toLowerCase().trim();
+    return window.P670_LIVE.courses.filter(c => {
+      if ((c.subject || '').toLowerCase().trim() !== subj) return false;
+      if ((c.grade   || '').toLowerCase().trim() !== grade) return false;
+      if ((c.state   || '').toLowerCase().trim() !== state) return false;
+      if (focus) {
+        const fcn = (c.focusName || c.focusCourseName || '').toLowerCase();
+        if (fcn.indexOf(focus) === -1) return false;
+      }
+      return true;
+    });
   }
 
   // ---- Grade_Dashboard rollup for the selected state -----------
@@ -9917,7 +10272,7 @@ function livedp_export(format) {
                 '<td>' + ddEsc(s.derivatives) + '</td>' +
                 '<td><strong>' + ddEsc(rangeStr) + '</strong></td>' +
                 '<td><span class="dd-identity-grouped-meta">' + g.rows.length + ' lessons</span></td>' +
-                '<td>' + ddEsc(s.baselineStart) + '</td>' +
+                '<td>' + ddEsc(ddFormatDate(s.baselineStart)) + '</td>' +
                 '<td>' + linkCell(s.driveLink) + '</td>' +
                 '<td>' + linkCell(s.mindsmithLink) + '</td>' +
                 '<td>' + linkCell(s.exitTicket) + '</td>' +
@@ -10034,9 +10389,9 @@ function livedp_export(format) {
                   '<td>' + ddEsc(r.lessonName) + '</td>' +
                   (isHs ? '<td>' + ddEsc(r.focusCourseName) + '</td>' : '') +
                   '<td>' + ddEsc(st.assigned) + '</td>' +
-                  '<td>' + ddEsc(st.baseline) + '</td>' +
-                  '<td>' + ddEsc(st.plan) + '</td>' +
-                  '<td>' + ddEsc(st.actual) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.baseline)) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.plan)) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.actual)) + '</td>' +
                   '<td><span class="dd-status-pill ' + cls + '">' + ddEsc(st.status || '—') + '</span></td>' +
                   '<td style="text-align:right">' + driftHtml + '</td>' +
                 '</tr>';
@@ -10115,9 +10470,9 @@ function livedp_export(format) {
                   '<td>' + (s + 1) + '</td>' +
                   '<td class="dd-stage-name">' + ddEsc(stageNames[s] || ('Stage ' + (s + 1))) + '</td>' +
                   '<td>' + ddEsc(st.assigned) + '</td>' +
-                  '<td>' + ddEsc(st.baseline) + '</td>' +
-                  '<td>' + ddEsc(st.plan) + '</td>' +
-                  '<td>' + ddEsc(st.actual) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.baseline)) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.plan)) + '</td>' +
+                  '<td>' + ddEsc(ddFormatDate(st.actual)) + '</td>' +
                   '<td><span class="dd-status-pill ' + cls + '">' + ddEsc(st.status || '—') + '</span></td>' +
                   '<td style="text-align:right">' + driftHtml + '</td>' +
                 '</tr>';
@@ -10145,7 +10500,179 @@ function livedp_export(format) {
   }
 
   // ============================================================
-  //  VIEW 4: Fixes Required & Blocked - everywhere attention is needed
+  //  VIEW 4: Workflow Matrix
+  //   - Top: numbered legend of stage names
+  //   - Middle: per-stage summary rows (Completed / WIP / Fixes / Blocked
+  //     / YTS / N/A counts under each stage column)
+  //   - Body: one row per lesson; each cell is a color-coded square
+  //     showing that lesson's status at that stage. Lesson identity is
+  //     sticky on the left so horizontal scroll never loses the row label.
+  // ============================================================
+  function renderWorkflowMatrixView(rows, data) {
+    const stageNames = (data && data.stageNames) || [];
+    const stageCount = stageNames.length || 12;
+    // Per-stage histograms
+    const histos = [];
+    for (let s = 0; s < stageCount; s++) {
+      const h = { completed: 0, wip: 0, fixesRequired: 0, blocked: 0, yts: 0, na: 0, unknown: 0 };
+      rows.forEach(r => {
+        const cls = ddClassifyStatus(r.stages && r.stages[s] ? r.stages[s].status : '');
+        h[cls] = (h[cls] || 0) + 1;
+      });
+      histos.push(h);
+    }
+
+    // -------- Top: numbered stage legend --------
+    let html = '<div class="dd-matrix-legend">';
+    for (let s = 0; s < stageCount; s++) {
+      html += '<div class="dd-leg-item">' +
+                '<span class="dd-leg-num">' + (s + 1) + '.</span>' +
+                '<span class="dd-leg-name">' + ddEsc(stageNames[s] || ('Stage ' + (s + 1))) + '</span>' +
+              '</div>';
+    }
+    html += '</div>';
+
+    // -------- Status color legend --------
+    html += '<div class="dd-status-legend">' +
+              '<span><span class="dd-leg-swatch completed"></span>Completed</span>' +
+              '<span><span class="dd-leg-swatch wip"></span>WIP</span>' +
+              '<span><span class="dd-leg-swatch fixesRequired"></span>Fixes Required</span>' +
+              '<span><span class="dd-leg-swatch blocked"></span>Blocked</span>' +
+              '<span><span class="dd-leg-swatch yts"></span>YTS</span>' +
+              '<span><span class="dd-leg-swatch na"></span>N/A</span>' +
+              '<span style="margin-left:auto;color:var(--ink-3);font-size:11px;">Hover any cell for status detail. ' + rows.length + ' lessons &middot; ' + stageCount + ' stages.</span>' +
+            '</div>';
+
+    // -------- Sort control --------
+    html += '<div class="dd-matrix-controls">' +
+              '<label for="ddMatrixSort">Sort by:</label>' +
+              '<select id="ddMatrixSort">' +
+                '<option value="lesson">Lesson #</option>' +
+                '<option value="rag-red">Lesson RAG (Red first)</option>' +
+                '<option value="attention">Attention (Blocked/Fixes first)</option>' +
+                '<option value="progress">Progress (least complete first)</option>' +
+              '</select>' +
+            '</div>';
+
+    // -------- The matrix itself --------
+    html += '<div class="dd-matrix-wrap"><table class="dd-matrix-table">';
+
+    // --- Header rows: stage numbers + per-status summary counts ---
+    html += '<thead>';
+    // Stage numbers row
+    html += '<tr class="dd-mh-stage-num-row">' +
+              '<th class="dd-mc-lesson">Lesson</th>';
+    for (let s = 0; s < stageCount; s++) {
+      html += '<th class="dd-mh-stagecol" title="' + ddEsc(stageNames[s] || '') + '">' + (s + 1) + '</th>';
+    }
+    html += '</tr>';
+    // Summary rows
+    const summaryRow = (label, key, cls) => {
+      let row = '<tr class="dd-mh-summary-row dd-mh-' + cls + '"><th class="dd-mh-label"><span class="dd-leg-swatch ' + cls + '"></span> ' + label + '</th>';
+      for (let s = 0; s < stageCount; s++) {
+        const n = histos[s][key] || 0;
+        row += '<th class="dd-mh-cnt' + (n === 0 ? ' dd-mh-zero' : '') + '">' + n + '</th>';
+      }
+      row += '</tr>';
+      return row;
+    };
+    html += summaryRow('Completed',     'completed',     'completed');
+    html += summaryRow('WIP',           'wip',           'wip');
+    html += summaryRow('Fixes Required','fixesRequired', 'fixesRequired');
+    html += summaryRow('Blocked',       'blocked',       'blocked');
+    html += summaryRow('YTS',           'yts',           'yts');
+    html += summaryRow('N/A',           'na',            'na');
+    html += '</thead>';
+
+    // --- Body: one row per lesson ---
+    html += '<tbody id="ddMatrixBody">';
+    html += renderMatrixBody(rows, stageCount, stageNames, 'lesson');
+    html += '</tbody>';
+    html += '</table></div>';
+    return html;
+  }
+
+  // Helper: render just the <tbody> contents (for re-sorting without rebuilding header)
+  function renderMatrixBody(rows, stageCount, stageNames, sortKey) {
+    // Compute a sort score for each lesson
+    const attentionWeight = { blocked: 1000, fixesRequired: 500 };
+    const completedWeight = 1;
+    const enriched = rows.map((r, idx) => {
+      let attention = 0;
+      let completedCount = 0;
+      (r.stages || []).forEach(st => {
+        const cls = ddClassifyStatus(st.status);
+        if (cls === 'blocked')       attention += attentionWeight.blocked;
+        if (cls === 'fixesRequired') attention += attentionWeight.fixesRequired;
+        if (cls === 'completed')     completedCount += completedWeight;
+      });
+      return { r, idx, attention, completedCount };
+    });
+    if (sortKey === 'rag-red') {
+      const rank = { 'Red': 0, 'Yellow': 1, 'Green': 2, 'Gray': 3 };
+      enriched.sort((a, b) => {
+        const ar = rank[a.r.lessonRag] !== undefined ? rank[a.r.lessonRag] : 4;
+        const br = rank[b.r.lessonRag] !== undefined ? rank[b.r.lessonRag] : 4;
+        if (ar !== br) return ar - br;
+        return a.idx - b.idx;
+      });
+    } else if (sortKey === 'attention') {
+      enriched.sort((a, b) => {
+        if (b.attention !== a.attention) return b.attention - a.attention;
+        return a.idx - b.idx;
+      });
+    } else if (sortKey === 'progress') {
+      enriched.sort((a, b) => {
+        if (a.completedCount !== b.completedCount) return a.completedCount - b.completedCount;
+        return a.idx - b.idx;
+      });
+    } else {
+      // lesson # ascending (default order — input is already in lesson # order)
+      // no-op
+    }
+
+    let html = '';
+    enriched.forEach(e => {
+      const r = e.r;
+      const lessonLabel = r.lessonNum ? ('Lesson ' + r.lessonNum) : ('Row ' + (e.idx + 1));
+      const subtitle = (r.lessonName || '') + (r.lessonLeverage ? ' [' + r.lessonLeverage + ']' : '');
+      const focusBit = r.focusCourseName ? ' &middot; <span style="color:var(--ink-3)">' + ddEsc(r.focusCourseName) + '</span>' : '';
+      html += '<tr>';
+      html += '<td class="dd-mc-lesson">' +
+                '<div class="dd-mc-title">' + ddEsc(lessonLabel) + focusBit + '</div>' +
+                (subtitle ? '<div class="dd-mc-meta">' + ddEsc(subtitle) + '</div>' : '') +
+              '</td>';
+      for (let s = 0; s < stageCount; s++) {
+        const st = r.stages && r.stages[s] ? r.stages[s] : { status: '', drift: null, assigned: '', plan: '', actual: '', baseline: '' };
+        const cls = ddClassifyStatus(st.status);
+        const tip = (stageNames[s] || ('Stage ' + (s + 1))) +
+                    ' — ' + (st.status || '(no status)') +
+                    (st.assigned ? '\nAssigned: ' + st.assigned : '') +
+                    (st.baseline ? '\nBaseline: ' + st.baseline : '') +
+                    (st.plan ? '\nPlan: ' + st.plan : '') +
+                    (st.actual ? '\nActual: ' + st.actual : '') +
+                    (st.drift !== null && st.drift !== undefined && st.drift !== '' ? '\nDrift: ' + st.drift + 'd' : '');
+        html += '<td class="dd-mc-cell"><span class="dd-matrix-cell ' + cls + '" title="' + ddEsc(tip) + '"></span></td>';
+      }
+      html += '</tr>';
+    });
+    return html;
+  }
+
+  function wireWorkflowMatrixView(root, rows, data) {
+    const sel = root.querySelector('#ddMatrixSort');
+    const body = root.querySelector('#ddMatrixBody');
+    if (sel && body) {
+      sel.addEventListener('change', () => {
+        const stageNames = (data && data.stageNames) || [];
+        const stageCount = stageNames.length || 12;
+        body.innerHTML = renderMatrixBody(rows, stageCount, stageNames, sel.value);
+      });
+    }
+  }
+
+  // ============================================================
+  //  VIEW 5: Fixes Required & Blocked - everywhere attention is needed
   // ============================================================
   function renderAttentionView(rows, data) {
     const stageNames = (data && data.stageNames) || [];
@@ -10256,9 +10783,9 @@ function livedp_export(format) {
                 (isHs ? '<td>' + ddEsc(it.focusCourseName) + '</td>' : '') +
                 '<td><strong>' + ddEsc(it.stageName) + '</strong></td>' +
                 '<td>' + ddEsc(it.assigned) + '</td>' +
-                '<td>' + ddEsc(it.baseline) + '</td>' +
-                '<td>' + ddEsc(it.plan) + '</td>' +
-                '<td>' + ddEsc(it.actual) + '</td>' +
+                '<td>' + ddEsc(ddFormatDate(it.baseline)) + '</td>' +
+                '<td>' + ddEsc(ddFormatDate(it.plan)) + '</td>' +
+                '<td>' + ddEsc(ddFormatDate(it.actual)) + '</td>' +
                 '<td><span class="dd-status-pill ' + it.statusClass + '">' + ddEsc(it.status) + '</span></td>' +
                 '<td style="text-align:right">' + driftHtml + '</td>' +
               '</tr>';

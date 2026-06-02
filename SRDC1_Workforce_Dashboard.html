@@ -1,0 +1,450 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SRD C1 — Workforce Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--stride-blue:#2127C2;--stride-blue-med:#2A72CB;--stride-navy:#000E64;--stride-orange:#EF6100;
+--bg:#F4F8FC;--card:#FFFFFF;--line:#DCE6F2;--line-2:#C7D5E8;--ink:#0A1438;--ink-2:#2E3A5C;--ink-3:#6E7891;--ink-4:#B0B8CC;
+--good:#1F7A3E;--good-bg:#E4F2E9;--good-ln:#BFE3CC;--warn:#B85C00;--warn-bg:#FCEFD9;--warn-ln:#F2CE9B;
+--risk:#B0202A;--risk-bg:#FBE4E5;--risk-ln:#F0C2C5;
+--subj-ela:#000E64;--subj-ela-bg:#DDE7F2;--subj-math:#2127C2;--subj-math-bg:#DCE7F8;
+--subj-sci:#2A72CB;--subj-sci-bg:#D8EAF7;--subj-ss:#A04400;--subj-ss-bg:#FCE6CC;}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+.app{max-width:1340px;margin:0 auto;padding:0 32px 64px}
+.brandbar{display:flex;align-items:center;gap:24px;padding:22px 32px 18px;margin:0 -32px;background:#fff;border-bottom:1px solid var(--line)}
+.stride-wordmark{height:38px}
+.descriptor{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.01em;padding-left:18px;border-left:1.5px solid var(--line-2);line-height:1.1}
+.descriptor .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.08em;margin-top:3px}
+.partnership{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.09em;color:#6E6E6E}
+.partnership .label{text-align:right;line-height:1.4}
+.lm-mark{display:inline-flex;align-items:center;gap:7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--ink);text-transform:none;padding:6px 12px;border:1.5px solid var(--ink);border-radius:4px}
+.lm-dot{width:8px;height:8px;border-radius:50%;background:var(--stride-orange)}
+/* tabs */
+.topnav{display:flex;gap:30px;border-bottom:1px solid var(--line);margin:0 -32px 24px;padding:0 32px;position:sticky;top:0;background:rgba(244,248,252,.94);backdrop-filter:blur(8px);z-index:50}
+.topnav .tab{background:none;border:0;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--ink-3);padding:15px 0;cursor:pointer;position:relative;letter-spacing:-0.01em}
+.topnav .tab:hover{color:var(--ink-2)}
+.topnav .tab.active{color:var(--stride-blue)}
+.topnav .tab.active::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2.5px;background:var(--stride-blue)}
+.view{display:none}.view.on{display:block}
+.pagehead h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:25px;letter-spacing:-0.02em;margin:8px 0 0}
+.pagehead .meta{font-size:12.5px;color:var(--ink-3);margin-top:6px;max-width:900px;line-height:1.5}
+.kpis{display:grid;gap:14px;margin:18px 0 8px}
+.kpis.k4{grid-template-columns:repeat(4,1fr)}.kpis.k5{grid-template-columns:repeat(5,1fr)}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 17px;position:relative;overflow:hidden}
+.kpi .bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.kpi .kl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-3)}
+.kpi .kv{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:29px;line-height:1;margin-top:4px}
+.kpi .ks{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+.kpi.t .bar{background:var(--stride-blue)}.kpi.t .kv{color:var(--stride-blue)}
+.kpi.h .bar{background:var(--good)}.kpi.h .kv{color:var(--good)}
+.kpi.p .bar{background:var(--warn)}.kpi.p .kv{color:var(--warn)}
+.kpi.o .bar{background:var(--risk)}.kpi.o .kv{color:var(--risk)}
+.kpi.b .bar{background:var(--stride-orange)}.kpi.b .kv{color:var(--stride-orange)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink-3);margin:16px 0 24px}
+.legend .lg{display:inline-flex;align-items:center;gap:7px}
+.sw{width:13px;height:13px;border-radius:4px;border:1px solid}
+.sw.h{background:var(--good-bg);border-color:var(--good-ln)}.sw.p{background:var(--warn-bg);border-color:var(--warn-ln)}
+.sw.o{background:var(--risk-bg);border-color:var(--risk-ln);border-style:dashed}
+/* tree */
+.tier-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-4);text-align:center;margin:8px 0}
+.vp-row{display:flex;justify-content:center}
+.card{background:#fff;border:1px solid var(--line-2);border-radius:11px;padding:11px 15px;box-shadow:0 5px 16px -12px rgba(0,14,100,.25)}
+.card.vp{border:1.5px solid var(--stride-navy);text-align:center;padding:14px 26px}
+.card .ttl{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-3);margin-bottom:6px}
+.card.vp .ttl{color:var(--stride-orange)}
+.card.vp .nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px}
+.trunk{width:2px;height:20px;background:var(--line-2);margin:0 auto}
+.lead-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:11px;align-items:start;margin-bottom:6px}
+@media(max-width:1100px){.lead-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:680px){.lead-grid{grid-template-columns:repeat(2,1fr)}}
+.ppl{display:flex;flex-direction:column;gap:4px}
+.child-wrap{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line-2);display:flex;flex-direction:column;gap:6px}
+.child .ct{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-4);margin-bottom:3px}
+.prog-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.prog{min-width:155px;max-width:215px;flex:0 1 auto;padding:9px 12px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 8px;border-radius:6px;border:1px solid;line-height:1.3}
+.chip .e{font-size:8.5px;font-weight:700;padding:0 4px;border-radius:3px;background:rgba(0,0,0,.06);color:var(--ink-3)}
+.chip.h{background:var(--good-bg);border-color:var(--good-ln);color:#15552c}
+.chip.p{background:var(--warn-bg);border-color:var(--warn-ln);color:#7a3d00}
+.chip.o{background:var(--risk-bg);border-color:var(--risk-ln);color:#8a1922;border-style:dashed;font-style:italic}
+.chip.p::before{content:"●";color:var(--warn);font-size:8px}
+.chip.o::before{content:"+";font-weight:700;color:var(--risk)}
+.section-h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;margin:38px 0 6px}
+.controls{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+.btn{background:#fff;border:1px solid var(--line-2);color:var(--ink-2);font-family:inherit;font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;cursor:pointer}
+.btn:hover{border-color:var(--stride-blue);color:var(--stride-blue)}
+.pods{display:flex;flex-direction:column;gap:16px}
+.pod{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px -12px rgba(0,14,100,.18)}
+.pod-h{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;user-select:none;border-bottom:1px solid transparent}
+.pod.open .pod-h{border-bottom-color:var(--line)}
+.pod-h:hover{background:#F7FAFD}
+.subj-chip{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;padding:6px 13px;border-radius:8px}
+.subj-chip.ELA{background:var(--subj-ela-bg);color:var(--subj-ela)}.subj-chip.Math{background:var(--subj-math-bg);color:var(--subj-math)}
+.subj-chip.Science{background:var(--subj-sci-bg);color:var(--subj-sci)}.subj-chip.SST{background:var(--subj-ss-bg);color:var(--subj-ss)}
+.owner{font-size:11.5px;color:var(--ink-3)}.owner b{color:var(--ink-2);font-weight:600}
+.pod-stat{display:flex;gap:8px;margin-left:auto;align-items:center;flex-wrap:wrap}
+.statpill{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:20px}
+.statpill.h{background:var(--good-bg);color:var(--good)}.statpill.p{background:var(--warn-bg);color:var(--warn)}.statpill.o{background:var(--risk-bg);color:var(--risk)}
+.caret{color:var(--ink-3);transition:transform .18s;font-size:13px}.pod.open .caret{transform:rotate(90deg)}
+.pod-body{display:none;padding:6px 18px 18px}.pod.open .pod-body{display:block}
+.role-block{margin-top:14px}
+.role-name{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.role-name .rc{font-size:10.5px;font-weight:600;color:var(--ink-3)}
+.bands{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:760px){.bands{grid-template-columns:1fr}.kpis.k4,.kpis.k5{grid-template-columns:repeat(2,1fr)}.lead-grid{grid-template-columns:repeat(2,1fr)}}
+.band{border:1px solid var(--line);border-radius:9px;background:#FBFCFE;padding:9px 11px}
+.band .bn{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-3);margin-bottom:7px;display:flex;justify-content:space-between;gap:6px}
+.band .bn .st{font-size:9.5px;color:var(--ink-4);font-weight:500;text-transform:none;text-align:right}
+.band .chips{display:flex;flex-wrap:wrap;gap:5px}
+.gaptable{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px}
+.gaptable th,.gaptable td{text-align:left;padding:9px 13px;font-size:12.5px;border-bottom:1px solid var(--line)}
+.gaptable th{background:#F2F6FC;font-weight:600;color:var(--ink-2);text-transform:uppercase;font-size:10.5px;letter-spacing:0.05em}
+.gaptable td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:'Space Grotesk',sans-serif;font-weight:600}
+.gaptable tr:last-child td{border-bottom:0}
+.gaptable .gn{color:var(--good)}.gaptable .pn{color:var(--warn)}.gaptable .on{color:var(--risk)}
+/* open summary + pivot matrix */
+.open-summary{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 16px}
+.os-card{flex:1 1 160px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 14px;min-width:150px}
+.os-card .l{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-3)}
+.os-card .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;margin-top:5px;color:var(--ink);line-height:1.25}
+.os-card .v small{font-weight:500;font-size:11px;color:var(--ink-3)}
+.os-card.big .num{font-size:30px;color:var(--risk)}
+.pivot-controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 15px;margin-bottom:14px}
+.pivot-controls .pl{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.pivot-controls .pl.mut{font-weight:400;color:var(--ink-3);font-size:11.5px}
+.pivot-controls .x{color:var(--ink-4);font-weight:700}
+.pivot-controls label{font-size:11px;font-weight:600;color:var(--ink-3);display:inline-flex;align-items:center;gap:6px}
+.pivot-controls select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:6px 9px;border:1px solid var(--line-2);border-radius:7px;background:#fff;cursor:pointer}
+.matrix-wrap{overflow-x:auto;margin-bottom:8px}
+.matrix{border-collapse:separate;border-spacing:0;width:100%;min-width:520px;font-size:12.5px}
+.matrix th,.matrix td{padding:8px 11px;border-bottom:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums}
+.matrix thead th{background:#F2F6FC;font-weight:600;color:var(--ink-2);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;border-bottom:1.5px solid var(--line-2)}
+.matrix thead th:first-child{text-align:left}
+.matrix tbody th{text-align:left;font-weight:600;color:var(--ink);background:#FBFCFE;white-space:nowrap;position:sticky;left:0}
+.matrix td{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--ink)}
+.matrix td.zero{color:var(--ink-4);font-weight:400}
+.matrix .tot{background:#F2F6FC;font-weight:700}
+.matrix tbody tr.totrow th,.matrix tbody tr.totrow td{background:#EEF3FB;font-weight:700;border-top:1.5px solid var(--line-2)}
+.matrix .cellv{display:inline-block;min-width:20px}
+/* recon callout */
+.callout{background:#fff;border:1px solid var(--line-2);border-left:4px solid var(--stride-orange);border-radius:10px;padding:15px 18px;margin:18px 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.callout h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 8px;color:var(--ink)}
+.callout .recnum{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.recnum .rb{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12px}
+.recnum .rb b{font-family:'Space Grotesk',sans-serif;font-size:17px;display:block;color:var(--ink)}
+/* tab2 staffing */
+.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:900px){.subjects{grid-template-columns:1fr}}
+.subject{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px -12px rgba(0,14,100,.18)}
+.subj-head{padding:15px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.subj-leads{font-size:11.5px;color:var(--ink-3);line-height:1.45}.subj-leads b{color:var(--ink-2);font-weight:600}
+.subj-stat{margin-left:auto;text-align:right}
+.subj-stat .big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px}
+.subj-stat .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-3)}
+.openpill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:3px}
+.pill-good{background:var(--good-bg);color:var(--good)}.pill-warn{background:var(--warn-bg);color:var(--warn)}.pill-risk{background:var(--risk-bg);color:var(--risk)}
+.ggwrap{padding:14px 16px 18px;display:flex;flex-direction:column;gap:12px}
+.gg{border:1px solid var(--line);border-radius:11px;background:#FBFCFE;overflow:hidden}
+.gg-head{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;user-select:none}
+.gg-head:hover{background:#F2F6FC}
+.gg-name{font-weight:600;font-size:13.5px;min-width:96px}
+.gg-gauge{flex:1;height:8px;border-radius:6px;background:#E8EDF5;overflow:hidden}
+.gg-gauge .fill{height:100%;background:var(--good);border-radius:6px}
+.gg-counts{font-size:12px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.gg-counts b{font-family:'Space Grotesk',sans-serif;font-weight:700}
+.gg-open{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.gg.open .caret{transform:rotate(90deg)}
+.gg-body{display:none;padding:4px 14px 14px;border-top:1px dashed var(--line-2)}.gg.open .gg-body{display:block}
+.rb-band{margin-top:11px}
+.rb-title{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-3);margin-bottom:6px}
+.roles2{display:flex;flex-wrap:wrap;gap:6px}
+.role2{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:5px 10px;border-radius:7px;border:1px solid var(--line);background:#fff}
+.role2 .rc2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-variant-numeric:tabular-nums}
+.role2.full{border-color:var(--good-ln)}.role2.full .rc2{color:var(--good)}
+.role2.open2{border-color:#F1C9CC;background:var(--risk-bg)}.role2.open2 .rc2{color:var(--risk)}
+.role2.partial{border-color:#F6D6B0;background:var(--warn-bg)}.role2.partial .rc2{color:var(--warn)}
+.role2 .tag{font-size:9.5px;font-weight:700;text-transform:uppercase;padding:1px 5px;border-radius:4px}
+.role2.open2 .tag{background:var(--risk);color:#fff}.role2.partial .tag{background:var(--stride-orange);color:#fff}
+.foot{margin-top:30px;font-size:11.5px;color:var(--ink-4);line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+@media print{.controls,.topnav{display:none}.view{display:block!important}.pod-body,.gg-body{display:block!important}.caret{display:none}}
+</style></head><body>
+<div class="brandbar" style="max-width:1340px;margin:0 auto">
+  <svg class="stride-wordmark" viewBox="0 0 230 60" xmlns="http://www.w3.org/2000/svg" aria-label="Stride">
+    <text x="0" y="48" font-family="'Space Grotesk','Inter',sans-serif" font-weight="700" font-size="56" letter-spacing="-2" fill="#2127C2">Stride</text>
+    <rect x="135.5" y="9" width="13" height="13" fill="#EF6100"/></svg>
+  <div class="descriptor">SRD C1 &middot; Workforce Dashboard
+    <span class="sub">Org Structure &amp; Staffing</span></div>
+  <div class="partnership"><div class="label">In partnership<br/>with</div>
+    <div class="lm-mark"><span class="lm-dot"></span>LearningMate</div></div>
+</div>
+<div class="app">
+<nav class="topnav">
+  <button class="tab active" data-v="v1">People &amp; Reporting Structure</button>
+  <button class="tab" data-v="v2">Staffing &mdash; by Subject &amp; Grade Band</button>
+</nav>
+
+<!-- ============ VIEW 1 ============ -->
+<div class="view on" id="v1">
+  <div class="pagehead"><h1>SRD C1 People &amp; Reporting Structure</h1>
+    <div class="meta">From the <b>Org Chart</b> tab — every named position in its reporting line, colour-coded by status.
+    <b style="color:var(--good)">Green = in seat</b>, <b style="color:var(--warn)">amber = onboarding</b> (WO/SOW/RR/POE pending or not yet onboarded),
+    <b style="color:var(--risk)">red dashed = open, to be hired</b>. Hover a chip for the source note.</div></div>
+  <div class="kpis k4" id="kpis1"></div>
+  <div class="legend">
+    <span class="lg"><span class="sw h"></span> In seat</span>
+    <span class="lg"><span class="sw p"></span> Onboarding</span>
+    <span class="lg"><span class="sw o"></span> Open — to hire</span>
+    <span class="lg" style="margin-left:auto;color:var(--ink-4)">FT/FTE full-time · C contractor · FL freelancer</span>
+  </div>
+  <div class="tier-label">Vice President</div>
+  <div class="vp-row" id="vp"></div>
+  <div class="trunk"></div>
+  <div class="tier-label">Functional Leads</div>
+  <div class="lead-grid" id="tier2"></div>
+  <div class="tier-label" style="margin-top:18px">Program &amp; Content Leads</div>
+  <div class="prog-row" id="program"></div>
+  <div class="section-h">Subject PODs &mdash; positions by grade band</div>
+  <div class="controls">
+    <button class="btn" id="expand1">Expand all</button>
+    <button class="btn" id="collapse1">Collapse all</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button></div>
+  <div class="pods" id="pods"></div>
+  <div class="section-h">Hiring status by role</div>
+  <table class="gaptable" id="roletable"></table>
+  <div class="foot">Source: SRD C1 workbook, "Org Chart" tab (rows 2–39 incl. workstream owners Kristy Engel / Rachel Woolbright and Assessments lead Rachel Long).
+  Status inferred from cell colour + inline notes. SST PODs run by delivery team (A/B/C). Counts are POD positions; leadership shown above.</div>
+</div>
+
+<!-- ============ VIEW 2 ============ -->
+<div class="view" id="v2">
+  <div class="pagehead"><h1>Staffing — by Subject &amp; Grade Band</h1>
+    <div class="meta">From the requirement workbook (<b>Planned</b> vs <b>Actual</b> resources). Each subject POD spans Grades 3–5, 6–8, 9–12.
+    Fulfilled = actual ≥ planned; Open = planned − actual.</div></div>
+  <div class="kpis k5" id="kpis2"></div>
+  <div class="callout" id="recon"></div>
+
+  <div class="section-h">Open positions at a glance</div>
+  <div class="open-summary" id="openSummary"></div>
+  <div class="pivot-controls">
+    <span class="pl">Build a matrix — rows&nbsp;×&nbsp;columns:</span>
+    <label>Rows <select id="rowDim"><option>Role</option><option>Subject</option><option>Grade band</option></select></label>
+    <span class="x">×</span>
+    <label>Columns <select id="colDim"><option>Subject</option><option>Grade band</option><option>Role</option></select></label>
+    <span class="pl mut">Cells show how many positions are open. Darker = more.</span>
+  </div>
+  <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+
+  <div class="controls">
+    <button class="btn" id="expand2">Expand all</button>
+    <button class="btn" id="collapse2">Collapse all</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button></div>
+  <div class="subjects" id="subjects"></div>
+  <div class="section-h">Where the open positions sit</div>
+  <table class="gaptable" id="gaptable2"></table>
+  <div class="foot">Counts reconcile to the requirement summary: 335 planned, 272 filled, 63 open (18.8% gap).</div>
+</div>
+</div>
+
+<script>
+const ORG={"leadership": {"vp": {"title": "Vice President", "people": [{"name": "Reshma Devadiga", "emp": "", "status": "hired", "note": "Reshma Devadiga"}]}, "tier2": [{"title": "PMO Lead", "people": [{"name": "Narendra Kumar", "emp": "FT", "status": "hired", "note": "Narendra Kumar(FT)"}]}, {"title": "Product Owner", "people": [{"name": "Lori Robinson, Emily Rukobo", "emp": "FT", "status": "hired", "note": "Lori Robinson(FT), Emily Rukobo (Science)"}]}, {"title": "Recruitment Leads", "people": [{"name": "Anuradha Ravindra + Venkatesh Ammu", "emp": "FT", "status": "hired", "note": "Anuradha Ravindra + Venkatesh Ammu(FT)"}]}, {"title": "AI Lead", "people": [{"name": "Clara Evans", "emp": "", "status": "hired", "note": "Clara Evans"}, {"name": "Sucheta", "emp": "", "status": "hired", "note": "Sucheta"}, {"name": "Amar", "emp": "FT", "status": "hired", "note": "Amar(FT)"}], "children": [{"title": "AI – Tech", "people": [{"name": "Ninad K", "emp": "FT", "status": "hired", "note": "Ninad K(FT)"}, {"name": "Adarsh Nair", "emp": "FT", "status": "hired", "note": "Adarsh Nair(FT)"}, {"name": "(TBD)", "emp": "", "status": "pending", "note": "(TBD)"}]}, {"title": "AI – Content", "people": [{"name": "AI Content", "emp": "", "status": "open", "note": "2 positions"}]}]}, {"title": "DSG Lead", "people": [{"name": "Prashant Kudvalkar", "emp": "FT", "status": "hired", "note": "Prashant Kudvalkar(FT)"}], "children": [{"title": "DSG (Planning / Quality)", "people": [{"name": "Ragini Bhoite Desai", "emp": "C", "status": "hired", "note": "Ragini Bhoite Desai(C)"}]}]}, {"title": "CTG Lead", "people": [{"name": "Anil Tiwari", "emp": "FT", "status": "hired", "note": "Anil Tiwari(FT)"}]}, {"title": "QAG Lead", "people": [{"name": "Geetika Setia", "emp": "FT", "status": "hired", "note": "Geetika Setia(FT)"}]}], "program": [{"title": "PM – US", "people": [{"name": "Swapnil R", "emp": "FT", "status": "hired", "note": "Swapnil R(FT) (50%)"}]}, {"title": "PM – Metrics / Data & Access", "people": [{"name": "Data & Access", "emp": "", "status": "hired", "note": "Data & Access"}, {"name": "Sandeep Aggarwal", "emp": "FT", "status": "hired", "note": "Sandeep Aggarwal(FT)"}]}, {"title": "Planning, Auditing & Hiring Lead", "people": [{"name": "Auditing & Hiring Lead, Content Quality", "emp": "", "status": "pending", "note": "Auditing & Hiring Lead, Content Quality"}, {"name": "Shreya Pandya", "emp": "FT", "status": "hired", "note": "Shreya Pandya(FT)"}]}, {"title": "Math Lead", "people": [{"name": "Tanya Cumbra", "emp": "", "status": "hired", "note": "Tanya Cumbra (3-7)"}, {"name": "Mary Ellen", "emp": "", "status": "hired", "note": "Mary Ellen (8-12)"}]}, {"title": "Science Lead", "people": [{"name": "Laura Moin", "emp": "FT", "status": "hired", "note": "Laura Moin(FT)"}]}, {"title": "Social Studies Lead", "people": [{"name": "Amy Ernewein", "emp": "", "status": "hired", "note": "Amy Ernewein"}]}, {"title": "ELA & AI Lead", "people": [{"name": "Clara Evans", "emp": "FT", "status": "hired", "note": "Clara Evans (FT)"}]}, {"title": "Assessment Lead", "people": [{"name": "Christine Musgrove US", "emp": "FT", "status": "hired", "note": "Christine Musgrove US(FT)"}, {"name": "Rebecca Zukauskus", "emp": "FT", "status": "hired", "note": "Rebecca Zukauskus(ELA) - US(FT)"}, {"name": "Co-Lead", "emp": "C", "status": "hired", "note": "Co-Lead - Tina Nelson (C)"}, {"name": "Betharasi Guru -IND SME", "emp": "C", "status": "hired", "note": "Betharasi Guru(C) -IND SME"}, {"name": "Project Manager", "emp": "", "status": "hired", "note": "Project Manager - Pravin Patil"}]}, {"title": "Ancillaries Lead", "people": [{"name": "Shreya Pandya", "emp": "", "status": "hired", "note": "Shreya Pandya"}, {"name": "Co Lead", "emp": "", "status": "hired", "note": "Co Lead - Jennifer Galli"}, {"name": "Project Manager -", "emp": "", "status": "hired", "note": "Project Manager -"}]}, {"title": "Assessments (Delivery)", "people": [{"name": "Rachel Long", "emp": "", "status": "hired", "note": "Rachel Long — Assessments"}]}]}, "pods": {"ELA": {"bands": ["Grades 3-5", "Grade 6-8", "Grade 9-12"], "roles": {"PMO Lead": {"Grade 6-8": [{"name": "Tina Mittal", "emp": "FT", "status": "hired", "note": "Tina Mittal(FT)"}]}, "Curriculum Lead": {"Grades 3-5": [{"name": "97.0", "emp": "", "status": "hired", "note": "97.0"}], "Grade 6-8": [{"name": "Clara Evans", "emp": "FT", "status": "hired", "note": "Clara Evans(FT)"}]}, "PMG": {"Grades 3-5": [{"name": "Ankur Yadav", "emp": "FT", "status": "hired", "note": "Ankur Yadav(FT)"}, {"name": "Priyanka Mandal", "emp": "C", "status": "hired", "note": "Priyanka Mandal (C)"}], "Grade 6-8": [{"name": "Anika Pandey", "emp": "C", "status": "hired", "note": "Anika Pandey (Night shift)(C)"}, {"name": "Soumya Majumdar", "emp": "C", "status": "hired", "note": "Soumya Majumdar(C)"}, {"name": "Shubham Verma", "emp": "", "status": "hired", "note": "Shubham Verma"}], "Grade 9-12": [{"name": "Soma Sekhar", "emp": "", "status": "hired", "note": "Soma Sekhar (14 may)"}, {"name": "Ashwin Kharwa", "emp": "FT", "status": "hired", "note": "Ashwin Kharwa (FT)"}, {"name": "Tungabidya Panda", "emp": "FTE", "status": "hired", "note": "Tungabidya Panda (FTE)"}]}, "POD Leads": {"Grades 3-5": [{"name": "Shea Kahler", "emp": "C", "status": "hired", "note": "Shea Kahler (C) - 40 hours"}], "Grade 6-8": [{"name": "Heather A", "emp": "C", "status": "hired", "note": "Heather A (C) - 40hrs"}], "Grade 9-12": [{"name": "Teresa Garitoni -", "emp": "C", "status": "hired", "note": "Teresa Garitoni(C) -(20hrs)"}, {"name": "Stephanie M", "emp": "", "status": "pending", "note": "Stephanie M (20hrs) (SOW Created. Signing pending)"}]}, "LDG Leads (IND)": {"Grades 3-5": [{"name": "Ishani Dutta", "emp": "FT", "status": "hired", "note": "Ishani Dutta (FT)"}, {"name": "Mahua Dhur", "emp": "C", "status": "hired", "note": "Mahua Dhur (C)"}, {"name": "Spriha", "emp": "", "status": "hired", "note": "Spriha"}], "Grade 6-8": [{"name": "Mohan K", "emp": "FT", "status": "hired", "note": "Mohan K(FT)"}, {"name": "Radhika Chadhdha", "emp": "", "status": "hired", "note": "Radhika Chadhdha"}], "Grade 9-12": [{"name": "Urvashi Choudhary", "emp": "FT", "status": "hired", "note": "Urvashi Choudhary (FT)"}, {"name": "Latha", "emp": "", "status": "hired", "note": "Latha"}, {"name": "Noopur Joshi", "emp": "C", "status": "hired", "note": "Noopur Joshi (C)"}]}, "LDG": {"Grades 3-5": [{"name": "Simranjeet Kaur", "emp": "", "status": "hired", "note": "Simranjeet Kaur (May 4)"}, {"name": "Binal Chitroda", "emp": "", "status": "hired", "note": "Binal Chitroda"}], "Grade 6-8": [{"name": "Ritwika Chattopadhyay", "emp": "C", "status": "hired", "note": "Ritwika Chattopadhyay (C)"}, {"name": "Shubham Raturi  11 Jun", "emp": "C", "status": "hired", "note": "Shubham Raturi (C) 11 Jun"}], "Grade 9-12": [{"name": "Asawari Tyagi", "emp": "", "status": "hired", "note": "Asawari Tyagi"}, {"name": "Uma Chandrakala  1 Jun", "emp": "C", "status": "hired", "note": "Uma Chandrakala (C) 1 Jun"}]}, "SME US": {"Grades 3-5": [{"name": "Jennifer Richardt", "emp": "C", "status": "hired", "note": "Jennifer Richardt (C) - 20hrs"}, {"name": "Amy G", "emp": "", "status": "hired", "note": "Amy G - 20 Hours"}, {"name": "Michelle C", "emp": "", "status": "hired", "note": "Michelle C - 20 Hours"}, {"name": "Stephanie Schumaker", "emp": "C", "status": "hired", "note": "Stephanie Schumaker (C) - (40hrs)"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD(20hrs)"}, {"name": "Steph D on 3-5", "emp": "", "status": "hired", "note": "Steph D on 3-5,"}, {"name": "Jillian", "emp": "", "status": "hired", "note": "Jillian"}], "Grade 6-8": [{"name": "Katrina Scruggs -20hrs", "emp": "C", "status": "hired", "note": "Katrina Scruggs(C) -20hrs"}, {"name": "Anne K", "emp": "", "status": "hired", "note": "Anne K (20hrs)"}, {"name": "Bethany Chappel", "emp": "", "status": "hired", "note": "Bethany Chappel (20 Hrs)"}, {"name": "Elizabeth L", "emp": "C", "status": "hired", "note": "Elizabeth L (C) (20 Hours)"}, {"name": "Helen M Baker", "emp": "", "status": "hired", "note": "Helen M Baker(30-40)"}, {"name": "Kara S 6-8", "emp": "", "status": "hired", "note": "Kara S 6-8,"}], "Grade 9-12": [{"name": "Sheila Vang", "emp": "C", "status": "hired", "note": "Sheila Vang(C) - 20rs"}, {"name": "Ellen Gardiner", "emp": "C", "status": "hired", "note": "Ellen Gardiner(C) - 20hrs"}, {"name": "Kari Miller", "emp": "", "status": "hired", "note": "Kari Miller - 20hrs"}, {"name": "Jordan H", "emp": "", "status": "hired", "note": "Jordan H - 40hrs"}, {"name": "Layna Stafford  YTJ", "emp": "", "status": "pending", "note": "Layna Stafford (20-30 hours) YTJ"}, {"name": "Maria M 9-12", "emp": "", "status": "hired", "note": "Maria M 9-12"}]}, "SME IND": {"Grades 3-5": [{"name": "Kowshika Palani", "emp": "FT", "status": "hired", "note": "Kowshika Palani(FT)"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}]}, "DSG Manager": {"Grades 3-5": [{"name": "Juee Pednekar", "emp": "", "status": "hired", "note": "Juee Pednekar"}]}, "DSG Lead / Sr.": {"Grades 3-5": [{"name": "Reshma Khade", "emp": "C", "status": "hired", "note": "Reshma Khade(C)"}], "Grade 6-8": [{"name": "Niranjan Rao", "emp": "FT", "status": "hired", "note": "Niranjan Rao(FT)"}], "Grade 9-12": [{"name": "Pradnya Sawant", "emp": "C", "status": "hired", "note": "Pradnya Sawant (C)"}]}, "DSG Team Member": {"Grades 3-5": [{"name": "Ayush Mishra", "emp": "FT", "status": "hired", "note": "Ayush Mishra (FT)"}, {"name": "Swapna Patankar", "emp": "C", "status": "hired", "note": "Swapna Patankar (C)"}]}, "DSG – Night Shift": {"Grades 3-5": [{"name": "Santanu Karmarkar", "emp": "FT", "status": "hired", "note": "Santanu Karmarkar (FT)"}]}, "CTG Lead": {"Grades 3-5": [{"name": "Ram Kumar", "emp": "FT", "status": "hired", "note": "Ram Kumar(FT)"}]}, "CTG Junior": {"Grades 3-5": [{"name": "Ammar Ansari", "emp": "FT", "status": "hired", "note": "Ammar Ansari(FT)"}, {"name": "Manthan Mungekar", "emp": "FT", "status": "hired", "note": "Manthan Mungekar (FT)"}]}, "QA Lead": {"Grades 3-5": [{"name": "Reeta Chaudhary", "emp": "", "status": "hired", "note": "Reeta Chaudhary"}]}, "QA Team Member": {"Grades 3-5": [{"name": "Heena Rathod", "emp": "FT", "status": "hired", "note": "Heena Rathod  (FT)"}], "Grade 6-8": [{"name": "Sunny Wadhwa", "emp": "FL", "status": "hired", "note": "Sunny Wadhwa (FL)"}], "Grade 9-12": [{"name": "Lrngspace-Somya Shrivastava", "emp": "", "status": "hired", "note": "Lrngspace-Somya Shrivastava"}]}, "CPE (Lead)": {"Grades 3-5": [{"name": "Kathakali B", "emp": "FT", "status": "hired", "note": "Kathakali B (FT)"}], "Grade 6-8": [{"name": "Rohan Munshi", "emp": "FL", "status": "hired", "note": "Rohan Munshi (FL)"}], "Grade 9-12": [{"name": "Alakananda Mandal", "emp": "", "status": "hired", "note": "Alakananda Mandal"}]}, "CPE (Jr. – India)": {"Grades 3-5": [{"name": "Zoya Hasan", "emp": "", "status": "hired", "note": "Zoya Hasan"}], "Grade 6-8": [{"name": "Lavanya Khare", "emp": "", "status": "hired", "note": "Lavanya Khare"}], "Grade 9-12": [{"name": "Snehal Karkhile  4 Jun", "emp": "C", "status": "hired", "note": "Snehal Karkhile (C) 4 Jun"}, {"name": "2 PM shift", "emp": "", "status": "hired", "note": "2 PM shift"}]}}, "owner": {"name": "Kristy Engel", "group": "SRDC1 – ELA"}}, "Math": {"bands": ["Grades 3-5", "Grade 6-8", "Grade 9-12"], "roles": {"PMO Lead": {"Grade 6-8": [{"name": "Irene Fernandes", "emp": "FT", "status": "hired", "note": "Irene Fernandes(FT)"}]}, "Curriculum Lead": {"Grade 6-8": [{"name": "Tanya C   -", "emp": "FT", "status": "hired", "note": "Tanya C (FT)  -"}, {"name": "Mary Freeman  -", "emp": "FT", "status": "hired", "note": "Mary Freeman (FT) -"}]}, "PMG": {"Grades 3-5": [{"name": "Sagar Ajagaonkar", "emp": "FT", "status": "hired", "note": "Sagar Ajagaonkar(FT)"}, {"name": "Akshay Rao", "emp": "C", "status": "hired", "note": "Akshay Rao(C)"}], "Grade 6-8": [{"name": "Aditya Vikram Singh", "emp": "C", "status": "hired", "note": "Aditya Vikram Singh(C)"}, {"name": "Priya Singh Mansoor", "emp": "C", "status": "hired", "note": "Priya Singh Mansoor(C)"}], "Grade 9-12": [{"name": "Divya Nair", "emp": "C", "status": "hired", "note": "Divya Nair(C)"}, {"name": "Somya Pandey", "emp": "FT", "status": "hired", "note": "Somya Pandey(FT)"}, {"name": "Bhavya Malooka", "emp": "C", "status": "pending", "note": "Bhavya Malooka(C) - Night Onboarding WIP"}]}, "POD Leads": {"Grades 3-5": [{"name": "Leigh Hanke", "emp": "C", "status": "hired", "note": "Leigh Hanke(C)(40hrs)"}, {"name": "Zainab Mamdani", "emp": "C", "status": "hired", "note": "Zainab Mamdani(C) (30)"}], "Grade 6-8": [{"name": "Emily Marks Snyder", "emp": "C", "status": "hired", "note": "Emily Marks Snyder(C) (40)"}, {"name": "Sabrina McManus", "emp": "", "status": "pending", "note": "Sabrina McManus - WO Released - (20)"}], "Grade 9-12": [{"name": "Jeannette L", "emp": "C", "status": "hired", "note": "Jeannette L (C) (40)"}]}, "LDG Leads (IND)": {"Grades 3-5": [{"name": "Vidya Nadar", "emp": "FT", "status": "hired", "note": "Vidya Nadar (FT)"}, {"name": "Saniya Lakdawala", "emp": "C", "status": "hired", "note": "Saniya Lakdawala(C)"}, {"name": "Priya Uthappa", "emp": "C", "status": "hired", "note": "Priya Uthappa(C)"}, {"name": "Amritha Ashok", "emp": "FT", "status": "hired", "note": "Amritha Ashok(FT)"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD(Night Shift LDG)"}, {"name": "Sumana Ray", "emp": "FT", "status": "hired", "note": "Sumana Ray(FT)"}], "Grade 6-8": [{"name": "Jessica Dua Sony", "emp": "C", "status": "hired", "note": "Jessica Dua Sony (C)"}, {"name": "Sowmiya Karthikeyan", "emp": "C", "status": "hired", "note": "Sowmiya Karthikeyan (C)"}, {"name": "Tarun Agarwal", "emp": "C", "status": "hired", "note": "Tarun Agarwal(C)"}, {"name": "Aanchal Agrawal", "emp": "FT", "status": "hired", "note": "Aanchal Agrawal(FT)"}, {"name": "Debasmita Majumdar", "emp": "FT", "status": "hired", "note": "Debasmita Majumdar(FT)"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD(Night Shift LDG)"}], "Grade 9-12": [{"name": "Anjali B.", "emp": "FT", "status": "hired", "note": "Anjali B. (FT)"}, {"name": "Neeti Agrawal", "emp": "C", "status": "hired", "note": "Neeti Agrawal (C)"}, {"name": "Shubham Mishra", "emp": "C", "status": "hired", "note": "Shubham Mishra(C)"}, {"name": "Erina Joshi", "emp": "FT", "status": "hired", "note": "Erina Joshi(FT)"}]}, "LDG": {"Grades 3-5": [{"name": "Aditya Singh", "emp": "C", "status": "hired", "note": "Aditya Singh (C)"}, {"name": "Saumya Srivastava", "emp": "C", "status": "hired", "note": "Saumya Srivastava(C)"}], "Grade 6-8": [{"name": "Aastha Mishra", "emp": "C", "status": "hired", "note": "Aastha Mishra (C)"}, {"name": "Fahima Qamar", "emp": "C", "status": "hired", "note": "Fahima Qamar(C)"}], "Grade 9-12": [{"name": "Ankita Biradar", "emp": "C", "status": "hired", "note": "Ankita Biradar(C)"}, {"name": "Anjali Mulwani", "emp": "C", "status": "hired", "note": "Anjali Mulwani(C)"}]}, "SME US": {"Grades 3-5": [{"name": "Molly Latcham", "emp": "C", "status": "hired", "note": "Molly Latcham (C)(40)"}, {"name": "Cassondra N", "emp": "C", "status": "pending", "note": "Cassondra N -(C)(20) - Onboarding"}, {"name": "Karen O'Brien", "emp": "C", "status": "hired", "note": "Karen O'Brien(C)(20)"}, {"name": "Renee Davis", "emp": "C", "status": "hired", "note": "Renee Davis(C) (30)"}, {"name": "Maria Garcia", "emp": "C", "status": "hired", "note": "Maria Garcia(C)(30)"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}], "Grade 6-8": [{"name": "Alana Yeager", "emp": "C", "status": "hired", "note": "Alana Yeager(C) (20)"}, {"name": "Katelynn Desjeunes", "emp": "C", "status": "hired", "note": "Katelynn Desjeunes(C) (20)"}, {"name": "Nancy A. Hajduk", "emp": "C", "status": "hired", "note": "Nancy A. Hajduk(C) (20)"}, {"name": "Jessica Piombin", "emp": "C", "status": "hired", "note": "Jessica Piombin (C) (20)"}, {"name": "Sizhi Han", "emp": "C", "status": "hired", "note": "Sizhi Han (C) (40) - Offer POD lead"}, {"name": "Lola Runyan", "emp": "C", "status": "hired", "note": "Lola Runyan (C) (20)"}, {"name": "Joanne Dinovo", "emp": "C", "status": "hired", "note": "Joanne Dinovo(C)"}], "Grade 9-12": [{"name": "Amy Gill", "emp": "C", "status": "hired", "note": "Amy Gill (C) (30)"}, {"name": "Tonya Brock", "emp": "C", "status": "hired", "note": "Tonya Brock(C)(25)"}, {"name": "Mary Frances Glueck", "emp": "C", "status": "hired", "note": "Mary Frances Glueck(C)(30)"}, {"name": "Alexandria Schild", "emp": "C", "status": "hired", "note": "Alexandria Schild(C)"}, {"name": "Katherine Spark", "emp": "C", "status": "pending", "note": "Katherine Spark (C) - WO WIP"}, {"name": "Susan Edwards", "emp": "C", "status": "pending", "note": "Susan Edwards (C)- WO WIP"}, {"name": "Sheng Cheng", "emp": "C", "status": "pending", "note": "Sheng Cheng (C)- WO WIP"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}, {"name": "TBD", "emp": "", "status": "open", "note": "TBD"}]}, "SME IND": {"Grades 3-5": [{"name": "Jaya Mukkavili", "emp": "FT", "status": "hired", "note": "Jaya Mukkavili (FT)"}, {"name": "Gayathri", "emp": "FT", "status": "hired", "note": "Gayathri (FT)"}]}, "DSG Manager": {"Grades 3-5": [{"name": "Juee Pednekar", "emp": "", "status": "hired", "note": "Juee Pednekar"}]}, "DSG Lead / Sr.": {"Grades 3-5": [{"name": "Arulpriya", "emp": "STRAIVE", "status": "hired", "note": "Arulpriya (Straive)(FT)"}], "Grade 6-8": [{"name": "Vinay Kumar", "emp": "C", "status": "hired", "note": "Vinay Kumar(C)"}], "Grade 9-12": [{"name": "Divya Singh", "emp": "C", "status": "hired", "note": "Divya Singh(C)"}]}, "DSG Team Member": {"Grades 3-5": [{"name": "Priya Ray", "emp": "FT", "status": "hired", "note": "Priya Ray (FT)"}, {"name": "Pooja Mayekar", "emp": "FT", "status": "hired", "note": "Pooja Mayekar (FT)"}, {"name": "Venkatesh Shankar", "emp": "", "status": "hired", "note": "Venkatesh Shankar (FT Straive)"}]}, "DSG – Night Shift": {"Grades 3-5": [{"name": "Piyushkumar Vankar", "emp": "C", "status": "hired", "note": "Piyushkumar Vankar (C)"}]}, "DSG – Vendors": {"Grades 3-5": [{"name": "Raffiqi Vendor DSG 1", "emp": "", "status": "hired", "note": "Raffiqi Vendor DSG 1"}], "Grade 6-8": [{"name": "Raffiqi Vendor DSG 2", "emp": "", "status": "hired", "note": "Raffiqi Vendor DSG 2"}], "Grade 9-12": [{"name": "Raffiqi Vendor DSG 3", "emp": "", "status": "hired", "note": "Raffiqi Vendor DSG 3"}]}, "CTG Lead": {"Grades 3-5": [{"name": "Raffi Babu", "emp": "C", "status": "hired", "note": "Raffi Babu (Cloudy Course Freelancer)(C)"}]}, "CTG Junior": {"Grades 3-5": [{"name": "Senthil", "emp": "", "status": "hired", "note": "Senthil"}, {"name": "Vyshnavi P", "emp": "", "status": "hired", "note": "Vyshnavi P (Cloudy Course Freelancer)"}]}, "QA Lead": {"Grades 3-5": [{"name": "Surya Chander", "emp": "FT", "status": "hired", "note": "Surya Chander(FT)"}]}, "QA Team Member": {"Grades 3-5": [{"name": "Radhika Sakunia", "emp": "FT", "status": "hired", "note": "Radhika Sakunia(FT)"}], "Grade 6-8": [{"name": "Rajesh Pandit", "emp": "C", "status": "hired", "note": "Rajesh Pandit(C)"}], "Grade 9-12": [{"name": "Manisha Gupta", "emp": "C", "status": "hired", "note": "Manisha Gupta(C)"}]}, "CPE (Lead)": {"Grades 3-5": [{"name": "Abhinav Tiwari", "emp": "C", "status": "hired", "note": "Abhinav Tiwari(C)"}], "Grade 6-8": [{"name": "Rohini B", "emp": "FT", "status": "hired", "note": "Rohini B(FT)"}], "Grade 9-12": [{"name": "Pranay M", "emp": "FT", "status": "hired", "note": "Pranay M(FT)"}]}, "CPE (Jr. – India)": {"Grades 3-5": [{"name": "Rahul Verma", "emp": "C", "status": "hired", "note": "Rahul Verma (C)"}, {"name": "Marisa Strydom", "emp": "", "status": "pending", "note": "Marisa Strydom (FTE - SA) - POE Pending"}, {"name": "Jenifer Boshes", "emp": "FL", "status": "pending", "note": "Jenifer Boshes - US (FL) - Onboarding WIP"}], "Grade 6-8": [{"name": "Sachin Pandey", "emp": "C", "status": "hired", "note": "Sachin Pandey(C)"}, {"name": "Shikha Ashok", "emp": "", "status": "pending", "note": "Shikha Ashok - Onboarding (To be confirmed)"}, {"name": "Open RR", "emp": "", "status": "open", "note": "Open RR - 1"}], "Grade 9-12": [{"name": "Vichitra Goel", "emp": "C", "status": "hired", "note": "Vichitra Goel(C)"}, {"name": "Priyanka Kaushik", "emp": "", "status": "pending", "note": "Priyanka Kaushik - To be confirmed"}, {"name": "Open RR", "emp": "", "status": "open", "note": "Open RR - 1"}]}}, "owner": {"name": "Rachel Woolbright", "group": "SRDC2 – Math"}}, "Science": {"bands": ["Grades 3-5", "Grade 6-8", "Grade 9-12"], "roles": {"PMO Lead": {"Grade 6-8": [{"name": "Jalan Andrade", "emp": "FT", "status": "hired", "note": "Jalan Andrade (FT)"}, {"name": "Antima Gupta", "emp": "", "status": "hired", "note": "Antima Gupta( C)"}]}, "Curriculum Lead": {"Grade 6-8": [{"name": "Laura Moin", "emp": "FT", "status": "hired", "note": "Laura Moin(FT)"}, {"name": "Eric Cromwell", "emp": "C", "status": "hired", "note": "Eric Cromwell (C)"}, {"name": "Co-lead", "emp": "", "status": "hired", "note": "Co-lead"}, {"name": "Sandychris", "emp": "FT", "status": "hired", "note": "Sandychris(FT)"}]}, "PMG": {"Grades 3-5": [{"name": "Neil Dmello", "emp": "FT", "status": "hired", "note": "Neil Dmello (FT)"}, {"name": "Deepthi Bhasin", "emp": "C", "status": "hired", "note": "Deepthi Bhasin (C)"}], "Grade 6-8": [{"name": "Anjali Rihal", "emp": "C", "status": "hired", "note": "Anjali Rihal (C)"}, {"name": "Himanshi Chaudhury  Germany time zone", "emp": "C", "status": "hired", "note": "Himanshi Chaudhury (C) Germany time zone"}], "Grade 9-12": [{"name": "Pravin Patil", "emp": "FT", "status": "hired", "note": "Pravin Patil (FT) - Unwell and OOO since May 20th"}, {"name": "Prabhu Yadav", "emp": "FT", "status": "hired", "note": "Prabhu Yadav (FT)"}, {"name": "Sankha Ray  Night Shift PM starting June 1st", "emp": "C", "status": "hired", "note": "Sankha Ray (C) Night Shift PM starting June 1st"}]}, "POD Leads": {"Grades 3-5": [{"name": "Leigh Melia", "emp": "C", "status": "hired", "note": "Leigh Melia  (C) - 40hrs"}], "Grade 6-8": [{"name": "Katherine Kyler", "emp": "C", "status": "hired", "note": "Katherine Kyler (C) - 40hrs"}], "Grade 9-12": [{"name": "Susan Greer", "emp": "C", "status": "hired", "note": "Susan Greer(C) - 40hrs"}]}, "LDG Leads (IND)": {"Grades 3-5": [{"name": "Surabhi Pillai", "emp": "FT", "status": "hired", "note": "Surabhi Pillai (FT)(17 apr)"}, {"name": "Padmaja Polagani", "emp": "FT", "status": "hired", "note": "Padmaja Polagani (FT)"}, {"name": "Joys Irudayaraj", "emp": "FT", "status": "hired", "note": "Joys Irudayaraj (FT)"}], "Grade 6-8": [{"name": "Sourav Mandal", "emp": "FT", "status": "hired", "note": "Sourav Mandal (FT)"}, {"name": "Vani Sriram", "emp": "FT", "status": "hired", "note": "Vani Sriram (FT)"}], "Grade 9-12": [{"name": "Ayesha Parveen", "emp": "C", "status": "hired", "note": "Ayesha Parveen(C)"}, {"name": "Anjali Pillai", "emp": "FT", "status": "hired", "note": "Anjali Pillai (FT)"}]}, "LDG": {"Grades 3-5": [{"name": "Himanshi Kharb", "emp": "C", "status": "hired", "note": "Himanshi Kharb (C)"}, {"name": "Madhu Lisha", "emp": "C", "status": "hired", "note": "Madhu Lisha (C)"}, {"name": "Seema Raghani", "emp": "C", "status": "hired", "note": "Seema Raghani (C)"}, {"name": "Deepa Manoj", "emp": "C", "status": "hired", "note": "Deepa Manoj (C)"}, {"name": "Nagamani Bai", "emp": "FT", "status": "hired", "note": "Nagamani Bai (FT)"}, {"name": "Harshada Bhoi", "emp": "C", "status": "hired", "note": "Harshada Bhoi (C) - Training"}, {"name": "Shruti Sundar", "emp": "C", "status": "pending", "note": "Shruti Sundar (C) - Email Enablement"}], "Grade 6-8": [{"name": "Priyanka Arora", "emp": "", "status": "hired", "note": "Priyanka Arora (C -Date)"}, {"name": "Munira Jariwala", "emp": "C", "status": "hired", "note": "Munira Jariwala (C)"}, {"name": "Farhana Mohi Ud din", "emp": "C", "status": "hired", "note": "Farhana Mohi Ud din (C)"}], "Grade 9-12": [{"name": "Aditi Singh", "emp": "FT", "status": "hired", "note": "Aditi Singh(FT)"}, {"name": "Pavan Kumar", "emp": "FT", "status": "hired", "note": "Pavan Kumar (FT)"}, {"name": "Nageshwari Gopalakrishnan", "emp": "C", "status": "hired", "note": "Nageshwari Gopalakrishnan (C)"}]}, "SME US": {"Grades 3-5": [{"name": "Kimberly Mumaw", "emp": "", "status": "hired", "note": "Kimberly Mumaw (30Hrs)"}, {"name": "Rimma Hamalainen (40 hrs", "emp": "", "status": "hired", "note": "Rimma Hamalainen (40 hrs"}, {"name": "Shayla Panton", "emp": "", "status": "pending", "note": "Shayla Panton (30 hrs) - WO to be initiated on May 28th"}, {"name": "Esra Bhakit", "emp": "", "status": "hired", "note": "Esra Bhakit"}, {"name": "Kajol W", "emp": "", "status": "hired", "note": "Kajol W"}, {"name": "Michelle Chapman With SMT for registeration. SOW pending.", "emp": "", "status": "pending", "note": "Michelle Chapman With SMT for registeration. SOW pending. (20 hrs -Jun 8/ 40 hrs Jun 16 onwards)"}], "Grade 6-8": [{"name": "Ashante Thicklin", "emp": "", "status": "hired", "note": "Ashante Thicklin (20hrs)"}, {"name": "Brianna Wise", "emp": "", "status": "hired", "note": "Brianna Wise (20hrs)"}, {"name": "Kesha D. Williams", "emp": "", "status": "hired", "note": "Kesha D. Williams (20hrs)"}, {"name": "Courtney Tolson", "emp": "", "status": "hired", "note": "Courtney Tolson (40)"}], "Grade 9-12": [{"name": "Rosanna Satterfield", "emp": "", "status": "hired", "note": "Rosanna Satterfield(C ) - 20hrs"}, {"name": "Stephanie Leskinen", "emp": "", "status": "hired", "note": "Stephanie Leskinen (20Hrs)"}, {"name": "Staci R. Kwast", "emp": "", "status": "hired", "note": "Staci R. Kwast (30hrs)"}, {"name": "Samantha Hollinshead --from Jun 8", "emp": "", "status": "hired", "note": "Samantha Hollinshead (40hrs)--from Jun 8"}, {"name": "Gabriel Rocha  unavailable from June 13–17", "emp": "", "status": "hired", "note": "Gabriel Rocha (20-40hr) unavailable from June 13–17"}]}, "SME IND": {"Grades 3-5": [{"name": "Tauseef Rizvi", "emp": "FT", "status": "hired", "note": "Tauseef Rizvi(FT)"}]}, "DSG Manager": {"Grades 3-5": [{"name": "Juee Pednekar", "emp": "", "status": "hired", "note": "Juee Pednekar"}]}, "DSG Lead / Sr.": {"Grades 3-5": [{"name": "Vinay Rupe", "emp": "C", "status": "hired", "note": "Vinay Rupe (C)"}], "Grade 6-8": [{"name": "Ujjwala Jadhav", "emp": "C", "status": "hired", "note": "Ujjwala Jadhav (C)"}], "Grade 9-12": [{"name": "Atesh Jadhav", "emp": "FT", "status": "hired", "note": "Atesh Jadhav (FT)"}]}, "DSG Team Member": {"Grades 3-5": [{"name": "Nikhil Mhatre", "emp": "C", "status": "hired", "note": "Nikhil Mhatre (C)"}, {"name": "Mahesh Gawade", "emp": "FT", "status": "hired", "note": "Mahesh Gawade (FT)"}, {"name": "Soundhar Natesan", "emp": "", "status": "hired", "note": "Soundhar Natesan (FT Straive)"}, {"name": "Asif Khan Choudhury", "emp": "FTE", "status": "hired", "note": "Asif Khan Choudhury (FTE)"}]}, "DSG – Night Shift": {"Grades 3-5": [{"name": "Kamini Kothavade", "emp": "C", "status": "hired", "note": "Kamini Kothavade (C)"}]}, "CTG Lead": {"Grades 3-5": [{"name": "Vedang Wadsamudrakar", "emp": "C", "status": "hired", "note": "Vedang Wadsamudrakar (C)"}]}, "CTG Junior": {"Grades 3-5": [{"name": "Pratik Siddhawar", "emp": "C", "status": "hired", "note": "Pratik Siddhawar (C)"}, {"name": "Sejal Yadav", "emp": "C", "status": "hired", "note": "Sejal Yadav (C)"}]}, "QA Lead": {"Grades 3-5": [{"name": "Akram Khan", "emp": "FT", "status": "hired", "note": "Akram Khan (FT)"}]}, "QA Team Member": {"Grades 3-5": [{"name": "Nitin Nair", "emp": "FT", "status": "hired", "note": "Nitin Nair(FT)"}], "Grade 6-8": [{"name": "Manoj Kumar", "emp": "C", "status": "hired", "note": "Manoj Kumar (C)"}], "Grade 9-12": [{"name": "Sanjana Rawat", "emp": "C", "status": "hired", "note": "Sanjana Rawat(C)"}]}, "CPE (Lead)": {"Grades 3-5": [{"name": "Beena Rehman", "emp": "C", "status": "hired", "note": "Beena Rehman (Jafri) (C)"}], "Grade 6-8": [{"name": "Ayesha Shaikh", "emp": "C", "status": "pending", "note": "Ayesha Shaikh (C) - WO need to create"}], "Grade 9-12": [{"name": "Jothi Ganesh", "emp": "FT", "status": "hired", "note": "Jothi Ganesh(FT)"}]}, "CPE (Jr. – India)": {"Grades 3-5": [{"name": "Mitali Bhattacharya", "emp": "C", "status": "hired", "note": "Mitali Bhattacharya (C)"}], "Grade 6-8": [{"name": "Manisha Marandi", "emp": "FT", "status": "pending", "note": "Manisha Marandi (FT) - RR to be raised"}, {"name": "Paridhi Bagga", "emp": "C", "status": "pending", "note": "Paridhi Bagga (C) - WO initiated on May 26th"}, {"name": "Heather Gladhill", "emp": "C", "status": "pending", "note": "Heather Gladhill (C) - WO initiated on May 27th"}], "Grade 9-12": [{"name": "Aakanksha Pundir", "emp": "C", "status": "hired", "note": "Aakanksha Pundir (C)"}]}}, "owner": {"name": null, "group": "SRDC4 – Science & SST"}}, "SST": {"bands": ["Team A", "Team B", "Team C"], "roles": {"PMO Lead": {"Team B": [{"name": "Beena Joju", "emp": "FT", "status": "hired", "note": "Beena Joju (FT)"}, {"name": "Branson D'Souza", "emp": "FT", "status": "hired", "note": "Branson D'Souza(FT)"}]}, "Curriculum Lead": {"Team B": [{"name": "Amy Ernenwein", "emp": "FT", "status": "hired", "note": "Amy Ernenwein (FT)"}, {"name": "Payal Mukherjee", "emp": "FT", "status": "hired", "note": "Payal Mukherjee (FT)"}]}, "PMG": {"Team A": [{"name": "Debarati Gupta", "emp": "FT", "status": "hired", "note": "Debarati Gupta (FT)"}, {"name": "Harsimran Kaur", "emp": "C", "status": "hired", "note": "Harsimran Kaur (C)"}], "Team B": [{"name": "Karthik Kothari", "emp": "C", "status": "hired", "note": "Karthik Kothari(C)"}, {"name": "Sangeeta Michahial", "emp": "C", "status": "hired", "note": "Sangeeta Michahial (C)"}], "Team C": [{"name": "Debarati Gupta", "emp": "FT", "status": "hired", "note": "Debarati Gupta (FT)"}, {"name": "Night Shift PM", "emp": "", "status": "open", "note": "Night Shift PM (1) - Hiring"}]}, "POD Leads": {"Team A": [{"name": "Ken Udhe  40 hrs", "emp": "C", "status": "hired", "note": "Ken Udhe (C) 40 hrs"}], "Team B": [{"name": "Christopher Elmore", "emp": "C", "status": "hired", "note": "Christopher Elmore (C) - 40hrs"}, {"name": "Andrew Miles", "emp": "FT", "status": "hired", "note": "Andrew Miles (FT)"}], "Team C": [{"name": "Tim Munley", "emp": "FT", "status": "hired", "note": "Tim Munley  (FT)"}, {"name": "Brett Gover", "emp": "FT", "status": "hired", "note": "Brett Gover (FT)"}]}, "LDG Leads (IND)": {"Team A": [{"name": "Ankita Yadav", "emp": "FTE", "status": "hired", "note": "Ankita Yadav (FTE)"}], "Team B": [{"name": "Divya Abroal", "emp": "FTE", "status": "hired", "note": "Divya Abroal (FTE)"}], "Team C": [{"name": "Charlotte Thomas", "emp": "FTE", "status": "hired", "note": "Charlotte Thomas (FTE)"}]}, "LDG": {"Team A": [{"name": "Veenamrata Jain", "emp": "C", "status": "hired", "note": "Veenamrata Jain(C)"}, {"name": "Mahanti Vasanthi", "emp": "C", "status": "hired", "note": "Mahanti Vasanthi (C)"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}], "Team B": [{"name": "Archie J", "emp": "C", "status": "hired", "note": "Archie J (C)"}, {"name": "Shweta Kannan", "emp": "C", "status": "hired", "note": "Shweta Kannan(C)"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}], "Team C": [{"name": "Riya Kakkar C", "emp": "", "status": "hired", "note": "Riya Kakkar C"}, {"name": "Anupama Singh", "emp": "C", "status": "hired", "note": "Anupama Singh (C)"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}, {"name": "LDG Junior", "emp": "", "status": "open", "note": "LDG Junior (1) - Hiring"}]}, "SME US": {"Team A": [{"name": "Alyssa Wilson 25-30 hrs", "emp": "C", "status": "hired", "note": "Alyssa Wilson 25-30 hrs (C)"}, {"name": "Ashlee Villegas", "emp": "", "status": "hired", "note": "Ashlee Villegas (30hrs)"}, {"name": "Gregory Orapallo", "emp": "", "status": "hired", "note": "Gregory Orapallo (30Hrs)"}, {"name": "US SME", "emp": "", "status": "open", "note": "US SME (20 hrs)"}, {"name": "SME 1", "emp": "", "status": "open", "note": "SME 1 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}], "Team B": [{"name": "Adam Wallach  -20hrs", "emp": "C", "status": "pending", "note": "Adam Wallach (C) -20hrs"}, {"name": "John Perritano", "emp": "", "status": "pending", "note": "John Perritano (40hrs)"}, {"name": "Kathryn Lemieux", "emp": "", "status": "pending", "note": "Kathryn Lemieux (20hrs)"}, {"name": "SME 1", "emp": "", "status": "open", "note": "SME 1 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}], "Team C": [{"name": "TBD", "emp": "", "status": "open", "note": "TBD  (30hrs)"}, {"name": "Amy Bradfield", "emp": "", "status": "pending", "note": "Amy Bradfield (30)"}, {"name": "Carly Yezzi", "emp": "", "status": "pending", "note": "Carly Yezzi (20 hrs)"}, {"name": "SME 1", "emp": "", "status": "open", "note": "SME 1 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}, {"name": "SME 2", "emp": "", "status": "open", "note": "SME 2 (40 hrs)"}]}, "SME IND": {"Team A": [{"name": "Rubbal Gahrana", "emp": "FT", "status": "hired", "note": "Rubbal Gahrana (FT)"}]}, "DSG Manager": {"Team A": [{"name": "Juee Pednekar", "emp": "", "status": "hired", "note": "Juee Pednekar"}]}, "DSG Lead / Sr.": {"Team A": [{"name": "Asif Khan Chaudhary", "emp": "FT", "status": "hired", "note": "Asif Khan Chaudhary (FT)"}], "Team C": [{"name": "Tanvi Shinde", "emp": "C", "status": "hired", "note": "Tanvi Shinde (C)"}]}, "DSG Team Member": {"Team A": [{"name": "Prasad Shelar", "emp": "C", "status": "hired", "note": "Prasad Shelar (C)"}, {"name": "Ritu Joshi", "emp": "C", "status": "hired", "note": "Ritu Joshi (C)"}]}, "DSG – Night Shift": {"Team A": [{"name": "Santanu Karmarkar", "emp": "FT", "status": "hired", "note": "Santanu Karmarkar (FT)"}, {"name": "Piyushkumar Vankar", "emp": "C", "status": "hired", "note": "Piyushkumar Vankar (C)"}, {"name": "Kamini Kothavade", "emp": "C", "status": "hired", "note": "Kamini Kothavade (C)"}]}, "CTG Lead": {"Team A": [{"name": "Remya Murali", "emp": "FT", "status": "hired", "note": "Remya Murali (FT)"}]}, "CTG Junior": {"Team A": [{"name": "Ashutosh Kumar Singh", "emp": "C", "status": "pending", "note": "Ashutosh Kumar Singh (C)"}, {"name": "Swastik Biswas", "emp": "FT", "status": "pending", "note": "Swastik Biswas (FT)"}]}, "QA Lead": {"Team A": [{"name": "Aditya Harichandan", "emp": "FT", "status": "hired", "note": "Aditya Harichandan (FT)"}]}, "QA Team Member": {"Team A": [{"name": "Jeevedha M.", "emp": "FT", "status": "hired", "note": "Jeevedha M.(FT)"}], "Team B": [{"name": "Lakshay Singh", "emp": "FT", "status": "hired", "note": "Lakshay Singh (FT)"}], "Team C": [{"name": "Aamir Khan", "emp": "C", "status": "hired", "note": "Aamir Khan(C)"}]}, "CPE (Lead)": {"Team A": [{"name": "Utkantha Pal", "emp": "", "status": "hired", "note": "Utkantha Pal - FTE"}]}, "CPE (Jr. – India)": {"Team A": [{"name": "Anshu Singh", "emp": "C", "status": "hired", "note": "Anshu Singh (C)"}, {"name": "Rebekah Hawthrone  C", "emp": "", "status": "hired", "note": "Rebekah Hawthrone (US) C"}, {"name": "Aditi Kumari", "emp": "C", "status": "pending", "note": "Aditi Kumari (C)- Not onboarded yet"}]}}, "owner": {"name": null, "group": "SRDC4 – Science & SST"}}}, "states": {"SST": {"Team A": "KY, MI, IN, LO", "Team B": "VA, MI, TX", "Team C": "TN, WI"}}, "course": {"ELA": {"Grades 3-5": 90, "Grade 6-8": 90, "Grade 9-12": 46}, "Math": {"Grades 3-5": 90, "Grade 6-8": 90, "Grade 9-12": 74}, "Science": {"Grades 3-5": 37, "Grade 6-8": 41, "Grade 9-12": 36}}, "summary": {"hired": 253, "pending": 27, "open": 35}, "subjsum": {"ELA": {"hired": 67, "pending": 2, "open": 4}, "Math": {"hired": 74, "pending": 10, "open": 10}, "Science": {"hired": 69, "pending": 7, "open": 0}, "SST": {"hired": 43, "pending": 8, "open": 21}}, "rolesum": {"PMO Lead": {"hired": 6, "pending": 0, "open": 0}, "Curriculum Lead": {"hired": 10, "pending": 0, "open": 0}, "PMG": {"hired": 26, "pending": 1, "open": 1}, "POD Leads": {"hired": 15, "pending": 2, "open": 0}, "LDG Leads (IND)": {"hired": 32, "pending": 0, "open": 2}, "LDG": {"hired": 30, "pending": 1, "open": 6}, "SME US": {"hired": 48, "pending": 12, "open": 21}, "SME IND": {"hired": 5, "pending": 0, "open": 3}, "DSG Manager": {"hired": 4, "pending": 0, "open": 0}, "DSG Lead / Sr.": {"hired": 11, "pending": 0, "open": 0}, "DSG Team Member": {"hired": 11, "pending": 0, "open": 0}, "DSG – Night Shift": {"hired": 6, "pending": 0, "open": 0}, "DSG – Vendors": {"hired": 3, "pending": 0, "open": 0}, "CTG Lead": {"hired": 4, "pending": 0, "open": 0}, "CTG Junior": {"hired": 6, "pending": 2, "open": 0}, "QA Lead": {"hired": 4, "pending": 0, "open": 0}, "QA Team Member": {"hired": 12, "pending": 0, "open": 0}, "CPE (Lead)": {"hired": 9, "pending": 1, "open": 0}, "CPE (Jr. – India)": {"hired": 11, "pending": 8, "open": 2}}, "role_order": ["PMO Lead", "Curriculum Lead", "PMG", "POD Leads", "LDG Leads (IND)", "LDG", "SME US", "SME IND", "DSG Manager", "DSG Lead / Sr.", "DSG Team Member", "DSG – Night Shift", "DSG – Vendors", "CTG Lead", "CTG Junior", "QA Lead", "QA Team Member", "CPE (Lead)", "CPE (Jr. – India)"]};
+const REQ={"bands": [["Leadership & PM", ["PMO Lead", "Curriculum Lead", "PMG", "POD Leads"]], ["Learning Design (IND)", ["LDG Leads (IND)", "LDG Junior"]], ["Subject Matter Experts", ["SME US", "SME IND"]], ["Design & Content Tech", ["DSG Manager", "DSG Lead", "DSG Team Member", "CTG Lead", "CTG Junior"]], ["Quality & Copy Edit", ["QA Lead", "QA Team Member", "CPE (Lead)", "CPE (Jr.- India)"]]], "gg": ["Grades 3-5", "Grade 6-8", "Grade 9-12"], "data": {"ELA": {"Grades 3-5": {"PMO Lead": [1, 1], "Curriculum Lead": [1, 1], "PMG": [2, 2], "POD Leads": [1, 1], "LDG Leads (IND)": [2, 2], "LDG Junior": [2, 1], "SME US": [7, 6], "SME IND": [5, 2], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 6-8": {"PMO Lead": [1, 1], "Curriculum Lead": [1, 1], "PMG": [2, 2], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [2, 1], "SME US": [8, 7], "SME IND": [5, 2], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 9-12": {"PMO Lead": [1, 1], "Curriculum Lead": [1, 1], "PMG": [2, 2], "POD Leads": [2, 2], "LDG Leads (IND)": [1, 1], "LDG Junior": [2, 1], "SME US": [12, 12], "SME IND": [5, 2], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 0]}}, "Math": {"Grades 3-5": {"PMO Lead": [1, 1], "Curriculum Lead": [2, 2], "PMG": [2, 2], "POD Leads": [1, 1], "LDG Leads (IND)": [3, 3], "LDG Junior": [2, 2], "SME US": [8, 3], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 6-8": {"PMO Lead": [1, 1], "Curriculum Lead": [2, 2], "PMG": [2, 2], "POD Leads": [2, 2], "LDG Leads (IND)": [4, 4], "LDG Junior": [2, 2], "SME US": [8, 3], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 9-12": {"PMO Lead": [1, 1], "Curriculum Lead": [2, 2], "PMG": [2, 1], "POD Leads": [2, 2], "LDG Leads (IND)": [4, 4], "LDG Junior": [2, 2], "SME US": [8, 3], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}}, "Science": {"Grades 3-5": {"PMO Lead": [2, 2], "Curriculum Lead": [3, 3], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [3, 3], "SME US": [6, 3], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [2, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 6-8": {"PMO Lead": [2, 2], "Curriculum Lead": [3, 3], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [3, 2], "SME US": [4, 4], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [2, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 0]}, "Grade 9-12": {"PMO Lead": [2, 2], "Curriculum Lead": [3, 3], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [4, 4], "SME US": [3, 3], "SME IND": [1, 1], "DSG Manager": [1, 0], "DSG Lead": [2, 2], "DSG Team Member": [2, 2], "CTG Lead": [1, 1], "CTG Junior": [2, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}}, "Social Science": {"Grades 3-5": {"PMO Lead": [2, 2], "Curriculum Lead": [1, 1], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [1, 0], "SME US": [5, 3], "SME IND": [1, 0], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 6-8": {"PMO Lead": [2, 2], "Curriculum Lead": [1, 1], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [1, 0], "SME US": [5, 3], "SME IND": [1, 0], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}, "Grade 9-12": {"PMO Lead": [2, 2], "Curriculum Lead": [1, 1], "PMG": [1, 1], "POD Leads": [1, 1], "LDG Leads (IND)": [1, 1], "LDG Junior": [2, 2], "SME US": [5, 2], "SME IND": [1, 0], "DSG Manager": [1, 0], "DSG Lead": [1, 1], "DSG Team Member": [1, 1], "CTG Lead": [1, 1], "CTG Junior": [1, 1], "QA Lead": [1, 1], "QA Team Member": [1, 1], "CPE (Lead)": [1, 1], "CPE (Jr.- India)": [1, 1]}}}, "leads": {"ELA": {"curr": "Clara Evans", "pmo": "Tina Mittal"}, "Math": {"curr": "Tanya C / Mary Freeman", "pmo": "Irene Fernandes"}, "Science": {"curr": "Laura Moin (co: Sandychris)", "pmo": "Jalan Andrade"}, "Social Science": {"curr": "Amy Ernenwein / Payal Mukherjee", "pmo": "Beena Joju / Branson D'Souza"}}, "subjCls": {"ELA": "ela", "Math": "math", "Science": "sci", "Social Science": "ss"}, "totals": {"planned": 335, "actual": 272, "open": 63}};
+const RC={"planned": 335, "roster": 315, "extra": 9, "extra_rows": ["DSG – Night Shift", "DSG – Vendors"], "comparable": 306, "req_actual": 272};
+
+/* tabs */
+document.querySelectorAll('.topnav .tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.topnav .tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  t.classList.add('active'); document.getElementById(t.dataset.v).classList.add('on');
+  window.scrollTo(0,0);
+}));
+
+/* ---------- VIEW 1: org chart ---------- */
+function chip(p){const c=p.status==='hired'?'h':p.status==='pending'?'p':'o';
+  const e=p.emp?`<span class="e">${p.emp}</span>`:'';
+  const note=(p.note||p.name).replace(/"/g,'&quot;');
+  return `<span class="chip ${c}" title="${note}">${p.name||'(to hire)'}${e}</span>`;}
+function people(a){return (a||[]).map(chip).join('');}
+
+(function(){const S=ORG.summary,t=S.hired+S.pending+S.open;
+ const k=[['t','Total positions',t,'leadership shown separately'],
+  ['h','In seat',S.hired,Math.round(S.hired/t*100)+'% of POD roster'],
+  ['p','Onboarding',S.pending,'WO/SOW/RR/POE pending'],
+  ['o','Open — to hire',S.open,'TBD / hiring slots']];
+ document.getElementById('kpis1').innerHTML=k.map(([c,l,v,s])=>
+  `<div class="kpi ${c}"><div class="bar"></div><div class="kl">${l}</div><div class="kv">${v}</div><div class="ks">${s}</div></div>`).join('');})();
+
+document.getElementById('vp').innerHTML=
+  `<div class="card vp"><div class="ttl">${ORG.leadership.vp.title}</div>`+
+  ORG.leadership.vp.people.map(p=>`<div class="nm">${p.name}</div>`).join('')+`</div>`;
+
+document.getElementById('tier2').innerHTML=ORG.leadership.tier2.map(l=>{
+  let h=`<div class="card"><div class="ttl">${l.title}</div><div class="ppl">${people(l.people)}</div>`;
+  if(l.children)h+=`<div class="child-wrap">`+l.children.map(ch=>
+    `<div class="child"><div class="ct">${ch.title}</div><div class="ppl">${people(ch.people)}</div></div>`).join('')+`</div>`;
+  return h+`</div>`;}).join('');
+
+document.getElementById('program').innerHTML=ORG.leadership.program.map(l=>
+  `<div class="card prog"><div class="ttl">${l.title}</div><div class="ppl">${people(l.people)}</div></div>`).join('');
+
+const POD_ORDER=['ELA','Math','Science','SST'];
+document.getElementById('pods').innerHTML=POD_ORDER.map(subj=>{
+  const pod=ORG.pods[subj],s=ORG.subjsum[subj],roles=ORG.role_order.filter(r=>pod.roles[r]);
+  const own=pod.owner&&pod.owner.name?`<span class="owner">Owner: <b>${pod.owner.name}</b> · ${pod.owner.group}</span>`
+       :`<span class="owner">${pod.owner?pod.owner.group:''}</span>`;
+  const body=roles.map(role=>{
+    let cnt={hired:0,pending:0,open:0};
+    const bands=pod.bands.map(b=>{
+      const ppl=(pod.roles[role][b])||[];
+      const cc=(ORG.course[subj]&&ORG.course[subj][b])?ORG.course[subj][b]+' courses':((ORG.states[subj]&&ORG.states[subj][b])?ORG.states[subj][b]:'');
+      if(!ppl.length)return `<div class="band"><div class="bn"><span>${b}</span><span class="st">${cc}</span></div><div class="chips" style="color:var(--ink-4);font-size:11px">—</div></div>`;
+      ppl.forEach(p=>cnt[p.status]++);
+      return `<div class="band"><div class="bn"><span>${b}</span><span class="st">${cc}</span></div><div class="chips">${people(ppl)}</div></div>`;
+    }).join('');
+    return `<div class="role-block"><div class="role-name">${role}
+      <span class="rc">${cnt.hired} in${cnt.pending?' · '+cnt.pending+' onb':''}${cnt.open?' · '+cnt.open+' open':''}</span></div>
+      <div class="bands">${bands}</div></div>`;
+  }).join('');
+  return `<div class="pod" data-subj="${subj}"><div class="pod-h">
+     <span class="caret">&#9656;</span><span class="subj-chip ${subj}">${subj}</span>${own}
+     <span class="pod-stat"><span class="statpill h">${s.hired} in seat</span>
+       ${s.pending?`<span class="statpill p">${s.pending} onboarding</span>`:''}
+       ${s.open?`<span class="statpill o">${s.open} open</span>`:'<span class="statpill h">staffed</span>'}</span></div>
+     <div class="pod-body">${body}</div></div>`;
+}).join('');
+document.querySelectorAll('#pods .pod-h').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+document.getElementById('expand1').onclick=()=>document.querySelectorAll('#pods .pod').forEach(p=>p.classList.add('open'));
+document.getElementById('collapse1').onclick=()=>document.querySelectorAll('#pods .pod').forEach(p=>p.classList.remove('open'));
+document.querySelector('#pods .pod').classList.add('open');
+
+(function(){const rows=ORG.role_order.filter(r=>ORG.rolesum[r]).map(r=>({r,...ORG.rolesum[r]})).filter(x=>x.hired+x.pending+x.open>0);
+ let h=`<thead><tr><th>Role</th><th style="text-align:right">In seat</th><th style="text-align:right">Onboarding</th><th style="text-align:right">Open</th><th style="text-align:right">Total</th></tr></thead><tbody>`;
+ h+=rows.map(x=>`<tr><td style="font-weight:600">${x.r}</td><td class="n gn">${x.hired}</td><td class="n pn">${x.pending||'—'}</td><td class="n on">${x.open||'—'}</td><td class="n">${x.hired+x.pending+x.open}</td></tr>`).join('');
+ const S=ORG.summary;
+ h+=`<tr style="background:#F2F6FC"><td style="font-weight:700">All POD roles</td><td class="n gn">${S.hired}</td><td class="n pn">${S.pending}</td><td class="n on">${S.open}</td><td class="n">${S.hired+S.pending+S.open}</td></tr></tbody>`;
+ document.getElementById('roletable').innerHTML=h;})();
+
+/* ---------- VIEW 2: staffing ---------- */
+const SC=REQ.subjCls, GG=REQ.gg, BANDS=REQ.bands, DATA=REQ.data, LEADS=REQ.leads, SUBJECTS=Object.keys(DATA);
+function ggTot(roles){let p=0,a=0;for(const k in roles){p+=roles[k][0];a+=roles[k][1];}return{p,a,open:p-a};}
+function subjTot(s){let p=0,a=0;for(const g of GG){const t=ggTot(DATA[s][g]);p+=t.p;a+=t.a;}return{p,a,open:p-a};}
+function pillc(o,p){if(o<=0)return'pill-good';if(o>=p)return'pill-risk';return'pill-warn';}
+
+(function(){const T=REQ.totals,rate=Math.round(T.actual/T.planned*100);
+ const k=[['t','Planned positions',T.planned,'budget / target headcount'],
+  ['h','Filled',T.actual,rate+'% of plan'],['o','Open',T.open,(100-rate)+'% gap'],
+  ['b','Subjects',SUBJECTS.length,'ELA · Math · Science · SST'],['t','Grade bands','3','per subject']];
+ document.getElementById('kpis2').innerHTML=k.map(([c,l,v,s])=>
+  `<div class="kpi ${c}"><div class="bar"></div><div class="kl">${l}</div><div class="kv">${v}</div><div class="ks">${s}</div></div>`).join('');})();
+
+(function(){
+ document.getElementById('recon').innerHTML=
+  `<h3>Why "Planned 335" (this tab) ≠ "Total ${RC.roster}" (org chart tab)</h3>
+   They come from two different sheets. <b>335</b> is the <b>planned / budgeted</b> headcount here; the org-chart tab counts the
+   <b>actual names + open slots</b> written into the live roster.
+   <div class="recnum">
+     <span class="rb">Planned (this tab)<b>${RC.planned}</b></span>
+     <span class="rb">Org-chart roster<b>${RC.roster}</b></span>
+     <span class="rb">…of which Night-Shift + Vendors<b>${RC.extra}</b></span>
+     <span class="rb">Comparable roster<b>${RC.comparable}</b></span>
+   </div>
+   The roster carries <b>${RC.extra}</b> people the plan doesn't budget (DSG Night Shift + Vendors). Beyond that, the plan counts
+   <b>positions per grade band</b> while the org chart lists <b>actual individuals</b>: shared/central roles (DSG Manager, QA Lead,
+   SME-IND) show fewer names because one person covers several bands, while contractor-heavy teams (PMG, LDG, POD Leads) show more.
+   Both are correct — one is the budget, the other the live roster.`;
+})();
+
+document.getElementById('subjects').innerHTML=SUBJECTS.map(subj=>{
+  const cls=SC[subj],st=subjTot(subj),rate=Math.round(st.a/st.p*100),L=LEADS[subj]||{};
+  const ggs=GG.map(g=>{const t=ggTot(DATA[subj][g]),r=Math.round(t.a/t.p*100),pc=pillc(t.open,t.p);
+    const bands=BANDS.map(([title,list])=>{
+      const items=list.filter(rr=>DATA[subj][g][rr]).map(rr=>{const[p,a]=DATA[subj][g][rr],o=p-a;
+        let cl='full',tag='';if(a<=0&&p>0){cl='open2';tag='<span class="tag">open</span>';}else if(o>0){cl='partial';tag=`<span class="tag">${o} open</span>`;}
+        return `<span class="role2 ${cl}"><span>${rr}</span><span class="rc2">${a}/${p}</span>${tag}</span>`;}).join('');
+      return items?`<div class="rb-band"><div class="rb-title">${title}</div><div class="roles2">${items}</div></div>`:'';}).join('');
+    return `<div class="gg"><div class="gg-head"><span class="caret">&#9656;</span><span class="gg-name">${g}</span>
+      <span class="gg-gauge"><span class="fill" style="width:${r}%"></span></span>
+      <span class="gg-counts"><b>${t.a}/${t.p}</b> filled</span>
+      <span class="gg-open ${pc}">${t.open>0?t.open+' open':'complete'}</span></div>
+      <div class="gg-body">${bands}</div></div>`;}).join('');
+  return `<div class="subject"><div class="subj-head"><span class="subj-chip ${subj==='Social Science'?'SST':subj}" >${subj}</span>
+    <span class="subj-leads">Curriculum: <b>${L.curr||'—'}</b><br>PMO/DM: <b>${L.pmo||'—'}</b></span>
+    <span class="subj-stat"><div class="big">${st.a}/${st.p}</div><div class="lbl">filled · ${rate}%</div>
+      <span class="openpill ${pillc(st.open,st.p)}">${st.open} open</span></span></div>
+    <div class="ggwrap">${ggs}</div></div>`;
+}).join('');
+document.querySelectorAll('#subjects .gg-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+document.getElementById('expand2').onclick=()=>document.querySelectorAll('#subjects .gg').forEach(g=>g.classList.add('open'));
+document.getElementById('collapse2').onclick=()=>document.querySelectorAll('#subjects .gg').forEach(g=>g.classList.remove('open'));
+
+(function(){const rows=[];SUBJECTS.forEach(subj=>{const agg={};
+   GG.forEach(g=>{const roles=DATA[subj][g];for(const r in roles){const[p,a]=roles[r];if(p-a>0){if(!agg[r])agg[r]={p:0,a:0};agg[r].p+=p;agg[r].a+=a;}}});
+   Object.keys(agg).forEach(r=>rows.push({subj,r,p:agg[r].p,a:agg[r].a,o:agg[r].p-agg[r].a}));});
+ rows.sort((x,y)=>y.o-x.o||x.subj.localeCompare(y.subj));
+ const tot=rows.reduce((s,r)=>s+r.o,0);
+ let h=`<thead><tr><th>Subject</th><th>Role</th><th style="text-align:right">Planned</th><th style="text-align:right">Filled</th><th style="text-align:right">Open</th></tr></thead><tbody>`;
+ h+=rows.map(r=>`<tr><td><span class="subj-chip ${SC[r.subj]==='ss'?'SST':(r.subj==='Social Science'?'SST':r.subj)}" style="font-size:11px;padding:2px 8px">${r.subj}</span></td><td style="font-weight:600">${r.r}</td><td class="n">${r.p}</td><td class="n">${r.a}</td><td class="n on">${r.o}</td></tr>`).join('');
+ h+=`<tr style="background:#F2F6FC"><td colspan="4" style="font-weight:700">Total open positions</td><td class="n on">${tot}</td></tr></tbody>`;
+ document.getElementById('gaptable2').innerHTML=h;})();
+
+/* ---------- Open-positions summary + mix-and-match pivot ---------- */
+(function(){
+  // build open records from requirement data: open = planned - actual (>0)
+  const recs=[];
+  SUBJECTS.forEach(subj=>GG.forEach(band=>{const roles=DATA[subj][band];
+    for(const role in roles){const[p,a]=roles[role];const o=p-a;if(o>0)recs.push({subj,band,role,open:o});}}));
+  const grand=recs.reduce((s,r)=>s+r.open,0);
+
+  const DIMS={'Subject':r=>r.subj,'Role':r=>r.role,'Grade band':r=>r.band};
+  const ORDER={'Subject':SUBJECTS,'Grade band':GG};
+  function keysFor(dim){
+    if(ORDER[dim])return ORDER[dim].filter(k=>recs.some(r=>DIMS[dim](r)===k));
+    // Role: order by total open desc
+    const tot={};recs.forEach(r=>tot[r.role]=(tot[r.role]||0)+r.open);
+    return Object.keys(tot).sort((x,y)=>tot[y]-tot[x]);
+  }
+  function sumBy(dim){const m={};recs.forEach(r=>{const k=DIMS[dim](r);m[k]=(m[k]||0)+r.open;});return m;}
+
+  // summary cards
+  const bySubj=sumBy('Subject'),byRole=sumBy('Role'),byBand=sumBy('Grade band');
+  const subjLine=SUBJECTS.map(s=>`${s==='Social Science'?'Soc Sci':s} <b>${bySubj[s]||0}</b>`).join(' · ');
+  const topRoles=Object.entries(byRole).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([r,v])=>`${r} <b>${v}</b>`).join(' · ');
+  const bandLine=GG.map(g=>`${g.replace('Grades ','').replace('Grade ','')} <b>${byBand[g]||0}</b>`).join(' · ');
+  document.getElementById('openSummary').innerHTML=
+    `<div class="os-card big"><div class="l">Open positions</div><div class="v"><span class="num">${grand}</span> <small>of 335 planned · 18.8% gap</small></div></div>
+     <div class="os-card"><div class="l">By subject</div><div class="v" style="font-weight:500">${subjLine}</div></div>
+     <div class="os-card"><div class="l">Most-affected roles</div><div class="v" style="font-weight:500">${topRoles}</div></div>
+     <div class="os-card"><div class="l">By grade band</div><div class="v" style="font-weight:500">${bandLine}</div></div>`;
+
+  const rowSel=document.getElementById('rowDim'),colSel=document.getElementById('colDim');
+  function render(){
+    let rd=rowSel.value, cd=colSel.value;
+    if(rd===cd){ // avoid identical dims: pick first different option for columns
+      const alt=['Subject','Grade band','Role'].find(d=>d!==rd); cd=alt;
+      colSel.value=cd;
+    }
+    const rk=keysFor(rd), ck=keysFor(cd);
+    const cell={}, rtot={}, ctot={};
+    recs.forEach(r=>{const a=DIMS[rd](r),b=DIMS[cd](r);
+      cell[a+'|'+b]=(cell[a+'|'+b]||0)+r.open; rtot[a]=(rtot[a]||0)+r.open; ctot[b]=(ctot[b]||0)+r.open;});
+    let max=0;rk.forEach(a=>ck.forEach(b=>{max=Math.max(max,cell[a+'|'+b]||0);}));
+    // sort rows by row total desc (keeps Role useful; Subject/Grade keep natural order if dim has ORDER)
+    const rkSorted=ORDER[rd]?rk:rk.slice().sort((x,y)=>(rtot[y]||0)-(rtot[x]||0));
+    let h=`<thead><tr><th>${rd} &darr; / ${cd} &rarr;</th>`+ck.map(b=>`<th>${b.replace('Social Science','Soc Sci')}</th>`).join('')+`<th class="tot">Total</th></tr></thead><tbody>`;
+    rkSorted.forEach(a=>{
+      h+=`<tr><th>${a.replace('Social Science','Soc Sci')}</th>`;
+      ck.forEach(b=>{const v=cell[a+'|'+b]||0;
+        if(!v){h+=`<td class="zero">·</td>`;return;}
+        const al=0.10+0.62*(v/max); const tc=al>0.46?'#fff':'var(--ink)';
+        h+=`<td style="background:rgba(176,32,42,${al.toFixed(3)});color:${tc}"><span class="cellv">${v}</span></td>`;});
+      h+=`<td class="tot">${rtot[a]||0}</td></tr>`;
+    });
+    h+=`<tr class="totrow"><th>Total</th>`+ck.map(b=>`<td>${ctot[b]||0}</td>`).join('')+`<td>${grand}</td></tr></tbody>`;
+    document.getElementById('matrix').innerHTML=h;
+  }
+  rowSel.addEventListener('change',render); colSel.addEventListener('change',render);
+  render();
+})();
+</script></body></html>

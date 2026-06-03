@@ -2510,6 +2510,248 @@ body.trackers-active #livedpFilterBar { display: none !important; }
 .gst-controls button:hover { background: var(--bg); }
 /* ============== END GOOGLE SHEET TRACKERS TAB ============== */
 
+
+/* ============== WEEKLY DELIVERY VIEW (May 21 + Live Delivery Plan) ============== */
+.wdv-wrap {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.wdv-header {
+  display: grid;
+  grid-template-columns: 200px 1fr 60px 80px 30px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(180deg, #f7f9ff 0%, #f0f3f9 100%);
+  border-bottom: 2px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+}
+.wdv-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 60px 80px 30px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f3f9;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  user-select: none;
+}
+.wdv-row:hover { background: #f7f9ff; }
+.wdv-row.wdv-open { background: #eef3fa; }
+.wdv-row.wdv-future { opacity: 0.78; }
+.wdv-row.wdv-current { background: rgba(239,97,0,0.04); }
+.wdv-row.wdv-current.wdv-open { background: rgba(239,97,0,0.06); }
+.wdv-row.wdv-current::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--stride-orange);
+}
+.wdv-row { position: relative; }
+
+.wdv-week {
+  font-weight: 700;
+  color: var(--stride-navy);
+  font-size: 13.5px;
+}
+.wdv-week .wdv-week-sub {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.wdv-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.wdv-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.wdv-pill .wdv-pill-ct { font-weight: 700; font-variant-numeric: tabular-nums; }
+.wdv-pill.math { background: var(--subj-math-bg, #DCE7F8); color: var(--stride-blue); }
+.wdv-pill.ela  { background: var(--subj-ela-bg, #DDE7F2);  color: var(--stride-navy); }
+.wdv-pill.sci  { background: var(--subj-sci-bg, #D8EAF7);  color: var(--stride-blue-med); }
+.wdv-pill.ss   { background: var(--subj-ss-bg, #FCE6CC);   color: #A04400; }
+.wdv-pill.other{ background: var(--bg);                    color: var(--ink-3); }
+.wdv-total {
+  text-align: right;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--stride-navy);
+  font-variant-numeric: tabular-nums;
+}
+.wdv-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 10px;
+}
+.wdv-status-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+}
+.wdv-status-bar .done { background: var(--good); }
+.wdv-status-bar .wip  { background: #f0a04b; }
+.wdv-status-bar .yts  { background: #c4c9d2; }
+.wdv-caret {
+  color: var(--ink-3);
+  font-size: 13px;
+  transition: transform 0.18s ease;
+  text-align: center;
+}
+.wdv-row.wdv-open .wdv-caret { transform: rotate(90deg); color: var(--stride-blue); }
+
+.wdv-body {
+  display: none;
+  background: white;
+  padding: 10px 16px 14px 32px;
+  border-bottom: 1px solid var(--line);
+  border-top: 1px dashed var(--line);
+}
+.wdv-row.wdv-open + .wdv-body { display: block; }
+
+.wdv-courses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wdv-courses-table th {
+  background: var(--bg);
+  color: var(--ink-3);
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.wdv-courses-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #f0f3f9;
+  vertical-align: middle;
+}
+.wdv-courses-table tr:last-child td { border-bottom: none; }
+.wdv-courses-table tr:hover td { background: #fafbff; }
+.wdv-subj-chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.wdv-subj-chip.math { background: var(--subj-math-bg); color: var(--stride-blue); }
+.wdv-subj-chip.ela  { background: var(--subj-ela-bg);  color: var(--stride-navy); }
+.wdv-subj-chip.sci  { background: var(--subj-sci-bg);  color: var(--stride-blue-med); }
+.wdv-subj-chip.ss   { background: var(--subj-ss-bg);   color: #A04400; }
+.wdv-ms-cell { white-space: nowrap; }
+.wdv-ms-date { font-weight: 600; color: var(--ink-1); font-size: 11.5px; }
+.wdv-ms-status {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.wdv-ms-status.done     { background: var(--good-bg);  color: var(--good); }
+.wdv-ms-status.wip      { background: #fff5e6;         color: #c2671d; }
+.wdv-ms-status.delayed  { background: #fbeaec;         color: var(--risk); }
+.wdv-ms-status.fixes    { background: #fce4e8;         color: #a71d2a; }
+.wdv-ms-status.blocked  { background: var(--risk-bg);  color: var(--risk); }
+.wdv-ms-status.yts      { background: var(--bg);       color: var(--ink-3); }
+.wdv-ms-status.na       { background: #ececec;         color: #777; }
+.wdv-ms-empty { color: var(--ink-4); }
+
+.wdv-empty {
+  padding: 32px 20px;
+  color: var(--ink-3);
+  text-align: center;
+  font-size: 13px;
+}
+@media (max-width: 720px) {
+  .wdv-header, .wdv-row {
+    grid-template-columns: 1fr 60px 30px;
+    grid-template-areas: "week total caret" "pills pills pills";
+    row-gap: 6px;
+  }
+  .wdv-week { grid-area: week; }
+  .wdv-pills { grid-area: pills; }
+  .wdv-total { grid-area: total; }
+  .wdv-caret { grid-area: caret; }
+  .wdv-status-bar { display: none; }
+}
+.wdv-minifilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: end;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
+  border: 1px solid var(--stride-blue-light);
+  border-left: 4px solid var(--stride-blue);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.wdv-minifilter .wdv-mf-field {
+  display: flex; flex-direction: column; gap: 3px;
+}
+.wdv-minifilter label {
+  font-size: 10.5px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.wdv-minifilter select {
+  padding: 6px 28px 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  font-size: 13px;
+  color: var(--ink-1);
+  min-width: 200px;
+}
+.wdv-minifilter .wdv-mf-hint {
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-left: auto;
+  align-self: center;
+  font-style: italic;
+}
+.wdv-minifilter .wdv-mf-reset {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.wdv-minifilter .wdv-mf-reset:hover { background: var(--bg); border-color: var(--ink-3); }
+/* ============== END WEEKLY DELIVERY VIEW ============== */
+
 .insights-section { margin-bottom: 36px; }
 .insights-section h3 {
   font-family: 'Space Grotesk', sans-serif;
@@ -3317,6 +3559,12 @@ body.trackers-active #livedpFilterBar { display: none !important; }
   <div class="section-eyebrow">By Month &middot; Subject Breakdown</div>
   <div class="month-summary-row" id="v2-deliveryMonthCards"></div>
 
+  <div class="section-eyebrow">Weekly Subjects Delivering <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(click any week to see M1 / M3 / M7 dates and status per course)</span></div>
+  <div class="card">
+    <p class="card-sub">Courses bucketed by the week containing their <strong>Deliver and SO</strong> date. Click a week row to expand: each course shows the LearningMate-owned milestones &mdash; <strong>Completed in Brightspot</strong> (M1), <strong>BSP Course Validation</strong> (M3), and <strong>Deliver and SO</strong> (M7) &mdash; with each milestone's effective date and current status.</p>
+    <div class="wdv-wrap" id="v2-wdv"></div>
+  </div>
+
   <!-- Master vs Derivatives breakdown (filter-aware) -->
   <div class="section-eyebrow">Master vs Derivatives Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(reflects current filters)</span></div>
   <div class="card v2-mvd-host">
@@ -3441,6 +3689,38 @@ body.trackers-active #livedpFilterBar { display: none !important; }
 
   <div class="section-eyebrow">By Month &middot; Subject Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(buckets by baseline month; shows delivered vs forecast within each)</span></div>
   <div class="month-summary-row" id="livedp-monthCards"></div>
+
+  <div class="section-eyebrow">Weekly Subjects Delivering <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(click any week to see M1 / M3 / M7 dates and status per course)</span></div>
+  <div class="card">
+    <p class="card-sub">Live forecast bucketed by week. Click any week to expand and see, per course, the LearningMate-owned milestones &mdash; <strong>Completed in Brightspot</strong> (M1), <strong>BSP Course Validation</strong> (M3), and <strong>Deliver and SO</strong> (M7) &mdash; with each milestone's effective date and current status.</p>
+
+    <!-- Mini filter specific to this widget: show only courses whose chosen
+         milestone is at the chosen status. -->
+    <div class="wdv-minifilter">
+      <div class="wdv-mf-field">
+        <label for="livedp-wdv-stage">Stage</label>
+        <select id="livedp-wdv-stage">
+          <option value="">Any milestone</option>
+          <option value="m1">M1 &mdash; Completed in Brightspot</option>
+          <option value="m3">M3 &mdash; BSP Course Validation</option>
+          <option value="m7" selected>M7 &mdash; Deliver and SO</option>
+        </select>
+      </div>
+      <div class="wdv-mf-field">
+        <label for="livedp-wdv-status">Status</label>
+        <select id="livedp-wdv-status">
+          <option value="" selected>All</option>
+          <option value="completed">Completed</option>
+          <option value="wip">WIP</option>
+          <option value="yts">YTS</option>
+        </select>
+      </div>
+      <button class="wdv-mf-reset" id="livedp-wdv-reset" title="Reset to Any stage / All statuses">Reset filter</button>
+      <span class="wdv-mf-hint">Filters this widget only.</span>
+    </div>
+
+    <div class="wdv-wrap" id="livedp-wdv"></div>
+  </div>
 
   <div class="section-eyebrow">Daily Calendars <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(effective date; +N/-N badges show shift from baseline)</span></div>
   <div class="card">
@@ -7156,12 +7436,32 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
   function renderV2All() {
     try { renderHeadlineV2(); } catch(e) { console.error('v2 headline:', e.message); }
     try { renderMonthCardsV2(); } catch(e) { console.error('v2 cards:', e.message); }
+    try { renderWeeklyV2Wrapper(); } catch(e) { console.error('v2 weekly:', e.message); }
     try { renderCalendarsV2(); } catch(e) { console.error('v2 cals:', e.message); }
     try { renderAllCrosstabsV2(); } catch(e) { console.error('v2 ct:', e.message); }
     try { renderScheduleV2(); } catch(e) { console.error('v2 sched:', e.message); }
     try { renderMvDBreakdownV2(); } catch(e) { console.error('v2 mvd:', e.message); }
     try { renderRollupDistinct(); } catch(e) { console.error('v2 distinct:', e.message); }
     try { renderRollupMaster(); } catch(e) { console.error('v2 master:', e.message); }
+  }
+
+  // Adapter: re-shapes the V2 series (which uses short keys like c.s/c.cn) into
+  // the long-key shape that the shared renderWeeklyV2 expects.
+  function renderWeeklyV2Wrapper() {
+    if (typeof window.renderWeeklyV2 !== 'function') return;
+    const series = computeDeliverySeriesV2();
+    const massaged = series.map(function(e) {
+      return {
+        subject: e.subject,
+        state: e.state,
+        grade: e.grade,
+        baseCourseName: (e.course && e.course.cn) || '',
+        focusName: (e.course && e.course.fn) || '',
+        p: e.course && e.course.p,
+        a: e.course && e.course.a,
+      };
+    });
+    window.renderWeeklyV2(massaged);
   }
 
   function bindV2() {
@@ -7512,7 +7812,7 @@ function renderLiveTopRisks(risks) {
     document.getElementById('liveRiskTable').innerHTML = '<p style="color:var(--ink-3);padding:12px;">No courses are drifting more than 3 days. Portfolio is on track.</p>';
     return;
   }
-  let html = '<table class="live-risk-table"><thead><tr><th>#</th><th>Subject</th><th>Grade</th><th>State</th><th>Course</th><th>RAG</th><th class="drift-cell">Drift (days)</th></tr></thead><tbody>';
+  let html = '<table class="live-risk-table"><thead><tr><th>#</th><th>Subject</th><th>Grade</th><th>State</th><th>Focus Course</th><th>RAG</th><th class="drift-cell">Drift (days)</th></tr></thead><tbody>';
   risks.forEach((r, idx) => {
     const ragColor = r.courseRag === 'Red' ? 'var(--risk)'
                     : r.courseRag === 'Yellow' ? 'var(--warn)'
@@ -7521,7 +7821,9 @@ function renderLiveTopRisks(risks) {
                     : r.courseRag === 'Yellow' ? 'var(--warn-bg)'
                     : r.courseRag === 'Green' ? 'var(--good-bg)' : 'var(--bg)';
     const driftCls = (r.courseDrift || 0) > 3 ? ' high' : '';
-    const courseName = (r.baseCourseName || r.courseName || r.cn || '');
+    // Focus Course Name is now the primary identifier; base course code
+    // stays as a small subtitle.
+    const courseName = (r.focusName || r.focusCourseName || r.baseCourseName || r.courseName || r.cn || '');
     const courseCode = (r.baseCourseCode || r.courseCode || r.cc || '');
     const courseCell = courseName
       ? '<strong>' + escHtml(courseName) + '</strong>' + (courseCode ? '<div style="color:var(--ink-3);font-size:11px">' + escHtml(courseCode) + '</div>' : '')
@@ -7823,8 +8125,8 @@ function renderLiveDrillList(courses, grouping) {
             '<th>State</th>' +
             '<th>Grade</th>' +
             '<th>Sem A/B</th>' +
-            '<th>Course</th>' +
             '<th>Focus Course</th>' +
+            '<th>Course</th>' +
             '<th>RAG</th>' +
             '<th style="text-align:right">Drift</th>' +
             '<th>Reason</th>' +
@@ -7880,8 +8182,9 @@ function renderLiveDrillList(courses, grouping) {
                 '<td>' + escHtml(c.state || '') + '</td>' +
                 '<td>' + escHtml(c.grade || '') + '</td>' +
                 '<td>' + escHtml(c.semAB || '') + '</td>' +
-                '<td>' + courseCell + '</td>' +
+                // Focus Course now displayed BEFORE Course (per user preference)
                 '<td>' + escHtml(c.focusName || '') + '</td>' +
+                '<td>' + courseCell + '</td>' +
                 '<td>' + ragPill + '</td>' +
                 '<td' + driftCls + '>' + (drift || 0) + '</td>' +
                 '<td>' + reasonCell + '</td>' +
@@ -8776,6 +9079,8 @@ function renderLiveDeliveryPlan() {
   livedp_initSchedControls();
   livedp_renderHeadline();
   livedp_renderMonthCards();
+  livedp_wireWdvMiniFilter();
+  livedp_renderWeekly();
   livedp_renderCalendars();
   livedp_renderAccordion();
 }
@@ -8783,8 +9088,80 @@ function renderLiveDeliveryPlan() {
 function livedp_recompute() {
   livedp_renderHeadline();
   livedp_renderMonthCards();
+  livedp_renderWeekly();
   livedp_renderCalendars();
   livedp_renderAccordion();
+}
+
+// Pass the filter-aware course list to the shared weekly renderer.
+// Also applies the widget-local Stage+Status mini-filter.
+function livedp_renderWeekly() {
+  if (typeof window.renderWeeklyLive !== 'function') return;
+  if (!window.P670_LIVE || !window.P670_LIVE.courses) return;
+  let filtered = (typeof livedp_applyFilters === 'function')
+    ? livedp_applyFilters()
+    : window.P670_LIVE.courses;
+
+  // Apply the widget-local stage+status mini-filter.
+  const stageSel = document.getElementById('livedp-wdv-stage');
+  const statusSel = document.getElementById('livedp-wdv-status');
+  const stageVal = stageSel ? (stageSel.value || '') : '';
+  const statusVal = statusSel ? (statusSel.value || '') : '';
+  if (stageVal && statusVal) {
+    const stageIdx = stageVal === 'm1' ? 0 : stageVal === 'm3' ? 2 : 6;
+    filtered = filtered.filter(c => {
+      const m = c.milestones && c.milestones[stageIdx];
+      const cls = livedp_classifyStatus(m && m.status);
+      return cls === statusVal;
+    });
+  } else if (statusVal && !stageVal) {
+    // Status chosen without stage = match ANY of the 3 milestones (M1/M3/M7).
+    const indices = [0, 2, 6];
+    filtered = filtered.filter(c => {
+      if (!c.milestones) return false;
+      return indices.some(idx => {
+        const m = c.milestones[idx];
+        return livedp_classifyStatus(m && m.status) === statusVal;
+      });
+    });
+  }
+  window.renderWeeklyLive(filtered);
+}
+
+// Local copy of the status classifier so livedp_renderWeekly can run before
+// the shared widget IIFE has executed.
+function livedp_classifyStatus(s) {
+  const v = String(s || '').trim().toLowerCase();
+  if (!v) return 'yts';
+  if (v === 'na' || v === 'n/a') return 'na';
+  if (v === 'done' || v.indexOf('completed') === 0 || v === 'signed off') return 'completed';
+  if (v.indexOf('fixes required') === 0 || v.indexOf('fix required') === 0) return 'fixes';
+  if (v === 'blocked' || v.indexOf('blocked') === 0) return 'blocked';
+  if (v === 'yts' || v === 'not started' || v === 'yet to start') return 'yts';
+  return 'wip';
+}
+
+// Wire the mini-filter dropdowns to re-render on change. Idempotent.
+function livedp_wireWdvMiniFilter() {
+  const stageSel = document.getElementById('livedp-wdv-stage');
+  const statusSel = document.getElementById('livedp-wdv-status');
+  const resetBtn = document.getElementById('livedp-wdv-reset');
+  if (stageSel && !stageSel._wdvWired) {
+    stageSel._wdvWired = true;
+    stageSel.addEventListener('change', livedp_renderWeekly);
+  }
+  if (statusSel && !statusSel._wdvWired) {
+    statusSel._wdvWired = true;
+    statusSel.addEventListener('change', livedp_renderWeekly);
+  }
+  if (resetBtn && !resetBtn._wdvWired) {
+    resetBtn._wdvWired = true;
+    resetBtn.addEventListener('click', () => {
+      if (stageSel)  stageSel.value  = '';
+      if (statusSel) statusSel.value = '';
+      livedp_renderWeekly();
+    });
+  }
 }
 
 function livedp_initFilterBar() {
@@ -9284,7 +9661,7 @@ function livedp_renderAccordion() {
     return g;
   }
   let html = '<table class="flat"><thead><tr>' +
-    '<th>#</th><th>Subject</th><th>Grade</th><th>State</th><th>Course</th>' +
+    '<th>#</th><th>Subject</th><th>Grade</th><th>State</th><th>Focus Course</th>' +
     '<th>Baseline</th><th>Plan</th><th>Actual</th><th>Status</th><th>Slip (d)</th>' +
     '</tr></thead><tbody>';
   let counter = 0;
@@ -9306,7 +9683,9 @@ function livedp_renderAccordion() {
         : escHtml((c.milestones && c.milestones[6] && c.milestones[6].status) || 'Not Started');
       const subjPill = (typeof subjectPillClass === 'function') ? subjectPillClass(c.subject) : '';
       const subjBadge = '<span class="subj-pill ' + subjPill + '">' + escHtml(c.subject || '') + '</span>';
-      const courseCell = '<strong>' + escHtml(c.baseCourseName || '') + '</strong>' +
+      // Show Focus Course Name as the primary identifier. Keep base course
+      // code as a small subtitle so the row stays uniquely identifiable.
+      const courseCell = '<strong>' + escHtml(c.focusName || c.baseCourseName || '') + '</strong>' +
         (c.baseCourseCode ? '<div style="color:var(--ink-3);font-size:11px;">' + escHtml(c.baseCourseCode) + '</div>' : '');
       html += '<tr>' +
                 '<td>' + counter + '</td>' +
@@ -11237,5 +11616,342 @@ function livedp_export(format) {
 })();
 </script>
 <!-- ============== END GOOGLE SHEET TRACKERS TAB JS ============== -->
+
+
+<!-- ============== WEEKLY DELIVERY VIEW JS ============== -->
+<script>
+(function() {
+  // Shared helpers ---------------------------------------------------------
+  const SUBJECT_CLASSES = {
+    'Math': 'math',
+    'ELA': 'ela',
+    'English Language Arts': 'ela',
+    'Science': 'sci',
+    'Social Studies': 'ss',
+  };
+  function wdvSubjClass(s) {
+    const v = String(s || '').trim();
+    return SUBJECT_CLASSES[v] || 'other';
+  }
+  const MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  // Always return a Date for any reasonable input, or null.
+  function wdvParseDate(v) {
+    if (v === null || v === undefined || v === '') return null;
+    if (v instanceof Date) return isNaN(v.getTime()) ? null : v;
+    const s = String(v).trim();
+    if (!s) return null;
+    const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (iso) {
+      const d = new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const d2 = new Date(s);
+    return isNaN(d2.getTime()) ? null : d2;
+  }
+  function wdvFmtDate(d) {
+    if (!d) return '';
+    if (!(d instanceof Date)) d = wdvParseDate(d);
+    if (!d) return '';
+    return MONTH_ABBR[d.getMonth()] + ' ' + d.getDate();
+  }
+  // Returns the Monday of the week containing this date.
+  function wdvWeekStart(d) {
+    const day = d.getDay();              // 0=Sun, 1=Mon, ..., 6=Sat
+    const diff = (day + 6) % 7;          // days since Monday
+    const m = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    m.setDate(m.getDate() - diff);
+    return m;
+  }
+  function wdvWeekKey(d) {
+    const m = wdvWeekStart(d);
+    return m.getFullYear() + '-' + String(m.getMonth() + 1).padStart(2, '0') + '-' +
+           String(m.getDate()).padStart(2, '0');
+  }
+  function wdvFmtWeek(d) {
+    const m = wdvWeekStart(d);
+    const e = new Date(m.getFullYear(), m.getMonth(), m.getDate() + 6);
+    if (m.getMonth() === e.getMonth()) {
+      return MONTH_ABBR[m.getMonth()] + ' ' + m.getDate() + ' - ' + e.getDate();
+    }
+    return MONTH_ABBR[m.getMonth()] + ' ' + m.getDate() + ' - ' + MONTH_ABBR[e.getMonth()] + ' ' + e.getDate();
+  }
+  function wdvEsc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // Classify a status string into one of the standard buckets.
+  function wdvStatusClass(s) {
+    const v = String(s || '').trim().toLowerCase();
+    if (!v) return 'yts';
+    if (v === 'na' || v === 'n/a') return 'na';
+    if (v === 'done' || v.indexOf('completed') === 0 || v === 'signed off') return 'done';
+    if (v.indexOf('fixes required') === 0 || v.indexOf('fix required') === 0) return 'fixes';
+    if (v === 'blocked' || v.indexOf('blocked') === 0) return 'blocked';
+    if (v === 'yts' || v === 'not started' || v === 'yet to start') return 'yts';
+    if (v.indexOf('delayed') === 0 || v.indexOf('late') === 0) return 'delayed';
+    return 'wip';
+  }
+
+  // Render a status pill (used in expanded course rows).
+  function wdvStatusPill(rawStatus, hint) {
+    if (!rawStatus && !hint) return '<span class="wdv-ms-status yts">YTS</span>';
+    const cls = wdvStatusClass(rawStatus || hint);
+    const label = rawStatus || (hint === 'done' ? 'Done' : hint === 'wip' ? 'WIP' : 'YTS');
+    return '<span class="wdv-ms-status ' + cls + '">' + wdvEsc(label) + '</span>';
+  }
+
+  // -----------------------------------------------------------------------
+  // Common: render a normalized list of records.
+  //   rec = { subject, state, grade, baseName, focusName, m1, m3, m7 }
+  //   where each mX = { date: Date|null, status: 'done'|'wip'|'yts'|'delayed'|...|null, rawStatus: string }
+  // The effective grouping date is m7.date (Deliver and SO).
+  // -----------------------------------------------------------------------
+  function wdvRenderTo(hostEl, records, opts) {
+    opts = opts || {};
+    if (!hostEl) return;
+    const valid = records.filter(r => r.m7 && r.m7.date);
+    if (!valid.length) {
+      hostEl.innerHTML = '<div class="wdv-empty">No deliveries in this filter slice.</div>';
+      return;
+    }
+    // Bucket by week
+    const buckets = {};
+    valid.forEach(r => {
+      const key = wdvWeekKey(r.m7.date);
+      if (!buckets[key]) {
+        buckets[key] = {
+          key: key,
+          weekStart: wdvWeekStart(r.m7.date),
+          label: wdvFmtWeek(r.m7.date),
+          records: [],
+          subjCounts: { math: 0, ela: 0, sci: 0, ss: 0, other: 0 },
+          doneCount: 0, wipCount: 0, ytsCount: 0,
+        };
+      }
+      const b = buckets[key];
+      b.records.push(r);
+      const sc = wdvSubjClass(r.subject);
+      b.subjCounts[sc] = (b.subjCounts[sc] || 0) + 1;
+      // Roll up M7 status
+      const cls = wdvStatusClass(r.m7.rawStatus || '');
+      if (cls === 'done') b.doneCount++;
+      else if (cls === 'yts' || cls === 'na') b.ytsCount++;
+      else b.wipCount++;
+    });
+    const weeks = Object.values(buckets).sort((a, b) => a.weekStart - b.weekStart);
+
+    // Identify "current" week (containing today)
+    const today = new Date();
+    const todayKey = wdvWeekKey(today);
+
+    // Subject order for pills
+    const SUBJ_ORDER = [
+      { cls: 'math', label: 'Math' },
+      { cls: 'ela',  label: 'ELA' },
+      { cls: 'sci',  label: 'Science' },
+      { cls: 'ss',   label: 'Social Studies' },
+      { cls: 'other',label: 'Other' },
+    ];
+
+    let html = '<div class="wdv-header">' +
+                 '<div>Week</div>' +
+                 '<div>Subjects delivering</div>' +
+                 '<div style="text-align:right">Courses</div>' +
+                 '<div>Status mix</div>' +
+                 '<div></div>' +
+               '</div>';
+
+    weeks.forEach((b, i) => {
+      const isCurrent = b.key === todayKey;
+      const isFuture = b.weekStart > today && !isCurrent;
+      const classes = ['wdv-row'];
+      if (isCurrent) classes.push('wdv-current');
+      if (isFuture) classes.push('wdv-future');
+
+      // Pills
+      const pillsHtml = SUBJ_ORDER.map(s => {
+        const ct = b.subjCounts[s.cls] || 0;
+        if (!ct) return '';
+        return '<span class="wdv-pill ' + s.cls + '"><span>' + s.label +
+               '</span><span class="wdv-pill-ct">' + ct + '</span></span>';
+      }).filter(Boolean).join('');
+
+      // Status mix bar (proportional)
+      const total = b.records.length;
+      const dPct = Math.round(b.doneCount * 100 / total);
+      const wPct = Math.round(b.wipCount  * 100 / total);
+      const yPct = 100 - dPct - wPct;
+      const statusBar = '<div class="wdv-status-bar" title="' + b.doneCount + ' done, ' +
+                        b.wipCount + ' in progress, ' + b.ytsCount + ' yts">' +
+                        (b.doneCount ? '<span class="done" style="width:' + dPct + '%"></span>' : '') +
+                        (b.wipCount  ? '<span class="wip" style="width:' + wPct + '%"></span>' : '') +
+                        (b.ytsCount  ? '<span class="yts" style="width:' + yPct + '%"></span>' : '') +
+                        '</div>';
+
+      // Week heading: e.g., "Week of May 18" + sublabel "Mon - Sun"
+      const weekLabel = 'Week of ' + MONTH_ABBR[b.weekStart.getMonth()] + ' ' + b.weekStart.getDate();
+      const sublabel = b.label + (isCurrent ? ' &middot; current' : '');
+
+      html += '<div class="' + classes.join(' ') + '" data-wdv-week-idx="' + i + '">' +
+                '<div class="wdv-week">' + weekLabel +
+                  '<span class="wdv-week-sub">' + sublabel + '</span>' +
+                '</div>' +
+                '<div class="wdv-pills">' + pillsHtml + '</div>' +
+                '<div class="wdv-total">' + total + '</div>' +
+                statusBar +
+                '<div class="wdv-caret">&#9656;</div>' +
+              '</div>';
+
+      // Expanded body (initially hidden via CSS)
+      html += '<div class="wdv-body" data-wdv-body-idx="' + i + '">';
+      html += '<table class="wdv-courses-table">';
+      html += '<thead><tr>' +
+                '<th style="min-width:200px">Course</th>' +
+                '<th style="min-width:80px">State</th>' +
+                '<th style="min-width:80px">Grade</th>' +
+                '<th>Completed in Brightspot (M1)</th>' +
+                '<th>BSP Course Validation (M3)</th>' +
+                '<th>Deliver and SO (M7)</th>' +
+              '</tr></thead><tbody>';
+      // Sort records by M7 date
+      b.records.sort((a, b2) => a.m7.date - b2.m7.date);
+      b.records.forEach(r => {
+        const subjCls = wdvSubjClass(r.subject);
+        // When opts.useFocusName is true (Live tab), prefer focusName.
+        // Otherwise (May 21 frozen tab) keep baseName as the primary label.
+        const primaryName = opts.useFocusName
+          ? (r.focusName || r.baseName || '(unnamed)')
+          : (r.baseName || r.focusName || '(unnamed)');
+        const courseCell = '<span class="wdv-subj-chip ' + subjCls + '">' +
+                            wdvEsc(r.subject || '') + '</span>' +
+                            '<strong>' + wdvEsc(primaryName) + '</strong>';
+        function msCell(ms) {
+          if (!ms || !ms.date) return '<td class="wdv-ms-cell"><span class="wdv-ms-empty">&mdash;</span></td>';
+          return '<td class="wdv-ms-cell"><span class="wdv-ms-date">' + wdvFmtDate(ms.date) +
+                 '</span>' + wdvStatusPill(ms.rawStatus, ms.status) + '</td>';
+        }
+        html += '<tr>' +
+                  '<td>' + courseCell + '</td>' +
+                  '<td>' + wdvEsc(r.state || '') + '</td>' +
+                  '<td>' + wdvEsc(r.grade || '') + '</td>' +
+                  msCell(r.m1) + msCell(r.m3) + msCell(r.m7) +
+                '</tr>';
+      });
+      html += '</tbody></table></div>';
+    });
+
+    hostEl.innerHTML = html;
+
+    // Wire click-to-expand
+    Array.from(hostEl.querySelectorAll('.wdv-row')).forEach(row => {
+      row.addEventListener('click', () => row.classList.toggle('wdv-open'));
+    });
+  }
+
+
+  // -----------------------------------------------------------------------
+  // Adapter for the May 21 frozen tab (P670_DATA_V2)
+  // Each course has c.p[7] (Plan dates) and c.a[7] (Actual dates).
+  // Stage indices: 0 = Completed in Brightspot, 2 = BSP Course Validation, 6 = Deliver and SO.
+  // -----------------------------------------------------------------------
+  function v2BuildMilestone(idx, c, today) {
+    const planRaw = c.p && c.p[idx];
+    const actualRaw = c.a && c.a[idx];
+    const plan = wdvParseDate(planRaw);
+    const actual = wdvParseDate(actualRaw);
+    const effective = actual || plan;
+    if (!effective) return null;
+    let hint = 'yts';
+    let rawStatus = '';
+    if (actual) {
+      hint = 'done';
+      rawStatus = 'Done';
+    } else if (plan && plan < today) {
+      hint = 'delayed';
+      rawStatus = 'Delayed';
+    } else if (plan) {
+      hint = 'wip';
+      rawStatus = 'Planned';
+    }
+    return { date: effective, status: hint, rawStatus: rawStatus };
+  }
+
+  window.renderWeeklyV2 = function(filteredCourses) {
+    const host = document.getElementById('v2-wdv');
+    if (!host) return;
+    if (!filteredCourses || !filteredCourses.length) {
+      host.innerHTML = '<div class="wdv-empty">No courses match the current filters.</div>';
+      return;
+    }
+    const today = new Date();
+    const records = [];
+    filteredCourses.forEach(c => {
+      const m1 = v2BuildMilestone(0, c, today);
+      const m3 = v2BuildMilestone(2, c, today);
+      const m7 = v2BuildMilestone(6, c, today);
+      if (!m7) return;   // no Deliver and SO date -> skip
+      records.push({
+        subject: c.subject || '',
+        state: c.state || '',
+        grade: c.grade || c.gradeGroup || '',
+        baseName: c.baseCourseName || c.courseName || c.cn || '',
+        focusName: c.focusName || '',
+        m1: m1, m3: m3, m7: m7,
+      });
+    });
+    wdvRenderTo(host, records);
+  };
+
+
+  // -----------------------------------------------------------------------
+  // Adapter for the Live Delivery Plan tab (P670_LIVE)
+  // Each course has c.milestones[7] each with .baseline / .plan / .actual / .status.
+  // Milestone names: 0 = Completed in Brightspot, 2 = BSP Course Validation, 6 = Deliver and SO.
+  // -----------------------------------------------------------------------
+  function liveBuildMilestone(idx, c) {
+    const m = (c.milestones && c.milestones[idx]) || null;
+    if (!m) return null;
+    const actual = wdvParseDate(m.actual);
+    const plan = wdvParseDate(m.plan);
+    const baseline = wdvParseDate(m.baseline);
+    const effective = actual || plan || baseline;
+    if (!effective) return null;
+    return {
+      date: effective,
+      status: wdvStatusClass(m.status || ''),
+      rawStatus: m.status || ''
+    };
+  }
+
+  window.renderWeeklyLive = function(filteredCourses) {
+    const host = document.getElementById('livedp-wdv');
+    if (!host) return;
+    if (!filteredCourses || !filteredCourses.length) {
+      host.innerHTML = '<div class="wdv-empty">No courses match the current filters.</div>';
+      return;
+    }
+    const records = [];
+    filteredCourses.forEach(c => {
+      const m1 = liveBuildMilestone(0, c);
+      const m3 = liveBuildMilestone(2, c);
+      const m7 = liveBuildMilestone(6, c);
+      if (!m7) return;
+      records.push({
+        subject: c.subject || '',
+        state: c.state || '',
+        grade: c.grade || '',
+        baseName: c.baseCourseName || c.focusName || '',
+        focusName: c.focusName || '',
+        m1: m1, m3: m3, m7: m7,
+      });
+    });
+    // useFocusName=true: in Live Delivery Plan tab, show Focus Course Name
+    // in the Course column instead of the Base Course Name.
+    wdvRenderTo(host, records, { useFocusName: true });
+  };
+})();
+</script>
+<!-- ============== END WEEKLY DELIVERY VIEW JS ============== -->
 </body>
 </html>

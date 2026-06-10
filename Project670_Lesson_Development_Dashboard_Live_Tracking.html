@@ -1836,6 +1836,64 @@ table.rollup tr.total-row:hover td { background: rgba(33,39,194,0.07); }
 #sec-livedp #livedp-accordion table.flat tbody td:nth-child(9) { width: 13%; }
 #sec-livedp #livedp-accordion table.flat thead th:nth-child(10),
 #sec-livedp #livedp-accordion table.flat tbody td:nth-child(10) { width: 9%; text-align: center; }
+#sec-livedp #livedp-accordion .ms-dot-row {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+#sec-livedp #livedp-accordion .ms-dot {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  line-height: 1.3;
+}
+#sec-livedp #livedp-accordion .ms-dot-done { background: var(--good-bg); color: var(--good); }
+#sec-livedp #livedp-accordion .ms-dot-wip  { background: var(--warn-bg); color: var(--warn); }
+#sec-livedp #livedp-accordion .ms-dot-yts  { background: var(--idle-bg); color: var(--ink-3); }
+#sec-livedp #livedp-accordion .status-not-done {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+#sec-livedp .livedp-ms-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 4px;
+}
+#sec-livedp .livedp-ms-filters label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+#sec-livedp .livedp-ms-filters select {
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  background: #fff;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink);
+  font-weight: 400;
+}
+#sec-livedp .livedp-ms-filters .livedp-ms-reset {
+  font-size: 11px;
+  padding: 3px 8px;
+}
+#sec-livedp .livedp-ms-filters select.ms-filter-active {
+  border-color: var(--stride-blue);
+  background: #f4f6ff;
+  font-weight: 500;
+}
 #sec-livedp #livedp-accordion .complete-pill {
   display: inline-block; padding: 2px 8px; border-radius: 10px;
   font-size: 10.5px; font-weight: 600;
@@ -3284,6 +3342,22 @@ body.trackers-active #livedpFilterBar { display: none !important; }
   display: block; font-size: 10.5px; font-weight: 400; color: var(--warn);
   margin-top: 1px;
 }
+#livedp-funnel .lf-row-head {
+  padding-bottom: 2px;
+  border-bottom: 0.5px solid var(--line);
+  margin-bottom: 4px;
+}
+#livedp-funnel .lf-row-head + .lf-row { border-top: none; }
+#livedp-funnel .lf-name-head,
+#livedp-funnel .lf-count-head,
+#livedp-funnel .lf-pct-head {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+#livedp-funnel .lf-stats-head .lf-count-head { margin-right: 18px; }
 #livedp-funnel .lf-stats {
   text-align: right;
   font-variant-numeric: tabular-nums;
@@ -3869,14 +3943,14 @@ body.trackers-active #livedpFilterBar { display: none !important; }
     <div class="delivery-headline" id="livedp-deliveryHeadline"></div>
   </div>
 
+  <div class="section-eyebrow">By Month &middot; Subject Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(buckets by baseline month; shows delivered vs forecast within each)</span></div>
+  <div class="month-summary-row" id="livedp-monthCards"></div>
+
   <div class="section-eyebrow">Milestone Progression &middot; Pipeline Funnel <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(how many of the filtered cohort have cleared each LearningMate step)</span></div>
   <div class="card livedp-funnel-card" id="livedp-funnel"></div>
 
   <div class="section-eyebrow">Milestone Progression &middot; Cohort &times; Stage Heatmap <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(rows = delivery month, columns = milestones; cell = % complete. Click a cell to filter the dashboard to that month.)</span></div>
   <div class="card livedp-heatmap-card" id="livedp-heatmap"></div>
-
-  <div class="section-eyebrow">By Month &middot; Subject Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(buckets by baseline month; shows delivered vs forecast within each)</span></div>
-  <div class="month-summary-row" id="livedp-monthCards"></div>
 
   <div class="section-eyebrow">Weekly Subjects Delivering <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(click any week to see M1 / M3 / M5 / M7 dates and status per course)</span></div>
   <div class="card">
@@ -3914,12 +3988,21 @@ body.trackers-active #livedpFilterBar { display: none !important; }
 
   <div class="section-eyebrow">Daily Calendars <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(effective date; +N/-N badges show shift from baseline)</span></div>
   <div class="card">
-    <div class="livedp-cal-toggle accordion-tabs" style="display:inline-flex;gap:2px;margin-bottom:10px;align-items:center;padding:3px;">
-      <span style="font-size:11.5px;color:var(--ink-3);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin:0 8px 0 4px">Calendar view:</span>
-      <button class="tab-btn active" data-cal-mode="cleaner">Cleaner</button>
-      <button class="tab-btn" data-cal-mode="detailed">Detailed</button>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px; align-items:center;">
+      <div class="livedp-cal-toggle accordion-tabs" style="display:inline-flex;gap:2px;align-items:center;padding:3px;">
+        <span style="font-size:11.5px;color:var(--ink-3);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin:0 8px 0 4px">Calendar view:</span>
+        <button class="tab-btn active" data-cal-mode="cleaner">Cleaner</button>
+        <button class="tab-btn" data-cal-mode="detailed">Detailed</button>
+      </div>
+      <div class="livedp-cal-stage accordion-tabs" style="display:inline-flex;gap:2px;align-items:center;padding:3px;">
+        <span style="font-size:11.5px;color:var(--ink-3);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin:0 8px 0 4px" title="Per-day counts and 'completed' borders use the chosen milestone. Default M7 = Deliver and SO.">Stage:</span>
+        <button class="tab-btn" data-cal-stage="0">M1</button>
+        <button class="tab-btn" data-cal-stage="2">M3</button>
+        <button class="tab-btn" data-cal-stage="5">M5</button>
+        <button class="tab-btn active" data-cal-stage="6">M7</button>
+      </div>
     </div>
-    <p class="card-sub">Each cell shows the number of deliveries on that day based on the current forecast. A green border means all courses on that day are delivered. An orange border means at least one course shifted FROM or TO that day vs the baseline plan. The corner badge shows the net difference (+ gained from baseline, &minus; lost to other days).</p>
+    <p class="card-sub">Each cell shows the number of courses whose <strong>selected milestone</strong> falls on that day (default M7 = Deliver and SO). A green border means all courses on that day have completed the selected milestone. An orange border means at least one course shifted FROM or TO that day vs the baseline plan for that milestone. The corner badge shows the net difference.</p>
     <div class="cal-legend">
       <span class="item"><span class="sw" style="background:var(--subj-math-ink)"></span>Math</span>
       <span class="item"><span class="sw" style="background:var(--subj-ela-ink)"></span>ELA</span>
@@ -3940,6 +4023,24 @@ body.trackers-active #livedpFilterBar { display: none !important; }
         <button class="tab-btn active" data-livedp-group="date" role="tab">By Delivery Date</button>
         <button class="tab-btn" data-livedp-group="state" role="tab">By State</button>
         <button class="tab-btn" data-livedp-group="subject" role="tab">By Subject</button>
+      </div>
+      <div class="livedp-ms-filters" title="Filter the list to courses whose M1/M3/M5 milestone matches the chosen status">
+        <label>M1 <select id="livedp-acc-m1">
+          <option value="" selected>All</option>
+          <option value="completed">Completed</option>
+          <option value="not-completed">Not completed</option>
+        </select></label>
+        <label>M3 <select id="livedp-acc-m3">
+          <option value="" selected>All</option>
+          <option value="completed">Completed</option>
+          <option value="not-completed">Not completed</option>
+        </select></label>
+        <label>M5 <select id="livedp-acc-m5">
+          <option value="" selected>All</option>
+          <option value="completed">Completed</option>
+          <option value="not-completed">Not completed</option>
+        </select></label>
+        <button class="btn livedp-ms-reset" id="livedp-acc-msreset" title="Reset M1/M3/M5 to All">Reset</button>
       </div>
       <div class="acc-search"><input id="livedp-search" type="search" placeholder="Search courses..." /></div>
       <div class="acc-actions">
@@ -9198,10 +9299,57 @@ window._livedpFilters = {
 };
 window._livedpSearch = '';
 window._livedpGrouping = 'date';
+window._livedpAccMsFilters = { m1: '', m3: '', m5: '' };
+function livedp_courseMsMatches_(c) {
+  const f = window._livedpAccMsFilters || {};
+  const stagesByKey = { m1: 0, m3: 2, m5: 5 };
+  for (const k in stagesByKey) {
+    const want = f[k];
+    if (!want) continue;
+    const ms = c.milestones && c.milestones[stagesByKey[k]];
+    const isDone = !!(ms && livedp_isCompletedStatus(ms.status));
+    if (want === 'completed' && !isDone) return false;
+    if (want === 'not-completed' && isDone) return false;
+  }
+  return true;
+}
 // Calendar view mode: 'cleaner' (Option A) or 'detailed' (Option C)
 window._livedpCalMode = (function() {
   try { return localStorage.getItem('livedp_cal_mode') || 'cleaner'; } catch(e) { return 'cleaner'; }
 })();
+window._livedpCalStage = (function() {
+  try {
+    const v = parseInt(localStorage.getItem('livedp_cal_stage') || '6', 10);
+    return ([0,2,5,6].indexOf(v) >= 0) ? v : 6;
+  } catch(e) { return 6; }
+})();
+function livedp_effectiveDateAt(c, stageIdx) {
+  const m = c.milestones && c.milestones[stageIdx];
+  if (!m) return null;
+  if (livedp_isCompletedStatus(m.status) && m.actual) return m.actual;
+  return m.plan || null;
+}
+function livedp_baselineDateAt(c, stageIdx) {
+  const m = c.milestones && c.milestones[stageIdx];
+  return (m && m.baseline) ? m.baseline : null;
+}
+function livedp_isDeliveredAt(c, stageIdx) {
+  const m = c.milestones && c.milestones[stageIdx];
+  return !!(m && livedp_isCompletedStatus(m.status) && m.actual);
+}
+function livedp_actualDateAt(c, stageIdx) {
+  const m = c.milestones && c.milestones[stageIdx];
+  return (m && m.actual) ? m.actual : null;
+}
+function livedp_stageShortLabel_(idx) {
+  return idx === 0 ? 'M1' : idx === 2 ? 'M3' : idx === 5 ? 'M5' : 'M7';
+}
+function livedp_stageLongLabel_(idx) {
+  return idx === 0 ? 'Completed in Brightspot (M1)'
+       : idx === 2 ? 'BSP Course Validation (M3)'
+       : idx === 5 ? 'Green Lighting (M5)'
+       :             'Deliver and SO (M7)';
+}
 
 // Treat any status starting with "Completed" (or legacy "Done") as the
 // final milestone being delivered. V7c trackers use "Completed";
@@ -9576,9 +9724,19 @@ function livedp_renderFunnel() {
     story = m7 + ' delivered out of ' + total + ' (' + Math.round(m7/total*100) + '%).';
   }
 
+  const headerRow =
+    '<div class="lf-row lf-row-head">' +
+      '<div class="lf-name lf-name-head">Milestone</div>' +
+      '<div></div>' +
+      '<div class="lf-stats lf-stats-head">' +
+        '<span class="lf-count-head">Count</span>' +
+        '<span class="lf-pct-head">%</span>' +
+      '</div>' +
+    '</div>';
   host.innerHTML =
     '<div class="lf-sub"><strong style="color:var(--ink)">' + total + '</strong> courses in current filter \u00b7 ' +
     'each row = how many cleared that milestone</div>' +
+    headerRow +
     rows +
     '<div class="lf-story">' + story + '</div>';
 }
@@ -9770,16 +9928,16 @@ function livedp_renderCalendars() {
   const courses = livedp_applyFilters();
   const host = document.getElementById('livedp-calendars');
   if (!host) return;
-  // Count per day: effective vs baseline
+  const stageIdx = (typeof window._livedpCalStage === 'number') ? window._livedpCalStage : 6;
   const effByDay = {};
   const baseByDay = {};
   const deliveredByDay = {};
   courses.forEach(c => {
-    const eff = livedp_effectiveDate(c);
-    const base = livedp_baselineDate(c);
+    const eff = livedp_effectiveDateAt(c, stageIdx);
+    const base = livedp_baselineDateAt(c, stageIdx);
     if (eff) {
       effByDay[eff] = (effByDay[eff] || 0) + 1;
-      if (livedp_isDelivered(c)) deliveredByDay[eff] = (deliveredByDay[eff] || 0) + 1;
+      if (livedp_isDeliveredAt(c, stageIdx)) deliveredByDay[eff] = (deliveredByDay[eff] || 0) + 1;
     }
     if (base) baseByDay[base] = (baseByDay[base] || 0) + 1;
   });
@@ -9836,7 +9994,7 @@ function livedp_renderCalendars() {
           const hasContent = (effCnt > 0 || baseCnt > 0);
           if (hasContent) cls += ' clickable';
           const dataAttr = hasContent ? (' data-date="' + ds + '"') : '';
-          html += '<td class="' + cls.trim() + '"' + dataAttr + ' title="' + ds + ': ' + effCnt + ' forecast, ' + baseCnt + ' baseline, ' + delCnt + ' delivered">' +
+          html += '<td class="' + cls.trim() + '"' + dataAttr + ' title="' + ds + ' \u00b7 ' + livedp_stageShortLabel_(stageIdx) + ': ' + effCnt + ' planned/actual, ' + baseCnt + ' baseline, ' + delCnt + (stageIdx === 6 ? ' delivered' : ' completed') + '">' +
                   '<span class="day-num">' + dayCount + '</span>' + countHtml + badge + '</td>';
           dayCount++;
         }
@@ -9855,15 +10013,17 @@ function livedp_openCalModal(dateStr) {
   if (!modal || !title || !body) return;
   const d = new Date(dateStr + 'T00:00:00');
   const formattedDate = d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-  title.textContent = 'Deliveries on ' + formattedDate;
+
+  const stageIdx = (typeof window._livedpCalStage === 'number') ? window._livedpCalStage : 6;
+  title.textContent = livedp_stageLongLabel_(stageIdx) + ' \u00b7 ' + formattedDate;
 
   const courses = livedp_applyFilters();
   const onBaseline = [];
   const slippedIn = [];
   const movedAway = [];
   courses.forEach(c => {
-    const base = livedp_baselineDate(c);
-    const eff = livedp_effectiveDate(c);
+    const base = livedp_baselineDateAt(c, stageIdx);
+    const eff = livedp_effectiveDateAt(c, stageIdx);
     if (eff === dateStr && base === dateStr) onBaseline.push(c);
     else if (eff === dateStr && base !== dateStr) slippedIn.push(c);
     else if (base === dateStr && eff !== dateStr) movedAway.push(c);
@@ -9904,11 +10064,15 @@ function livedp_openCalModal(dateStr) {
     html += '<div class="empty-state">None \u2014 no courses are delivering exactly on their original baseline date.</div>';
   } else {
     onBaseline.forEach(c => {
-      const delivered = livedp_isDelivered(c);
-      const slip = livedp_slipDays(c);
+      const delivered = livedp_isDeliveredAt(c, stageIdx);
+      const baseAt = livedp_baselineDateAt(c, stageIdx);
+      const effAt = livedp_effectiveDateAt(c, stageIdx);
+      const slip = (baseAt && effAt)
+        ? Math.round((new Date(effAt + 'T00:00:00') - new Date(baseAt + 'T00:00:00')) / 86400000)
+        : null;
       const detail = 'Baseline ' + fmtDate(dateStr) + ' \u00b7 ' +
                      (delivered
-                       ? 'Delivered on ' + fmtDate(livedp_actualDate(c))
+                       ? 'Completed on ' + fmtDate(livedp_actualDateAt(c, stageIdx))
                        : 'On plan') + ' ' + slipPill(slip, delivered);
       html += courseItemHtml(c, detail);
     });
@@ -9924,9 +10088,12 @@ function livedp_openCalModal(dateStr) {
     html += '<div class="empty-state">None \u2014 no courses moved to this date from a different baseline date.</div>';
   } else {
     slippedIn.forEach(c => {
-      const delivered = livedp_isDelivered(c);
-      const slip = livedp_slipDays(c);
-      const base = livedp_baselineDate(c);
+      const delivered = livedp_isDeliveredAt(c, stageIdx);
+      const base = livedp_baselineDateAt(c, stageIdx);
+      const effAt = livedp_effectiveDateAt(c, stageIdx);
+      const slip = (base && effAt)
+        ? Math.round((new Date(effAt + 'T00:00:00') - new Date(base + 'T00:00:00')) / 86400000)
+        : null;
       const direction = (slip > 0) ? 'moved later' : 'moved earlier';
       const detail = 'Baseline ' + fmtDate(base) + ' \u2192 ' + direction + ' to ' + fmtDate(dateStr) +
                      ' ' + slipPill(slip, delivered);
@@ -9944,10 +10111,13 @@ function livedp_openCalModal(dateStr) {
     html += '<div class="empty-state">None \u2014 all courses with this baseline date are still on it.</div>';
   } else {
     movedAway.forEach(c => {
-      const delivered = livedp_isDelivered(c);
-      const slip = livedp_slipDays(c);
-      const eff = livedp_effectiveDate(c);
-      const direction = (slip > 0) ? 'now delivers later' : 'now delivers earlier';
+      const delivered = livedp_isDeliveredAt(c, stageIdx);
+      const base = livedp_baselineDateAt(c, stageIdx);
+      const eff = livedp_effectiveDateAt(c, stageIdx);
+      const slip = (base && eff)
+        ? Math.round((new Date(eff + 'T00:00:00') - new Date(base + 'T00:00:00')) / 86400000)
+        : null;
+      const direction = (slip > 0) ? 'now completes later' : 'now completes earlier';
       const detail = 'Baseline ' + fmtDate(dateStr) + ' \u2192 ' + direction + ' on ' + fmtDate(eff) +
                      ' ' + slipPill(slip, delivered);
       html += courseItemHtml(c, detail);
@@ -9983,6 +10153,38 @@ function livedp_initSchedControls() {
   const csvBtn = document.getElementById('livedp-csv');
   if (csvBtn) csvBtn.addEventListener('click', () => livedp_export('csv'));
 
+  // ---- M1/M3/M5 dropdown filters for Delivery Schedule ----
+  ['m1','m3','m5'].forEach(function(k) {
+    const sel = document.getElementById('livedp-acc-' + k);
+    if (sel && !sel._wired) {
+      sel._wired = true;
+      try {
+        const v = localStorage.getItem('livedp_acc_' + k) || '';
+        if (v) { sel.value = v; window._livedpAccMsFilters[k] = v; sel.classList.add('ms-filter-active'); }
+      } catch(e) {}
+      sel.addEventListener('change', function() {
+        const v = sel.value || '';
+        window._livedpAccMsFilters[k] = v;
+        sel.classList.toggle('ms-filter-active', v !== '');
+        try { localStorage.setItem('livedp_acc_' + k, v); } catch(e) {}
+        livedp_renderAccordion();
+      });
+    }
+  });
+  const msReset = document.getElementById('livedp-acc-msreset');
+  if (msReset && !msReset._wired) {
+    msReset._wired = true;
+    msReset.addEventListener('click', function() {
+      ['m1','m3','m5'].forEach(function(k) {
+        const sel = document.getElementById('livedp-acc-' + k);
+        if (sel) { sel.value = ''; sel.classList.remove('ms-filter-active'); }
+        window._livedpAccMsFilters[k] = '';
+        try { localStorage.removeItem('livedp_acc_' + k); } catch(e) {}
+      });
+      livedp_renderAccordion();
+    });
+  }
+
   // ---- 1D: Calendar mode toggle (Cleaner / Detailed) ----
   const calToggleBtns = sec.querySelectorAll('[data-cal-mode]');
   calToggleBtns.forEach(btn => {
@@ -9992,6 +10194,19 @@ function livedp_initSchedControls() {
       window._livedpCalMode = mode;
       try { localStorage.setItem('livedp_cal_mode', mode); } catch(e) {}
       calToggleBtns.forEach(b => b.classList.toggle('active', b === btn));
+      livedp_renderCalendars();
+    });
+  });
+
+  const calStageBtns = sec.querySelectorAll('[data-cal-stage]');
+  calStageBtns.forEach(btn => {
+    const idx = parseInt(btn.getAttribute('data-cal-stage'), 10);
+    btn.classList.toggle('active', idx === window._livedpCalStage);
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.getAttribute('data-cal-stage'), 10);
+      window._livedpCalStage = i;
+      try { localStorage.setItem('livedp_cal_stage', String(i)); } catch(e) {}
+      calStageBtns.forEach(b => b.classList.toggle('active', b === btn));
       livedp_renderCalendars();
     });
   });
@@ -10025,6 +10240,7 @@ function livedp_renderAccordion() {
   if (!host) return;
   const q = (window._livedpSearch || '').toLowerCase().trim();
   const filtered = courses.filter(c => {
+    if (!livedp_courseMsMatches_(c)) return false;
     if (!q) return true;
     const hay = [c.subject, c.grade, c.state, c.baseCourseName, c.baseCourseCode, c.focusName, c.semAB, c.typeOfCourse]
       .map(v => v == null ? '' : String(v)).join(' ').toLowerCase();
@@ -10083,9 +10299,28 @@ function livedp_renderAccordion() {
       const slip = livedp_slipDays(c);
       const slipCls = slip === null ? '' : (slip <= 0 ? 'on-time' : (slip <= 3 ? 'slip-yellow' : 'slip-red'));
       const slipTxt = delivered ? ((slip <= 0) ? 'on time' : ('+' + slip)) : (slip === null ? '—' : (slip > 0 ? '+' + slip : String(slip)));
-      const statusCell = delivered
-        ? ('<span class="complete-pill">Complete · ' + escHtml(fmtIsoDate(actDate)) + '</span>')
-        : escHtml((c.milestones && c.milestones[6] && c.milestones[6].status) || 'Not Started');
+      let statusCell;
+      if (delivered) {
+        statusCell = '<span class="complete-pill">Complete · ' + escHtml(fmtIsoDate(actDate)) + '</span>';
+      } else {
+        const m7Status = (c.milestones && c.milestones[6] && c.milestones[6].status) || 'Not Started';
+        const milestoneDot = function(idx, lbl) {
+          const ms = c.milestones && c.milestones[idx];
+          const s  = (ms && ms.status) || '';
+          const cls = livedp_classifyStatus(s);
+          const tone = (cls === 'completed') ? 'done'
+                     : (cls === 'yts' || cls === 'na') ? 'yts'
+                     : 'wip';
+          const tip = lbl + ': ' + (s || 'Not Started');
+          return '<span class="ms-dot ms-dot-' + tone + '" title="' + escHtml(tip) + '">' + lbl + '</span>';
+        };
+        const dots = '<span class="ms-dot-row">' +
+                       milestoneDot(0, 'M1') +
+                       milestoneDot(2, 'M3') +
+                       milestoneDot(5, 'M5') +
+                     '</span>';
+        statusCell = '<span class="status-not-done">' + escHtml(m7Status) + '</span>' + dots;
+      }
       const subjPill = (typeof subjectPillClass === 'function') ? subjectPillClass(c.subject) : '';
       const subjBadge = '<span class="subj-pill ' + subjPill + '">' + escHtml(c.subject || '') + '</span>';
       // Show Focus Course Name as the primary identifier. Keep base course
@@ -10114,6 +10349,7 @@ function livedp_export(format) {
   const courses = livedp_applyFilters();
   const q = (window._livedpSearch || '').toLowerCase().trim();
   const filtered = courses.filter(c => {
+    if (!livedp_courseMsMatches_(c)) return false;
     if (!q) return true;
     const hay = [c.subject, c.grade, c.state, c.baseCourseName, c.baseCourseCode, c.focusName, c.semAB, c.typeOfCourse]
       .map(v => v == null ? '' : String(v)).join(' ').toLowerCase();

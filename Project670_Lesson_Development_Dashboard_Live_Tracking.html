@@ -2474,6 +2474,43 @@ body.texas-active #filterBar, body.texas-active #v2FilterBar, body.texas-active 
 #sec-texas .tx-kpi2 .lbl{font-size:11.5px;font-weight:600;color:var(--ink-2);}
 #sec-texas .tx-kpi2 .val{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--stride-blue);white-space:nowrap;}
 #sec-texas .tx-kpi2 .val small{font-size:11px;color:var(--ink-3);font-weight:400;margin-left:3px;}
+#sec-texas .tx-exec{margin:14px 0 6px;}
+#sec-texas .tx-exec-card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ink-3);border-radius:12px;padding:16px 20px;box-shadow:0 2px 10px rgba(10,20,56,.05);}
+#sec-texas .tx-exec-card.r{border-left-color:var(--risk);} #sec-texas .tx-exec-card.a{border-left-color:var(--warn);} #sec-texas .tx-exec-card.g{border-left-color:var(--good);}
+#sec-texas .tx-exec-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:9px;}
+#sec-texas .tx-exec-verdict{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;padding:3px 15px;border-radius:999px;}
+#sec-texas .tx-exec-verdict.r{background:var(--risk-bg);color:var(--risk);} #sec-texas .tx-exec-verdict.a{background:var(--warn-bg);color:var(--warn);} #sec-texas .tx-exec-verdict.g{background:var(--good-bg);color:var(--good);}
+#sec-texas .tx-exec-sum{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);}
+#sec-texas .tx-exec-chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+#sec-texas .tx-exec-chips .ch{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;}
+#sec-texas .tx-exec-chips .ch.r{background:var(--risk-bg);color:var(--risk);} #sec-texas .tx-exec-chips .ch.a{background:var(--warn-bg);color:var(--warn);} #sec-texas .tx-exec-chips .ch.g{background:var(--good-bg);color:var(--good);}
+#sec-texas .tx-exec-line{font-size:13.5px;color:var(--ink);line-height:1.5;margin-bottom:14px;}
+#sec-texas .tx-exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+@media(max-width:820px){#sec-texas .tx-exec-grid{grid-template-columns:1fr;}}
+#sec-texas .tx-exec-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin-bottom:7px;}
+#sec-texas .tx-exec-col ul{margin:0;padding:0;list-style:none;}
+#sec-texas .tx-exec-col li{font-size:12.5px;color:var(--ink-2);padding:3px 0;}
+#sec-texas .tx-exec-col li b{color:var(--risk);font-family:'Space Grotesk',sans-serif;margin-right:5px;}
+#sec-texas .tx-exec-sub{display:flex;align-items:center;gap:10px;margin-bottom:5px;font-size:12px;}
+#sec-texas .tx-exec-sub .nm{width:54px;color:var(--ink-2);font-weight:600;}
+#sec-texas .tx-exec-sub .bars{flex:1;display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--idle-bg);}
+#sec-texas .tx-exec-sub .bars .b{height:100%;}
+#sec-texas .tx-exec-sub .bars .b.r{background:var(--risk);} #sec-texas .tx-exec-sub .bars .b.a{background:var(--warn);} #sec-texas .tx-exec-sub .bars .b.g{background:var(--good);}
+#sec-texas .tx-exec-sub .ct{width:104px;text-align:right;color:var(--ink-3);font-size:11px;font-variant-numeric:tabular-nums;}
+#sec-texas .tx-exec-foot{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-3);}
+#sec-texas .tx-byday{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:0 0 20px;}
+#sec-texas .tx-day-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--stride-blue);border-radius:10px;padding:13px 15px;}
+#sec-texas .tx-day-card .d-head{display:flex;align-items:baseline;justify-content:space-between;}
+#sec-texas .tx-day-card .d-date{font-size:13px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;}
+#sec-texas .tx-day-card .d-dow{font-size:10.5px;color:var(--ink-3);font-weight:600;}
+#sec-texas .tx-day-card .d-total{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:500;color:var(--stride-blue);line-height:1.1;margin-top:4px;}
+#sec-texas .tx-day-card .d-sub{font-size:10.5px;color:var(--ink-3);margin-bottom:9px;}
+#sec-texas .tx-day-card .d-rows{display:flex;flex-direction:column;gap:4px;}
+#sec-texas .tx-day-card .d-rows .row{display:grid;grid-template-columns:34px 1fr 22px;gap:7px;align-items:center;font-size:11.5px;}
+#sec-texas .tx-day-card .d-rows .nm{color:var(--ink-2);font-weight:600;}
+#sec-texas .tx-day-card .d-rows .bar{background:var(--idle-bg);height:6px;border-radius:3px;overflow:hidden;}
+#sec-texas .tx-day-card .d-rows .bar > span{display:block;height:100%;border-radius:3px;}
+#sec-texas .tx-day-card .d-rows .ct{text-align:right;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;}
 #sec-texas table.tx-table thead th{cursor:pointer;user-select:none;}
 #sec-texas table.tx-table thead th .tx-arrow{opacity:.4;font-size:9px;margin-left:3px;}
 #sec-texas table.tx-table thead th.tx-sorted{color:var(--stride-blue);}
@@ -4879,8 +4916,11 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
   <!-- ============== TEXAS TAB SECTION ============== -->
   <section id="sec-texas" class="page-break">
     <div class="section-eyebrow">Texas &middot; Lesson Development &amp; AI Support <span class="tx-srcbadge snap" id="tx-source"></span></div>
+    <div class="tx-exec" id="tx-exec" style="display:none"></div>
     <div class="tx-summary" id="tx-summary"></div>
     <div class="tx-summary2" id="tx-summary2"></div>
+    <div class="section-eyebrow" style="margin-top:2px">Deliveries per Day &middot; &ldquo;Deliver and SO&rdquo; <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(grouped by delivery date, subject split)</span></div>
+    <div class="tx-byday" id="tx-byday"></div>
     <div class="card">
       <div class="tx-toolbar">
         <div class="tx-viewseg">
@@ -14135,7 +14175,60 @@ window.P670_TEXAS = {"courses":[{"subject":"ELA","state":"Texas","grade":"Grade 
       th.addEventListener('click',function(){ var k=th.getAttribute('data-k'); if(sortKey===k){ sortDir=-sortDir; } else { sortKey=k; sortDir=1; } renderTable(); });
     });
   }
-  function renderAll(){ renderSummary(); renderSummary2(); buildFilterOptions(); renderLegend(); renderTable(); }
+  function renderExecCard(){
+    var host=document.getElementById('tx-exec'); if(!host) return;
+    var T=DATA.length||0;
+    var R=DATA.filter(function(c){return c.rag==='R';}).length;
+    var A=DATA.filter(function(c){return c.rag==='A';}).length;
+    var G=DATA.filter(function(c){return c.rag==='G';}).length;
+    function pc(x){ return T?Math.round(x/T*100):0; }
+    var verdict,vcls;
+    if(pc(R)>=40){ verdict='At Risk'; vcls='r'; } else if(pc(R+A)>50){ verdict='Needs Attention'; vcls='a'; } else { verdict='On Track'; vcls='g'; }
+    function sumInt(k){ return DATA.reduce(function(s,c){var n=parseInt(c[k],10);return s+(isNaN(n)?0:n);},0); }
+    var lessons=sumInt('lessons'),authored=sumInt('authoring'),qa=sumInt('cpe');
+    var authPct=lessons?Math.round(authored/lessons*100):0, qaPct=lessons?Math.round(qa/lessons*100):0;
+    var dts=DATA.map(function(c){return c.deliver;}).filter(Boolean).sort();
+    function fd(s){ if(!s) return '—'; var d=new Date(s+'T00:00:00'); if(isNaN(d.getTime())) return s; var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()]+' '+d.getDate(); }
+    var first=dts.length?fd(dts[0]):'—', last=dts.length?fd(dts[dts.length-1]):'—';
+    var themes=[
+      {label:'AI tooling down — assessment generation stuck', t:function(x){return x.indexOf('ai tool')>=0||x.indexOf('stuck')>=0;}},
+      {label:'Lesson authoring still pending', t:function(x){return x.indexOf('authoring pending')>=0||x.indexOf('lesson authoring')>=0;}},
+      {label:'SME bandwidth constraints', t:function(x){return x.indexOf('sme bandwidth')>=0;}},
+      {label:'Reusability categorization not finalized', t:function(x){return x.indexOf('reusab')>=0;}}
+    ];
+    var reasons=themes.map(function(th){ var n=DATA.filter(function(c){return th.t(String(c.comments||'').toLowerCase());}).length; return {label:th.label,n:n}; }).filter(function(o){return o.n>0;}).sort(function(a,b){return b.n-a.n;});
+    var subs=['ELA','Math','Science','Social Studies'];
+    var subRows=subs.map(function(s){ var arr=DATA.filter(function(c){return c.subject===s;}); if(!arr.length) return ''; var r=arr.filter(function(c){return c.rag==='R';}).length,a=arr.filter(function(c){return c.rag==='A';}).length,g=arr.filter(function(c){return c.rag==='G';}).length; return '<div class="tx-exec-sub"><span class="nm">'+s.replace('Social Studies','SS')+'</span><span class="bars"><span class="b r" style="flex:'+r+'"></span><span class="b a" style="flex:'+a+'"></span><span class="b g" style="flex:'+g+'"></span></span><span class="ct">'+r+'R · '+a+'A · '+g+'G</span></div>'; }).join('');
+    var greens=DATA.filter(function(c){return c.rag==='G';}).map(function(c){return (({'Social Studies':'SS','Science':'Sci'})[c.subject]||c.subject)+' '+c.grade;});
+    var headline;
+    if(vcls==='g'){ headline=G+' of '+T+' Texas courses are Green and the cohort is broadly on track for the '+first+'–'+last+' window.'; }
+    else { headline='<b>'+R+' of '+T+' courses ('+pc(R)+'%) are Red</b> and all '+T+' are due '+first+'–'+last+'. Authoring sits at '+authPct+'% and QA at '+qaPct+'% across '+lessons.toLocaleString()+' lessons — the end-of-June window is at serious risk without intervention on the blockers below.'; }
+    var html='<div class="tx-exec-card '+vcls+'">';
+    html+='<div class="tx-exec-head"><span class="tx-exec-verdict '+vcls+'">'+verdict+'</span><span class="tx-exec-sum">Texas readiness</span><span class="tx-exec-chips"><span class="ch r">'+R+' Red · '+pc(R)+'%</span><span class="ch a">'+A+' Amber · '+pc(A)+'%</span><span class="ch g">'+G+' Green · '+pc(G)+'%</span></span></div>';
+    html+='<div class="tx-exec-line">'+headline+'</div>';
+    html+='<div class="tx-exec-grid"><div class="tx-exec-col"><div class="tx-exec-h">Top reasons courses are Red / Amber</div><ul>'+(reasons.length?reasons.map(function(o){return '<li><b>'+o.n+'</b>'+o.label+'</li>';}).join(''):'<li>No blockers recorded.</li>')+'</ul></div>';
+    html+='<div class="tx-exec-col"><div class="tx-exec-h">Where it stands</div>'+subRows+'<div class="tx-exec-foot">Green / on track: '+(greens.length?greens.join(', '):'none yet')+' &middot; 0 delivered so far &middot; first due '+first+'</div></div></div>';
+    html+='</div>';
+    host.innerHTML=html;
+  }
+  function renderByDay(){
+    var host=document.getElementById('tx-byday'); if(!host) return;
+    var SUBS=['Math','ELA','Science','Social Studies'];
+    var COL={Math:'var(--subj-math-ink)',ELA:'var(--subj-ela-ink)',Science:'var(--subj-sci-ink)','Social Studies':'var(--subj-ss-ink)'};
+    function short(s){ return ({'Social Studies':'SS','Science':'Sci'})[s]||s; }
+    var map={};
+    DATA.forEach(function(c){ if(!c.deliver) return; if(!map[c.deliver]) map[c.deliver]={tot:0,subj:{Math:0,ELA:0,Science:0,'Social Studies':0}}; map[c.deliver].tot++; if(map[c.deliver].subj[c.subject]!==undefined) map[c.deliver].subj[c.subject]++; });
+    var days=Object.keys(map).sort();
+    if(!days.length){ host.innerHTML='<p style="color:var(--ink-3);font-size:12px">No delivery dates in range.</p>'; return; }
+    var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    host.innerHTML=days.map(function(d){
+      var o=map[d]; var dt=new Date(d+'T00:00:00');
+      var rows=SUBS.map(function(s){ var v=o.subj[s]||0; var pct=o.tot?(v/o.tot*100):0; return '<div class="row"><span class="nm">'+short(s)+'</span><span class="bar"><span style="width:'+pct+'%;background:'+COL[s]+'"></span></span><span class="ct">'+v+'</span></div>'; }).join('');
+      return '<div class="tx-day-card"><div class="d-head"><span class="d-date">'+mn[dt.getMonth()]+' '+dt.getDate()+'</span><span class="d-dow">'+wd[dt.getDay()]+'</span></div><div class="d-total">'+o.tot+'</div><div class="d-sub">courses delivering</div><div class="d-rows">'+rows+'</div></div>';
+    }).join('');
+  }
+  function renderAll(){ renderExecCard(); renderSummary(); renderSummary2(); renderByDay(); buildFilterOptions(); renderLegend(); renderTable(); }
   window.renderTexasTab=function(){ renderAll(); txLoadLive(); };
 
   // ---- Export (current view + filters) ----

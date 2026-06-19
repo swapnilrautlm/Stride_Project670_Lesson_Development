@@ -4193,6 +4193,36 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
     <div class="filter-actions"><button class="btn" id="ldf-reset">Reset</button></div>
   </div>
 
+  <div class="ldp-tabs" id="livedp-inner-tabs">
+    <button class="ldp-tab active" data-ldp="overview"><span class="ldp-ic">📊</span>Overview</button>
+    <button class="ldp-tab" data-ldp="milestones"><span class="ldp-ic">🎯</span>Milestones</button>
+    <button class="ldp-tab" data-ldp="weekly"><span class="ldp-ic">📈</span>Weekly</button>
+    <button class="ldp-tab" data-ldp="bystate"><span class="ldp-ic">🗺️</span>By State</button>
+    <button class="ldp-tab" data-ldp="schedule"><span class="ldp-ic">📋</span>Schedule</button>
+    <button class="ldp-tab" data-ldp="calendars"><span class="ldp-ic">🗓️</span>Calendars</button>
+  </div>
+  <style>
+    #sec-livedp .ldp-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 18px;border-bottom:2px solid var(--line-2);}
+    #sec-livedp .ldp-tab{background:transparent;border:0;border-bottom:3px solid transparent;padding:9px 17px;margin-bottom:-2px;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-3);cursor:pointer;}
+    #sec-livedp .ldp-tab:hover{color:var(--ink);}
+    #sec-livedp .ldp-tab.active{color:var(--stride-blue);border-bottom-color:var(--stride-blue);}
+    #sec-livedp .ldp-ic{margin-right:6px;font-size:13px;}
+    #sec-livedp table.lst-sub th.lst-sortth{cursor:pointer;user-select:none;white-space:nowrap;}
+    #sec-livedp table.lst-sub th.lst-sortth:hover{color:var(--stride-blue);}
+    #sec-livedp table.lst-sub th.lst-sortth.on{color:var(--stride-blue);}
+    #sec-livedp .lst-arrow{font-size:9px;}
+    #sec-livedp .ldp-panel{display:none;}
+    #sec-livedp .ldp-panel.ldp-active{display:block;}
+    #sec-livedp .wkroll-wrap{overflow:auto;max-height:62vh;border:1px solid var(--line);border-radius:8px;}
+    #sec-livedp table.wkroll{border-collapse:collapse;width:100%;font-size:12.5px;}
+    #sec-livedp table.wkroll thead th{background:#E6EDF9;color:var(--stride-navy);font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:9px 12px;text-align:left;position:sticky;top:0;z-index:2;border-bottom:1px solid var(--line-2);}
+    #sec-livedp table.wkroll th.num,#sec-livedp table.wkroll td.num{text-align:right;font-variant-numeric:tabular-nums;}
+    #sec-livedp table.wkroll td{padding:6px 12px;border-bottom:1px solid var(--line);}
+    #sec-livedp table.wkroll tr:hover td{background:rgba(220,230,242,.3);}
+    #sec-livedp table.wkroll tr.wk-tot td{font-weight:700;background:#F0F4FB;border-top:2px solid var(--line-2);}
+    #sec-livedp .wkroll-bar{display:inline-block;height:7px;border-radius:4px;background:var(--stride-blue-light);vertical-align:middle;margin-right:7px;}
+  </style>
+  <div class="ldp-panel ldp-active" data-ldp="overview">
   <div class="section-eyebrow">Live Delivery &middot; "Deliver and SO" (LearningMate)</div>
   <div class="card">
     <h3 class="card-title">Delivery Window</h3>
@@ -4244,12 +4274,62 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
   <div class="section-eyebrow">By Month &middot; Subject Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(buckets by selected date basis; shows delivered vs forecast within each)</span></div>
   <div class="month-summary-row" id="livedp-monthCards"></div>
 
+  </div>
+  <div class="ldp-panel" data-ldp="bystate">
+  <div class="section-eyebrow">Delivery by State <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(toggle course types; click a state to expand its courses)</span></div>
+  <div class="card">
+    <div class="lst-toggles" id="livedp-lst-toggles">
+      <span class="lst-tlbl">Course type</span>
+      <button class="lst-tbtn active" data-lst="fy">Full Year</button>
+      <button class="lst-tbtn active" data-lst="semA">SEM A</button>
+      <button class="lst-tbtn active" data-lst="semB">SEM B</button>
+      <button class="lst-tbtn active" data-lst="semOnly">Sem Only</button>
+    </div>
+    <div class="lst-wrap"><div id="livedp-stateTbl"></div></div>
+  </div>
+  <style>
+    #sec-livedp .lst-toggles{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:13px;}
+    #sec-livedp .lst-tlbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-right:4px;}
+    #sec-livedp .lst-tbtn{background:var(--card);border:1px solid var(--line-2);border-radius:8px;padding:6px 15px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink-2);cursor:pointer;}
+    #sec-livedp .lst-tbtn.active{background:var(--stride-blue);color:#fff;border-color:var(--stride-blue);}
+    #sec-livedp .lst-wrap{overflow:auto;max-height:72vh;border:1px solid var(--line);border-radius:8px;}
+    #sec-livedp table.lst-table{border-collapse:collapse;width:100%;font-size:12.5px;}
+    #sec-livedp table.lst-table thead th{background:#E6EDF9;color:var(--stride-navy);font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:9px 12px;text-align:left;position:sticky;top:0;z-index:2;border-bottom:1px solid var(--line-2);}
+    #sec-livedp table.lst-table th.num,#sec-livedp table.lst-table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+    #sec-livedp table.lst-table tr.lst-total td{font-weight:700;background:#F0F4FB;border-bottom:2px solid var(--line-2);padding:8px 12px;}
+    #sec-livedp table.lst-table tr.lst-strow{cursor:pointer;}
+    #sec-livedp table.lst-table tr.lst-strow td{padding:7px 12px;border-bottom:1px solid var(--line);}
+    #sec-livedp table.lst-table tr.lst-strow:hover td{background:rgba(220,230,242,.35);}
+    #sec-livedp table.lst-table tr.lst-strow.open td{background:rgba(33,39,194,.05);}
+    #sec-livedp .lst-caret{display:inline-block;width:13px;color:var(--ink-3);}
+    #sec-livedp tr.lst-strow.open .lst-caret{color:var(--stride-blue);}
+    #sec-livedp .lst-state{font-weight:600;color:var(--ink);}
+    #sec-livedp .lst-bar{display:inline-block;width:64px;height:7px;border-radius:4px;background:var(--idle-bg);overflow:hidden;vertical-align:middle;margin-right:7px;}
+    #sec-livedp .lst-bar>span{display:block;height:100%;background:var(--good);}
+    #sec-livedp tr.lst-acc td{padding:0;background:var(--bg);border-bottom:1px solid var(--line);}
+    #sec-livedp tr.lst-acc .lst-accbox{padding:9px 16px 15px 32px;}
+    #sec-livedp table.lst-sub{border-collapse:collapse;width:100%;font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+    #sec-livedp table.lst-sub th{background:var(--bg);color:var(--ink-2);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;padding:6px 11px;text-align:left;}
+    #sec-livedp table.lst-sub td{padding:6px 11px;border-top:1px solid var(--line);}
+    #sec-livedp table.lst-sub tr:hover td{background:rgba(220,230,242,.3);}
+    #sec-livedp .lst-stat{display:inline-block;padding:1px 8px;border-radius:9px;font-size:10.5px;font-weight:700;}
+    #sec-livedp .lst-stat.dl{background:var(--good-bg);color:var(--good);}
+    #sec-livedp .lst-stat.pd{background:var(--warn-bg);color:var(--warn);}
+  </style>
+
+  </div>
+  <div class="ldp-panel" data-ldp="milestones">
   <div class="section-eyebrow">Milestone Progression &middot; Pipeline Funnel <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(how many of the filtered cohort have cleared each LearningMate step)</span></div>
   <div class="card livedp-funnel-card" id="livedp-funnel"></div>
 
   <div class="section-eyebrow">Milestone Progression &middot; Cohort &times; Stage Heatmap <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(rows = delivery month, columns = milestones; cell = % complete. Click a cell to filter the dashboard to that month.)</span></div>
   <div class="card livedp-heatmap-card" id="livedp-heatmap"></div>
 
+  </div>
+  <div class="ldp-panel" data-ldp="weekly">
+  <div class="section-eyebrow">Weekly Roll-up &middot; Cumulative <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(courses delivering each week + running total)</span></div>
+  <div class="card"><div class="wkroll-wrap"><div id="livedp-wkroll"></div></div></div>
+  
   <div class="section-eyebrow">Weekly Subjects Delivering <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(click any week to see M1 / M3 / M5 / M7 dates and status per course)</span></div>
   <div class="card">
     <p class="card-sub">Live forecast bucketed by week. Click any week to expand and see, per course, the LearningMate-owned milestones &mdash; <strong>Completed in Brightspot</strong> (M1), <strong>BSP Course Validation</strong> (M3), <strong>Green Lighting</strong> (M5), and <strong>Deliver and SO</strong> (M7) &mdash; with each milestone's effective date and current status. The right-edge status bar aggregates done/wip/yts across all four milestone cells for the courses in that week.</p>
@@ -4285,6 +4365,8 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
     <div class="wdv-wrap" id="livedp-wdv"></div>
   </div>
 
+  </div>
+  <div class="ldp-panel" data-ldp="calendars">
   <div class="section-eyebrow">Daily Calendars <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(delivered = actual date, colored by slip; not yet delivered = baseline date)</span></div>
   <div class="card">
     <div style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px; align-items:center;">
@@ -4316,6 +4398,8 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
     <div class="cal-monthgrid" id="livedp-calendars"></div>
   </div>
 
+  </div>
+  <div class="ldp-panel" data-ldp="schedule">
   <div class="section-eyebrow">Delivery Schedule &middot; Expandable List</div>
   <div class="card">
     <p class="card-sub">All courses with Baseline, Plan, Actual, and slip days. Group by Date / State / Subject. Search and export.</p>
@@ -4352,7 +4436,8 @@ body:not(.v4-active) #v4FilterBar { display: none !important; }
     <div class="delivery-flat-wrap"><div class="scroll-area" id="livedp-accordion"></div></div>
   </div>
 
-</section>
+
+  </div></section>
 
 <!-- Live Delivery Plan calendar popup -->
 <div class="modal-backdrop no-print no-email" id="livedpCalModal">
@@ -9792,6 +9877,8 @@ function renderLiveDeliveryPlan() {
   livedp_renderWeekly();
   livedp_renderCalendars();
   livedp_renderAccordion();
+  if(typeof livedp_renderStateTable==='function') livedp_renderStateTable();
+  if(typeof livedp_renderWeeklyRollup==='function') livedp_renderWeeklyRollup();
 }
 
 function livedp_applyFilters() {
@@ -9841,6 +9928,8 @@ function livedp_recompute() {
   livedp_renderWeekly();
   livedp_renderCalendars();
   livedp_renderAccordion();
+  if(typeof livedp_renderStateTable==='function') livedp_renderStateTable();
+  if(typeof livedp_renderWeeklyRollup==='function') livedp_renderWeeklyRollup();
 }
 
 // Pass the filter-aware course list to the shared weekly renderer.
@@ -14289,6 +14378,87 @@ window.P670_TEXAS = {"courses":[{"subject":"ELA","state":"Texas","grade":"Grade 
     setSource('snapshot'); renderAll();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire); else wire();
+})();
+</script>
+<script>
+/* Live Delivery Plan — Delivery by State (course-type toggles + per-state accordion) */
+(function(){
+  window._livedpStateSem = window._livedpStateSem || {fy:true,semA:true,semB:true,semOnly:true};
+  var openStates = {};
+  var sortKey='baseline', sortDir='asc';
+  var COLS=[{k:'subject',l:'Subject'},{k:'grade',l:'Grade'},{k:'focus',l:'Focus Course'},{k:'baseline',l:'Baseline (Deliver &amp; SO)'},{k:'status',l:'Status'}];
+  function gradeNum(g){ var s=String(g||'').toLowerCase(); var m=s.match(/\d+/); if(m) return parseInt(m[0],10); if(s.indexOf('k')>=0) return 0; if(s.indexOf('high')>=0||s==='hs') return 90; return 50; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(m){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m]; }); }
+  function fmtD(s){ if(!s) return '—'; var d=new Date(s+'T00:00:00'); if(isNaN(d.getTime())) return esc(s); var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+  function cat(c){ var s=String(c.semAB||'').toLowerCase(); if(s.indexOf('only')>=0) return 'semOnly'; if(s.indexOf('sem a')>=0) return 'semA'; if(s.indexOf('sem b')>=0) return 'semB'; if(s.indexOf('full')>=0) return 'fy'; return ''; }
+  function passSem(c){ var k=cat(c); if(!k) return true; return !!window._livedpStateSem[k]; }
+  function subjShort(s){ return ({'Social Studies':'SS','Science':'Sci'})[s]||s; }
+  function dl(c){ return (typeof livedp_isDelivered==='function') && livedp_isDelivered(c); }
+  function courseList(){ var base=(typeof livedp_applyFilters==='function')?livedp_applyFilters():((window.P670_LIVE&&window.P670_LIVE.courses)||[]); return base.filter(passSem); }
+  function sortVal(c,k){ if(k==='subject') return (subjShort(c.subject)||'').toLowerCase(); if(k==='grade') return gradeNum(c.grade); if(k==='focus') return (c.focusName||'').toLowerCase(); if(k==='baseline'){ var b=(typeof livedp_baselineDate==='function')?livedp_baselineDate(c):null; return b||'9999-12-31'; } if(k==='status') return dl(c)?1:0; return ''; }
+  function subTable(courses){
+    var cs=courses.slice().sort(function(a,b){ var x=sortVal(a,sortKey),y=sortVal(b,sortKey); var r=(x<y?-1:(x>y?1:0)); if(r===0){ var bx=sortVal(a,'baseline'),by=sortVal(b,'baseline'); r=(bx<by?-1:(bx>by?1:0)); } return sortDir==='asc'?r:-r; });
+    var head=COLS.map(function(co){ var on=sortKey===co.k; var ar=on?(sortDir==='asc'?'▲':'▼'):''; return '<th class="lst-sortth'+(on?' on':'')+'" data-col="'+co.k+'">'+co.l+' <span class="lst-arrow">'+ar+'</span></th>'; }).join('');
+    return '<table class="lst-sub"><thead><tr>'+head+'</tr></thead><tbody>'+
+      cs.map(function(c){ var d=dl(c); var base=(typeof livedp_baselineDate==='function')?livedp_baselineDate(c):null; return '<tr><td>'+esc(subjShort(c.subject))+'</td><td>'+esc(c.grade||'')+'</td><td>'+esc(c.focusName||'')+'</td><td>'+fmtD(base)+'</td><td><span class="lst-stat '+(d?'dl':'pd')+'">'+(d?'Delivered':'Pending')+'</span></td></tr>'; }).join('')+
+      '</tbody></table>';
+  }
+  window.livedp_renderStateTable=function(){
+    var host=document.getElementById('livedp-stateTbl'); if(!host) return;
+    var arr=courseList();
+    var byState={};
+    arr.forEach(function(c){ var st=c.state||'(Unknown)'; if(!byState[st]) byState[st]={total:0,deliv:0,courses:[]}; byState[st].total++; if(dl(c)) byState[st].deliv++; byState[st].courses.push(c); });
+    var states=Object.keys(byState).sort();
+    var T=arr.length, D=arr.filter(dl).length, P=T-D;
+    function pct(d,t){ return t?Math.round(d/t*1000)/10:0; }
+    if(!T){ host.innerHTML='<p style="padding:18px;color:var(--ink-3);text-align:center">No courses match the current filters / course-type toggles.</p>'; return; }
+    var html='<table class="lst-table"><thead><tr><th>State</th><th class="num">Total Courses</th><th class="num">Delivered so far</th><th class="num">Pending</th><th class="num">% Complete</th></tr></thead><tbody>';
+    html+='<tr class="lst-total"><td>All states ('+states.length+')</td><td class="num">'+T+'</td><td class="num">'+D+'</td><td class="num">'+P+'</td><td class="num">'+pct(D,T)+'%</td></tr>';
+    states.forEach(function(st){ var o=byState[st]; var p=o.total-o.deliv; var pc=pct(o.deliv,o.total); var open=!!openStates[st];
+      html+='<tr class="lst-strow'+(open?' open':'')+'" data-lst-state="'+esc(st)+'"><td><span class="lst-caret">'+(open?'▾':'▸')+'</span> <span class="lst-state">'+esc(st)+'</span></td><td class="num">'+o.total+'</td><td class="num">'+o.deliv+'</td><td class="num">'+p+'</td><td class="num"><span class="lst-bar"><span style="width:'+pc+'%"></span></span>'+pc+'%</td></tr>';
+      html+='<tr class="lst-acc"'+(open?'':' style="display:none"')+'><td colspan="5"><div class="lst-accbox">'+(open?subTable(o.courses):'')+'</div></td></tr>';
+    });
+    html+='</tbody></table>';
+    host.innerHTML=html;
+  };
+  function wire(){
+    var tg=document.getElementById('livedp-lst-toggles');
+    if(tg && !tg._wired){ tg._wired=true; tg.addEventListener('click',function(e){ var b=e.target.closest('.lst-tbtn'); if(!b)return; var k=b.getAttribute('data-lst'); window._livedpStateSem[k]=!window._livedpStateSem[k]; b.classList.toggle('active', !!window._livedpStateSem[k]); window.livedp_renderStateTable(); }); }
+    var host=document.getElementById('livedp-stateTbl');
+    if(host && !host._wired){ host._wired=true; host.addEventListener('click',function(e){
+      var th=e.target.closest('.lst-sortth');
+      if(th){ var k=th.getAttribute('data-col'); if(sortKey===k){ sortDir=(sortDir==='asc'?'desc':'asc'); } else { sortKey=k; sortDir='asc'; } window.livedp_renderStateTable(); return; }
+      var row=e.target.closest('.lst-strow'); if(!row)return; var st=row.getAttribute('data-lst-state'); openStates[st]=!openStates[st]; window.livedp_renderStateTable();
+    }); }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire); else wire();
+})();
+</script>
+<script>
+/* Live Delivery Plan — internal tabs + weekly cumulative roll-up */
+(function(){
+  function setTab(name){
+    Array.prototype.forEach.call(document.querySelectorAll('#sec-livedp .ldp-tab'),function(b){ b.classList.toggle('active', b.getAttribute('data-ldp')===name); });
+    Array.prototype.forEach.call(document.querySelectorAll('#sec-livedp .ldp-panel'),function(p){ p.classList.toggle('ldp-active', p.getAttribute('data-ldp')===name); });
+    window._livedpInnerTab=name;
+  }
+  window.livedp_setInnerTab=setTab;
+  function wireTabs(){ var tb=document.getElementById('livedp-inner-tabs'); if(tb&&!tb._wired){ tb._wired=true; tb.addEventListener('click',function(e){ var b=e.target.closest('.ldp-tab'); if(!b)return; setTab(b.getAttribute('data-ldp')); }); } }
+  function mondayISO(iso){ var d=new Date(iso+'T00:00:00'); if(isNaN(d.getTime())) return null; var dy=d.getDay(); var diff=(dy===0?-6:1-dy); d.setDate(d.getDate()+diff); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function lbl(iso){ var d=new Date(iso+'T00:00:00'); var wd=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()]; var m=['January','February','March','April','May','June','July','August','September','October','November','December'][d.getMonth()]; return wd+', '+m+' '+d.getDate()+', '+d.getFullYear(); }
+  window.livedp_renderWeeklyRollup=function(){
+    var host=document.getElementById('livedp-wkroll'); if(!host) return;
+    var arr=(typeof livedp_applyFilters==='function')?livedp_applyFilters():((window.P670_LIVE&&window.P670_LIVE.courses)||[]);
+    var wk={};
+    arr.forEach(function(c){ var eff=(typeof livedp_effectiveDate==='function')?livedp_effectiveDate(c):null; if(!eff) return; var mk=mondayISO(String(eff).slice(0,10)); if(!mk) return; wk[mk]=(wk[mk]||0)+1; });
+    var keys=Object.keys(wk).sort();
+    if(!keys.length){ host.innerHTML='<p style="padding:16px;color:var(--ink-3);text-align:center">No courses match the current filters.</p>'; return; }
+    var max=Math.max.apply(null,keys.map(function(k){return wk[k];}))||1;
+    var cum=0,total=0;
+    var rows=keys.map(function(k){ cum+=wk[k]; total+=wk[k]; var w=Math.max(4,Math.round(wk[k]/max*84)); return '<tr><td>'+lbl(k)+'</td><td class="num">'+wk[k]+'</td><td class="num"><span class="wkroll-bar" style="width:'+w+'px"></span>'+cum+'</td></tr>'; }).join('');
+    host.innerHTML='<table class="wkroll"><thead><tr><th>Week (week of)</th><th class="num">Courses Delivering</th><th class="num">Cumulative</th></tr></thead><tbody>'+rows+'<tr class="wk-tot"><td>Grand Total</td><td class="num">'+total+'</td><td class="num">'+total+'</td></tr></tbody></table>';
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wireTabs); else wireTabs();
 })();
 </script>
 </body>

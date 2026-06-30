@@ -673,6 +673,8 @@ body.email-mode .calendar-cell { width: 11px; height: 11px; }
 @keyframes v5spin { to { transform:rotate(360deg); } }
 .v5-livetile.is-stale .v5-livepill { color:var(--warn); border-color:var(--warn); }
 .v5-livetile.is-stale .v5-livedot { background:var(--warn); animation:none; }
+.v5-livetile.is-loading .v5-livepill { color:var(--ink-3); border-color:var(--line); }
+.v5-livetile.is-loading .v5-livedot { background:var(--ink-3); animation:none; }
 .quick-range { width:100%; grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin-top:6px; padding:7px 12px; background:var(--idle-bg); border:1px solid var(--line); border-radius:10px; }
 .quick-range .qr-label { font-size:11px; font-weight:800; color:var(--stride-blue); text-transform:uppercase; letter-spacing:.06em; margin-right:4px; }
 .qr-btn { font-size:12px; font-weight:600; color:var(--ink); background:var(--card); border:1.5px solid var(--line); border-radius:999px; padding:5px 14px; cursor:pointer; font-family:inherit; transition:border-color .12s, color .12s, background .12s; }
@@ -2596,7 +2598,7 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
   </div>
 
   <div class="v5-livetile no-print" id="v5-livetile">
-    <span class="v5-livepill"><span class="v5-livedot"></span>Live status</span>
+    <span class="v5-livepill"><span class="v5-livedot"></span><span id="v5-pilltext">Live status</span></span>
     <span class="v5-syncinfo">Status is live from the Google Sheet &middot; dates are based on SEM B updates through <strong>Aug 31, 2026</strong>. Last synced: <strong id="v5-synctime">&mdash;</strong></span>
     <button class="v5-refreshbtn" id="v5-refreshbtn" type="button" title="Re-pull status from the sheet now"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Refresh</button>
   </div>
@@ -8656,20 +8658,32 @@ const ggSel = Array.from(document.querySelectorAll('#v5-f-gradegroup option')).f
   function setSyncTileV5(state, when) {
     var tile = document.getElementById('v5-livetile');
     var tEl = document.getElementById('v5-synctime');
-    if (tile) tile.classList.toggle('is-stale', state === 'stale');
-    if (tEl && when) tEl.textContent = when.toLocaleTimeString();
-    else if (tEl && state === 'stale' && (tEl.textContent === '\u2014' || tEl.textContent === '')) tEl.textContent = 'unavailable';
+    var pt = document.getElementById('v5-pilltext');
+    if (!tile) return;
+    tile.classList.toggle('is-stale', state === 'stale');
+    tile.classList.toggle('is-loading', state === 'loading');
+    if (pt) pt.textContent = (state === 'loading') ? 'Syncing\u2026' : (state === 'stale' ? 'Status unavailable' : 'Live status');
+    if (tEl) { if (state === 'loading') tEl.textContent = 'loading\u2026'; else if (when) tEl.textContent = when.toLocaleTimeString(); else if (state === 'stale') tEl.textContent = 'unavailable'; }
   }
   function applyDynamicStatusV5() {
     if (!V5_STATUS_URL || v5StatusInFlight) return;
     v5StatusInFlight = true;
     var btn = document.getElementById('v5-refreshbtn'); if (btn) btn.classList.add('spinning');
+    setSyncTileV5('loading');
     var cb = 'P670_v5Status_' + Date.now();
-    var scr = null, done = false;
-    function finish(){ v5StatusInFlight = false; if (btn) btn.classList.remove('spinning'); try { delete window[cb]; } catch(e){ window[cb] = undefined; } if (scr && scr.parentNode) scr.parentNode.removeChild(scr); }
-    var timer = setTimeout(function(){ if(!done){ done=true; console.warn('[P670] status fetch timed out - using embedded status.'); setSyncTileV5('stale'); finish(); } }, 8000);
+    var scr = null, settled = false;
+    function stopSpin(){ v5StatusInFlight = false; if (btn) btn.classList.remove('spinning'); }
+    function removeScript(){ if (scr && scr.parentNode) scr.parentNode.removeChild(scr); }
+    var timer = setTimeout(function(){
+      if (settled) return;
+      // Slow reply (e.g. Apps Script cold start): show embedded status for now, but KEEP the
+      // callback alive so a late reply still applies. Never delete it - that throws ReferenceError.
+      stopSpin(); setSyncTileV5('stale');
+      console.warn('[P670] status fetch slow - showing embedded status; will apply if it arrives.');
+      setTimeout(function(){ if (!settled) { window[cb] = function(){}; removeScript(); } }, 60000);
+    }, 20000);
     window[cb] = function(resp){
-      if (done) return; done = true; clearTimeout(timer);
+      settled = true; clearTimeout(timer);
       try {
         var map = (resp && resp.status) || {};
         var norm = function(x){ return String(x==null?'':x).trim().toLowerCase(); };
@@ -8680,11 +8694,12 @@ const ggSel = Array.from(document.querySelectorAll('#v5-f-gradegroup option')).f
         renderV5All();
         setSyncTileV5('live', new Date());
       } catch(err){ console.error('[P670] status overlay error:', err && err.message); setSyncTileV5('stale'); }
-      finish();
+      stopSpin(); removeScript();
+      window[cb] = function(){};
     };
     scr = document.createElement('script');
     scr.src = V5_STATUS_URL + (V5_STATUS_URL.indexOf('?') > -1 ? '&' : '?') + 'callback=' + cb + '&t=' + Date.now();
-    scr.onerror = function(){ if(!done){ done=true; clearTimeout(timer); console.warn('[P670] status fetch failed - using embedded status.'); setSyncTileV5('stale'); finish(); } };
+    scr.onerror = function(){ if (settled) return; settled = true; clearTimeout(timer); stopSpin(); setSyncTileV5('stale'); window[cb] = function(){}; removeScript(); console.warn('[P670] status fetch failed - using embedded status.'); };
     (document.head || document.documentElement).appendChild(scr);
   }
   function wireSyncTileV5() {
@@ -8695,8 +8710,10 @@ const ggSel = Array.from(document.querySelectorAll('#v5-f-gradegroup option')).f
 
   function init() {
     bindV5();
+    if (V5_STATUS_URL) { COURSES_V5.forEach(function(c){ c.x = 0; }); }  // show 0 delivered until live status loads
     renderV5All();
     wireSyncTileV5();
+    if (V5_STATUS_URL) setSyncTileV5('loading');
     applyDynamicStatusV5();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -10944,7 +10944,7 @@ const ggSel = f.gradeGroups || ['all'];
       '<div class="kpi"><div class="label">Start Date</div><div class="num blue">' + fmtDateShortV7(first) + '</div><div class="sub">' + first.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + first.getFullYear() + '</div></div>' +
       '<div class="kpi"><div class="label">End Date</div><div class="num blue">' + fmtDateShortV7(last) + '</div><div class="sub">' + last.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + last.getFullYear() + '</div></div>' +
       '<div class="kpi"><div class="label">Window</div><div class="num">' + spanDays + ' days</div><div class="sub">' + bizDays + ' business days &middot; ' + monthly.length + ' month' + (monthly.length===1?'':'s') + '</div></div>' +
-      '<div class="kpi" id="v7-kpi-total"><div class="label">Delivered</div><div class="num good">' + v7Deliv + ' / ' + series.length.toLocaleString() + '</div><div class="sub">' + (series.length ? Math.round(v7Deliv/series.length*100) : 0) + '% delivered &middot; ' + (series.length - v7Deliv) + ' forecast</div></div>' +
+      '<div class="kpi" id="v7-kpi-total"><div class="label">Total Deliveries</div><div class="num good">' + series.length.toLocaleString() + '</div><div class="sub">Avg ' + avgPerBiz.toFixed(1) + ' / business day</div></div>' +
       '<div class="kpi"><div class="label">Busiest Day</div><div class="num warn">' + busiest.total + '</div><div class="sub">' + (busiest.date ? fmtDateV7(busiest.date) : '—') + '</div></div>';
   }
 
@@ -10958,9 +10958,8 @@ const ggSel = f.gradeGroups || ['all'];
       const shareSegV7 = order.map(function(s) { var v = m.bySubject[s] || 0; return v > 0 ? '<span class="mc-share-seg ' + subjClassV7(s) + '" style="width:' + (v / _totV7 * 100) + '%" title="' + subjShortV7(s) + ' ' + v + '"></span>' : ''; }).join('');
       const rows = '<div class="mc-sharebar">' + shareSegV7 + '</div>' + order.map(function(s) {
         const v = m.bySubject[s] || 0;
-        const dvv = (m.bySubjectDeliv && m.bySubjectDeliv[s]) || 0;
-        const pct = v ? Math.round(dvv / v * 100) : 0;
-        return '<div class="row"><span class="name">' + subjShortV7(s) + '</span><div class="barwrap"><div class="bar ' + subjClassV7(s) + '" style="width:' + pct + '%"></div></div><span class="count">' + (dvv + ' of ' + v + '<span class="done-suffix' + (dvv > 0 ? ' done-pos' : '') + '">&middot; ' + pct + '%</span>') + '</span></div>';
+        const pct = (v / _totV7) * 100;
+        return '<div class="row"><span class="name">' + subjShortV7(s) + '</span><div class="barwrap"><div class="bar ' + subjClassV7(s) + '" style="width:' + pct.toFixed(0) + '%"></div></div><span class="count">' + v + '</span></div>';
       }).join('');
       const mk = m.key; // YYYY-MM
       const isSel = (window.STATE_V7.filters.month === mk);
@@ -10968,8 +10967,7 @@ const ggSel = f.gradeGroups || ['all'];
         '<div class="month-name">' + eEsc(monthLabelV7(m.date)) + '</div>' +
         '<div class="month-total">' + m.total.toLocaleString() + '</div>' +
         '<div class="month-sub">deliveries this month</div>' +
-        '<div class="subj-breakdown">' + rows + '</div>' +
-        '<div class="mc-statusline-v7">' + (m.total ? ('<span><span class="mc-deliv">' + m.deliv + ' delivered</span> &middot; ' + Math.round(m.deliv/m.total*100) + '% complete</span>') : ('<span><span class="mc-deliv">' + m.deliv + ' delivered</span></span>')) + '<span class="mc-forecast">' + (m.total - m.deliv) + ' forecast</span></div></div>';
+        '<div class="subj-breakdown">' + rows + '</div></div>';
     }).join('');
 
     // wire clicks: clicking a card sets / toggles the Month filter
@@ -11416,16 +11414,16 @@ const ggSel = f.gradeGroups || ['all'];
     const infoIcon = hasNotes ? '<span class="info-icon has-notes" title="' + attrEsc(c.an) + '">i</span>' : '';
     // Strip newlines and trim from displayed text (some Excel cells contain CR/LF)
     function clean(s) { return (s == null ? '' : String(s)).replace(/\s+/g, ' ').trim(); }
-    return '<tr class="course-row' + (c.x ? ' v7-completed' : '') + '">'
+    return '<tr class="course-row">'
       + '<td>' + dateCell + '</td>'
       + '<td><span class="subj-pill ' + subjClassV7(c.s) + '">' + eEsc(subjShortV7(c.s)) + '</span></td>'
       + '<td><div class="clamp1" title="' + attrEsc(clean(c.st)) + '">' + eEsc(clean(c.st)) + '</div></td>'
       + '<td><div class="clamp1" title="' + attrEsc(clean(c.gr)) + '">' + eEsc(clean(c.gr)) + '</div></td>'
       + '<td><span style="font-size:11px;color:var(--ink-3)">' + eEsc(c.tp || '') + '</span></td>'
       + '<td><span style="font-size:11px;font-weight:600;color:' + dvColor + '">' + eEsc(c.dv || '-') + '</span></td>'
-      + '<td title="' + attrEsc(clean(c.fn)) + '"><div class="clamp2" style="font-size:12px;color:var(--ink)"><strong>' + eEsc(clean(c.fn)) + '</strong> ' + infoIcon + '</div></td>'
+      + '<td title="' + attrEsc(clean(c.fn)) + '"><div class="clamp2" style="font-size:12px;color:var(--ink)"><strong>' + eEsc(clean(c.fn)) + '</strong></div></td>'
       + '<td><span style="font-size:11px;color:var(--ink-3)">' + eEsc(c.bsp == null ? '' : c.bsp) + '</span></td>'
-      + '<td>' + (c.x ? '<span class="v7-status-chip">Completed</span>' : '<span style="color:var(--ink-3);font-size:11px">&mdash;</span>') + '</td>'
+      + '<td title="' + attrEsc(clean(c.cn) + ' / ' + clean(c.cc)) + '"><div class="clamp2"><span style="color:var(--ink-2)">' + eEsc(clean(c.cn)) + '</span> ' + infoIcon + '<br><code style="font-size:10.5px;color:var(--ink-3)">' + eEsc(clean(c.cc)) + '</code></div></td>'
       + '</tr>';
   }
   function buildByDateV7(series, q) {
@@ -11483,7 +11481,7 @@ const ggSel = f.gradeGroups || ['all'];
     else groups = buildByKeyV7(series, function(e){return e.subject;}, q);
     if (!groups.length) { host.innerHTML = '<p style="padding:18px;color:var(--ink-3);text-align:center">No rows match this search.</p>'; return; }
     let html = '<table class="delivery-flat"><thead><tr>'
-      + '<th>Date</th><th>Subject</th><th>State</th><th>Grade</th><th>Type</th><th>Deriv.</th><th>Focus Course</th><th>BSP SSID</th><th>Status</th>'
+      + '<th>Date</th><th>Subject</th><th>State</th><th>Grade</th><th>Type</th><th>Deriv.</th><th>Focus Course</th><th>BSP SSID</th><th>Base Course</th>'
       + '</tr></thead><tbody>';
     for (let i = 0; i < groups.length; i++) html += groups[i].html;
     html += '</tbody></table>';

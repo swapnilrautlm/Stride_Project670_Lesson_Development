@@ -1117,10 +1117,10 @@ table.acc-table tbody tr:last-child td { border-bottom: 0; }
 /* Fallback for older browsers without :has(). The filter bar children appear in this order:
    Subject, State, Grade group, Owning team(4), Derivative, Status(6), From(7), To(8), filter-actions.
    Hide children 4, 6, 7, 8. */
-.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar) > label:nth-child(4),  /* Owning team */
-.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar) > label:nth-child(6),  /* Status */
-.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar) > label:nth-child(7),  /* From */
-.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar) > label:nth-child(8)   /* To */
+.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar):not(#v8FilterBar) > label:nth-child(4),  /* Owning team */
+.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar):not(#v8FilterBar) > label:nth-child(6),  /* Status */
+.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar):not(#v8FilterBar) > label:nth-child(7),  /* From */
+.filter-bar:not(#v2FilterBar):not(#v3FilterBar):not(#v4FilterBar):not(#v5FilterBar):not(#v6FilterBar):not(#v7FilterBar):not(#v8FilterBar) > label:nth-child(8)   /* To */
 { display: none; }
 
 /* Tabs for the three Month cross-tabs */
@@ -2161,7 +2161,7 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
     <button class="tab tab-old" data-tab="sec-delivery" title="Outdated plan — superseded by June 1"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">May 13</span></span></button>
     <button class="tab tab-old" data-tab="sec-delivery-may21" title="Outdated plan — superseded by June 1"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">May 21</span></span></button>
     <button class="tab tab-old" data-tab="sec-delivery-jun01" title="Outdated plan — superseded by June 11"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">June 1</span></span></button>
-    <button class="tab tab-old" data-tab="sec-delivery-jun11" title="Superseded by Jun 25"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">June 11</span></span></button><button class="tab tab-old" data-tab="sec-delivery-jun25" title="Superseded by Jun 30"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jun 25</span></span></button><button class="tab tab-old" data-tab="sec-delivery-jun30" title="Superseded by Jul 01"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jun 30</span></span></button><button class="tab tab-new active" data-tab="sec-delivery-jul01" title="Current plan"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jul 01</span></span></button>
+    <button class="tab tab-old" data-tab="sec-delivery-jun11" title="Superseded by Jun 25"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">June 11</span></span></button><button class="tab tab-old" data-tab="sec-delivery-jun25" title="Superseded by Jun 30"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jun 25</span></span></button><button class="tab tab-old" data-tab="sec-delivery-jun30" title="Superseded by Jul 01"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jun 30</span></span></button><button class="tab tab-old" data-tab="sec-delivery-jul01" title="Superseded by Jul 13"><svg class="tab-ic muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jul 01</span></span></button><button class="tab tab-new active" data-tab="sec-delivery-jul13" title="Current plan"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="tab-2l"><span>Delivery Plan</span><span class="tab-d">Jul 13</span></span></button><button class="tab" data-tab="sec-weekly" title="Weekly delivery roll-up (Jul 13 plan)"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span class="tab-2l"><span>Weekly</span><span class="tab-d">Roll-up</span></span></button><button class="tab" data-tab="sec-bystate" title="Delivery by state (Jul 13 plan)"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="tab-2l"><span>By State</span><span class="tab-d">Delivery</span></span></button>
     <button class="tab tab-ci" data-tab="sec-course-inventory" title="Static course catalogue"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Course Inventory</button><button class="tab tab-ci" data-tab="sec-dateshift" title="Compare Deliver & SO dates across plan snapshots"><svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Date Shift</button>
     <div class="right">
       <span class="mode-tag demo" id="modeTag" title="Demo data: actuals are simulated from planned dates relative to the current TODAY value.">DEMO DATA</span>
@@ -3224,10 +3224,10 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
 <section id="sec-delivery-jul01" class="page-break">
 
   <div class="banner v7-banner no-print">
-    <strong>Revised Plan for AL, LA, TN Deliveries &mdash; Week of 6/29.</strong> The course list is unchanged at <strong>996 courses</strong>.
+    <strong>Superseded by Jul 13 &mdash; historical snapshot.</strong> This is the Jul 01 plan, kept for comparison. Status is frozen (no live sync). The course list is unchanged at <strong>996 courses</strong>.
   </div>
 
-  <div class="v7-livetile no-print" id="v7-livetile">
+  <div class="v7-livetile no-print" id="v7-livetile" style="display:none">
     <span class="v7-livepill"><span class="v7-livedot"></span><span id="v7-pilltext">Live status</span></span>
     <span class="v7-syncinfo">Synced from the Google Sheet. Last synced: <strong id="v7-synctime">&mdash;</strong></span>
     <button class="v7-refreshbtn" id="v7-refreshbtn" type="button" title="Re-pull status from the sheet now"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v7h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Refresh</button>
@@ -3328,7 +3328,402 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
 
 </section>
 
+<style id="v8-clone-css">
+.month-card .mc-statusline-v8 { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); display: flex; justify-content: space-between; font-size: 11px; }
+.month-card .mc-statusline-v8 .mc-deliv { color: var(--good); font-weight: 700; }
+.month-card .mc-statusline-v8 .mc-forecast { color: var(--ink-3); font-weight: 600; }
+.v8-livetile { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 16px; padding:8px 13px; border:1px solid var(--line); border-radius:10px; background:var(--card); }
+.v8-livepill { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; color:var(--good); background:var(--idle-bg); border:1px solid var(--good); padding:3px 10px; border-radius:999px; letter-spacing:.02em; white-space:nowrap; }
+.v8-livedot { width:7px; height:7px; border-radius:50%; background:var(--good); animation:v8pulse 1.8s infinite; }
+@keyframes v8pulse { 0%{box-shadow:0 0 0 0 rgba(34,160,75,.55);} 70%{box-shadow:0 0 0 7px rgba(34,160,75,0);} 100%{box-shadow:0 0 0 0 rgba(34,160,75,0);} }
+.v8-syncinfo { font-size:11.5px; color:var(--ink-3); }
+.v8-refreshbtn { margin-left:auto; display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:5px 11px; cursor:pointer; font-family:inherit; }
+.v8-refreshbtn:hover { color:var(--ink); }
+.v8-refreshbtn.spinning svg { animation:v8spin .8s linear infinite; }
+@keyframes v8spin { to { transform:rotate(360deg); } }
+.v8-livetile.is-stale .v8-livepill { color:var(--warn); border-color:var(--warn); }
+.v8-livetile.is-stale .v8-livedot { background:var(--warn); animation:none; }
+.v8-livetile.is-loading .v8-livepill { color:var(--ink-3); border-color:var(--line); }
+.v8-livetile.is-loading .v8-livedot { background:var(--ink-3); animation:none; }
+#v8-weeks .qr-btn { font-size:11px; padding:4px 10px; }
+section#sec-delivery-jul13 { display: none; }
+body.v8-active section#sec-delivery { display: none; }
+body.v8-active section#sec-course-inventory { display: none; }
+body.v8-active section#sec-delivery-jul13 { display: block; }
+body.v8-active #filterBar { display: none !important; }
+body.ci-active section#sec-delivery-jul13 { display: none; }
+.v8-mvd-host .xt-tabs { margin-bottom: 12px; }
+.v8-mvd-host .mvd-pane { display: none; }
+.v8-mvd-host .mvd-pane.active { display: block; }
+.v8-banner {
+  display: block !important;
+  background: #E6EEFA;
+  border: 1px solid var(--stride-blue-med);
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin: 0 0 18px;
+  font-size: 13px; color: var(--stride-navy);
+}
+.v8-banner strong { color: var(--stride-blue); }
+#v8-deliveryHeadline .kpi.click-rollup {
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+#v8-deliveryHeadline .kpi.click-rollup:hover {
+  background: rgba(33,39,194,0.03);
+  border-color: var(--stride-blue);
+}
+#v8-deliveryHeadline .kpi.click-rollup .hint {
+  font-size: 10.5px; color: var(--stride-blue); margin-top: 4px;
+}
+#sec-delivery-jul13 .delivery-flat-wrap .scroll-area { overflow-x: hidden; }
+#sec-delivery-jul13 table.delivery-flat {
+  font-size: 12px;
+  table-layout: fixed;
+  width: 100%;
+}
+#sec-delivery-jul13 table.delivery-flat thead th { padding: 8px 8px; white-space: nowrap; }
+#sec-delivery-jul13 table.delivery-flat tbody td {
+  padding: 6px 8px;
+  vertical-align: middle;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(1),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(1) { width: 6%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(2),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(2) { width: 5%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(3),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(3) { width: 9%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(4),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(4) { width: 9%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(5),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(5) { width: 7%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(6),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(6) { width: 7%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(7),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(7) { width: 22%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(8),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(8) { width: 7%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(9),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(9) { width: 28%; }
+#sec-delivery-jul13 table.delivery-flat thead th:nth-child(10),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(10) { width: auto; }
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(1),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(2),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(5),
+#sec-delivery-jul13 table.delivery-flat tbody td:nth-child(6) { white-space: nowrap; }
+#sec-delivery-jul13 table.delivery-flat tbody tr.group-header td { white-space: nowrap; }
+#sec-delivery-jul13 table.delivery-flat .clamp2 {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; word-break: break-word; line-height: 1.35;
+}
+#sec-delivery-jul13 table.delivery-flat .clamp1 {
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+  overflow: hidden; word-break: break-word;
+}
+.v8-month-card { cursor: pointer; transition: transform 0.08s ease, box-shadow 0.12s ease, border-color 0.12s ease; }
+.v8-month-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(33,39,194,0.10); border-color: var(--stride-blue); }
+.v8-month-card:focus-visible { outline: 2px solid var(--stride-blue); outline-offset: 2px; }
+.v8-month-card-active { border-color: var(--stride-blue) !important; box-shadow: 0 0 0 2px rgba(33,39,194,0.18); background: #f4f6ff; }
+.v8-month-card-active .month-total { color: var(--stride-blue); }
+.v2-banner, .v3-banner, .v8-banner { box-shadow: 0 2px 8px rgba(33,39,194,0.08); }
+.topnav .tab[data-tab="sec-delivery-jul13"] .tab-ic { color: var(--good); }
+#sec-delivery-jul13 .cal-monthgrid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+#sec-delivery-jul13 .cal-month { padding: 10px 12px; }
+#sec-delivery-jul13 .cal-month .cal-month-title { font-size: 13px; }
+#sec-delivery-jul13 .cal-month .cal-month-total { font-size: 11px; }
+#sec-delivery-jul13 .cal-table { border-spacing: 1px; }
+#sec-delivery-jul13 .cal-table th { font-size: 9px; padding: 3px 0; letter-spacing: 0; }
+#sec-delivery-jul13 .cal-table td { height: 44px; padding: 2px 3px; font-size: 10px; border-radius: 4px; }
+#sec-delivery-jul13 .cal-day-num { margin-bottom: 1px; font-size: 9.5px; }
+#sec-delivery-jul13 .cal-day-count { font-size: 9px; padding: 0 5px; margin-bottom: 2px; }
+#sec-delivery-jul13 .cal-day-bars { height: 12px; }
+#sec-delivery-jul13 .cal-day-bars .b { max-height: 12px; }
+.v8-status-chip{display:inline-block;background:var(--good,#1F7A3E);color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:9px;margin-right:5px;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em;}
+table.delivery-flat tbody tr.course-row.v8-completed td{background:var(--good-bg,#DCEFE2) !important;}
+table.delivery-flat tbody tr.course-row.v8-completed:hover td{background:#CDEBD6 !important;}
+#sec-delivery-jul13 .cal-table td.cal-alldeliv{background:var(--good-bg,#DCEFE2);box-shadow:inset 0 0 0 2px var(--good,#1F7A3E);}
+#sec-delivery-jul13 .cal-table td.cal-somedeliv{box-shadow:inset 0 0 0 2px var(--good,#1F7A3E);}
+</style>
+
+<style>
+/* Jul 13 (v8) filter bar visibility + fix v7 bar always-on */
+body.v8-active #v8FilterBar, body.wk-active #v8FilterBar, body.bs-active #v8FilterBar { display:flex !important; }
+body:not(.v8-active):not(.wk-active):not(.bs-active) #v8FilterBar { display:none !important; }
+body:not(.v7-active) #v7FilterBar { display:none !important; }
+</style>
+<div class="filter-bar no-email no-print" id="v8FilterBar">
+  <label>Subject
+    <select id="v8-f-subject" multiple size="1"><option value="all" selected>All subjects</option></select>
+  </label>
+  <label>State
+    <select id="v8-f-state"><option value="all">All states</option></select>
+  </label>
+  <label>Grade Group
+    <select id="v8-f-gradegroup" multiple size="1" title="Hold Ctrl/Cmd to select multiple"><option value="all" selected>All grade groups</option></select>
+  </label>
+  <label>Grade Band
+    <select id="v8-f-gradeband" multiple size="1" title="Hold Ctrl/Cmd to select multiple"><option value="all" selected>All bands</option></select>
+  </label>
+  <label>Type of Course
+    <select id="v8-f-type">
+      <option value="all">All</option>
+      <option value="Full Year">Full Year</option>
+      <option value="Sem">Sem</option>
+    </select>
+  </label>
+  <label>Sem A/B
+    <select id="v8-f-semab">
+      <option value="all">All</option>
+      <option value="Full Year">Full Year</option>
+      <option value="SEM A">SEM A</option>
+      <option value="SEM B">SEM B</option>
+      <option value="Sem Only">Sem Only</option>
+    </select>
+  </label>
+  <label>Derivative
+    <select id="v8-f-deriv">
+      <option value="all">All</option>
+      <option value="Master">Master only</option>
+      <option value="80%">80% derivatives</option>
+      <option value="60%">60% derivatives</option>
+      <option value="40%">40% derivatives</option>
+      <option value="Derivatives">All derivatives (60% / 80% / 40%)</option>
+    </select>
+  </label>
+  <label>Month
+    <select id="v8-f-month">
+      <option value="all">All months</option>
+    </select>
+  </label>
+  <label>Deliver From
+    <input type="date" id="v8-f-from" class="f-date" title="Deliver & SO on or after this date" />
+  </label>
+  <label>Deliver To
+    <input type="date" id="v8-f-to" class="f-date" title="Deliver & SO on or before this date" />
+  </label>
+  <div class="quick-range no-print" id="v8-quickrange" aria-label="Quick date ranges">
+    <span class="qr-label">Quick range</span>
+    <button type="button" class="qr-btn" data-qr="lastweek">Last week</button>
+    <button type="button" class="qr-btn" data-qr="thisweek">This week</button>
+    <button type="button" class="qr-btn" data-qr="yesterday">Yesterday</button>
+    <button type="button" class="qr-btn" data-qr="today">Today</button>
+    <button type="button" class="qr-btn" data-qr="tomorrow">Tomorrow</button>
+    <button type="button" class="qr-btn" data-qr="nextweek">Next week</button>
+    <div class="filter-actions"><button class="btn" id="v8-f-reset">Reset</button></div>
+  </div>
+  <div class="quick-range qr-weeks no-print" id="v8-weeks" aria-label="Filter by delivery week"><span class="qr-label">Weeks</span></div>
+</div>
+
+<section id="sec-delivery-jul13" class="page-break">
+
+  <div class="banner v8-banner no-print">
+    <strong>Jul 13 Update.</strong> Updates Based on Deanna Course Delivery Proposal 7.8.26. The course list is unchanged at <strong>996 courses</strong>.
+  </div>
+
+  <div class="v8-livetile no-print" id="v8-livetile">
+    <span class="v8-livepill"><span class="v8-livedot"></span><span id="v8-pilltext">Live status</span></span>
+    <span class="v8-syncinfo">Synced from the Google Sheet. Last synced: <strong id="v8-synctime">&mdash;</strong></span>
+    <button class="v8-refreshbtn" id="v8-refreshbtn" type="button" title="Re-pull status from the sheet now"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v8h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Refresh</button>
+  </div>
+
+  <div class="section-eyebrow" style="display:none">2-Week Outlook</div>
+  <div class="card" id="v8-outlook" style="display:none"></div>
+
+  <div class="section-eyebrow">Delivery Plan &middot; "Deliver and SO" (LearningMate)</div>
+  <div class="card">
+    <h3 class="card-title">Delivery Window</h3>
+    <p class="card-sub">When does the final "Deliver and SO" milestone happen for each course? Filters above cascade through every widget below.</p>
+    <div class="delivery-headline" id="v8-deliveryHeadline"></div>
+  </div>
+  <style>
+    .deliv-chip{display:inline-block;background:var(--good-bg,#DCEFE2);color:var(--good,#1F7A3E);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:9px;margin-right:4px;vertical-align:middle;text-transform:uppercase;letter-spacing:.03em;}
+    .acc-toolbar .acc-status select{font-family:inherit;font-size:12px;padding:6px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--card);color:var(--ink);}
+  </style>
+
+  <div class="section-eyebrow">By Month &middot; Subject Breakdown</div>
+  <div class="month-summary-row" id="v8-deliveryMonthCards"></div>
+
+  <!-- Master vs Derivatives breakdown (filter-aware) -->
+  <div class="section-eyebrow" style="display:none">Master vs Derivatives Breakdown <span style="font-weight:400;font-size:11px;color:var(--ink-3);text-transform:none;letter-spacing:0;">(reflects current filters)</span></div>
+  <div class="card v8-mvd-host" style="display:none">
+    <p class="card-sub">How many Master vs Derivative courses are being delivered. Use the inner tabs to slice by Subject, State, or Grade Band. Counts respect every filter above (Subject, State, Grade Group, Grade Band, Type, Sem A/B, Derivative, Month).</p>
+    <div class="xt-tabs" role="tablist" aria-label="Master vs Derivatives slice">
+      <button class="xt-tab active" data-v8mvd="subject">By Subject</button>
+      <button class="xt-tab" data-v8mvd="state">By State</button>
+      <button class="xt-tab" data-v8mvd="gradeBand">By Grade Band</button>
+    </div>
+    <div class="mvd-pane active" data-v8mvd-pane="subject"><div id="v8-mvd-subject"></div></div>
+    <div class="mvd-pane" data-v8mvd-pane="state"><div id="v8-mvd-state"></div></div>
+    <div class="mvd-pane" data-v8mvd-pane="gradeBand"><div id="v8-mvd-gradeBand"></div></div>
+  </div>
+
+  <div class="section-eyebrow">Daily Calendars</div>
+  <div class="card">
+    <p class="card-sub">Each calendar cell shows the number of deliveries planned that day. Subject ratios are shown as a small stacked bar. Click any day with deliveries to see the full course list.</p>
+    <div class="cal-legend">
+      <span class="item"><span class="sw" style="background:var(--subj-math-ink)"></span>Math</span>
+      <span class="item"><span class="sw" style="background:var(--subj-ela-ink)"></span>ELA</span>
+      <span class="item"><span class="sw" style="background:var(--subj-sci-ink)"></span>Science</span>
+      <span class="item"><span class="sw" style="background:var(--subj-ss-ink)"></span>Social Studies</span>
+      <span style="margin-left:14px;color:var(--stride-orange)">&#9632; Today</span>
+    </div>
+    <div class="cal-monthgrid" id="v8-deliveryCalendars"></div>
+  </div>
+
+  <div class="section-eyebrow">Delivery Schedule &middot; Expandable List</div>
+  <div class="card">
+    <p class="card-sub">Pick a grouping below. All courses are shown directly. Hover the <span class="info-icon" style="cursor:default">i</span> next to a course name to see Assessment Names and Notes.</p>
+    <div class="acc-toolbar">
+      <div class="accordion-tabs" role="tablist" aria-label="Delivery grouping">
+        <button class="tab-btn active" data-v8acc="date" role="tab">By Delivery Date</button>
+        <button class="tab-btn" data-v8acc="state" role="tab">By State</button>
+        <button class="tab-btn" data-v8acc="subject" role="tab">By Subject</button>
+      </div>
+      <div class="acc-search"><input id="v8-acc-search" type="search" placeholder="Search rows..." /></div>
+      <div class="acc-status"><select id="v8-acc-status" title="Filter the list by completion status"><option value="all">All statuses</option><option value="completed">Completed only</option><option value="pending">Not completed</option></select></div>
+      <div class="acc-actions">
+        <button class="btn" id="v8-acc-copy-tsv" title="Copy current view as tab-separated values">Copy to Excel</button>
+        <button class="btn" id="v8-acc-download-csv" title="Download as CSV">CSV</button>
+      </div>
+    </div>
+    <div class="delivery-flat-wrap"><div class="scroll-area" id="v8-deliveryAccordion"></div></div>
+  </div>
+
+  <!-- Deliveries by Month (moved to bottom) -->
+  <div class="section-eyebrow" style="display:none">Deliveries by Month</div>
+  <div class="card v8-xt-host" style="display:none">
+    <div class="xt-tabs" role="tablist">
+      <button class="xt-tab active" data-v8xt="state">State × Month</button>
+      <button class="xt-tab" data-v8xt="subject">Subject × Month</button>
+      <button class="xt-tab" data-v8xt="grade">Grade Group × Month</button>
+    </div>
+    <div class="xt-pane active" data-v8xt-pane="state"><div class="crosstab-wrap" id="v8-deliveryStateMonth"></div></div>
+    <div class="xt-pane" data-v8xt-pane="subject"><div class="crosstab-wrap" id="v8-deliverySubjMonth"></div></div>
+    <div class="xt-pane" data-v8xt-pane="grade"><div class="crosstab-wrap" id="v8-deliveryGradeMonth"></div></div>
+  </div>
+
+</section>
+
 <!-- ============== COURSE INVENTORY (static rollups) ============== -->
+<style>
+/* ===== Weekly + By State tabs (Jul 01 / V7 plan) ===== */
+section#sec-weekly, section#sec-bystate { display:none; }
+body.wk-active section#sec-weekly { display:block; }
+body.bs-active section#sec-bystate { display:block; }
+body.wk-active section#sec-delivery, body.bs-active section#sec-delivery { display:none; }
+body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; }
+
+#sec-weekly .se-hint, #sec-bystate .se-hint { font-weight:400; font-size:11px; color:var(--ink-3); text-transform:none; letter-spacing:0; }
+
+/* toggle chips (shared look) */
+#sec-weekly .wk-toggles, #sec-bystate .bs-toggles { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:14px; }
+#sec-weekly .wk-tlbl, #sec-bystate .bs-tlbl { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); margin-right:4px; }
+#sec-weekly .wk-tbtn, #sec-bystate .bs-tbtn { background:var(--card); border:1px solid var(--line-2); border-radius:8px; padding:6px 14px; font-family:inherit; font-size:12.5px; font-weight:600; color:var(--ink-2); cursor:pointer; }
+#sec-weekly .wk-tbtn.active { background:var(--stride-blue); color:#fff; border-color:var(--stride-blue); }
+#sec-bystate .bs-tbtn.active { background:var(--stride-blue); color:#fff; border-color:var(--stride-blue); }
+
+/* Weekly roll-up table */
+#sec-weekly .wk-wrap { overflow:auto; max-height:64vh; border:1px solid var(--line); border-radius:8px; }
+#sec-weekly table.wkroll { border-collapse:collapse; width:100%; font-size:12.5px; }
+#sec-weekly table.wkroll thead th { background:#E6EDF9; color:var(--stride-navy); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding:9px 12px; text-align:left; position:sticky; top:0; z-index:2; border-bottom:1px solid var(--line-2); }
+#sec-weekly table.wkroll th.num, #sec-weekly table.wkroll td.num { text-align:right; font-variant-numeric:tabular-nums; }
+#sec-weekly table.wkroll td { padding:6px 12px; border-bottom:1px solid var(--line); }
+#sec-weekly table.wkroll tr:hover td { background:rgba(220,230,242,.3); }
+#sec-weekly table.wkroll tr.wk-tot td { font-weight:700; background:#F0F4FB; border-top:2px solid var(--line-2); }
+#sec-weekly .wkroll-bar { display:inline-block; height:7px; border-radius:4px; background:var(--stride-blue); vertical-align:middle; margin-right:7px; }
+#sec-weekly .wk-dl { color:var(--good); font-weight:600; }
+#sec-weekly .wk-pd { color:var(--warn); font-weight:600; }
+
+/* Weekly subjects expandable */
+#sec-weekly .wsd-wk { border:1px solid var(--line); border-radius:8px; margin-bottom:8px; overflow:hidden; }
+#sec-weekly .wsd-head { display:flex; align-items:center; gap:12px; padding:10px 14px; cursor:pointer; background:var(--card); }
+#sec-weekly .wsd-head:hover { background:rgba(220,230,242,.35); }
+#sec-weekly .wsd-wk.open .wsd-head { background:rgba(33,39,194,.05); }
+#sec-weekly .wsd-caret { color:var(--ink-3); width:13px; display:inline-block; }
+#sec-weekly .wsd-wk.open .wsd-caret { color:var(--stride-blue); }
+#sec-weekly .wsd-when { font-weight:700; color:var(--ink); min-width:150px; }
+#sec-weekly .wsd-count { font-size:12px; color:var(--ink-2); }
+#sec-weekly .wsd-chips { display:flex; flex-wrap:wrap; gap:6px; margin-left:auto; }
+#sec-weekly .wsd-chip { font-size:11px; font-weight:700; padding:2px 9px; border-radius:9px; }
+#sec-weekly .wsd-chip.math { background:#E7ECFF; color:#2621C2; }
+#sec-weekly .wsd-chip.ela { background:#FFF0E0; color:#B5620A; }
+#sec-weekly .wsd-chip.sci { background:#E3F5EA; color:#1F7A3E; }
+#sec-weekly .wsd-chip.ss { background:#F1E7FB; color:#6B34B0; }
+#sec-weekly .wsd-body { padding:0 14px 12px; background:var(--bg); }
+#sec-weekly table.wsd-sub { border-collapse:collapse; width:100%; font-size:12px; background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+#sec-weekly table.wsd-sub th { background:var(--bg); color:var(--ink-2); font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; padding:6px 11px; text-align:left; }
+#sec-weekly table.wsd-sub td { padding:6px 11px; border-top:1px solid var(--line); }
+#sec-weekly table.wsd-sub tr:hover td { background:rgba(220,230,242,.3); }
+
+/* status pills (shared) */
+#sec-weekly .st-stat, #sec-bystate .lst-stat { display:inline-block; padding:1px 8px; border-radius:9px; font-size:10.5px; font-weight:700; }
+#sec-weekly .st-stat.dl, #sec-bystate .lst-stat.dl { background:var(--good-bg); color:var(--good); }
+#sec-weekly .st-stat.pd, #sec-bystate .lst-stat.pd { background:var(--warn-bg); color:var(--warn); }
+
+/* By State stacked bar chart */
+#sec-bystate .bs-legend { display:flex; gap:16px; margin:2px 0 14px; font-size:12px; }
+#sec-bystate .bs-lg { display:inline-flex; align-items:center; gap:6px; color:var(--ink-2); font-weight:600; }
+#sec-bystate .bs-lg::before { content:''; width:12px; height:12px; border-radius:3px; display:inline-block; }
+#sec-bystate .bs-lg.dl::before { background:var(--good); }
+#sec-bystate .bs-lg.pd::before { background:var(--warn); }
+#sec-bystate .bs-chart { display:flex; flex-direction:column; gap:7px; }
+#sec-bystate .bs-row { display:flex; align-items:center; gap:10px; }
+#sec-bystate .bs-row.bs-allrow { border-bottom:1px solid var(--line-2); padding-bottom:9px; margin-bottom:4px; }
+#sec-bystate .bs-st { width:130px; flex:0 0 130px; font-size:12.5px; font-weight:600; color:var(--ink); text-align:right; }
+#sec-bystate .bs-row.bs-allrow .bs-st { font-weight:800; }
+#sec-bystate .bs-track { flex:1 1 auto; height:20px; background:transparent; display:flex; align-items:center; }
+#sec-bystate .bs-fill { display:flex; height:20px; border-radius:5px; overflow:hidden; min-width:2px; }
+#sec-bystate .bs-seg { height:100%; display:flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700; color:#fff; overflow:hidden; }
+#sec-bystate .bs-seg.dl { background:var(--good); }
+#sec-bystate .bs-seg.pd { background:var(--warn); }
+#sec-bystate .bs-meta { flex:0 0 120px; width:120px; font-size:11.5px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+#sec-bystate .bs-meta b { color:var(--ink); }
+
+/* By State table */
+#sec-bystate .bs-tblwrap { overflow:auto; max-height:70vh; border:1px solid var(--line); border-radius:8px; }
+#sec-bystate table.lst-table { border-collapse:collapse; width:100%; font-size:12.5px; }
+#sec-bystate table.lst-table thead th { background:#E6EDF9; color:var(--stride-navy); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding:9px 12px; text-align:left; position:sticky; top:0; z-index:2; border-bottom:1px solid var(--line-2); }
+#sec-bystate table.lst-table th.num, #sec-bystate table.lst-table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+#sec-bystate table.lst-table tr.lst-total td { font-weight:700; background:#F0F4FB; border-bottom:2px solid var(--line-2); padding:8px 12px; }
+#sec-bystate table.lst-table tr.lst-strow { cursor:pointer; }
+#sec-bystate table.lst-table tr.lst-strow td { padding:7px 12px; border-bottom:1px solid var(--line); }
+#sec-bystate table.lst-table tr.lst-strow:hover td { background:rgba(220,230,242,.35); }
+#sec-bystate table.lst-table tr.lst-strow.open td { background:rgba(33,39,194,.05); }
+#sec-bystate .lst-caret { display:inline-block; width:13px; color:var(--ink-3); }
+#sec-bystate tr.lst-strow.open .lst-caret { color:var(--stride-blue); }
+#sec-bystate .lst-state { font-weight:600; color:var(--ink); }
+#sec-bystate .lst-minibar { display:inline-block; width:60px; height:7px; border-radius:4px; background:var(--warn-bg); overflow:hidden; vertical-align:middle; margin-right:7px; }
+#sec-bystate .lst-minibar > span { display:block; height:100%; background:var(--good); }
+#sec-bystate tr.lst-acc td { padding:0; background:var(--bg); border-bottom:1px solid var(--line); }
+#sec-bystate tr.lst-acc .lst-accbox { padding:9px 16px 15px 32px; }
+#sec-bystate table.lst-sub { border-collapse:collapse; width:100%; font-size:12px; background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+#sec-bystate table.lst-sub th { background:var(--bg); color:var(--ink-2); font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; padding:6px 11px; text-align:left; }
+#sec-bystate table.lst-sub td { padding:6px 11px; border-top:1px solid var(--line); }
+#sec-bystate table.lst-sub tr:hover td { background:rgba(220,230,242,.3); }
+</style>
+
+<section id="sec-weekly" class="page-break">
+  <div class="section-eyebrow">Weekly Roll-up &middot; Cumulative <span class="se-hint">(courses delivering each week + running total &mdash; Jul 13 plan)</span></div>
+  <div class="card">
+    <div class="wk-wrap"><div id="wk-rollup"></div></div>
+  </div>
+  <div class="section-eyebrow">Weekly Subjects Delivering <span class="se-hint">(click any week to see each course's Deliver &amp; SO date and status)</span></div>
+  <div class="card"><div id="wk-subjects"></div></div>
+</section>
+
+<section id="sec-bystate" class="page-break">
+  <div class="section-eyebrow">Delivery by State &middot; Completed vs Pending <span class="se-hint">(Jul 13 plan; stacked by delivery status)</span></div>
+  <div class="card">
+    <div class="bs-legend"><span class="bs-lg dl">Delivered</span><span class="bs-lg pd">Pending</span></div>
+    <div id="bs-chart"></div>
+  </div>
+  <div class="section-eyebrow">By State &middot; Course Detail <span class="se-hint">(click a state to expand its courses)</span></div>
+  <div class="card"><div class="bs-tblwrap"><div id="bs-table"></div></div></div>
+</section>
+
 <section id="sec-course-inventory" class="page-break">
 
   <div class="ci-banner no-print">
@@ -6549,18 +6944,24 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
       document.body.classList.toggle('v5-active', target === 'sec-delivery-jun25');
       document.body.classList.toggle('v6-active', target === 'sec-delivery-jun30');
       document.body.classList.toggle('v7-active', target === 'sec-delivery-jul01');
+      document.body.classList.toggle('v8-active', target === 'sec-delivery-jul13');
       document.body.classList.toggle('ci-active', target === 'sec-course-inventory');
       document.body.classList.toggle('ds-active', target === 'sec-dateshift');
+      document.body.classList.toggle('wk-active', target === 'sec-weekly');
+      document.body.classList.toggle('bs-active', target === 'sec-bystate');
+      if (target === 'sec-weekly' && typeof window.renderWeeklyTab === 'function') { try { window.renderWeeklyTab(); } catch(e){ console.error('weekly:', e.message); } }
+      if (target === 'sec-bystate' && typeof window.renderByStateTab === 'function') { try { window.renderByStateTab(); } catch(e){ console.error('bystate:', e.message); } }
     }
     buttons.forEach(function(b) {
       b.addEventListener('click', function() { activate(b.dataset.tab); });
     });
-    // Default: v7 active (Jul 01 — current plan)
-    activate('sec-delivery-jul01');
+    // Default: v8 active (Jul 13 — current plan)
+    activate('sec-delivery-jul13');
     // Re-assert correct tab active state on every scroll (overrides legacy anchor-based listener)
     window.addEventListener('scroll', function() {
       let target = 'sec-delivery';
-      if (document.body.classList.contains('v7-active')) target = 'sec-delivery-jul01';
+      if (document.body.classList.contains('v8-active')) target = 'sec-delivery-jul13';
+      else if (document.body.classList.contains('v7-active')) target = 'sec-delivery-jul01';
       else if (document.body.classList.contains('v6-active')) target = 'sec-delivery-jun30';
       else if (document.body.classList.contains('v5-active')) target = 'sec-delivery-jun25';
       else if (document.body.classList.contains('v4-active')) target = 'sec-delivery-jun11';
@@ -6568,6 +6969,8 @@ const ggSel = Array.from(document.querySelectorAll('#v2-f-gradegroup option')).f
       else if (document.body.classList.contains('v2-active')) target = 'sec-delivery-may21';
       else if (document.body.classList.contains('ci-active')) target = 'sec-course-inventory';
       else if (document.body.classList.contains('ds-active')) target = 'sec-dateshift';
+      else if (document.body.classList.contains('wk-active')) target = 'sec-weekly';
+      else if (document.body.classList.contains('bs-active')) target = 'sec-bystate';
       buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.tab === target); });
     }, { passive: true });
   }
@@ -10396,7 +10799,7 @@ window.P670_DATA_V7 = {"stages":[{"name":"Completed in Brightspot","owner":"Lear
   // to pull live "Completed" status from the Google Sheet, matched by Focus Course Name.
   // Leave '' to use the embedded status. NOTE: only STATUS is fetched — all dates stay
   // hardcoded and are never read from the sheet.
-  const V7_STATUS_URL = 'https://script.google.com/a/macros/learningmate.com/s/AKfycbyYx69_G_7QyKn1xfaypLCeQTwG6Cqd9dQLnkCeCwZlhD6pzFeTodXL-Ba2EWPRho1fMw/exec';
+  const V7_STATUS_URL = '';  /* Jul 01 demoted to historical snapshot — no live fetch (superseded by Jul 13) */
   const ROLLUP_DISTINCT = window.P670_DATA_V7.rollupDistinct || [];
   const ROLLUP_MASTER = window.P670_DATA_V7.rollupMaster || [];
   const SUBJECTS_V7 = ['Math','ELA','Science','Social Studies'];
@@ -10479,6 +10882,7 @@ const ggSel = f.gradeGroups || ['all'];
     return true;
   }
   function filteredCoursesV7() { return COURSES_V7.filter(applyFilterV7); }
+  window.filteredCoursesV7 = filteredCoursesV7;
 
   function computeDeliverySeriesV7() {
     const out = [];
@@ -11226,6 +11630,7 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
     try { renderMvDBreakdownV7(); } catch(e) { console.error('v7 mvd:', e.message); }
     try { renderRollupDistinct(); } catch(e) { console.error('v7 distinct:', e.message); }
     try { renderRollupMaster(); } catch(e) { console.error('v7 master:', e.message); }
+    try { if (window._wkbsHook) window._wkbsHook(); } catch(e) { console.error('wkbs hook:', e.message); }
   }
 
   function bindV7() {
@@ -11522,7 +11927,8 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
       {key:'jun11',label:'June 11',data:window.P670_DATA_V4},
       {key:'jun25',label:'Jun 25',data:window.P670_DATA_V5},
       {key:'jun30',label:'Jun 30',data:window.P670_DATA_V6},
-      {key:'jul01',label:'Jul 01',data:window.P670_DATA_V7}
+      {key:'jul01',label:'Jul 01',data:window.P670_DATA_V7},
+      {key:'jul13',label:'Jul 13',data:window.P670_DATA_V8}
     ];
     function norm(s){return String(s==null?'':s).replace(/\s+/g,' ').trim().toLowerCase();}
     function dlv(c){var d=(c._w!=null?c._w:(c.p&&c.p[6]));return d?String(d).slice(0,10):'';}
@@ -11532,7 +11938,7 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
     function mkey(d){return d?d.slice(0,7):'';}
     function mlabel(k){var p=k.split('-');return MON[+p[1]-1]+' '+p[0];}
     var lut=SNAPS.map(function(sn){var byfn={},bc={};var cs=(sn.data&&sn.data.courses)||[];cs.forEach(function(c){var fnk=norm(c.fn);if(fnk)byfn[fnk]=dlv(c);bc[comp(c)]=dlv(c);});return {byfn:byfn,bc:bc};});
-    var master=(window.P670_DATA_V7&&window.P670_DATA_V7.courses)||[];
+    var master=(window.P670_DATA_V8&&window.P670_DATA_V8.courses)||(window.P670_DATA_V7&&window.P670_DATA_V7.courses)||[];
     var rows=master.map(function(c){var fnk=norm(c.fn),cp=comp(c);var dates=SNAPS.map(function(sn,i){var L=lut[i];return (fnk&&L.byfn[fnk]!=null)?L.byfn[fnk]:(L.bc[cp]||'');});return {fn:c.fn||'',subject:c.s||'',state:c.st||'',band:c.gb||'',sem:c.sm||'',dates:dates,course:c};});
     function uniq(k){var o={};rows.forEach(function(r){if(r[k])o[r[k]]=1;});return Object.keys(o).sort();}
     function fill(id,vals){var el=document.getElementById(id);if(!el)return;vals.forEach(function(v){var op=document.createElement('option');op.value=v;op.textContent=v;el.appendChild(op);});}
@@ -11570,6 +11976,1162 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else setTimeout(start,80);
 })();
+</script>
+
+<script>
+/* === Jul 13 (V8) data: built at runtime from V7 base + Deanna 7.8.26 refresh (index-aligned) === */
+(function(){
+  if(!window.P670_DATA_V7){ console.warn("v8: v7 base missing"); return; }
+  var BASE=new Date(2026,0,1).getTime(), DAY=86400000;
+  function iso(o){ if(o===null||o===undefined) return null; var d=new Date(BASE+o*DAY); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+  var base=JSON.parse(JSON.stringify(window.P670_DATA_V7));
+  var RN={"MTH308AD Algebra 2 OK":"MTH308A Algebra 2 Focus OK","MTH308BD Algebra 2 OK":"MTH308B Algebra 2 Focus OK","HST403 US Government and Politics Focus MI":"HST403 US Government & Politics Focus MI"};
+  var P=[[179,179,180,180,181,182,185,1],[179,179,180,180,181,182,186,1],[179,179,180,180,181,182,188,1],[179,179,180,180,181,182,185,1],[200,200,201,201,202,203,203,0],[179,179,180,180,181,182,186,1],[200,200,201,201,202,203,203,0],[179,179,180,180,181,182,186,1],[200,200,201,201,202,203,203,0],[179,179,180,180,181,182,189,1],[200,200,201,201,202,203,203,0],[188,189,189,190,191,193,193,0],[191,193,194,194,195,195,195,0],[191,193,194,194,195,195,195,0],[188,189,189,190,191,193,193,1],[209,210,210,214,215,215,216,1],[191,193,194,194,195,195,195,0],[242,243,244,245,246,249,249,0],[191,193,194,194,195,195,195,0],[242,243,244,245,246,249,249,0],[193,194,195,195,196,196,196,0],[242,243,244,245,246,249,249,0],[190,190,191,191,193,193,193,1],[190,190,191,191,193,193,193,1],[190,190,191,191,193,193,193,0],[190,190,191,191,193,193,193,1],[242,243,244,245,246,249,249,0],[190,190,191,191,193,193,193,0],[242,243,244,245,246,249,249,0],[190,190,191,191,193,193,193,0],[242,243,244,245,246,249,249,0],[190,190,193,193,194,194,194,0],[242,243,244,245,246,249,249,0],[190,190,193,193,194,194,194,0],[242,243,244,245,246,249,249,0],[131,131,132,132,133,133,134,1],[137,137,138,138,139,139,148,1],[137,137,138,138,139,139,148,1],[139,140,140,144,145,145,146,1],[155,155,158,159,160,161,160,1],[139,140,140,144,145,145,146,1],[155,155,158,159,160,161,162,1],[139,140,140,144,145,145,146,1],[158,158,159,159,160,161,162,1],[139,140,140,144,145,145,146,1],[158,158,159,159,160,161,162,1],[139,140,140,144,145,145,146,1],[158,158,159,159,160,161,162,1],[211,214,215,215,216,217,217,0],[211,214,215,215,216,217,217,0],[211,214,215,215,216,217,217,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[211,214,215,215,216,217,217,0],[242,243,244,245,246,249,249,0],[169,172,172,174,175,175,173,1],[169,172,172,174,175,175,173,1],[169,172,172,174,175,175,173,1],[169,172,173,175,176,176,186,1],[200,201,201,203,204,204,207,1],[169,172,173,175,176,176,186,1],[200,201,201,203,204,204,207,1],[169,172,173,175,176,176,186,1],[200,201,201,203,204,204,207,1],[210,211,214,214,215,216,216,0],[237,238,239,242,243,244,244,0],[204,207,208,208,209,210,210,0],[204,207,208,208,209,210,210,0],[204,207,208,208,209,210,210,0],[204,207,208,208,209,210,210,0],[249,250,251,252,253,256,256,0],[204,207,208,208,209,210,210,0],[249,250,251,252,253,256,256,0],[204,207,208,208,209,210,210,0],[249,250,251,252,253,256,256,0],[204,207,208,208,209,210,210,0],[249,250,251,252,253,256,256,0],[204,207,208,208,209,210,210,0],[249,250,251,252,253,256,256,0],[155,158,158,160,161,161,160,1],[155,158,158,160,161,161,159,1],[155,158,158,160,161,161,161,1],[162,162,162,162,162,165,168,1],[165,165,165,166,166,167,167,1],[165,165,165,165,166,167,167,1],[165,165,165,166,166,167,168,1],[162,165,165,167,168,168,168,1],[200,201,201,203,204,204,175,1],[210,211,214,214,215,216,216,0],[237,238,239,242,243,244,244,0],[210,211,214,214,215,216,216,0],[237,238,239,242,243,244,244,0],[196,197,200,200,201,202,202,0],[196,197,200,200,201,202,202,0],[196,197,200,200,201,202,202,0],[196,197,200,200,201,202,202,0],[245,246,249,250,251,252,252,0],[196,197,200,200,201,202,202,0],[245,246,249,250,251,252,252,0],[196,197,200,200,201,202,202,0],[245,246,249,250,251,252,252,0],[196,197,200,200,201,202,202,0],[245,246,249,250,251,252,252,0],[168,169,172,174,175,175,173,1],[168,169,172,174,175,175,173,1],[168,169,173,175,176,176,173,1],[168,169,172,174,175,175,186,1],[211,214,214,216,217,217,218,1],[221,222,223,223,224,225,225,0],[242,243,244,245,246,249,249,0],[221,222,223,223,224,225,202,1],[211,214,214,216,217,217,218,1],[221,222,223,223,224,225,225,0],[242,243,244,245,246,249,249,0],[221,222,223,223,224,225,225,0],[242,243,244,245,246,249,249,0],[221,222,223,223,224,225,225,0],[242,243,244,245,246,249,249,0],[221,222,223,223,224,225,225,0],[242,243,244,245,246,249,249,0],[210,211,214,214,215,216,216,0],[210,211,214,214,215,216,216,0],[210,211,214,214,215,216,216,0],[210,211,214,214,215,216,216,0],[242,243,244,245,246,249,249,0],[210,211,214,214,215,216,216,0],[242,243,244,245,246,249,249,0],[210,211,214,214,215,216,216,0],[242,243,244,245,246,249,249,0],[210,211,214,214,215,216,216,0],[242,243,244,245,246,249,249,0],[217,218,221,221,222,223,223,0],[217,218,221,221,222,223,223,0],[217,218,221,221,222,223,223,0],[217,218,221,221,222,223,223,0],[243,244,245,246,249,250,250,0],[217,218,221,221,222,223,223,0],[243,244,245,246,249,250,250,0],[217,218,221,221,222,223,223,0],[243,244,245,246,249,250,250,0],[217,218,221,221,222,223,223,0],[243,244,245,246,249,250,250,0],[179,179,180,180,181,182,184,1],[179,179,180,180,181,182,183,1],[179,179,180,180,181,182,183,1],[179,179,180,180,181,182,184,1],[242,243,244,245,246,249,249,0],[179,179,180,180,181,182,184,1],[211,214,214,216,217,217,218,1],[179,179,180,180,181,182,184,1],[211,214,214,216,217,217,218,1],[179,179,180,180,181,182,186,1],[242,243,244,245,246,249,249,0],[179,179,180,180,181,182,188,1],[242,243,244,245,246,249,249,0],[155,158,158,160,161,161,160,1],[155,158,158,160,161,161,159,1],[155,158,158,160,161,161,161,1],[162,162,162,162,162,165,168,1],[165,165,165,166,166,167,167,1],[162,165,165,167,168,168,167,1],[165,165,165,166,166,167,168,1],[162,165,165,167,168,168,168,1],[207,208,208,210,211,211,175,1],[224,225,228,228,229,229,229,0],[239,242,243,244,245,246,246,0],[224,225,228,228,229,229,229,0],[224,225,228,228,229,229,229,0],[224,225,228,228,229,229,229,0],[224,225,228,228,229,229,229,0],[251,252,253,256,257,258,258,0],[224,225,228,228,229,229,229,0],[251,252,253,256,257,258,258,0],[224,225,228,228,229,229,229,0],[251,252,253,256,257,258,258,0],[224,225,228,228,229,229,229,0],[251,252,253,256,257,258,258,0],[218,221,222,222,223,224,224,0],[218,221,222,222,223,224,224,0],[218,221,222,222,223,224,224,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[218,221,222,222,223,224,224,0],[249,250,251,252,253,256,256,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[239,242,243,244,245,246,246,0],[207,208,209,209,210,211,211,0],[239,242,243,244,245,246,246,0],[207,208,209,209,210,211,211,0],[239,242,243,244,245,246,246,0],[207,208,209,209,210,211,211,0],[239,242,243,244,245,246,246,0],[207,208,209,209,210,211,211,0],[239,242,243,244,245,246,246,0],[214,215,216,216,217,218,218,0],[214,215,216,216,217,218,218,0],[214,215,216,216,217,218,218,0],[214,215,216,216,217,218,218,0],[245,246,249,250,251,252,252,0],[214,215,216,216,217,218,218,0],[245,246,249,250,251,252,252,0],[214,215,216,216,217,218,218,0],[245,246,249,250,251,252,252,0],[193,194,195,196,197,200,200,0],[245,246,249,250,251,252,252,0],[214,215,216,216,217,218,218,0],[245,246,249,250,251,252,252,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[193,194,195,195,196,197,197,0],[243,244,245,246,249,250,250,0],[193,194,195,195,196,197,197,0],[243,244,245,246,249,250,250,0],[203,204,207,207,208,209,209,0],[203,204,207,207,208,209,209,0],[203,204,207,207,208,209,209,0],[203,204,207,207,208,209,209,0],[251,252,253,256,257,258,258,0],[203,204,207,207,208,209,209,0],[251,252,253,256,257,258,258,0],[203,204,207,207,208,209,209,0],[251,252,253,256,257,258,258,0],[203,204,207,207,208,209,209,0],[251,252,253,256,257,258,258,0],[155,158,158,160,161,161,160,1],[155,158,158,160,161,161,159,1],[155,158,158,160,161,161,161,1],[162,162,162,162,162,165,168,1],[165,165,165,166,166,167,167,1],[162,165,165,167,168,168,167,1],[165,165,165,166,166,167,168,1],[162,165,165,167,168,168,168,1],[207,208,208,210,211,211,175,1],[172,172,173,173,174,175,175,1],[207,208,208,210,211,211,214,1],[221,222,223,223,224,225,225,0],[239,242,243,244,245,246,246,0],[193,194,195,195,196,197,197,0],[193,194,195,195,196,197,197,0],[193,194,195,195,196,197,197,0],[193,194,195,195,196,197,197,0],[251,252,253,256,257,258,258,0],[193,194,195,195,196,197,197,0],[251,252,253,256,257,258,258,0],[193,194,195,195,196,197,197,0],[251,252,253,256,257,258,258,0],[193,194,195,195,196,197,197,0],[251,252,253,256,257,258,258,0],[176,179,180,182,183,183,183,1],[176,179,180,182,183,183,183,1],[176,179,180,182,183,183,186,1],[176,179,180,182,183,183,186,1],[245,246,249,250,251,252,252,0],[176,179,180,182,183,183,187,1],[245,246,249,250,251,252,252,0],[176,179,180,182,183,183,188,1],[245,246,249,250,251,252,252,0],[179,179,180,182,183,183,188,1],[245,246,249,250,251,252,252,0],[179,179,180,182,183,183,189,1],[245,246,249,250,251,252,252,0],[179,179,180,182,183,183,189,1],[245,246,249,250,251,252,252,0],[169,172,173,175,176,176,173,1],[169,172,173,175,176,176,173,1],[173,174,175,175,176,176,179,1],[169,172,173,175,176,176,179,1],[174,175,176,176,179,179,179,1],[173,174,175,175,176,176,179,1],[174,175,176,176,179,179,179,1],[173,174,175,175,176,176,179,1],[174,175,176,176,179,179,179,1],[173,174,175,175,176,176,175,1],[174,175,176,176,179,179,179,1],[168,169,172,174,175,175,173,1],[168,169,172,174,175,175,173,1],[168,169,172,174,175,175,173,1],[169,172,173,175,176,176,186,1],[214,215,215,217,218,218,221,1],[169,172,173,175,176,176,186,1],[214,215,215,217,218,218,221,1],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[243,244,245,246,249,250,250,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[228,229,230,230,231,232,232,0],[155,158,158,160,161,161,160,1],[155,158,158,160,161,161,159,1],[155,158,158,160,161,161,161,1],[162,162,162,162,162,165,168,1],[165,165,165,166,166,167,167,1],[162,165,165,167,168,168,167,1],[165,165,165,166,166,167,168,1],[162,165,165,167,168,168,168,1],[207,208,208,210,211,211,175,1],[186,187,188,190,193,193,169,1],[207,208,208,210,211,211,181,1],[186,187,188,190,193,193,175,1],[239,242,243,244,245,246,246,0],[155,158,158,160,161,161,160,1],[155,158,158,160,161,161,159,1],[155,158,158,160,161,161,161,1],[162,162,162,162,162,165,168,1],[165,165,165,166,166,167,167,1],[162,165,165,167,168,168,167,1],[165,165,165,166,166,167,168,1],[165,165,165,165,166,167,168,1],[214,215,215,217,218,218,175,1],[214,215,216,216,217,218,218,0],[243,244,245,246,249,250,250,0],[225,228,229,229,230,231,231,0],[225,228,229,229,230,231,231,0],[225,228,229,229,230,231,231,0],[225,228,229,229,230,231,231,0],[245,246,249,250,251,252,252,0],[169,172,173,175,176,176,186,1],[218,218,221,222,223,224,225,1],[225,228,229,229,230,231,231,0],[245,246,249,250,251,252,252,0],[225,228,229,229,230,231,231,0],[245,246,249,250,251,252,252,0],[225,228,229,229,230,231,231,0],[245,246,249,250,251,252,252,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[207,208,209,209,210,211,211,0],[245,246,249,250,251,252,252,0],[207,208,209,209,210,211,211,0],[245,246,249,250,251,252,252,0],[207,208,209,209,210,211,211,0],[245,246,249,250,251,252,252,0],[207,208,209,209,210,211,211,0],[245,246,249,250,251,252,252,0],[207,208,209,209,210,211,211,0],[245,246,249,250,251,252,252,0],[191,191,191,191,193,193,193,0],[176,176,179,180,181,182,184,1],[200,200,200,200,202,202,202,0],[176,176,179,180,181,182,184,1],[201,201,201,201,203,203,203,0],[176,176,179,180,181,182,179,1],[197,197,197,197,201,201,201,0],[202,202,202,202,203,203,203,0],[196,196,196,196,197,197,197,0],[245,245,245,245,246,246,246,0],[190,190,190,190,193,193,193,1],[249,249,249,249,250,250,250,0],[189,189,189,189,190,190,190,1],[188,188,188,188,190,190,190,1],[202,202,202,202,203,203,203,0],[141,141,144,144,145,145,147,1],[169,169,172,173,174,175,175,1],[141,141,144,144,145,145,147,1],[169,169,172,173,174,175,173,1],[200,200,200,200,202,202,202,0],[238,238,238,238,239,239,239,0],[141,141,144,144,145,145,147,1],[162,162,165,166,167,168,169,1],[169,169,172,173,174,175,176,1],[141,141,144,144,145,145,147,1],[169,169,172,173,174,175,176,1],[169,169,172,173,174,175,175,1],[237,237,237,237,238,238,238,0],[216,216,216,216,217,217,217,0],[216,216,216,216,217,217,217,0],[257,257,257,257,258,258,258,0],[216,216,216,216,218,218,218,0],[235,235,235,235,236,236,236,0],[214,214,214,214,215,215,215,0],[214,214,214,214,215,215,215,0],[235,235,235,235,236,236,236,0],[211,211,211,211,215,215,215,0],[258,258,258,258,259,259,259,0],[209,209,209,209,211,211,211,0],[209,209,209,209,211,211,211,0],[250,250,250,250,251,251,251,0],[196,196,196,196,200,200,200,0],[245,245,245,245,246,246,246,0],[214,214,214,214,215,215,215,0],[214,214,214,214,215,215,215,0],[235,235,235,235,236,236,236,0],[211,211,211,211,215,215,215,0],[243,243,243,243,244,244,244,0],[203,203,203,203,204,204,204,0],[201,201,201,201,203,203,203,0],[244,244,244,244,245,245,245,0],[202,202,202,202,204,204,204,0],[249,249,249,249,250,250,250,0],[202,202,202,202,204,204,204,0],[250,250,250,250,251,251,251,0],[200,200,200,200,202,202,202,0],[236,236,236,236,237,237,237,0],[222,222,222,222,224,224,224,0],[222,222,222,222,223,223,223,0],[251,251,251,251,252,252,252,0],[222,222,222,222,224,224,224,0],[256,256,256,256,257,257,257,0],[215,215,215,215,216,216,216,0],[215,215,215,215,216,216,216,0],[249,249,249,249,250,250,250,0],[214,214,214,214,216,216,216,0],[250,250,250,250,251,251,251,0],[223,223,223,223,225,225,225,0],[224,224,224,224,225,225,225,0],[257,257,257,257,258,258,258,0],[223,223,223,223,225,225,225,0],[257,257,257,257,258,258,258,0],[198,198,198,198,201,201,201,0],[186,186,186,186,187,187,187,1],[198,198,198,198,201,201,201,0],[176,176,179,180,181,182,182,1],[237,237,237,237,238,238,238,0],[187,187,187,187,188,188,188,1],[237,237,237,237,238,238,238,0],[194,194,194,194,195,195,195,0],[238,238,238,238,239,239,239,0],[176,176,179,180,181,182,183,1],[237,237,237,237,238,238,238,0],[229,229,229,229,230,230,230,0],[229,229,229,229,230,230,230,0],[257,257,257,257,258,258,258,0],[225,225,225,225,229,229,229,0],[235,235,235,235,236,236,236,0],[231,231,231,231,232,232,232,0],[230,230,230,230,231,231,231,0],[258,258,258,258,259,259,259,0],[230,230,230,230,232,232,232,0],[257,257,257,257,258,258,258,0],[230,230,230,230,232,232,232,0],[257,257,257,257,258,258,258,0],[223,223,223,223,225,225,225,0],[223,223,223,223,224,224,224,0],[258,258,258,258,259,259,259,0],[221,221,221,221,223,223,223,0],[258,258,258,258,259,259,259,0],[218,218,218,218,222,222,222,0],[236,236,236,236,237,237,237,0],[207,207,207,207,209,209,209,0],[207,207,207,207,209,209,209,0],[252,252,252,252,253,253,253,0],[204,204,204,204,208,208,208,0],[243,243,243,243,244,244,244,0],[217,217,217,217,218,218,218,0],[217,217,217,217,218,218,218,0],[252,252,252,252,253,253,253,0],[216,216,216,216,218,218,218,0],[258,258,258,258,259,259,259,0],[243,243,243,243,245,245,245,0],[242,242,242,242,243,243,243,0],[258,258,258,258,259,259,259,0],[194,194,194,194,196,196,196,0],[238,238,238,238,239,239,239,0],[208,208,208,208,210,210,210,0],[208,208,208,208,210,210,210,0],[244,244,244,244,245,245,245,0],[202,202,202,202,204,204,204,0],[251,251,251,251,252,252,252,0],[221,221,221,221,223,223,223,0],[221,221,221,221,222,222,222,0],[236,236,236,236,237,237,237,0],[221,221,221,221,223,223,223,0],[244,244,244,244,245,245,245,0],[196,196,196,196,197,197,197,0],[196,196,196,196,197,197,197,0],[245,245,245,245,246,246,246,0],[196,196,196,196,197,197,197,0],[249,249,249,249,250,250,250,0],[190,190,190,190,193,193,193,0],[196,196,196,196,197,197,197,0],[197,197,197,197,200,200,200,0],[189,189,189,189,190,190,190,1],[191,191,191,191,193,193,193,0],[196,196,196,196,197,197,197,0],[186,186,186,186,187,187,187,1],[238,238,238,238,239,239,239,0],[172,172,173,174,175,176,181,1],[172,172,173,174,175,176,176,1],[172,172,173,174,175,176,176,1],[172,172,173,174,175,176,176,1],[172,172,173,174,175,176,176,1],[242,242,242,242,244,244,244,0],[244,244,244,244,246,246,246,0],[242,242,242,242,243,243,243,0],[259,259,259,259,260,260,260,0],[243,243,243,243,244,244,244,0],[259,259,259,259,260,260,260,0],[243,243,243,243,244,244,244,0],[259,259,259,259,260,260,260,0],[242,242,242,242,243,243,243,0],[259,259,259,259,260,260,260,0],[242,242,242,242,243,243,243,0],[259,259,259,259,260,260,260,0],[231,231,231,231,232,232,232,0],[231,231,231,231,232,232,232,0],[228,228,228,228,230,230,230,0],[229,229,229,229,231,231,231,0],[230,230,230,230,232,232,232,0],[228,228,228,228,229,229,229,0],[228,228,228,228,229,229,229,0],[236,236,236,236,237,237,237,0],[229,229,229,229,231,231,231,0],[244,244,244,244,245,245,245,0],[216,216,216,216,217,217,217,0],[215,215,215,215,216,216,216,0],[256,256,256,256,257,257,257,0],[216,216,216,216,218,218,218,0],[245,245,245,245,246,246,246,0],[230,230,230,230,231,231,231,0],[231,231,231,231,232,232,232,0],[256,256,256,256,257,257,257,0],[230,230,230,230,232,232,232,0],[252,252,252,252,253,253,253,0],[209,209,209,209,211,211,211,0],[209,209,209,209,211,211,211,0],[251,251,251,251,252,252,221,0],[208,208,208,208,210,210,210,0],[252,252,252,252,253,253,253,0],[208,208,208,208,211,211,211,0],[252,252,252,252,253,253,253,0],[179,179,180,181,182,183,186,1],[179,179,180,181,182,183,186,1],[189,189,190,193,194,195,195,0],[179,179,180,181,182,183,186,1],[202,202,202,202,203,204,204,0],[179,179,180,181,182,183,186,1],[202,202,202,202,203,204,204,0],[179,179,180,181,182,183,188,1],[202,202,202,202,203,204,204,0],[179,179,180,181,182,183,190,1],[202,202,202,202,203,204,204,0],[193,194,194,195,195,196,196,0],[193,194,194,195,196,196,197,0],[193,194,194,195,196,196,197,0],[193,194,194,195,195,196,196,0],[243,244,244,245,246,249,249,0],[193,194,194,195,195,196,196,0],[243,244,244,245,246,249,249,0],[193,194,194,196,196,197,197,0],[243,244,244,245,246,249,249,0],[193,194,194,190,193,194,194,0],[243,244,244,245,246,249,249,0],[162,162,165,166,167,167,168,1],[167,167,168,169,172,172,168,1],[200,200,201,201,202,203,203,0],[201,201,201,202,202,203,203,0],[202,202,202,202,203,204,204,0],[200,200,201,201,202,203,203,0],[244,245,246,249,250,251,251,0],[201,201,202,202,203,203,203,0],[245,246,249,249,250,251,251,0],[200,200,201,201,202,202,202,0],[245,246,249,249,250,251,251,0],[201,202,202,202,202,203,203,0],[245,246,249,249,250,251,252,0],[200,200,201,201,202,203,203,0],[245,246,249,249,250,251,252,0],[131,131,132,132,133,133,134,1],[137,137,137,137,138,140,148,1],[138,137,137,137,138,140,148,1],[140,144,144,144,145,147,148,1],[153,153,154,154,155,161,161,1],[140,144,144,144,145,147,148,1],[155,155,155,158,159,161,162,1],[140,144,144,144,145,147,148,1],[154,154,155,155,158,160,161,1],[140,144,144,144,145,147,148,1],[166,166,167,167,168,168,161,1],[214,214,215,215,216,217,217,0],[215,215,215,215,216,217,218,0],[215,215,215,215,216,217,218,0],[214,214,214,214,215,215,216,0],[245,246,249,249,250,251,252,0],[202,203,203,214,215,215,216,0],[245,246,250,250,251,252,253,0],[202,203,203,214,215,215,216,0],[245,246,250,250,251,252,253,0],[217,218,221,214,215,216,217,0],[245,246,250,250,251,252,253,0],[217,218,221,214,215,216,217,0],[245,246,250,250,251,252,253,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[158,158,158,159,160,162,161,1],[159,159,160,161,161,162,162,1],[203,204,204,207,208,209,210,1],[159,159,160,161,161,162,162,1],[203,204,204,207,208,209,210,0],[160,160,161,162,161,162,162,1],[203,204,204,207,208,209,210,1],[202,202,202,203,203,204,204,0],[221,222,223,224,225,228,228,1],[207,207,208,208,209,210,210,0],[207,207,208,208,209,210,211,0],[207,207,208,208,209,210,211,0],[204,204,207,207,208,208,209,0],[251,252,253,253,256,257,257,0],[204,204,207,207,208,208,209,0],[251,252,253,253,256,257,257,0],[204,204,207,207,208,209,210,0],[251,252,253,253,256,257,257,0],[204,204,207,207,208,209,210,0],[251,252,253,253,256,257,257,0],[204,204,207,207,208,209,210,0],[251,252,253,253,256,257,257,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[158,158,158,159,160,162,161,1],[159,159,160,161,161,162,162,1],[202,203,203,204,207,208,209,1],[159,159,160,161,161,162,162,1],[202,203,203,204,207,208,209,0],[160,160,161,162,161,162,162,1],[202,203,203,204,207,208,209,1],[202,202,202,203,203,204,204,0],[217,218,221,222,223,224,225,1],[200,200,201,202,202,203,203,0],[201,201,201,202,202,203,204,0],[201,201,201,202,202,203,204,0],[201,201,201,202,202,203,203,0],[256,256,257,256,257,258,259,0],[200,200,201,202,203,204,204,0],[256,256,257,256,257,258,259,0],[200,200,201,202,203,204,204,0],[256,256,257,256,257,258,259,0],[200,200,201,201,202,203,203,0],[256,256,257,257,258,259,260,0],[190,193,194,195,196,197,200,1],[190,193,194,195,196,197,200,1],[194,195,196,197,200,201,202,1],[190,193,194,188,189,190,190,1],[207,208,209,210,211,214,214,1],[186,187,188,188,189,190,190,1],[207,208,209,210,211,214,214,1],[186,187,188,188,189,190,190,1],[207,208,209,210,211,214,214,1],[221,222,222,223,223,224,225,0],[256,256,257,257,258,259,260,0],[221,222,222,223,223,224,225,0],[218,221,222,223,224,225,228,1],[214,214,215,215,216,217,217,0],[214,214,215,215,216,217,217,0],[215,215,215,215,216,217,218,0],[214,214,215,214,215,216,217,0],[256,256,257,257,258,259,260,0],[215,215,215,214,215,216,217,0],[256,256,257,258,259,260,263,0],[215,215,215,214,215,216,217,0],[256,256,257,258,259,260,263,0],[215,215,215,215,216,217,218,0],[256,256,257,258,259,260,263,0],[221,222,222,223,223,224,224,0],[222,222,222,223,223,224,225,0],[221,222,222,223,223,224,225,0],[218,221,221,222,222,223,223,0],[258,259,259,260,263,264,265,0],[221,222,222,222,222,223,223,0],[258,259,259,260,263,264,265,0],[221,222,222,222,222,223,224,0],[258,259,259,260,263,264,265,0],[221,222,222,223,223,224,225,0],[258,259,259,260,263,264,265,0],[221,222,222,223,223,224,225,0],[258,259,259,260,263,264,265,0],[179,179,180,181,182,183,184,1],[179,179,180,181,182,183,184,1],[179,179,180,181,182,183,184,1],[179,179,180,181,182,183,184,1],[259,260,263,264,265,266,266,0],[179,179,180,181,182,183,184,1],[259,260,263,264,265,266,266,0],[179,179,180,181,182,183,184,1],[259,260,263,264,265,266,266,0],[179,179,180,181,182,183,184,1],[259,260,263,264,265,266,266,0],[179,179,180,181,182,183,184,1],[259,260,263,264,265,266,266,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[158,158,158,159,160,162,161,1],[159,159,160,161,161,162,162,1],[200,200,201,201,202,203,204,1],[159,159,160,161,161,162,162,1],[260,263,264,265,266,267,267,0],[160,160,161,162,161,162,162,1],[200,200,201,201,202,203,204,1],[228,228,229,229,230,232,232,0],[260,263,264,265,266,267,267,0],[228,228,229,229,230,232,232,0],[228,228,229,229,230,232,232,0],[228,228,229,229,230,231,231,0],[228,228,229,229,230,231,231,0],[260,263,264,265,266,267,267,0],[228,228,229,229,230,231,231,0],[260,263,264,265,266,267,267,0],[228,228,229,229,230,231,231,0],[260,263,264,265,266,267,267,0],[228,228,229,229,230,231,231,0],[260,263,264,265,266,267,267,0],[228,228,229,229,230,231,231,0],[260,263,264,265,266,267,267,0],[221,222,222,223,223,224,224,0],[221,222,222,223,223,224,225,0],[221,222,222,222,222,223,224,0],[221,222,222,223,223,224,225,0],[259,260,263,264,265,266,266,0],[221,222,222,222,222,223,224,0],[259,260,263,264,265,266,266,0],[221,222,222,223,223,224,225,0],[259,260,263,264,265,266,266,0],[221,222,222,223,223,224,224,0],[259,260,263,264,265,266,266,0],[221,222,222,223,223,224,225,0],[259,260,263,264,265,266,266,0],[207,207,208,208,209,210,210,0],[207,207,208,208,209,210,211,0],[207,207,208,208,209,210,211,0],[207,207,208,207,208,209,210,0],[258,259,259,260,263,264,265,0],[207,207,208,207,208,209,210,0],[258,259,259,260,263,264,265,0],[207,207,208,207,208,209,210,0],[258,259,259,260,263,264,265,0],[207,207,208,207,208,209,210,0],[258,259,259,260,263,264,265,0],[214,214,215,215,216,217,217,0],[215,215,215,215,216,217,217,0],[216,216,216,217,217,218,218,0],[215,215,215,215,216,217,218,0],[258,259,259,260,263,264,265,0],[215,215,215,215,216,217,218,0],[258,259,259,260,263,264,265,0],[215,215,215,215,216,217,218,0],[258,259,259,260,263,264,265,0],[215,215,215,215,216,217,218,0],[258,259,259,260,263,264,265,0],[224,225,228,229,230,231,232,0],[225,228,229,230,231,232,235,0],[228,229,230,231,232,235,236,0],[225,228,229,230,231,232,235,0],[246,249,249,250,251,252,252,0],[225,228,229,230,231,232,235,0],[246,249,249,250,251,252,252,0],[228,229,230,231,232,235,236,0],[246,249,249,250,251,252,252,0],[162,165,166,166,169,172,168,1],[166,166,166,167,167,168,169,1],[207,207,208,208,209,210,210,0],[207,207,208,208,209,210,211,0],[207,207,208,208,209,210,211,0],[207,207,208,208,209,210,211,0],[246,249,249,250,251,252,252,0],[207,207,208,208,209,210,211,0],[246,249,249,250,251,252,252,0],[207,207,208,208,209,210,211,0],[246,249,249,250,251,252,252,0],[207,207,208,208,209,210,211,0],[246,249,249,250,251,252,252,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[158,158,158,159,160,162,161,1],[159,159,160,161,165,165,162,1],[197,200,200,201,202,203,204,1],[159,159,160,161,165,165,162,1],[249,250,250,251,252,253,253,0],[160,160,161,162,166,167,162,1],[197,200,200,201,202,203,204,1],[194,195,196,223,223,224,224,0],[249,250,250,251,252,253,253,0],[193,194,194,195,195,196,197,0],[194,194,195,194,195,196,197,0],[195,195,196,196,197,197,197,0],[193,194,194,194,195,196,196,0],[260,263,263,264,265,266,267,0],[193,194,194,194,195,196,196,0],[260,263,263,264,265,266,267,0],[193,194,194,195,195,196,196,0],[260,263,263,264,265,266,267,0],[193,194,194,195,195,196,196,0],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,189,0],[183,183,186,186,187,188,189,0],[183,183,186,186,187,188,189,0],[183,183,186,186,187,188,188,0],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,188,0],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,188,0],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,190,1],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,190,1],[260,263,263,264,265,266,267,0],[183,183,186,186,187,188,190,1],[260,263,263,264,265,266,267,0],[172,172,173,173,174,176,175,1],[172,172,172,173,174,176,179,1],[172,172,172,173,174,176,176,1],[172,172,174,176,179,180,181,1],[179,179,180,181,182,183,182,1],[179,179,180,181,182,183,183,1],[179,179,180,181,182,183,183,1],[179,179,180,181,182,183,183,1],[179,179,180,181,182,183,183,1],[172,172,173,173,174,181,181,1],[173,173,173,173,174,176,179,1],[172,172,173,173,174,176,179,1],[173,173,173,173,174,176,179,1],[197,197,200,201,202,203,203,1],[197,197,200,201,202,203,203,1],[197,197,200,201,202,203,203,1],[215,216,217,218,221,222,223,1],[207,208,209,210,211,214,215,1],[215,216,217,218,221,222,223,1],[207,208,209,210,211,214,215,1],[215,216,217,218,221,222,223,1],[207,208,209,210,211,214,215,1],[236,237,237,238,239,239,242,0],[263,263,264,265,266,266,267,0],[236,237,237,238,239,239,242,0],[230,231,232,235,236,237,237,1],[236,237,237,238,239,239,242,0],[263,263,264,265,266,266,267,0],[228,228,229,229,230,231,232,0],[228,228,229,229,230,231,232,0],[228,228,229,229,230,231,231,0],[228,228,229,229,230,231,231,0],[228,228,229,229,230,231,231,0],[228,228,229,230,231,231,232,0],[263,263,264,265,266,266,267,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[159,159,159,160,161,162,161,1],[159,159,160,161,161,162,162,1],[200,201,202,203,204,207,207,1],[159,159,160,161,161,162,162,1],[258,258,259,259,260,260,263,0],[179,180,180,195,196,197,200,1],[200,201,202,203,204,207,207,1],[228,228,229,230,231,231,232,0],[258,258,259,225,228,229,230,0],[154,154,154,155,155,158,159,1],[155,155,158,158,159,160,160,1],[158,158,158,159,160,162,162,1],[159,159,160,161,161,162,162,1],[202,203,204,207,208,209,210,1],[159,159,160,161,161,162,162,1],[258,258,259,207,208,209,210,0],[200,200,201,202,203,204,204,0],[229,230,231,232,235,236,237,1],[215,215,215,215,216,217,218,0],[258,258,259,232,235,236,237,0],[187,188,189,193,194,195,195,0],[187,188,189,193,194,195,195,0],[187,188,189,193,194,195,195,0],[186,186,187,187,188,189,190,1],[203,204,207,208,209,210,211,1],[186,186,187,187,188,189,190,1],[203,204,207,208,209,210,211,1],[187,188,189,193,194,195,195,1],[203,204,207,208,209,210,211,0],[228,229,230,230,231,231,232,0],[243,244,245,245,246,246,246,0],[207,207,208,208,209,210,210,0],[207,207,208,208,209,210,211,0],[207,207,208,208,209,210,211,0],[204,204,204,207,208,208,209,0],[243,244,245,245,246,246,246,0],[203,203,204,207,208,208,209,0],[243,244,245,245,246,246,246,0],[203,203,204,207,208,209,210,0],[243,244,245,245,246,246,246,0],[204,204,207,207,208,209,210,0],[252,253,256,256,195,258,258,0],[204,204,207,207,208,209,210,0],[252,253,256,256,195,258,258,0],[204,204,207,208,209,210,211,0],[252,253,256,256,195,258,258,0],[176,179,180,181,182,183,185,1],[200,201,202,203,204,207,209,0],[201,201,201,202,202,202,203,0],[196,196,196,196,196,196,196,0],[235,236,237,238,242,244,246,0],[196,196,196,197,197,197,197,0],[201,201,201,202,202,203,203,0],[236,237,238,239,243,245,249,0],[201,201,201,202,202,203,203,0],[216,216,216,217,217,217,218,0],[215,215,215,216,216,216,217,0],[237,238,239,242,244,246,250,0],[208,208,208,209,209,209,210,0],[243,244,245,246,250,252,256,0],[208,208,208,209,209,209,210,0],[216,216,216,217,217,217,218,0],[243,244,245,246,250,252,256,0],[215,215,215,216,216,216,217,0],[243,244,245,246,250,252,256,0],[202,202,202,203,203,203,204,0],[201,201,201,202,202,203,203,0],[207,208,209,210,214,216,218,0],[201,201,201,202,202,202,202,0],[161,162,165,166,167,168,169,1],[223,223,223,224,225,225,225,0],[242,243,244,245,249,251,253,0],[221,221,221,222,222,223,223,0],[244,245,246,249,251,253,257,0],[176,179,180,181,182,183,184,1],[175,176,179,180,181,182,183,1],[175,176,179,180,181,182,183,1],[176,179,180,181,182,183,184,1],[235,236,237,238,242,244,246,0],[175,176,179,180,181,182,183,1],[235,236,237,238,242,244,246,0],[179,180,181,182,183,186,187,1],[235,236,237,238,242,244,246,0],[194,194,194,194,194,195,195,0],[194,194,194,194,194,195,195,0],[161,162,165,166,167,168,169,1],[225,228,228,228,229,229,229,0],[246,249,250,251,253,257,259,0],[228,229,229,229,230,230,230,0],[229,230,230,230,231,231,231,0],[223,223,223,224,224,224,225,0],[246,249,250,251,253,257,259,0],[222,222,222,223,223,223,224,0],[222,222,222,223,223,223,224,0],[196,196,196,196,196,196,197,0],[243,244,245,246,250,252,256,0],[196,196,196,196,196,196,197,0],[208,208,208,209,209,209,210,0],[243,244,245,246,250,252,256,0],[197,200,201,202,203,204,207,0],[195,195,195,195,195,195,196,0],[246,249,250,251,253,257,259,0],[194,194,194,194,194,194,194,0],[235,236,237,238,242,244,246,0],[194,194,194,194,194,194,194,0],[235,236,237,238,242,244,246,0],[195,195,195,195,195,195,195,0],[237,238,239,242,244,246,250,0],[195,195,195,195,195,195,195,0],[237,238,239,242,244,246,250,0],[173,173,174,176,179,179,176,1],[173,173,174,176,179,179,176,1],[173,173,174,176,179,179,179,1],[173,173,174,176,179,179,181,1],[228,228,228,229,229,229,230,0],[229,229,229,230,230,230,231,0],[230,230,230,231,231,231,232,0],[228,228,228,229,229,229,230,0],[229,229,229,230,230,230,231,0],[230,230,230,231,231,231,232,0],[230,230,230,231,231,231,232,0],[230,230,230,231,232,232,232,0],[225,225,225,228,229,229,229,0],[246,249,250,251,253,257,259,0],[228,228,228,229,230,230,230,0],[246,249,250,251,253,257,259,0]];
+  if(base.courses.length!==P.length){ console.error("v8 patch length mismatch",base.courses.length,P.length); }
+  base.courses.forEach(function(c,i){
+    if(RN[c.fn]) c.fn=RN[c.fn];
+    var r=P[i];
+    if(r){ c.p=[iso(r[0]),iso(r[1]),iso(r[2]),iso(r[3]),iso(r[4]),iso(r[5]),iso(r[6])]; c.a=[null,null,null,null,null,null,null]; c.x=r[7]?1:0; }
+  });
+  base.generatedAt="Jul 13 2026";
+  base.source="Final 996 List + Dates - Jun 11 (refreshed Jul 13 per Deanna 7.8.26)";
+  base.note="Updates Based on Deanna Course Delivery Proposal 7.8.26. The course list is unchanged at 996 courses.";
+  window.P670_DATA_V8=base;
+})();
+</script>
+
+<!-- ============== V8 (Jul 13) DELIVERY IIFE ============== -->
+<script>
+(function() {
+  if (!window.P670_DATA_V8) { console.warn('v8 data missing'); return; }
+
+  const STAGES_V8 = window.P670_DATA_V8.stages;
+  const COURSES_V8 = window.P670_DATA_V8.courses;
+  // ===== DYNAMIC DELIVERY STATUS (Jul 13 tab only) =====
+  // Paste your deployed Apps Script web-app URL (ends with /exec) between the quotes
+  // to pull live "Completed" status from the Google Sheet, matched by Focus Course Name.
+  // Leave '' to use the embedded status. NOTE: only STATUS is fetched — all dates stay
+  // hardcoded and are never read from the sheet.
+  const V8_STATUS_URL = 'https://script.google.com/a/macros/learningmate.com/s/AKfycbyYx69_G_7QyKn1xfaypLCeQTwG6Cqd9dQLnkCeCwZlhD6pzFeTodXL-Ba2EWPRho1fMw/exec';
+  const ROLLUP_DISTINCT = window.P670_DATA_V8.rollupDistinct || [];
+  const ROLLUP_MASTER = window.P670_DATA_V8.rollupMaster || [];
+  const SUBJECTS_V8 = ['Math','ELA','Science','Social Studies'];
+  const GRADE_GROUPS_V8 = ['Grade 3','Grade 4','Grade 5','Grade 6','Grade 7','Grade 8','Highschool'];
+  const GRADE_BANDS_V8 = ['Grade 3-5','Grade 6-8','High School'];
+  const STATES_LIST_V8 = Array.from(new Set(COURSES_V8.map(function(c){return c.st;}))).sort();
+  const GRADES_LIST_V8 = Array.from(new Set(COURSES_V8.map(function(c){return c.gr;}).filter(Boolean))).sort();
+
+  window.STATE_V8 = window.STATE_V8 || {
+    filters: { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all', month:'all' }
+  };
+  let v8AccGrouping = 'date';
+  let v8AccSearch = '';
+  let v8AccStatus = 'all';
+
+  const subjClassV8 = function(s){return ({'Math':'math','ELA':'ela','Science':'sci','Social Studies':'ss'})[s] || '';};
+  const subjShortV8 = function(s){return ({'Math':'Math','ELA':'ELA','Science':'Sci','Social Studies':'SS'})[s] || s;};
+  function eEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); }
+  function attrEsc(s) { return String(s == null ? '' : s).replace(/\s+/g, ' ').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+  function parseDateV8(s) { return s ? new Date(s + 'T00:00:00') : null; }
+  function fmtDateV8(d) { if (!d) return '—'; var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+  function fmtDateShortV8(d) { if (!d) return '—'; var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()] + ' ' + d.getDate(); }
+  function monthKeyV8(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+  function monthLabelV8(d) { var m = ['January','February','March','April','May','June','July','August','September','October','November','December']; return m[d.getMonth()] + ' ' + d.getFullYear(); }
+  function monthLabelShortV8(d) { var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()] + ' ' + String(d.getFullYear()).slice(2); }
+  function isoDateV8(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+  // ---------- Filter logic ----------
+  function mondayKeyV8(iso){ var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); var dow=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-dow); return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
+  function applyFilterV8(c) {
+    const f = window.STATE_V8.filters;
+    if (!(f.subjects.includes('all') || f.subjects.includes(c.s))) return false;
+    if (f.state !== 'all' && c.st !== f.state) return false;
+const ggSel = f.gradeGroups || ['all'];
+    if (!ggSel.includes('all')) {
+      const sm = (c.sm || '').toLowerCase();
+      const gg = c.gg;
+      const is35 = (gg === 'Grade 3' || gg === 'Grade 4' || gg === 'Grade 5');
+      const is612 = (gg === 'Grade 6' || gg === 'Grade 7' || gg === 'Grade 8' || gg === 'Highschool');
+      const isSemA = sm.indexOf('sem a') !== -1;
+      const isSemB = sm.indexOf('sem b') !== -1;
+      let match = false;
+      for (let i = 0; i < ggSel.length; i++) {
+        const v = ggSel[i];
+        if (v === 'GROUP:3-5' && is35) { match = true; break; }
+        if (v === 'GROUP:6-12-A' && is612 && isSemA) { match = true; break; }
+        if (v === 'GROUP:6-12-B' && is612 && isSemB) { match = true; break; }
+        if (v === gg) { match = true; break; }
+      }
+      if (!match) return false;
+    }
+    const gbSel = f.gradeBands || ['all'];
+    if (!gbSel.includes('all') && !gbSel.includes(c.gb)) return false;
+    if (f.type !== 'all' && c.tp !== f.type) return false;
+    if (f.semAB !== 'all') {
+      if (String(c.sm || '').toLowerCase() !== f.semAB.toLowerCase()) return false;
+    }
+    if (f.deriv === 'Master' && c.dv !== 'Master') return false;
+    if (f.deriv === 'Derivatives' && c.dv === 'Master') return false;
+    if (f.deriv === '80%' && c.dv !== '80%') return false;
+    if (f.deriv === '60%' && c.dv !== '60%') return false;
+    if (f.deriv === '40%' && c.dv !== '40%') return false;
+    if (f.month && f.month !== 'all') {
+      var d6 = c.p && c.p[6];
+      if (!d6) return false;
+      // p[6] is an iso-ish 'YYYY-MM-DD' string; compare first 7 chars
+      if (String(d6).slice(0,7) !== f.month) return false;
+    }
+    if (f.from || f.to) {
+      var dd = c.p && c.p[6];
+      if (!dd) return false;
+      var ds = String(dd).slice(0,10);
+      if (f.from && ds < f.from) return false;
+      if (f.to && ds > f.to) return false;
+    }
+    if (f.weeks && f.weeks.length) {
+      var dw = c.p && c.p[6]; if (!dw) return false;
+      if (f.weeks.indexOf(mondayKeyV8(String(dw).slice(0,10))) === -1) return false;
+    }
+    return true;
+  }
+  function filteredCoursesV8() { return COURSES_V8.filter(applyFilterV8); }
+  window.filteredCoursesV8 = filteredCoursesV8;
+
+  function computeDeliverySeriesV8() {
+    const out = [];
+    const filtered = filteredCoursesV8();
+    for (let i = 0; i < filtered.length; i++) {
+      const c = filtered[i];
+      const d = c.p[6];
+      if (!d) continue;
+      out.push({ course: c, date: parseDateV8(d), iso: d, subject: c.s, state: c.st, grade: c.gr, gradeGroup: c.gg, gradeBand: c.gb, type: c.tp, deriv: c.dv, sem: c.sm });
+    }
+    out.sort(function(a,b){ return a.date - b.date; });
+    return out;
+  }
+  function computeMonthlyV8() {
+    const series = computeDeliverySeriesV8();
+    const map = new Map();
+    for (let i = 0; i < series.length; i++) {
+      const e = series[i];
+      const k = monthKeyV8(e.date);
+      if (!map.has(k)) map.set(k, { key:k, date: new Date(e.date.getFullYear(), e.date.getMonth(), 1), total:0, deliv:0, bySubject:{ Math:0, ELA:0, Science:0, 'Social Studies':0 }, bySubjectDeliv:{ Math:0, ELA:0, Science:0, 'Social Studies':0 } });
+      const m = map.get(k);
+      m.total++; m.bySubject[e.subject] = (m.bySubject[e.subject] || 0) + 1;
+      var _dx = (e.course && e.course.x) ? 1 : 0; m.deliv += _dx; if (m.bySubjectDeliv[e.subject] !== undefined) m.bySubjectDeliv[e.subject] += _dx;
+    }
+    return Array.from(map.values()).sort(function(a,b){return a.date-b.date;});
+  }
+  function computeByDayV8() {
+    const series = computeDeliverySeriesV8();
+    const map = new Map();
+    for (let i = 0; i < series.length; i++) {
+      const e = series[i];
+      if (!map.has(e.iso)) map.set(e.iso, { iso:e.iso, date:e.date, total:0, bySubject:{ Math:0, ELA:0, Science:0, 'Social Studies':0 }, courses:[] });
+      const d = map.get(e.iso);
+      d.total++; d.bySubject[e.subject]++; d.courses.push(e);
+    }
+    return map;
+  }
+
+  // ---------- Renderers ----------
+  function renderHeadlineV8() {
+    const series = computeDeliverySeriesV8();
+    const host = document.getElementById('v8-deliveryHeadline');
+    if (!host) return;
+    if (!series.length) {
+      host.innerHTML = '<div class="kpi"><div class="label">No deliveries</div><div class="num">—</div><div class="sub">No "Deliver and SO" dates match current filters.</div></div>';
+      return;
+    }
+    const first = series[0].date, last = series[series.length-1].date;
+    const spanDays = Math.round((last - first) / 86400000) + 1;
+    const monthly = computeMonthlyV8();
+    const byDay = computeByDayV8();
+    let bizDays = 0;
+    for (let d = new Date(first); d <= last; d = new Date(d.valueOf() + 86400000)) { const wd = d.getDay(); if (wd !== 0 && wd !== 6) bizDays++; }
+    const avgPerBiz = series.length / Math.max(1, bizDays);
+    let busiest = { total:0 };
+    for (const e of byDay.values()) if (e.total > busiest.total) busiest = e;
+    const v8Deliv = series.filter(function(e){return e.course && e.course.x;}).length;
+    host.innerHTML =
+      '<div class="kpi"><div class="label">Start Date</div><div class="num blue">' + fmtDateShortV8(first) + '</div><div class="sub">' + first.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + first.getFullYear() + '</div></div>' +
+      '<div class="kpi"><div class="label">End Date</div><div class="num blue">' + fmtDateShortV8(last) + '</div><div class="sub">' + last.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + last.getFullYear() + '</div></div>' +
+      '<div class="kpi"><div class="label">Window</div><div class="num">' + spanDays + ' days</div><div class="sub">' + bizDays + ' business days &middot; ' + monthly.length + ' month' + (monthly.length===1?'':'s') + '</div></div>' +
+      '<div class="kpi" id="v8-kpi-total"><div class="label">Delivered</div><div class="num good">' + v8Deliv + ' / ' + series.length.toLocaleString() + '</div><div class="sub">' + (series.length ? Math.round(v8Deliv/series.length*100) : 0) + '% delivered &middot; ' + (series.length - v8Deliv) + ' forecast</div></div>' +
+      '<div class="kpi"><div class="label">Busiest Day</div><div class="num warn">' + busiest.total + '</div><div class="sub">' + (busiest.date ? fmtDateV8(busiest.date) : '—') + '</div></div>';
+  }
+
+  function renderMonthCardsV8() {
+    const host = document.getElementById('v8-deliveryMonthCards');
+    if (!host) return;
+    const monthly = computeMonthlyV8();
+    const order = ['Math','ELA','Science','Social Studies'];
+    host.innerHTML = monthly.map(function(m) {
+      const _totV8 = m.total || 1;
+      const shareSegV8 = order.map(function(s) { var v = m.bySubject[s] || 0; return v > 0 ? '<span class="mc-share-seg ' + subjClassV8(s) + '" style="width:' + (v / _totV8 * 100) + '%" title="' + subjShortV8(s) + ' ' + v + '"></span>' : ''; }).join('');
+      const rows = '<div class="mc-sharebar">' + shareSegV8 + '</div>' + order.map(function(s) {
+        const v = m.bySubject[s] || 0;
+        const dvv = (m.bySubjectDeliv && m.bySubjectDeliv[s]) || 0;
+        const pct = v ? Math.round(dvv / v * 100) : 0;
+        return '<div class="row"><span class="name">' + subjShortV8(s) + '</span><div class="barwrap"><div class="bar ' + subjClassV8(s) + '" style="width:' + pct + '%"></div></div><span class="count">' + (dvv + ' of ' + v + '<span class="done-suffix' + (dvv > 0 ? ' done-pos' : '') + '">&middot; ' + pct + '%</span>') + '</span></div>';
+      }).join('');
+      const mk = m.key; // YYYY-MM
+      const isSel = (window.STATE_V8.filters.month === mk);
+      return '<div class="month-card v8-month-card' + (isSel ? ' v8-month-card-active' : '') + '" data-v8month="' + eEsc(mk) + '" role="button" tabindex="0" title="Click to filter the entire tab to ' + eEsc(monthLabelV8(m.date)) + '">' +
+        '<div class="month-name">' + eEsc(monthLabelV8(m.date)) + '</div>' +
+        '<div class="month-total">' + m.total.toLocaleString() + '</div>' +
+        '<div class="month-sub">deliveries this month</div>' +
+        '<div class="subj-breakdown">' + rows + '</div>' +
+        '<div class="mc-statusline-v8">' + (m.total ? ('<span><span class="mc-deliv">' + m.deliv + ' delivered</span> &middot; ' + Math.round(m.deliv/m.total*100) + '% complete</span>') : ('<span><span class="mc-deliv">' + m.deliv + ' delivered</span></span>')) + '<span class="mc-forecast">' + (m.total - m.deliv) + ' forecast</span></div></div>';
+    }).join('');
+
+    // wire clicks: clicking a card sets / toggles the Month filter
+    Array.from(host.querySelectorAll('.v8-month-card')).forEach(function(card) {
+      card.addEventListener('click', function() {
+        const k = card.getAttribute('data-v8month');
+        const cur = window.STATE_V8.filters.month || 'all';
+        const next = (cur === k) ? 'all' : k; // click selected card again -> clear
+        window.STATE_V8.filters.month = next;
+        const sel = document.getElementById('v8-f-month');
+        if (sel) sel.value = next;
+        renderV8All();
+      });
+      card.addEventListener('keydown', function(ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); card.click(); }
+      });
+    });
+  }
+
+  function renderCalendarsV8() {
+    const host = document.getElementById('v8-deliveryCalendars');
+    if (!host) return;
+    const monthly = computeMonthlyV8();
+    const byDay = computeByDayV8();
+    const todayIso = isoDateV8(new Date());
+    host.innerHTML = monthly.map(function(m) {
+      const year = m.date.getFullYear(), month = m.date.getMonth();
+      const startWeekday = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month+1, 0).getDate();
+      const cells = [];
+      for (let i = 0; i < startWeekday; i++) cells.push({ outside:true });
+      for (let d = 1; d <= totalDays; d++) {
+        const dt = new Date(year, month, d), iso = isoDateV8(dt);
+        cells.push({ day:d, iso:iso, date:dt, weekend:(dt.getDay()===0||dt.getDay()===6), today: iso===todayIso, info: byDay.get(iso) || null });
+      }
+      while (cells.length % 7 !== 0) cells.push({ outside:true });
+      const subjMax = Math.max.apply(null, cells.filter(function(c){return c.info;}).map(function(c){return Math.max.apply(null, Object.values(c.info.bySubject).concat([0]));}).concat([1]));
+      let html = '<div class="cal-month"><div class="cal-month-head"><div class="cal-month-title">' + eEsc(monthLabelV8(m.date)) + '</div><div class="cal-month-total"><strong>' + m.total + '</strong> deliveries</div></div>' +
+        '<table class="cal-table"><thead><tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr></thead><tbody>';
+      for (let i = 0; i < cells.length; i += 7) {
+        html += '<tr>';
+        for (let j = 0; j < 7; j++) {
+          const c = cells[i+j];
+          if (c.outside) { html += '<td class="outside"></td>'; continue; }
+          const cls = []; if (c.weekend) cls.push('weekend'); if (c.today) cls.push('today'); if (c.info) cls.push('has-delivery');
+          html += '<td class="' + cls.join(' ') + '" data-iso="' + c.iso + '"><span class="cal-day-num">' + c.day + '</span>';
+          if (c.info) {
+            html += '<span class="cal-day-count">' + c.info.total + '</span><div class="cal-day-bars">';
+            ['Math','ELA','Science','Social Studies'].forEach(function(s) {
+              const v = c.info.bySubject[s] || 0;
+              const h = v ? Math.max(4, (v / subjMax) * 22) : 0;
+              html += '<div class="b ' + subjClassV8(s) + '" style="height:' + h + 'px" title="' + eEsc(s) + ': ' + v + '"></div>';
+            });
+            html += '</div>';
+          }
+          html += '</td>';
+        }
+        html += '</tr>';
+      }
+      html += '</tbody></table></div>';
+      return html;
+    }).join('');
+    // Wire calendar day clicks → v8 drill-down modal
+    Array.from(host.querySelectorAll('td.has-delivery')).forEach(function(td) {
+      td.style.cursor = 'pointer';
+      td.addEventListener('click', function() { openV8DayDrillDown(td.dataset.iso); });
+    });
+  }
+
+  function openV8DayDrillDown(iso) {
+    const byDay = computeByDayV8();
+    const info = byDay.get(iso);
+    if (!info) return;
+    const ddTitle = document.getElementById('ddTitle');
+    const ddBody = document.getElementById('ddBody');
+    const ddModal = document.getElementById('ddModal');
+    if (!ddTitle || !ddBody || !ddModal) return;
+    ddTitle.textContent = 'Deliveries on ' + fmtDateV8(info.date) + ' — ' + info.total + ' course' + (info.total===1?'':'s');
+    info.courses.sort(function(a,b) { return (a.subject + a.state).localeCompare(b.subject + b.state); });
+    let html = '<div style="overflow-x:auto"><table class="dd-list"><thead><tr>'
+      + '<th>Subject</th><th>State</th><th>Grade</th><th>Type</th><th>Deriv.</th><th>Focus Course</th><th>BSP SSID</th><th>Base Course</th>'
+      + '</tr></thead><tbody>';
+    info.courses.forEach(function(e) {
+      const c = e.course;
+      const notesIcon = (c.an && String(c.an).trim()) ? '<span class="info-icon has-notes" title="' + attrEsc(c.an) + '">i</span>' : '';
+      html += '<tr>'
+        + '<td><span class="subj-pill ' + subjClassV8(c.s) + '">' + eEsc(subjShortV8(c.s)) + '</span></td>'
+        + '<td>' + eEsc(c.st) + '</td>'
+        + '<td>' + eEsc(c.gr || '') + '</td>'
+        + '<td><span style="font-size:11px;color:var(--ink-3)">' + eEsc(c.tp || '') + '</span></td>'
+        + '<td><span style="font-size:11px;font-weight:600;color:' + ((c.dv === 'Master') ? 'var(--stride-blue)' : 'var(--ink-2)') + '">' + eEsc(c.dv || '-') + '</span></td>'
+        + '<td><strong>' + eEsc(c.fn || '') + '</strong></td>'
+        + '<td>' + eEsc(c.bsp == null ? '' : c.bsp) + '</td>'
+        + '<td><span style="color:var(--ink-2)">' + eEsc(c.cn || '') + '</span>' + notesIcon + ' <code style="font-size:11px;color:var(--ink-3)">' + eEsc(c.cc || '') + '</code></td>'
+        + '</tr>';
+    });
+    html += '</tbody></table></div>';
+    ddBody.innerHTML = html;
+    ddModal.classList.add('show');
+  }
+
+  // ---------- Cross-tabs (State / Subject / Grade Group × Month) ----------
+  function crosstabV8(rowKeyFn, rowOrder) {
+    const series = computeDeliverySeriesV8();
+    const months = computeMonthlyV8().map(function(m){return { key:m.key, label: monthLabelShortV8(m.date) };});
+    const rows = new Map();
+    for (let i = 0; i < series.length; i++) {
+      const e = series[i];
+      const k = rowKeyFn(e);
+      if (!rows.has(k)) {
+        const cells = {}; months.forEach(function(m){ cells[m.key]=0; });
+        rows.set(k, { rowKey:k, cells:cells, total:0 });
+      }
+      rows.get(k).cells[monthKeyV8(e.date)]++;
+      rows.get(k).total++;
+    }
+    const colTotals = {}; months.forEach(function(m){colTotals[m.key]=0;});
+    let grandTotal = 0;
+    for (const r of rows.values()) { months.forEach(function(m){colTotals[m.key]+=r.cells[m.key]||0;}); grandTotal+=r.total; }
+    let sorted;
+    if (rowOrder) sorted = rowOrder.filter(function(k){return rows.has(k);}).map(function(k){return rows.get(k);});
+    else sorted = Array.from(rows.values()).sort(function(a,b){return b.total-a.total;});
+    return { months: months, rows: sorted, colTotals: colTotals, grandTotal: grandTotal };
+  }
+  function renderCrosstabV8(containerId, ct, rowHeader) {
+    const host = document.getElementById(containerId);
+    if (!host) return;
+    if (!ct.rows.length) { host.innerHTML = '<p style="padding:18px;color:var(--ink-3)">No data for current filters.</p>'; return; }
+    let maxVal = 0;
+    for (let i = 0; i < ct.rows.length; i++) for (let j = 0; j < ct.months.length; j++) maxVal = Math.max(maxVal, ct.rows[i].cells[ct.months[j].key] || 0);
+    function tint(v) {
+      if (v === 0) return 'zero';
+      if (!maxVal) return 'has-val';
+      const t = v / maxVal;
+      if (t < 0.20) return 'has-val tint-1';
+      if (t < 0.40) return 'has-val tint-2';
+      if (t < 0.60) return 'has-val tint-3';
+      if (t < 0.80) return 'has-val tint-4';
+      return 'has-val tint-5';
+    }
+    let html = '<table class="crosstab"><thead><tr><th>' + eEsc(rowHeader) + '</th>';
+    for (let j = 0; j < ct.months.length; j++) html += '<th>' + eEsc(ct.months[j].label) + '</th>';
+    html += '<th class="total-col">Total</th></tr></thead><tbody>';
+    for (let i = 0; i < ct.rows.length; i++) {
+      const r = ct.rows[i];
+      html += '<tr><td>' + eEsc(r.rowKey) + '</td>';
+      for (let j = 0; j < ct.months.length; j++) {
+        const v = r.cells[ct.months[j].key] || 0;
+        html += '<td class="' + tint(v) + '">' + (v || '') + '</td>';
+      }
+      html += '<td class="total-col">' + r.total + '</td></tr>';
+    }
+    html += '<tr class="total-row"><td>Total</td>';
+    for (let j = 0; j < ct.months.length; j++) html += '<td>' + ct.colTotals[ct.months[j].key] + '</td>';
+    html += '<td class="total-col">' + ct.grandTotal + '</td></tr>';
+    html += '</tbody></table>';
+    host.innerHTML = html;
+  }
+  function renderAllCrosstabsV8() {
+    renderCrosstabV8('v8-deliveryStateMonth', crosstabV8(function(e){return e.state;}), 'State');
+    renderCrosstabV8('v8-deliverySubjMonth', crosstabV8(function(e){return e.subject;}, SUBJECTS_V8), 'Subject');
+    renderCrosstabV8('v8-deliveryGradeMonth', crosstabV8(function(e){return e.gradeGroup;}, GRADE_GROUPS_V8), 'Grade Group');
+  }
+
+  // ---------- Rollups (parsed from Excel data) ----------
+  function parseDistinctMatrix() {
+    // Returns a map: { 'Math': { 'Grade 3-5': 90, 'Grade 6-8': 90, 'High School': 55, total: 235 }, ... }
+    const result = {};
+    for (let r = 13; r <= 28; r++) {  // 0-indexed (Excel rows 14-29)
+      const row = ROLLUP_DISTINCT[r] || [];
+      const subj = String(row[0] || '').trim();
+      const band = String(row[1] || '').trim();
+      const dist = row[7];
+      if (!subj || !band) continue;
+      if (!result[subj]) result[subj] = {};
+      if (band === 'Subject Total') result[subj].total = dist;
+      else result[subj][band] = dist;
+    }
+    return result;
+  }
+  function renderMvDBreakdownV8() {
+    const filtered = filteredCoursesV8();
+    // Build aggregations by Subject, State, GradeBand. For each key, count Master vs 40% vs 60% vs 80%.
+    function buildAgg(keyFn) {
+      const map = new Map();
+      for (let i = 0; i < filtered.length; i++) {
+        const c = filtered[i];
+        const k = keyFn(c);
+        if (k == null || k === '') continue;
+        if (!map.has(k)) map.set(k, { key:k, m:0, d40:0, d60:0, d80:0, total:0 });
+        const o = map.get(k);
+        const dv = c.dv || '';
+        if (dv === 'Master') o.m++;
+        else if (dv === '40%') o.d40++;
+        else if (dv === '60%') o.d60++;
+        else if (dv === '80%') o.d80++;
+        o.total++;
+      }
+      return Array.from(map.values()).sort(function(a,b){ return b.total - a.total; });
+    }
+    function renderTable(dimLabel, rows) {
+      if (!rows.length) {
+        return '<div style="padding:16px;color:var(--ink-3);font-size:12px;">No courses match the current filters.</div>';
+      }
+      let tot = { m:0, d40:0, d60:0, d80:0, total:0 };
+      let h = '<div style="overflow-x:auto"><table class="mvd-table"><thead><tr>' +
+        '<th>' + eEsc(dimLabel) + '</th>' +
+        '<th class="col-master">Master</th>' +
+        '<th class="col-deriv">80%</th>' +
+        '<th class="col-deriv">60%</th>' +
+        '<th class="col-deriv">40%</th>' +
+        '<th>Derivatives</th>' +
+        '<th>Total</th>' +
+        '<th>% Master</th>' +
+        '</tr></thead><tbody>';
+      for (let i = 0; i < rows.length; i++) {
+        const r = rows[i];
+        tot.m += r.m; tot.d40 += r.d40; tot.d60 += r.d60; tot.d80 += r.d80; tot.total += r.total;
+        const deriv = r.d40 + r.d60 + r.d80;
+        const pctM = r.total > 0 ? (r.m / r.total * 100) : 0;
+        h += '<tr>' +
+          '<td>' + eEsc(r.key) + '</td>' +
+          '<td class="col-master">' + r.m + '</td>' +
+          '<td class="col-deriv">' + r.d80 + '</td>' +
+          '<td class="col-deriv">' + r.d60 + '</td>' +
+          '<td class="col-deriv">' + r.d40 + '</td>' +
+          '<td>' + deriv + '</td>' +
+          '<td><strong>' + r.total + '</strong></td>' +
+          '<td>' + pctM.toFixed(0) + '%</td>' +
+          '</tr>';
+      }
+      const dT = tot.d40 + tot.d60 + tot.d80;
+      const pctT = tot.total > 0 ? (tot.m / tot.total * 100) : 0;
+      h += '</tbody><tfoot><tr>' +
+        '<td>Total</td>' +
+        '<td class="col-master">' + tot.m + '</td>' +
+        '<td class="col-deriv">' + tot.d80 + '</td>' +
+        '<td class="col-deriv">' + tot.d60 + '</td>' +
+        '<td class="col-deriv">' + tot.d40 + '</td>' +
+        '<td>' + dT + '</td>' +
+        '<td>' + tot.total + '</td>' +
+        '<td>' + pctT.toFixed(0) + '%</td>' +
+        '</tr></tfoot></table></div>';
+      return h;
+    }
+    const subjAgg = buildAgg(function(c){ return c.s; });
+    const stateAgg = buildAgg(function(c){ return c.st; });
+    const bandAgg = buildAgg(function(c){ return c.gb; });
+    const elS = document.getElementById('v8-mvd-subject');   if (elS) elS.innerHTML = renderTable('Subject', subjAgg);
+    const elSt = document.getElementById('v8-mvd-state');    if (elSt) elSt.innerHTML = renderTable('State', stateAgg);
+    const elB = document.getElementById('v8-mvd-gradeBand'); if (elB) elB.innerHTML = renderTable('Grade Band', bandAgg);
+  }
+
+  function renderRollupDistinct() {
+    const host = document.getElementById('v8-rollupDistinct');
+    if (!host) return;
+    // Build the "By Subject" simple table
+    const bySubject = (function() {
+      let h = '<div class="rollup-table-wrap"><table class="rollup"><thead><tr>' +
+        '<th>Subject</th><th>Raw Entries</th><th>Full Year</th><th>SEM A</th><th>SEM B</th><th>Sem Only</th><th>Distinct Pairs</th><th>Distinct Total</th>' +
+        '</tr></thead><tbody>';
+      for (let r = 5; r <= 9; r++) {
+        const cells = ROLLUP_DISTINCT[r] || [];
+        if (!cells[0]) continue;
+        const isTotal = String(cells[0]).toUpperCase() === 'TOTAL';
+        h += '<tr' + (isTotal ? ' class="total-row"' : '') + '>';
+        for (let c = 0; c < 8; c++) h += '<td>' + (cells[c]==null||cells[c]===''?'':eEsc(String(cells[c]))) + '</td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table></div>';
+      return h;
+    })();
+
+    // Build the compact "Subject × Band" matrix
+    const byBand = (function() {
+      const m = parseDistinctMatrix();
+      let h = '<div class="rollup-table-wrap"><table class="rollup"><thead><tr>' +
+        '<th>Subject</th>';
+      GRADE_BANDS_V8.forEach(function(b) { h += '<th>' + eEsc(b) + '</th>'; });
+      h += '<th class="total-col">Subject Total</th></tr></thead><tbody>';
+      let bandTotals = {}; GRADE_BANDS_V8.forEach(function(b){bandTotals[b]=0;});
+      let grand = 0;
+      SUBJECTS_V8.forEach(function(s) {
+        if (!m[s]) return;
+        h += '<tr><td>' + eEsc(s) + '</td>';
+        GRADE_BANDS_V8.forEach(function(b) {
+          const v = m[s][b];
+          h += '<td>' + (v == null || v === '' ? '' : v) + '</td>';
+          if (typeof v === 'number') bandTotals[b] += v;
+        });
+        h += '<td>' + (m[s].total == null ? '' : m[s].total) + '</td></tr>';
+        if (typeof m[s].total === 'number') grand += m[s].total;
+      });
+      h += '<tr class="total-row"><td>Band Total</td>';
+      GRADE_BANDS_V8.forEach(function(b) { h += '<td>' + bandTotals[b] + '</td>'; });
+      h += '<td>' + grand + '</td></tr>';
+      h += '</tbody></table></div>';
+      h += '<p style="margin:8px 0 0;font-size:12px;color:var(--ink-3)">SEM A + SEM B for the same base course count as 1 distinct course.</p>';
+      return h;
+    })();
+
+    host.innerHTML =
+      '<div class="rollup-tabs">' +
+        '<button class="rollup-tab active" data-rd="subj">By Subject</button>' +
+        '<button class="rollup-tab" data-rd="band">By Subject × Band</button>' +
+      '</div>' +
+      '<div class="rollup-pane active" data-rd-pane="subj">' + bySubject + '</div>' +
+      '<div class="rollup-pane" data-rd-pane="band">' + byBand + '</div>';
+    Array.from(host.querySelectorAll('.rollup-tab')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        const want = b.dataset.rd;
+        Array.from(host.querySelectorAll('.rollup-tab')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        Array.from(host.querySelectorAll('.rollup-pane')).forEach(function(p){ p.classList.toggle('active', p.dataset.rdPane === want); });
+      });
+    });
+  }
+
+  function parseMasterBandMatrix() {
+    // Build {Subject: {Band: {master, deriv, total}, total: {master, deriv, total}}}
+    const out = {};
+    for (let r = 14; r <= 29; r++) {
+      const row = ROLLUP_MASTER[r] || [];
+      const subj = String(row[0] || '').trim();
+      const band = String(row[1] || '').trim();
+      const mas = row[2], der = row[3], tot = row[4];
+      if (!subj || !band) continue;
+      if (!out[subj]) out[subj] = {};
+      if (band === 'Subject Total') out[subj].total = { master:mas, deriv:der, total:tot };
+      else out[subj][band] = { master:mas, deriv:der, total:tot };
+    }
+    return out;
+  }
+  function renderRollupMaster() {
+    const host = document.getElementById('v8-rollupMaster');
+    if (!host) return;
+
+    const bySubject = (function() {
+      let h = '<div class="rollup-table-wrap"><table class="rollup"><thead><tr>' +
+        '<th>Subject</th><th>Master (Raw)</th><th>Derivative (Raw)</th><th>Total (Raw)</th>' +
+        '<th>Master (Distinct)</th><th>Derivative (Distinct)</th><th>Total (Distinct)</th>' +
+        '</tr></thead><tbody>';
+      for (let r = 6; r <= 10; r++) {
+        const cells = ROLLUP_MASTER[r] || [];
+        if (!cells[0]) continue;
+        const isTotal = String(cells[0]).toUpperCase() === 'TOTAL';
+        h += '<tr' + (isTotal ? ' class="total-row"' : '') + '>';
+        for (let c = 0; c < 7; c++) h += '<td>' + (cells[c]==null||cells[c]===''?'':eEsc(String(cells[c]))) + '</td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table></div>';
+      return h;
+    })();
+
+    const byBand = (function() {
+      const m = parseMasterBandMatrix();
+      let h = '<div class="rollup-table-wrap"><table class="rollup"><thead><tr>' +
+        '<th>Subject</th><th>Band</th><th>Master</th><th>Derivative</th><th>Band Total</th>' +
+        '</tr></thead><tbody>';
+      SUBJECTS_V8.forEach(function(s) {
+        if (!m[s]) return;
+        GRADE_BANDS_V8.forEach(function(b) {
+          const cell = m[s][b];
+          if (!cell) return;
+          h += '<tr><td>' + eEsc(s) + '</td><td>' + eEsc(b) + '</td>' +
+            '<td>' + (cell.master == null ? '' : cell.master) + '</td>' +
+            '<td>' + (cell.deriv == null ? '' : cell.deriv) + '</td>' +
+            '<td>' + (cell.total == null ? '' : cell.total) + '</td></tr>';
+        });
+        // Subject Total row
+        if (m[s].total) {
+          h += '<tr class="subject-total"><td>' + eEsc(s) + '</td><td>Subject Total</td>' +
+            '<td>' + (m[s].total.master == null ? '' : m[s].total.master) + '</td>' +
+            '<td>' + (m[s].total.deriv == null ? '' : m[s].total.deriv) + '</td>' +
+            '<td>' + (m[s].total.total == null ? '' : m[s].total.total) + '</td></tr>';
+        }
+      });
+      h += '</tbody></table></div>';
+      return h;
+    })();
+
+    function pctTable(startRow, label) {
+      let h = '<div class="rollup-table-wrap"><table class="rollup"><thead><tr>' +
+        '<th>Subject</th><th>Master</th><th>40%</th><th>60%</th><th>80%</th><th class="total-col">Total</th>' +
+        '</tr></thead><tbody>';
+      for (let r = startRow; r <= startRow + 4; r++) {
+        const cells = ROLLUP_MASTER[r] || [];
+        if (!cells[0]) continue;
+        const isTotal = String(cells[0]).toUpperCase() === 'TOTAL';
+        h += '<tr' + (isTotal ? ' class="total-row"' : '') + '>';
+        for (let c = 0; c < 6; c++) h += '<td>' + (cells[c]==null||cells[c]===''?'':eEsc(String(cells[c]))) + '</td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table></div>';
+      return h;
+    }
+    const pctRaw = pctTable(34, '% Raw');
+    const pctDist = pctTable(42, '% Distinct');
+
+    host.innerHTML =
+      '<div class="rollup-tabs">' +
+        '<button class="rollup-tab active" data-rm="subj">By Subject</button>' +
+        '<button class="rollup-tab" data-rm="band">By Subject × Band</button>' +
+        '<button class="rollup-tab" data-rm="pct-raw">% Breakdown (Raw)</button>' +
+        '<button class="rollup-tab" data-rm="pct-dist">% Breakdown (Distinct)</button>' +
+      '</div>' +
+      '<div class="rollup-pane active" data-rm-pane="subj">' + bySubject + '</div>' +
+      '<div class="rollup-pane" data-rm-pane="band">' + byBand + '</div>' +
+      '<div class="rollup-pane" data-rm-pane="pct-raw">' + pctRaw + '</div>' +
+      '<div class="rollup-pane" data-rm-pane="pct-dist">' + pctDist + '</div>';
+    Array.from(host.querySelectorAll('.rollup-tab')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        const want = b.dataset.rm;
+        Array.from(host.querySelectorAll('.rollup-tab')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        Array.from(host.querySelectorAll('.rollup-pane')).forEach(function(p){ p.classList.toggle('active', p.dataset.rmPane === want); });
+      });
+    });
+  }
+
+  // ---------- Delivery Schedule list ----------
+  function entryMatchesSearchV8(e, q) {
+    if (!q) return true;
+    const c = e.course;
+    const arr = [e.iso, e.subject, e.state, e.grade, e.gradeGroup, e.gradeBand, c.cn, c.cc, c.fn, c.bsp, c.fg, c.dv, c.tp, c.sm, c.an];
+    return arr.map(function(x){return x==null?'':String(x);}).join(' ').toLowerCase().indexOf(q) !== -1;
+  }
+  function entryMatchesStatusV8(e) { if (v8AccStatus === 'completed') return !!(e.course && e.course.x); if (v8AccStatus === 'pending') return !(e.course && e.course.x); return true; }
+  function subjBadgesV8(by) {
+    const order = [['Math','math','M'],['ELA','ela','E'],['Science','sci','Sc'],['Social Studies','ss','SS']];
+    const parts = [];
+    for (let i = 0; i < order.length; i++) {
+      const v = by[order[i][0]] || 0;
+      if (v === 0) continue;
+      parts.push('<span class="subj-badge ' + order[i][1] + '">' + order[i][2] + ' ' + v + '</span>');
+    }
+    return parts.join('');
+  }
+  function flatRowV8(e, showDate) {
+    const c = e.course;
+    const dateCell = showDate
+      ? ('<strong>' + fmtDateShortV8(e.date) + '</strong>')
+      : ('<span style="color:var(--ink-3);font-size:11px">' + fmtDateShortV8(e.date) + '</span>');
+    const dvColor = (c.dv === 'Master') ? 'var(--stride-blue)' : 'var(--ink-2)';
+    const hasNotes = c.an && String(c.an).trim();
+    const infoIcon = hasNotes ? '<span class="info-icon has-notes" title="' + attrEsc(c.an) + '">i</span>' : '';
+    // Strip newlines and trim from displayed text (some Excel cells contain CR/LF)
+    function clean(s) { return (s == null ? '' : String(s)).replace(/\s+/g, ' ').trim(); }
+    return '<tr class="course-row' + (c.x ? ' v8-completed' : '') + '">'
+      + '<td>' + dateCell + '</td>'
+      + '<td><span class="subj-pill ' + subjClassV8(c.s) + '">' + eEsc(subjShortV8(c.s)) + '</span></td>'
+      + '<td><div class="clamp1" title="' + attrEsc(clean(c.st)) + '">' + eEsc(clean(c.st)) + '</div></td>'
+      + '<td><div class="clamp1" title="' + attrEsc(clean(c.gr)) + '">' + eEsc(clean(c.gr)) + '</div></td>'
+      + '<td><span style="font-size:11px;color:var(--ink-3)">' + eEsc(c.tp || '') + '</span></td>'
+      + '<td><span style="font-size:11px;font-weight:600;color:' + dvColor + '">' + eEsc(c.dv || '-') + '</span></td>'
+      + '<td title="' + attrEsc(clean(c.fn)) + '"><div class="clamp2" style="font-size:12px;color:var(--ink)"><strong>' + eEsc(clean(c.fn)) + '</strong> ' + infoIcon + '</div></td>'
+      + '<td><span style="font-size:11px;color:var(--ink-3)">' + eEsc(c.bsp == null ? '' : c.bsp) + '</span></td>'
+      + '<td>' + (c.x ? '<span class="v8-status-chip">Completed</span>' : '<span style="color:var(--ink-3);font-size:11px">&mdash;</span>') + '</td>'
+      + '</tr>';
+  }
+  function buildByDateV8(series, q) {
+    const map = new Map();
+    for (let i = 0; i < series.length; i++) {
+      const e = series[i];
+      if (!entryMatchesSearchV8(e, q)) continue;
+      if (!map.has(e.iso)) map.set(e.iso, { iso:e.iso, date:e.date, items:[], bySubject:{ Math:0, ELA:0, Science:0, 'Social Studies':0 } });
+      const g = map.get(e.iso);
+      g.items.push(e); g.bySubject[e.subject]++;
+    }
+    return Array.from(map.values()).sort(function(a,b){return a.date-b.date;}).map(function(g) {
+      const dow = g.date.toLocaleDateString(undefined,{weekday:'long'});
+      const plural = g.items.length===1 ? '' : 's';
+      const head = '<tr class="group-header"><td colspan="9">'
+        + '<span class="group-title"><strong>' + eEsc(fmtDateV8(g.date)) + '</strong><span class="dow">' + eEsc(dow) + '</span><span class="meta">&middot; ' + g.items.length + ' course' + plural + '</span></span>'
+        + '<span class="group-badges">' + subjBadgesV8(g.bySubject) + '<span class="group-count">' + g.items.length + '</span></span>'
+        + '</td></tr>';
+      const body = g.items.map(function(e){return flatRowV8(e, false);}).join('');
+      return { html: head + body };
+    });
+  }
+  function buildByKeyV8(series, keyFn, q) {
+    const groups = new Map();
+    for (let i = 0; i < series.length; i++) {
+      const e = series[i];
+      if (!entryMatchesSearchV8(e, q)) continue;
+      const k = keyFn(e);
+      if (!groups.has(k)) groups.set(k, { key:k, items:[], bySubject:{ Math:0, ELA:0, Science:0, 'Social Studies':0 }, dates:new Set() });
+      const g = groups.get(k);
+      g.items.push(e); g.bySubject[e.subject]++; g.dates.add(e.iso);
+    }
+    return Array.from(groups.values()).sort(function(a,b){return b.items.length-a.items.length;}).map(function(g) {
+      g.items.sort(function(a,b){return a.date-b.date;});
+      const dp = g.dates.size===1 ? '' : 's';
+      const cp = g.items.length===1 ? '' : 's';
+      const head = '<tr class="group-header"><td colspan="9">'
+        + '<span class="group-title"><strong>' + eEsc(g.key) + '</strong><span class="meta">&middot; ' + g.dates.size + ' delivery day' + dp + ' &middot; ' + g.items.length + ' course' + cp + '</span></span>'
+        + '<span class="group-badges">' + subjBadgesV8(g.bySubject) + '<span class="group-count">' + g.items.length + '</span></span>'
+        + '</td></tr>';
+      const body = g.items.map(function(e){return flatRowV8(e, true);}).join('');
+      return { html: head + body };
+    });
+  }
+  function renderScheduleV8() {
+    const host = document.getElementById('v8-deliveryAccordion');
+    if (!host) return;
+    let series = computeDeliverySeriesV8();
+    if (v8AccStatus !== 'all') series = series.filter(entryMatchesStatusV8);
+    if (!series.length) { host.innerHTML = '<p style="padding:18px;color:var(--ink-3);text-align:center">No deliveries match current filters.</p>'; return; }
+    const q = (v8AccSearch || '').toLowerCase().trim();
+    let groups;
+    if (v8AccGrouping === 'date') groups = buildByDateV8(series, q);
+    else if (v8AccGrouping === 'state') groups = buildByKeyV8(series, function(e){return e.state;}, q);
+    else groups = buildByKeyV8(series, function(e){return e.subject;}, q);
+    if (!groups.length) { host.innerHTML = '<p style="padding:18px;color:var(--ink-3);text-align:center">No rows match this search.</p>'; return; }
+    let html = '<table class="delivery-flat"><thead><tr>'
+      + '<th>Date</th><th>Subject</th><th>State</th><th>Grade</th><th>Type</th><th>Deriv.</th><th>Focus Course</th><th>BSP SSID</th><th>Status</th>'
+      + '</tr></thead><tbody>';
+    for (let i = 0; i < groups.length; i++) html += groups[i].html;
+    html += '</tbody></table>';
+    host.innerHTML = html;
+  }
+
+  // ---------- Copy / CSV ----------
+  window.v8CopyToExcel = function() {
+    const series = computeDeliverySeriesV8();
+    const q = (v8AccSearch || '').toLowerCase().trim();
+    const filtered = series.filter(function(e){return entryMatchesSearchV8(e, q) && entryMatchesStatusV8(e);});
+    filtered.sort(function(a,b){
+      if (v8AccGrouping === 'state') return a.state.localeCompare(b.state) || a.date - b.date;
+      if (v8AccGrouping === 'subject') return a.subject.localeCompare(b.subject) || a.date - b.date;
+      return a.date - b.date;
+    });
+    const rows = [['Delivery Date','Weekday','Subject','State','Grade','Grade Group','Grade Band','Type','Sem A/B','Derivative','Focus BSP SSID','Focus Group','Focus Course Name','Assessment Notes','Completed in Brightspot','Added Ancillaries Links','BSP Course Validation','Publishing','Mastering','Green Lighting','Deliver and SO','Status'].join('\t')];
+    for (let i = 0; i < filtered.length; i++) {
+      const e = filtered[i]; const c = e.course;
+      const dow = e.date.toLocaleDateString(undefined, { weekday:'long' });
+      rows.push([e.iso, dow, c.s, c.st, c.gr||'', c.gg||'', c.gb||'', c.tp||'', c.sm||'', c.dv||'', c.bsp==null?'':c.bsp, c.fg||'', c.fn||'', c.an||'', c.p[0]||'', c.p[1]||'', c.p[2]||'', c.p[3]||'', c.p[4]||'', c.p[5]||'', c.p[6]||'', (c.x ? 'Completed' : 'Not completed')].map(function(s){return String(s).replace(/\t/g,' ').replace(/\r?\n/g,' ');}).join('\t'));
+    }
+    const tsv = rows.join('\n');
+    function fb() { const ta = document.createElement('textarea'); ta.value=tsv; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); try { document.execCommand('copy'); alert('Copied ' + filtered.length + ' rows.'); } catch(e) { alert('Copy failed: ' + e.message); } document.body.removeChild(ta); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tsv).then(function(){alert('Copied ' + filtered.length + ' rows.');}, fb);
+    else fb();
+  };
+  window.v8DownloadCsv = function() {
+    const series = computeDeliverySeriesV8();
+    const q = (v8AccSearch || '').toLowerCase().trim();
+    const filtered = series.filter(function(e){return entryMatchesSearchV8(e, q) && entryMatchesStatusV8(e);});
+    filtered.sort(function(a,b){return a.date-b.date;});
+    function csv(s) { s = String(s == null ? '' : s); return (s.indexOf('"') !== -1 || s.indexOf(',') !== -1 || s.indexOf('\n') !== -1) ? '"' + s.replace(/"/g,'""') + '"' : s; }
+    const rows = [['Delivery Date','Weekday','Subject','State','Grade','Grade Group','Grade Band','Type','Sem A/B','Derivative','Focus BSP SSID','Focus Group','Focus Course Name','Assessment Notes','Completed in Brightspot','Added Ancillaries Links','BSP Course Validation','Publishing','Mastering','Green Lighting','Deliver and SO','Status'].map(csv).join(',')];
+    for (let i = 0; i < filtered.length; i++) {
+      const e = filtered[i]; const c = e.course;
+      const dow = e.date.toLocaleDateString(undefined,{weekday:'long'});
+      rows.push([e.iso, dow, c.s, c.st, c.gr||'', c.gg||'', c.gb||'', c.tp||'', c.sm||'', c.dv||'', c.bsp==null?'':c.bsp, c.fg||'', c.fn||'', c.an||'', c.p[0]||'', c.p[1]||'', c.p[2]||'', c.p[3]||'', c.p[4]||'', c.p[5]||'', c.p[6]||'', (c.x ? 'Completed' : 'Not completed')].map(csv).join(','));
+    }
+    const blob = new Blob([rows.join('\n')], { type:'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const ts = new Date().toISOString().slice(0,10);
+    a.href = url; a.download = 'Project670_Delivery_Schedule_Jul13_' + ts + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  };
+
+  // ---------- Filter UI ----------
+  function populateV8Filters() {
+    const subj = document.getElementById('v8-f-subject');
+    if (subj) subj.innerHTML = '<option value="all" selected>All subjects</option>' + SUBJECTS_V8.map(function(s){return '<option value="' + eEsc(s) + '">' + eEsc(s) + '</option>';}).join('');
+    const st = document.getElementById('v8-f-state');
+    if (st) st.innerHTML = '<option value="all">All states</option>' + STATES_LIST_V8.map(function(s){return '<option value="' + eEsc(s) + '">' + eEsc(s) + '</option>';}).join('');
+    const gb = document.getElementById('v8-f-gradeband');
+    if (gb) gb.innerHTML = '<option value="all" selected>All bands</option>' + GRADE_BANDS_V8.map(function(b){return '<option value="' + eEsc(b) + '">' + eEsc(b) + '</option>';}).join('');
+    const gg = document.getElementById('v8-f-gradegroup');
+    if (gg) gg.innerHTML =
+      '<option value="all" selected>All grade groups</option>' +
+      '<optgroup label="Grouped buckets">' +
+        '<option value="GROUP:3-5">Grade 3-5 (group)</option>' +
+        '<option value="GROUP:6-12-A">Grade 6-12 SEM A (group)</option>' +
+        '<option value="GROUP:6-12-B">Grade 6-12 SEM B (group)</option>' +
+      '</optgroup>' +
+      '<optgroup label="Individual grades">' +
+        GRADE_GROUPS_V8.map(function(g){return '<option value="' + eEsc(g) + '">' + eEsc(g) + '</option>';}).join('') +
+      '</optgroup>';
+
+    // Month dropdown — collect all distinct YYYY-MM keys from p[6]
+    const monthSel = document.getElementById('v8-f-month');
+    if (monthSel) {
+      const keys = new Set();
+      for (let i = 0; i < COURSES_V8.length; i++) {
+        const d = COURSES_V8[i].p && COURSES_V8[i].p[6];
+        if (d) keys.add(String(d).slice(0,7));
+      }
+      const arr = Array.from(keys).sort();
+      const monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const opts = arr.map(function(k){
+        const y = parseInt(k.slice(0,4),10), m = parseInt(k.slice(5,7),10);
+        return '<option value="' + eEsc(k) + '">' + monthName[m-1] + ' ' + y + '</option>';
+      }).join('');
+      const cur = window.STATE_V8.filters.month || 'all';
+      monthSel.innerHTML = '<option value="all">All months</option>' + opts;
+      monthSel.value = cur;
+    }
+  }
+  function readV8Filters() {
+    const subj = Array.from(document.querySelectorAll('#v8-f-subject option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
+    window.STATE_V8.filters.subjects = subj.length ? subj : ['all'];
+    window.STATE_V8.filters.state = document.getElementById('v8-f-state').value;
+const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
+    window.STATE_V8.filters.gradeGroups = ggSel.length ? ggSel : ['all'];
+    const gbSel = Array.from(document.querySelectorAll('#v8-f-gradeband option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
+    window.STATE_V8.filters.gradeBands = gbSel.length ? gbSel : ['all'];
+    window.STATE_V8.filters.type = document.getElementById('v8-f-type').value;
+    window.STATE_V8.filters.semAB = document.getElementById('v8-f-semab').value;
+    window.STATE_V8.filters.deriv = document.getElementById('v8-f-deriv').value;
+    const mEl = document.getElementById('v8-f-month');
+    window.STATE_V8.filters.month = mEl ? mEl.value : 'all';
+    var ffe = document.getElementById('v8-f-from'); window.STATE_V8.filters.from = (ffe && ffe.value) ? ffe.value : null;
+    var fte = document.getElementById('v8-f-to'); window.STATE_V8.filters.to = (fte && fte.value) ? fte.value : null;
+  }
+  function resetV8Filters() {
+    window.STATE_V8.filters = { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all' };
+    populateV8Filters();
+    document.getElementById('v8-f-type').value = 'all';
+    document.getElementById('v8-f-semab').value = 'all';
+    document.getElementById('v8-f-deriv').value = 'all';
+    const mEl = document.getElementById('v8-f-month');
+    if (mEl) mEl.value = 'all';
+    var ff = document.getElementById('v8-f-from'); if (ff) ff.value = '';
+    var ft = document.getElementById('v8-f-to'); if (ft) ft.value = '';
+    renderV8All();
+  }
+
+  function renderJul17MatrixV8() {
+    var host = document.getElementById('v8-jul17Matrix'); if(!host) return;
+    var CUT='2026-07-17';
+    var subs=['Math','ELA','Science','Social Studies'];
+    var bands=['Grade 3-5','Grade 6-8','High School'];
+    var on={},af={}; subs.forEach(function(s){on[s]={};af[s]={};bands.forEach(function(b){on[s][b]=0;af[s][b]=0;});});
+    var courses=filteredCoursesV8();
+    for(var i=0;i<courses.length;i++){var c=courses[i];var d=c.p&&c.p[6];if(!d)continue;var s=c.s,b=c.gb;if(!on[s]||on[s][b]===undefined)continue;if(String(d).slice(0,10)<=CUT)on[s][b]++;else af[s][b]++;}
+    function tbl(title,data,cls){
+      var rt=0;var h='<table class="jul17-tbl '+cls+'"><caption>'+title+'</caption><thead><tr><th>Subject</th>';
+      bands.forEach(function(b){h+='<th>'+b+'</th>';});h+='<th>Total</th></tr></thead><tbody>';
+      var colt={};bands.forEach(function(b){colt[b]=0;});
+      subs.forEach(function(s){var r=0;h+='<tr><td>'+s+'</td>';bands.forEach(function(b){var v=data[s][b];r+=v;colt[b]+=v;h+='<td>'+(v||'')+'</td>';});rt+=r;h+='<td class="tot">'+r+'</td></tr>';});
+      h+='<tr class="gt"><td>Grand Total</td>';bands.forEach(function(b){h+='<td>'+colt[b]+'</td>';});h+='<td>'+rt+'</td></tr></tbody></table>';
+      return {html:h,total:rt};
+    }
+    var a=tbl('On or before Jul 17, 2026',on,'jul17-onbefore');
+    var b=tbl('After Jul 17, 2026',af,'jul17-after');
+    host.innerHTML='<div class="jul17-headline"><b class="on">'+a.total+'</b> due on/before Jul 17 &middot; <b class="af">'+b.total+'</b> after &middot; '+(a.total+b.total)+' total</div><div class="jul17-wrap">'+a.html+b.html+'</div>';
+  }
+
+  function renderV8All() {
+    try { renderHeadlineV8(); } catch(e) { console.error('v8 headline:', e.message); }
+    try { renderMonthCardsV8(); } catch(e) { console.error('v8 cards:', e.message); }
+    try { renderCalendarsV8(); } catch(e) { console.error('v8 cals:', e.message); }
+    try { renderAllCrosstabsV8(); } catch(e) { console.error('v8 ct:', e.message); }
+    try { renderScheduleV8(); } catch(e) { console.error('v8 sched:', e.message); }
+    try { renderMvDBreakdownV8(); } catch(e) { console.error('v8 mvd:', e.message); }
+    try { renderRollupDistinct(); } catch(e) { console.error('v8 distinct:', e.message); }
+    try { renderRollupMaster(); } catch(e) { console.error('v8 master:', e.message); }
+    try { if (window._wkbsHook) window._wkbsHook(); } catch(e) { console.error('wkbs hook:', e.message); }
+  }
+
+  function bindV8() {
+    populateV8Filters();
+    ['v8-f-subject','v8-f-state','v8-f-gradeband','v8-f-gradegroup','v8-f-type','v8-f-semab','v8-f-deriv','v8-f-month','v8-f-from','v8-f-to'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', function(){ readV8Filters(); renderV8All(); });
+    });
+    const reset = document.getElementById('v8-f-reset');
+    if (reset) reset.addEventListener('click', resetV8Filters);
+    if (reset) reset.addEventListener('click', function(){ Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn, #v8-weeks .qr-btn'), function(x){ x.classList.remove('active'); }); if (window.STATE_V8.filters.weeks) window.STATE_V8.filters.weeks.length = 0; });
+    (function(){
+      function isoL(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+      function qrange(key){ var t = new Date(); t.setHours(0,0,0,0); var dow = (t.getDay()+6)%7; function dd(n){ var x = new Date(t); x.setDate(x.getDate()+n); return x; }
+        if (key==='today') return [t,t]; if (key==='yesterday') return [dd(-1),dd(-1)]; if (key==='tomorrow') return [dd(1),dd(1)];
+        if (key==='lastweek') return [dd(-dow-7),dd(-dow-1)]; if (key==='thisweek') return [dd(-dow),dd(-dow+6)]; if (key==='nextweek') return [dd(-dow+7),dd(-dow+13)]; return null; }
+      var fromEl = document.getElementById('v8-f-from'), toEl = document.getElementById('v8-f-to');
+      Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn'), function(b){
+        b.addEventListener('click', function(){
+          var r = qrange(b.dataset.qr); if (!r || !fromEl || !toEl) return;
+          fromEl.value = isoL(r[0]); toEl.value = isoL(r[1]);
+          if (window.STATE_V8.filters.weeks) window.STATE_V8.filters.weeks.length = 0;
+          Array.prototype.forEach.call(document.querySelectorAll('#v8-weeks .qr-btn'), function(x){ x.classList.remove('active'); });
+          Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn'), function(x){ x.classList.toggle('active', x===b); });
+          readV8Filters(); renderV8All();
+        });
+      });
+    })();
+    (function(){
+      function isoL2(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+      var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var host=document.getElementById('v8-weeks'); if(!host) return;
+      var dts=[]; COURSES_V8.forEach(function(c){ var d=c.p&&c.p[6]; if(d) dts.push(String(d).slice(0,10)); }); if(!dts.length) return; dts.sort();
+      function monOf(iso){ var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); var dow=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-dow); return dt; }
+      var cur=monOf(dts[0]), end=monOf(dts[dts.length-1]);
+      while(cur<=end){ var fri=new Date(cur); fri.setDate(fri.getDate()+4);
+        var key=isoL2(cur); var lbl=MON[cur.getMonth()]+' '+cur.getDate()+'–'+(cur.getMonth()===fri.getMonth()?fri.getDate():MON[fri.getMonth()]+' '+fri.getDate());
+        var bt=document.createElement('button'); bt.type='button'; bt.className='qr-btn'; bt.setAttribute('data-week',key); bt.textContent=lbl; host.appendChild(bt);
+        cur=new Date(cur); cur.setDate(cur.getDate()+7); }
+      Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(b){ b.addEventListener('click', function(){
+        b.classList.toggle('active'); var fl=window.STATE_V8.filters; if(!fl.weeks) fl.weeks=[]; var k=b.getAttribute('data-week'); var ix=fl.weeks.indexOf(k); if(ix>=0) fl.weeks.splice(ix,1); else fl.weeks.push(k);
+        var fe=document.getElementById('v8-f-from'), te=document.getElementById('v8-f-to'); if(fe)fe.value=''; if(te)te.value='';
+        Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn'), function(x){ x.classList.remove('active'); });
+        readV8Filters(); renderV8All();
+      }); });
+    })();
+    // MvD inner tabs
+    Array.from(document.querySelectorAll('.v8-mvd-host .xt-tab')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        const want = b.dataset.v8mvd;
+        Array.from(document.querySelectorAll('.v8-mvd-host .xt-tab')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        Array.from(document.querySelectorAll('.v8-mvd-host .mvd-pane')).forEach(function(p){ p.classList.toggle('active', p.dataset.v8mvdPane === want); });
+      });
+    });
+    // Cross-tab inner tabs
+    Array.from(document.querySelectorAll('.v8-xt-host .xt-tab')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        const want = b.dataset.v8xt;
+        Array.from(document.querySelectorAll('.v8-xt-host .xt-tab')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        Array.from(document.querySelectorAll('.v8-xt-host .xt-pane')).forEach(function(p){ p.classList.toggle('active', p.dataset.v8xtPane === want); });
+      });
+    });
+    // Accordion (schedule) tabs
+    Array.from(document.querySelectorAll('[data-v8acc]')).forEach(function(b) {
+      b.addEventListener('click', function() {
+        v8AccGrouping = b.dataset.v8acc;
+        Array.from(document.querySelectorAll('[data-v8acc]')).forEach(function(x){ x.classList.toggle('active', x === b); });
+        renderScheduleV8();
+      });
+    });
+    // Search
+    let __db = null;
+    const sin = document.getElementById('v8-acc-search');
+    if (sin) sin.addEventListener('input', function(e) {
+      v8AccSearch = e.target.value;
+      clearTimeout(__db); __db = setTimeout(renderScheduleV8, 180);
+    });
+    const ce = document.getElementById('v8-acc-copy-tsv'); if (ce) ce.addEventListener('click', window.v8CopyToExcel);
+    const cd = document.getElementById('v8-acc-download-csv'); if (cd) cd.addEventListener('click', window.v8DownloadCsv);
+    const sst = document.getElementById('v8-acc-status'); if (sst) sst.addEventListener('change', function(e){ v8AccStatus = e.target.value; renderScheduleV8(); });
+  }
+
+  var v8StatusInFlight = false;
+  function setSyncTileV8(state, when) {
+    var tile = document.getElementById('v8-livetile');
+    var tEl = document.getElementById('v8-synctime');
+    var pt = document.getElementById('v8-pilltext');
+    if (!tile) return;
+    tile.classList.toggle('is-stale', state === 'stale');
+    tile.classList.toggle('is-loading', state === 'loading');
+    if (pt) pt.textContent = (state === 'loading') ? 'Syncing…' : (state === 'stale' ? 'Status unavailable' : 'Live status');
+    if (tEl) { if (state === 'loading') tEl.textContent = 'loading…'; else if (when) tEl.textContent = when.toLocaleTimeString(); else if (state === 'stale') tEl.textContent = 'unavailable'; }
+  }
+  function applyDynamicStatusV8() {
+    if (!V8_STATUS_URL || v8StatusInFlight) return;
+    v8StatusInFlight = true;
+    var btn = document.getElementById('v8-refreshbtn'); if (btn) btn.classList.add('spinning');
+    setSyncTileV8('loading');
+    var cb = 'P670_v8Status_' + Date.now();
+    var scr = null, settled = false;
+    function stopSpin(){ v8StatusInFlight = false; if (btn) btn.classList.remove('spinning'); }
+    function removeScript(){ if (scr && scr.parentNode) scr.parentNode.removeChild(scr); }
+    var timer = setTimeout(function(){
+      if (settled) return;
+      // Slow reply (e.g. Apps Script cold start): show embedded status for now, but KEEP the
+      // callback alive so a late reply still applies. Never delete it - that throws ReferenceError.
+      stopSpin(); setSyncTileV8('stale');
+      console.warn('[P670] status fetch slow - showing embedded status; will apply if it arrives.');
+      setTimeout(function(){ if (!settled) { window[cb] = function(){}; removeScript(); } }, 60000);
+    }, 20000);
+    window[cb] = function(resp){
+      settled = true; clearTimeout(timer);
+      try {
+        var map = (resp && resp.status) || {};
+        var amap = (resp && resp.actual) || {};
+        var norm = function(x){ return String(x==null?'':x).trim().toLowerCase(); };
+        var lut = {}; Object.keys(map).forEach(function(k){ lut[norm(k)] = map[k] ? 1 : 0; });
+        var alut = {}; Object.keys(amap).forEach(function(k){ var v = amap[k]; if (v) alut[norm(k)] = String(v).slice(0,10); });
+        var hits = 0;
+        COURSES_V8.forEach(function(c){ var k = norm(c.fn);
+          if (lut.hasOwnProperty(k)) { c.x = lut[k]; hits++; }
+          // Completed -> show Actual Deliver & SO date (sheet col X); otherwise planned Deliver & SO (col W)
+          c.p[6] = (c.x && alut[k]) ? alut[k] : (c._w != null ? c._w : c.p[6]);
+        });
+        console.log('[P670] dynamic status applied to ' + hits + '/' + COURSES_V8.length + ' Jul 13 courses.');
+        renderV8All();
+        if (window.P670_renderDateShift) window.P670_renderDateShift();
+        setSyncTileV8('live', new Date());
+      } catch(err){ console.error('[P670] status overlay error:', err && err.message); setSyncTileV8('stale'); }
+      stopSpin(); removeScript();
+      window[cb] = function(){};
+    };
+    scr = document.createElement('script');
+    scr.src = V8_STATUS_URL + (V8_STATUS_URL.indexOf('?') > -1 ? '&' : '?') + 'callback=' + cb + '&t=' + Date.now();
+    scr.onerror = function(){ if (settled) return; settled = true; clearTimeout(timer); stopSpin(); setSyncTileV8('stale'); window[cb] = function(){}; removeScript(); console.warn('[P670] status fetch failed - using embedded status.'); };
+    (document.head || document.documentElement).appendChild(scr);
+  }
+  function wireSyncTileV8() {
+    var btn = document.getElementById('v8-refreshbtn');
+    if (btn) btn.addEventListener('click', function(){ applyDynamicStatusV8(); });
+    if (V8_STATUS_URL) setInterval(applyDynamicStatusV8, 60000);
+  }
+
+  function init() {
+    bindV8();
+    if (V8_STATUS_URL) { COURSES_V8.forEach(function(c){ if (c._w == null) c._w = c.p[6]; c.x = 0; c.p[6] = c._w; }); }  // show 0 delivered + planned (col W) dates until live status loads
+    renderV8All();
+    wireSyncTileV8();
+    if (V8_STATUS_URL) setSyncTileV8('loading');
+    applyDynamicStatusV8();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else setTimeout(init, 50);
+})();
+</script>
+
+<!-- ============== WEEKLY + BY STATE TABS (Jul 01 / V7 plan) ============== -->
+<script>
+/* Weekly Roll-up + Weekly Subjects Delivering (reads window.P670_DATA_V7) */
+(function(){
+  function DATA(){ return (window.P670_DATA_V8 && window.P670_DATA_V8.courses) || (window.P670_DATA_V7 && window.P670_DATA_V7.courses) || []; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(m){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m];}); }
+  function gradeNum(g){ var s=String(g||'').toLowerCase(); var m=s.match(/\d+/); if(m)return parseInt(m[0],10); if(s.indexOf('high')>=0||s==='hs')return 90; if(s.indexOf('k')>=0)return 0; return 50; }
+  function subjClass(s){ return ({'Math':'math','ELA':'ela','Science':'sci','Social Studies':'ss'})[s]||''; }
+  function subjShort(s){ return ({'Social Studies':'SS','Science':'Sci'})[s]||s; }
+  function mondayISO(iso){ var d=new Date(iso+'T00:00:00'); if(isNaN(d.getTime()))return null; var dy=d.getDay(); var diff=(dy===0?-6:1-dy); d.setDate(d.getDate()+diff); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function wkLabel(iso){ var d=new Date(iso+'T00:00:00'); var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return 'Week of '+m[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+  function fmtD(iso){ if(!iso)return '&mdash;'; var d=new Date(String(iso).slice(0,10)+'T00:00:00'); if(isNaN(d.getTime()))return esc(iso); var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+  function dl(c){ return !!c.x; }
+
+  var openWeeks={};
+  function courseList(){ var base=(typeof window.filteredCoursesV8==='function')?window.filteredCoursesV8():DATA(); return base.filter(function(c){ return c.p && c.p[6]; }); }
+
+  function renderRollup(){
+    var host=document.getElementById('wk-rollup'); if(!host)return;
+    var arr=courseList(), wk={};
+    arr.forEach(function(c){ var mk=mondayISO(String(c.p[6]).slice(0,10)); if(!mk)return; if(!wk[mk])wk[mk]={n:0,d:0}; wk[mk].n++; if(dl(c))wk[mk].d++; });
+    var keys=Object.keys(wk).sort();
+    if(!keys.length){ host.innerHTML='<p style="padding:16px;color:var(--ink-3);text-align:center">No courses match the current subject filters.</p>'; return; }
+    var max=Math.max.apply(null,keys.map(function(k){return wk[k].n;}))||1;
+    var cum=0,tn=0,td=0;
+    var rows=keys.map(function(k){ var o=wk[k]; cum+=o.n; tn+=o.n; td+=o.d; var p=o.n-o.d; var w=Math.max(4,Math.round(o.n/max*84)); return '<tr><td>'+wkLabel(k)+'</td><td class="num">'+o.n+'</td><td class="num wk-dl">'+o.d+'</td><td class="num wk-pd">'+p+'</td><td class="num"><span class="wkroll-bar" style="width:'+w+'px"></span>'+cum+'</td></tr>'; }).join('');
+    host.innerHTML='<table class="wkroll"><thead><tr><th>Week (week of)</th><th class="num">Courses Delivering</th><th class="num">Delivered</th><th class="num">Pending</th><th class="num">Cumulative</th></tr></thead><tbody>'+rows+'<tr class="wk-tot"><td>Grand Total</td><td class="num">'+tn+'</td><td class="num wk-dl">'+td+'</td><td class="num wk-pd">'+(tn-td)+'</td><td class="num">'+cum+'</td></tr></tbody></table>';
+  }
+
+  function renderSubjects(){
+    var host=document.getElementById('wk-subjects'); if(!host)return;
+    var arr=courseList(), wk={};
+    arr.forEach(function(c){ var mk=mondayISO(String(c.p[6]).slice(0,10)); if(!mk)return; if(!wk[mk])wk[mk]={courses:[],bySub:{Math:0,ELA:0,Science:0,'Social Studies':0}}; wk[mk].courses.push(c); wk[mk].bySub[c.s]=(wk[mk].bySub[c.s]||0)+1; });
+    var keys=Object.keys(wk).sort();
+    if(!keys.length){ host.innerHTML='<p style="padding:16px;color:var(--ink-3);text-align:center">No courses match the current subject filters.</p>'; return; }
+    host.innerHTML=keys.map(function(k){
+      var o=wk[k], open=!!openWeeks[k];
+      var chips=['Math','ELA','Science','Social Studies'].filter(function(s){return o.bySub[s];}).map(function(s){return '<span class="wsd-chip '+subjClass(s)+'">'+subjShort(s)+' '+o.bySub[s]+'</span>';}).join('');
+      var body='';
+      if(open){
+        var cs=o.courses.slice().sort(function(a,b){ return (a.s||'').localeCompare(b.s||'')||(a.st||'').localeCompare(b.st||'')||gradeNum(a.gr)-gradeNum(b.gr); });
+        body='<div class="wsd-body"><table class="wsd-sub"><thead><tr><th>Subject</th><th>State</th><th>Grade</th><th>Focus Course</th><th>Deliver &amp; SO</th><th>Status</th></tr></thead><tbody>'+
+          cs.map(function(c){ var d=dl(c); return '<tr><td>'+esc(subjShort(c.s))+'</td><td>'+esc(c.st||'')+'</td><td>'+esc(c.gr||'')+'</td><td>'+esc(c.fn||c.cn||'')+'</td><td>'+fmtD(c.p[6])+'</td><td><span class="st-stat '+(d?'dl':'pd')+'">'+(d?'Delivered':'Pending')+'</span></td></tr>'; }).join('')+
+          '</tbody></table></div>';
+      }
+      return '<div class="wsd-wk'+(open?' open':'')+'" data-wk="'+esc(k)+'"><div class="wsd-head"><span class="wsd-caret">'+(open?'&#9662;':'&#9656;')+'</span><span class="wsd-when">'+wkLabel(k)+'</span><span class="wsd-count">'+o.courses.length+' course'+(o.courses.length===1?'':'s')+'</span><span class="wsd-chips">'+chips+'</span></div>'+body+'</div>';
+    }).join('');
+  }
+
+  window.renderWeeklyTab=function(){ renderRollup(); renderSubjects(); };
+
+  function wire(){
+    var host=document.getElementById('wk-subjects');
+    if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var h=e.target.closest('.wsd-head'); if(!h)return; var k=h.parentElement.getAttribute('data-wk'); openWeeks[k]=!openWeeks[k]; renderSubjects(); }); }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire);else wire();
+})();
+
+/* Delivery by State — stacked bar chart (Delivered vs Pending) + per-state table */
+(function(){
+  function DATA(){ return (window.P670_DATA_V8 && window.P670_DATA_V8.courses) || (window.P670_DATA_V7 && window.P670_DATA_V7.courses) || []; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(m){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m];}); }
+  function gradeNum(g){ var s=String(g||'').toLowerCase(); var m=s.match(/\d+/); if(m)return parseInt(m[0],10); if(s.indexOf('high')>=0||s==='hs')return 90; if(s.indexOf('k')>=0)return 0; return 50; }
+  function subjShort(s){ return ({'Social Studies':'SS','Science':'Sci'})[s]||s; }
+  function fmtD(iso){ if(!iso)return '&mdash;'; var d=new Date(String(iso).slice(0,10)+'T00:00:00'); if(isNaN(d.getTime()))return esc(iso); var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+  function dl(c){ return !!c.x; }
+  function cat(c){ var s=String(c.sm||'').toLowerCase(); if(s.indexOf('only')>=0)return 'semOnly'; if(s.indexOf('sem a')>=0)return 'semA'; if(s.indexOf('sem b')>=0)return 'semB'; if(s.indexOf('full')>=0)return 'fy'; return ''; }
+  function pct(d,t){ return t?Math.round(d/t*1000)/10:0; }
+
+  var openStates={};
+  var sortKey='baseline', sortDir='asc';
+  var COLS=[{k:'subject',l:'Subject'},{k:'grade',l:'Grade'},{k:'focus',l:'Focus Course'},{k:'baseline',l:'Deliver &amp; SO'},{k:'status',l:'Status'}];
+  function courseList(){ var base=(typeof window.filteredCoursesV8==='function')?window.filteredCoursesV8():DATA(); return base.slice(); }
+
+  function renderChart(){
+    var host=document.getElementById('bs-chart'); if(!host)return;
+    var arr=courseList(), by={};
+    arr.forEach(function(c){ var st=c.st||'(Unknown)'; if(!by[st])by[st]={total:0,deliv:0}; by[st].total++; if(dl(c))by[st].deliv++; });
+    var states=Object.keys(by).sort(function(a,b){ return by[b].total-by[a].total || a.localeCompare(b); });
+    var T=arr.length, D=arr.filter(dl).length;
+    if(!T){ host.innerHTML='<p style="padding:18px;color:var(--ink-3);text-align:center">No courses match the current toggles.</p>'; return; }
+    var maxTotal=Math.max.apply(null,states.map(function(s){return by[s].total;}))||1;
+    function bar(label,total,deliv,isAll){
+      var pend=total-deliv, trackW=Math.max(2,Math.round(total/maxTotal*100));
+      var dW=total?Math.round(deliv/total*100):0, pW=100-dW;
+      var dSeg=deliv?'<div class="bs-seg dl" style="width:'+dW+'%" title="Delivered '+deliv+'">'+(dW>=10?deliv:'')+'</div>':'';
+      var pSeg=pend?'<div class="bs-seg pd" style="width:'+pW+'%" title="Pending '+pend+'">'+(pW>=10?pend:'')+'</div>':'';
+      return '<div class="bs-row'+(isAll?' bs-allrow':'')+'"><div class="bs-st">'+esc(label)+'</div><div class="bs-track"><div class="bs-fill" style="width:'+trackW+'%">'+dSeg+pSeg+'</div></div><div class="bs-meta"><b>'+total+'</b> total &middot; '+pct(deliv,total)+'%</div></div>';
+    }
+    host.innerHTML=bar('All states ('+states.length+')',T,D,true)+states.map(function(s){return bar(s,by[s].total,by[s].deliv,false);}).join('');
+  }
+
+  function sortVal(c,k){ if(k==='subject')return (subjShort(c.s)||'').toLowerCase(); if(k==='grade')return gradeNum(c.gr); if(k==='focus')return (c.fn||c.cn||'').toLowerCase(); if(k==='baseline')return String((c.p&&c.p[6])||''); if(k==='status')return dl(c)?0:1; return ''; }
+  function subTable(courses){
+    var cs=courses.slice().sort(function(a,b){ var x=sortVal(a,sortKey),y=sortVal(b,sortKey); var r=(x<y?-1:(x>y?1:0)); if(r===0){var bx=sortVal(a,'baseline'),by2=sortVal(b,'baseline'); r=(bx<by2?-1:(bx>by2?1:0));} return sortDir==='asc'?r:-r; });
+    var head=COLS.map(function(co){ var on=sortKey===co.k; var ar=on?(sortDir==='asc'?' &#9650;':' &#9660;'):''; return '<th class="bs-sortth" style="cursor:pointer" data-col="'+co.k+'">'+co.l+ar+'</th>'; }).join('');
+    return '<table class="lst-sub"><thead><tr>'+head+'</tr></thead><tbody>'+
+      cs.map(function(c){ var d=dl(c); return '<tr><td>'+esc(subjShort(c.s))+'</td><td>'+esc(c.gr||'')+'</td><td>'+esc(c.fn||c.cn||'')+'</td><td>'+fmtD(c.p&&c.p[6])+'</td><td><span class="lst-stat '+(d?'dl':'pd')+'">'+(d?'Delivered':'Pending')+'</span></td></tr>'; }).join('')+
+      '</tbody></table>';
+  }
+
+  function renderTable(){
+    var host=document.getElementById('bs-table'); if(!host)return;
+    var arr=courseList(), by={};
+    arr.forEach(function(c){ var st=c.st||'(Unknown)'; if(!by[st])by[st]={total:0,deliv:0,courses:[]}; by[st].total++; if(dl(c))by[st].deliv++; by[st].courses.push(c); });
+    var states=Object.keys(by).sort();
+    var T=arr.length,D=arr.filter(dl).length,P=T-D;
+    if(!T){ host.innerHTML='<p style="padding:18px;color:var(--ink-3);text-align:center">No courses match the current toggles.</p>'; return; }
+    var html='<table class="lst-table"><thead><tr><th>State</th><th class="num">Total Courses</th><th class="num">Delivered</th><th class="num">Pending</th><th class="num">% Complete</th></tr></thead><tbody>';
+    html+='<tr class="lst-total"><td>All states ('+states.length+')</td><td class="num">'+T+'</td><td class="num">'+D+'</td><td class="num">'+P+'</td><td class="num">'+pct(D,T)+'%</td></tr>';
+    states.forEach(function(st){ var o=by[st], p=o.total-o.deliv, pc=pct(o.deliv,o.total), open=!!openStates[st], barW=Math.round(pc);
+      html+='<tr class="lst-strow'+(open?' open':'')+'" data-st="'+esc(st)+'"><td><span class="lst-caret">'+(open?'&#9662;':'&#9656;')+'</span> <span class="lst-minibar"><span style="width:'+barW+'%"></span></span> <span class="lst-state">'+esc(st)+'</span></td><td class="num">'+o.total+'</td><td class="num">'+o.deliv+'</td><td class="num">'+p+'</td><td class="num">'+pc+'%</td></tr>';
+      html+='<tr class="lst-acc"'+(open?'':' style="display:none"')+'><td colspan="5"><div class="lst-accbox">'+(open?subTable(o.courses):'')+'</div></td></tr>';
+    });
+    html+='</tbody></table>';
+    host.innerHTML=html;
+  }
+
+  window.renderByStateTab=function(){ renderChart(); renderTable(); };
+
+  function wire(){
+    var host=document.getElementById('bs-table');
+    if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var th=e.target.closest('.bs-sortth'); if(th){ var k=th.getAttribute('data-col'); if(sortKey===k){sortDir=(sortDir==='asc'?'desc':'asc');}else{sortKey=k;sortDir='asc';} renderTable(); return; } var row=e.target.closest('.lst-strow'); if(!row)return; var st=row.getAttribute('data-st'); openStates[st]=!openStates[st]; renderTable(); }); }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire);else wire();
+})();
+
+/* Re-render Weekly + By State whenever the page-level (Jul 01) filter bar changes */
+window._wkbsHook = function(){
+  if(document.body.classList.contains('wk-active')){ try{ if(window.renderWeeklyTab) window.renderWeeklyTab(); }catch(e){} }
+  if(document.body.classList.contains('bs-active')){ try{ if(window.renderByStateTab) window.renderByStateTab(); }catch(e){} }
+};
 </script>
 </body>
 </html>

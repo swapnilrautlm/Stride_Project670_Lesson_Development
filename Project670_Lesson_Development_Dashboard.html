@@ -71,7 +71,7 @@ html, body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
-.app { max-width: 1320px; margin: 0 auto; padding: 24px 32px 60px; }
+.app { max-width: 1800px; margin: 0 auto; padding: 24px 32px 60px; }
 
 /* ---------- Brand bar ---------- */
 .brandbar {
@@ -3424,15 +3424,34 @@ table.delivery-flat tbody tr.course-row.v8-completed:hover td{background:#CDEBD6
 body.v8-active #v8FilterBar, body.wk-active #v8FilterBar, body.bs-active #v8FilterBar { display:flex !important; }
 body:not(.v8-active):not(.wk-active):not(.bs-active) #v8FilterBar { display:none !important; }
 body:not(.v7-active) #v7FilterBar { display:none !important; }
-/* Jul 13 Weeks toggle buttons: label + completed/pending dots */
-#v8-weeks .qr-btn { display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.3; gap:1px; }
-#v8-weeks .qr-btn .wk-lbl { font-weight:600; }
-#v8-weeks .qr-btn .wk-mini { font-size:10px; color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums; }
-#v8-weeks .qr-btn.active .wk-mini { color:#fff; }
-#v8-weeks .qr-btn .wk-dot { display:inline-block; width:7px; height:7px; border-radius:50%; vertical-align:middle; margin:0 3px 0 0; }
-#v8-weeks .qr-btn .wk-dot.wk-done { background:var(--good); }
-#v8-weeks .qr-btn .wk-dot.wk-pend { background:var(--warn); }
-#v8-weeks .qr-btn .wk-mini .wk-dot.wk-pend { margin-left:7px; }
+/* Jul 13 Weeks toggle buttons: square cards with planned-week breakdown */
+#v8-weeks { align-items:flex-start; }
+#v8-weeks .qr-btn { display:inline-flex; flex-direction:column; align-items:stretch; gap:2px; padding:6px 9px; min-width:134px; line-height:1.25; vertical-align:top; }
+#v8-weeks .qr-btn .wk-lbl { font-weight:700; font-size:11px; text-align:center; padding-bottom:2px; margin-bottom:2px; border-bottom:1px solid var(--line-2); white-space:nowrap; }
+#v8-weeks .qr-btn .wk-mini { display:flex; flex-direction:column; gap:1px; font-variant-numeric:tabular-nums; }
+#v8-weeks .qr-btn .wkm-row { display:flex; justify-content:space-between; gap:10px; font-size:10.5px; }
+#v8-weeks .qr-btn .wkm-k { color:var(--ink-3); }
+#v8-weeks .qr-btn .wkm-v { font-weight:700; color:var(--ink); }
+#v8-weeks .qr-btn .wkm-prev .wkm-v { color:var(--stride-blue); }
+#v8-weeks .qr-btn .wkm-done .wkm-v { color:var(--good); }
+#v8-weeks .qr-btn .wkm-pend .wkm-v { color:var(--warn); }
+#v8-weeks .qr-btn .wkm-late .wkm-v { color:var(--risk,#B0202A); }
+#v8-weeks .qr-btn.active { background:var(--stride-blue); border-color:var(--stride-blue); }
+#v8-weeks .qr-btn.active .wk-lbl { border-color:rgba(255,255,255,.45); }
+#v8-weeks .qr-btn.active .wk-lbl, #v8-weeks .qr-btn.active .wkm-k, #v8-weeks .qr-btn.active .wkm-v { color:#fff !important; }
+/* Jul 13 cumulative chips in Quick Range */
+#v8-quickrange .qr-cumlbl { margin-left:8px; }
+#v8-quickrange .qr-cum { display:inline-flex; flex-direction:column; align-items:flex-start; gap:1px; padding:5px 11px; text-align:left; }
+#v8-quickrange .qr-cum .cum-lbl { font-weight:700; font-size:11.5px; }
+#v8-quickrange .qr-cum .cum-nums { font-size:10.5px; color:var(--ink-2); font-variant-numeric:tabular-nums; white-space:nowrap; }
+#v8-quickrange .qr-cum .cn-plan { color:var(--ink); }
+#v8-quickrange .qr-cum .cn-done { color:var(--good); }
+#v8-quickrange .qr-cum .cn-pend { color:var(--warn); }
+#v8-quickrange .qr-cum.active { background:var(--stride-blue); border-color:var(--stride-blue); }
+#v8-quickrange .qr-cum.active .cum-lbl, #v8-quickrange .qr-cum.active .cum-nums, #v8-quickrange .qr-cum.active .cn-plan, #v8-quickrange .qr-cum.active .cn-done, #v8-quickrange .qr-cum.active .cn-pend { color:#fff !important; }
+/* Jul 13: make filter/weeks bar scroll (not sticky) + square cards */
+#v8FilterBar { position: static !important; top: auto !important; }
+#v8-weeks .qr-btn, #v8-quickrange .qr-cum { border-radius: 8px !important; }
 </style>
 <div class="filter-bar no-email no-print" id="v8FilterBar">
   <label>Subject
@@ -3492,6 +3511,10 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
     <button type="button" class="qr-btn" data-qr="tomorrow">Tomorrow</button>
     <button type="button" class="qr-btn" data-qr="thisweek">This week</button>
     <button type="button" class="qr-btn" data-qr="nextweek">Next week</button>
+    <span class="qr-label qr-cumlbl">Cumulative</span>
+    <button type="button" class="qr-btn qr-cum" data-cum="lastweek" title="All courses planned up to and including last week"><span class="cum-lbl">Till last week</span><span class="cum-nums"></span></button>
+    <button type="button" class="qr-btn qr-cum" data-cum="thisweek" title="All courses planned up to and including this week"><span class="cum-lbl">Till this week</span><span class="cum-nums"></span></button>
+    <button type="button" class="qr-btn qr-cum" data-cum="next" title="All courses planned from next week onward"><span class="cum-lbl">Remaining (next wk on)</span><span class="cum-nums"></span></button>
     <div class="filter-actions"><button class="btn" id="v8-f-reset">Reset</button></div>
   </div>
   <div class="quick-range qr-weeks no-print" id="v8-weeks" aria-label="Filter by delivery week"><span class="qr-label">Weeks</span></div>
@@ -3616,6 +3639,37 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
 #sec-weekly .wkroll-bar { display:inline-block; height:7px; border-radius:4px; background:var(--stride-blue); vertical-align:middle; margin-right:7px; }
 #sec-weekly .wk-dl { color:var(--good); font-weight:600; }
 #sec-weekly .wk-pd { color:var(--warn); font-weight:600; }
+/* Planned vs Actual by Week */
+#sec-weekly table.pva-table tr.pva-row { cursor:pointer; }
+#sec-weekly table.pva-table tr.pva-row:hover td { background:rgba(220,230,242,.35); }
+#sec-weekly table.pva-table tr.pva-row.open td { background:rgba(33,39,194,.05); }
+#sec-weekly .pva-c-ontime { color:var(--good); font-weight:600; }
+#sec-weekly .pva-c-early { color:var(--stride-blue); font-weight:600; }
+#sec-weekly .pva-c-late { color:var(--risk,#B0202A); font-weight:600; }
+#sec-weekly .pva-c-pend { color:var(--warn); font-weight:600; }
+#sec-weekly tr.pva-acc td { padding:0; background:var(--bg); }
+#sec-weekly .pva-accbox { padding:8px 14px 12px 30px; }
+#sec-weekly .pva-stat { display:inline-block; padding:1px 8px; border-radius:9px; font-size:10.5px; font-weight:700; }
+#sec-weekly .pva-stat.pva-ontime { background:var(--good-bg); color:var(--good); }
+#sec-weekly .pva-stat.pva-early { background:#E7ECFF; color:var(--stride-blue); }
+#sec-weekly .pva-stat.pva-late { background:var(--risk-bg,#FBE9E7); color:var(--risk,#B0202A); }
+#sec-weekly .pva-stat.pva-pending { background:var(--warn-bg); color:var(--warn); }
+/* Cumulative Progress panel */
+#sec-weekly .cp-controls { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+#sec-weekly .cp-cutoff { display:inline-flex; flex-direction:column; font-size:11px; font-weight:600; color:var(--ink-3); gap:3px; }
+#sec-weekly .cp-cutoff select { font-family:inherit; font-size:13px; padding:6px 8px; border:1px solid var(--line); border-radius:7px; background:var(--card); color:var(--ink); }
+#sec-weekly .cp-controls .bs-copybtn { margin-left:auto; display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line-2); border-radius:8px; padding:6px 12px; font-family:inherit; font-size:12px; font-weight:600; color:var(--stride-blue); cursor:pointer; }
+#sec-weekly .cp-controls .bs-copybtn:hover { border-color:var(--stride-blue); background:rgba(33,39,194,0.04); }
+#sec-weekly .cp-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+@media (max-width:1200px){ #sec-weekly .cp-grid { grid-template-columns:repeat(3,1fr); } }
+@media (max-width:700px){ #sec-weekly .cp-grid { grid-template-columns:repeat(2,1fr); } }
+#sec-weekly .cp-kpi { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+#sec-weekly .cp-kpi .cp-k { font-size:11px; font-weight:600; color:var(--ink-3); text-transform:uppercase; letter-spacing:.03em; }
+#sec-weekly .cp-kpi .cp-v { font-size:26px; font-weight:800; color:var(--ink); line-height:1.1; margin:3px 0 2px; }
+#sec-weekly .cp-kpi .cp-sub { font-size:10.5px; color:var(--ink-3); }
+#sec-weekly .cp-kpi.cp-good .cp-v { color:var(--good); }
+#sec-weekly .cp-kpi.cp-blue .cp-v { color:var(--stride-blue); }
+#sec-weekly .cp-kpi.cp-warn .cp-v { color:var(--warn); }
 
 /* Weekly subjects expandable */
 #sec-weekly .wsd-wk { border:1px solid var(--line); border-radius:8px; margin-bottom:8px; overflow:hidden; }
@@ -3660,6 +3714,9 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
 #sec-bystate .bs-lg.dl::before { background:var(--good); }
 #sec-bystate .bs-lg.pd::before { background:var(--warn); }
 #sec-bystate .bs-chart { display:flex; flex-direction:column; gap:7px; }
+#sec-bystate .bs-scopecap { font-size:13px; color:var(--ink-2); margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+#sec-bystate .bs-scopecap b { color:var(--stride-blue); }
+#sec-bystate .bs-scopecap span { color:var(--ink-3); font-size:11.5px; }
 #sec-bystate .bs-row { display:flex; align-items:center; gap:10px; }
 #sec-bystate .bs-row.bs-allrow { border-bottom:1px solid var(--line-2); padding-bottom:9px; margin-bottom:4px; }
 #sec-bystate .bs-st { width:130px; flex:0 0 130px; font-size:12.5px; font-weight:600; color:var(--ink); text-align:right; }
@@ -3696,12 +3753,24 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
 </style>
 
 <section id="sec-weekly" class="page-break">
+  <div class="section-eyebrow">Cumulative Progress <span class="se-hint">(target vs delivered as of a chosen week &mdash; Jul 13 plan)</span></div>
+  <div class="card">
+    <div class="cp-controls">
+      <label class="cp-cutoff">As of week
+        <select id="cp-cutoff"></select>
+      </label>
+      <button class="bs-copybtn" id="cp-copy-img" type="button" title="Copy this summary as an image to paste into a leadership update"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy image</button>
+    </div>
+    <div id="wk-cumprog"></div>
+  </div>
   <div class="section-eyebrow">Weekly Roll-up &middot; Cumulative <span class="se-hint">(courses delivering each week + running total &mdash; Jul 13 plan)</span></div>
   <div class="card">
     <div class="wk-wrap"><div id="wk-rollup"></div></div>
   </div>
   <div class="section-eyebrow">Weekly Subjects Delivering <span class="se-hint">(click any week to see each course's Deliver &amp; SO date and status)</span></div>
   <div class="card"><div id="wk-subjects"></div></div>
+  <div class="section-eyebrow">Planned vs Actual by Week <span class="se-hint">(planned Deliver &amp; SO vs actual delivery &mdash; on-time / early / late / pending; click a week for the courses)</span></div>
+  <div class="card"><div class="wk-wrap"><div id="wk-pva"></div></div></div>
 </section>
 
 <section id="sec-bystate" class="page-break">
@@ -3709,6 +3778,10 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
   <div class="card">
     <div class="bs-controls">
       <div class="bs-legend"><span class="bs-lg dl">Delivered</span><span class="bs-lg pd">Pending</span></div>
+      <div class="bs-modes" id="bs-scope">
+        <button class="bs-modebtn active" data-bsscope="all">Delivered so far</button>
+        <button class="bs-modebtn" data-bsscope="thisweek">This week</button>
+      </div>
       <div class="bs-modes" id="bs-modes">
         <button class="bs-modebtn active" data-bsmode="count">By volume</button>
         <button class="bs-modebtn" data-bsmode="pct">100%</button>
@@ -12009,6 +12082,15 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
 })();
 </script>
 
+<script>
+/* Jul 13 late refresh (2): planned Deliver&SO (col W) revisions after the first refresh — 14 courses */
+(function(){
+  if(!window.P670_DATA_V8) return;
+  var U2={"MTH128A Algebra 1 Focus DC":["2026-08-26","2026-08-27","2026-08-28","2026-08-31","2026-09-01","2026-09-02","2026-09-02",0],"MTH148A Integrated Math I Focus NC":["2026-08-03","2026-08-04","2026-08-05","2026-07-16","2026-08-06","2026-08-07","2026-08-07",0],"MTH308A Algebra 2 Focus WV":["2026-09-01","2026-09-02","2026-09-03","2026-09-04","2026-09-07","2026-09-08","2026-09-08",0],"Science 5 Focus AZ":["2026-07-17","2026-07-17","2026-07-17","2026-07-17","2026-07-21","2026-07-21","2026-07-21",1],"SCI203A Biology Focus DC":["2026-09-03","2026-09-03","2026-09-03","2026-09-03","2026-09-04","2026-09-04","2026-09-04",0],"Science 3 Focus LA":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"Science 5 Focus LA":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"Science 5 Focus OK":["2026-08-31","2026-08-31","2026-08-31","2026-08-31","2026-09-01","2026-09-01","2026-09-01",0],"Science 5 Focus TN":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"SCI303A Chemistry Focus WV":["2026-08-31","2026-08-31","2026-08-31","2026-08-31","2026-09-01","2026-09-01","2026-09-01",0],"SCI303B Chemistry Focus WV":["2026-09-10","2026-09-10","2026-09-10","2026-09-10","2026-09-11","2026-09-11","2026-09-11",0],"ENG06B Language Arts 6 Focus ID":["2026-08-03","2026-08-03","2026-08-04","2026-08-04","2026-08-05","2026-08-05","2026-08-06",1],"ENG07B Language Arts 7 Focus ID":["2026-08-03","2026-08-03","2026-08-04","2026-08-04","2026-08-05","2026-08-05","2026-08-06",0],"ENG303A English 11 Focus WV":["2026-08-31","2026-09-01","2026-09-02","2026-09-03","2026-09-04","2026-09-04","2026-09-04",0]};
+  window.P670_DATA_V8.courses.forEach(function(c){ var u=U2[c.fn]; if(u){ c.p=[u[0],u[1],u[2],u[3],u[4],u[5],u[6]]; c.a=[null,null,null,null,null,null,null]; c.x=u[7]?1:0; } });
+})();
+</script>
+
 <!-- ============== V8 (Jul 13) DELIVERY IIFE ============== -->
 <script>
 (function() {
@@ -12098,7 +12180,7 @@ const ggSel = f.gradeGroups || ['all'];
       if (f.to && ds > f.to) return false;
     }
     if (f.weeks && f.weeks.length) {
-      var dw = c.p && c.p[6]; if (!dw) return false;
+      var dw = (c._w != null) ? c._w : (c.p && c.p[6]); if (!dw) return false;  // weeks filter = PLANNED week
       if (f.weeks.indexOf(mondayKeyV8(String(dw).slice(0,10))) === -1) return false;
     }
     return true;
@@ -12886,13 +12968,31 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
       function isoL2(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
       var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       var host=document.getElementById('v8-weeks'); if(!host) return;
-      var dts=[]; COURSES_V8.forEach(function(c){ var d=c.p&&c.p[6]; if(d) dts.push(String(d).slice(0,10)); }); if(!dts.length) return; dts.sort();
+      function plannedOfV8(c){ return (c._w!=null)?c._w:(c.p&&c.p[6]); }
+      var dts=[]; COURSES_V8.forEach(function(c){ var d=plannedOfV8(c); if(d) dts.push(String(d).slice(0,10)); }); if(!dts.length) return; dts.sort();
       function monOf(iso){ var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); var dow=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-dow); return dt; }
       function mondayKeyOf(iso){ var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); var dow=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-dow); return isoL2(dt); }
       window.P670_v8WeekCounts=function(){
         var agg={};
-        COURSES_V8.forEach(function(c){ var d=c.p&&c.p[6]; if(!d) return; var k=mondayKeyOf(String(d).slice(0,10)); if(!agg[k])agg[k]={done:0,pend:0}; if(c.x)agg[k].done++; else agg[k].pend++; });
-        Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(b){ var k=b.getAttribute('data-week'); var a=agg[k]||{done:0,pend:0}; var mini=b.querySelector('.wk-mini'); if(mini) mini.innerHTML='<span class="wk-dot wk-done" title="Completed"></span>'+a.done+'<span class="wk-dot wk-pend" title="Not completed"></span>'+a.pend; });
+        // Keyed by PLANNED week; classify each planned course as delivered-earlier / on-time / late / pending
+        COURSES_V8.forEach(function(c){ var pd=plannedOfV8(c); if(!pd) return; var pk=mondayKeyOf(String(pd).slice(0,10)); if(!pk) return;
+          if(!agg[pk])agg[pk]={plan:0,prev:0,done:0,late:0,pend:0};
+          var a=agg[pk]; a.plan++;
+          var ak=c.ad?mondayKeyOf(String(c.ad).slice(0,10)):null;
+          if(c.x&&ak){ if(ak<pk)a.prev++; else if(ak===pk)a.done++; else a.late++; } else a.pend++;
+        });
+        Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(b){ var k=b.getAttribute('data-week'); var a=agg[k]||{plan:0,prev:0,done:0,late:0,pend:0}; var rem=a.plan-a.prev; var mini=b.querySelector('.wk-mini'); if(!mini) return;
+          function row(cls,lbl,v,ttl){ return '<span class="wkm-row'+(cls?' '+cls:'')+'"'+(ttl?' title="'+ttl+'"':'')+'><span class="wkm-k">'+lbl+'</span><span class="wkm-v">'+v+'</span></span>'; }
+          var h=row('','Ori. Plan',a.plan,'Originally planned for this week')+row('wkm-prev','Del. Earlier',a.prev,'Delivered in an earlier week')+row('','Revised',rem,'Revised this week = Ori. Plan minus Delivered earlier')+row('wkm-done','Completed',a.done,'Completed on-time this week')+row('wkm-pend','Pend',a.pend,'Pending — not yet delivered');
+          if(a.late>0) h+=row('wkm-late','Late',a.late,'Delivered in a later week');
+          mini.innerHTML=h;
+        });
+        // cumulative chips (Planned / Completed / Pending) by planned week
+        var wkKeys=Object.keys(agg).sort();
+        var thisMon=mondayKeyOf(isoL2(new Date()));
+        function cum(pred){ var P=0,C=0,Pd=0; wkKeys.forEach(function(k){ if(pred(k)){ var a=agg[k]; P+=a.plan; C+=a.prev+a.done+a.late; Pd+=a.pend; } }); return [P,C,Pd]; }
+        var RG={lastweek:function(k){return k<thisMon;},thisweek:function(k){return k<=thisMon;},next:function(k){return k>thisMon;}};
+        Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-cum'), function(b){ var t=cum(RG[b.getAttribute('data-cum')]); var el=b.querySelector('.cum-nums'); if(el) el.innerHTML='<b class="cn-plan">'+t[0]+'</b> plan · <b class="cn-done">'+t[1]+'</b> done · <b class="cn-pend">'+t[2]+'</b> pend'; });
       };
       var cur=monOf(dts[0]), end=monOf(dts[dts.length-1]);
       while(cur<=end){ var fri=new Date(cur); fri.setDate(fri.getDate()+4);
@@ -12904,6 +13004,21 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
         b.classList.toggle('active'); var fl=window.STATE_V8.filters; if(!fl.weeks) fl.weeks=[]; var k=b.getAttribute('data-week'); var ix=fl.weeks.indexOf(k); if(ix>=0) fl.weeks.splice(ix,1); else fl.weeks.push(k);
         var fe=document.getElementById('v8-f-from'), te=document.getElementById('v8-f-to'); if(fe)fe.value=''; if(te)te.value='';
         Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn'), function(x){ x.classList.remove('active'); });
+        readV8Filters(); renderV8All();
+      }); });
+      // Cumulative chips: set the weeks filter to a range of planned weeks
+      Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-cum'), function(b){ b.addEventListener('click', function(){
+        var thisMon=mondayKeyOf(isoL2(new Date()));
+        var cm=b.getAttribute('data-cum');
+        var pred=(cm==='lastweek')?function(k){return k<thisMon;}:(cm==='thisweek')?function(k){return k<=thisMon;}:function(k){return k>thisMon;};
+        var allKeys=[]; Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(x){ allKeys.push(x.getAttribute('data-week')); });
+        var sel=allKeys.filter(pred);
+        var already=b.classList.contains('active');
+        var fl=window.STATE_V8.filters; if(!fl.weeks) fl.weeks=[];
+        var fe=document.getElementById('v8-f-from'), te=document.getElementById('v8-f-to'); if(fe)fe.value=''; if(te)te.value='';
+        Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn'), function(x){ x.classList.remove('active'); });
+        if(already){ fl.weeks=[]; Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(x){ x.classList.remove('active'); }); }
+        else { fl.weeks=sel.slice(); b.classList.add('active'); Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(x){ x.classList.toggle('active', sel.indexOf(x.getAttribute('data-week'))>=0); }); }
         readV8Filters(); renderV8All();
       }); });
     })();
@@ -12983,6 +13098,7 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
         COURSES_V8.forEach(function(c){ var k = norm(c.fn);
           if (lut.hasOwnProperty(k)) { c.x = lut[k]; hits++; }
           // Completed -> show Actual Deliver & SO date (sheet col X); otherwise planned Deliver & SO (col W)
+          c.ad = (c.x && alut[k]) ? alut[k] : null;   // actual Deliver & SO (col X) kept separately for planned-vs-actual
           c.p[6] = (c.x && alut[k]) ? alut[k] : (c._w != null ? c._w : c.p[6]);
         });
         console.log('[P670] dynamic status applied to ' + hits + '/' + COURSES_V8.length + ' Jul 13 courses.');
@@ -13066,11 +13182,116 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
     }).join('');
   }
 
-  window.renderWeeklyTab=function(){ renderRollup(); renderSubjects(); };
+  /* ---- Planned vs Actual by Week ---- */
+  var openPva={};
+  function plannedOf(c){ return (c._w!=null)?c._w:(c.p&&c.p[6]); }
+  function pvaList(){ var base=(typeof window.filteredCoursesV8==='function')?window.filteredCoursesV8():DATA(); return base.filter(function(c){ return plannedOf(c); }); }
+  function classifyPva(c){
+    var planned=plannedOf(c); var pWk=planned?mondayISO(String(planned).slice(0,10)):null;
+    var aWk=c.ad?mondayISO(String(c.ad).slice(0,10)):null;
+    var status = (c.x && aWk) ? (aWk===pWk?'ontime':(aWk<pWk?'early':'late')) : 'pending';
+    return {pWk:pWk,aWk:aWk,status:status};
+  }
+  function renderPvaTable(){
+    var host=document.getElementById('wk-pva'); if(!host)return;
+    var arr=pvaList(), byP={}, actByWk={};
+    arr.forEach(function(c){ var z=classifyPva(c); if(!z.pWk)return;
+      if(!byP[z.pWk])byP[z.pWk]={planned:0,ontime:0,early:0,late:0,pending:0,courses:[]};
+      var g=byP[z.pWk]; g.planned++; g[z.status]++; g.courses.push({c:c,z:z});
+      if(z.aWk){ actByWk[z.aWk]=(actByWk[z.aWk]||0)+1; }
+    });
+    var keys=Object.keys(byP).sort();
+    if(!keys.length){ host.innerHTML='<p style="padding:16px;color:var(--ink-3);text-align:center">No courses match the current filters.</p>'; return; }
+    var tot={planned:0,ontime:0,early:0,late:0,pending:0,act:0};
+    var LBL={ontime:'On-time',early:'Early',late:'Late',pending:'Pending'};
+    var rows=keys.map(function(k){ var g=byP[k]; var act=actByWk[k]||0; var open=!!openPva[k];
+      tot.planned+=g.planned;tot.ontime+=g.ontime;tot.early+=g.early;tot.late+=g.late;tot.pending+=g.pending;tot.act+=act;
+      var head='<tr class="pva-row'+(open?' open':'')+'" data-pva="'+esc(k)+'"><td><span class="wsd-caret">'+(open?'&#9662;':'&#9656;')+'</span> '+wkLabel(k)+'</td><td class="num"><b>'+g.planned+'</b></td><td class="num pva-c-ontime">'+g.ontime+'</td><td class="num pva-c-early">'+(g.early||'')+'</td><td class="num pva-c-late">'+(g.late||'')+'</td><td class="num pva-c-pend">'+(g.pending||'')+'</td><td class="num">'+act+'</td></tr>';
+      var body='';
+      if(open){
+        var cs=g.courses.slice().sort(function(a,b){ var o={ontime:0,pending:1,early:2,late:3}; return (o[a.z.status]-o[b.z.status])||(a.c.s||'').localeCompare(b.c.s||'')||(a.c.st||'').localeCompare(b.c.st||''); });
+        body='<tr class="pva-acc"><td colspan="7"><div class="pva-accbox"><table class="wsd-sub"><thead><tr><th>Subject</th><th>State</th><th>Grade</th><th>Focus Course</th><th>Planned</th><th>Actual</th><th>Status</th></tr></thead><tbody>'+
+          cs.map(function(o){ var c=o.c,z=o.z; return '<tr><td>'+esc(subjShort(c.s))+'</td><td>'+esc(c.st||'')+'</td><td>'+esc(c.gr||'')+'</td><td>'+esc(c.fn||c.cn||'')+'</td><td>'+fmtD(plannedOf(c))+'</td><td>'+(c.ad?fmtD(c.ad):'&mdash;')+'</td><td><span class="pva-stat pva-'+z.status+'">'+LBL[z.status]+'</span></td></tr>'; }).join('')+
+          '</tbody></table></div></td></tr>';
+      }
+      return head+body;
+    }).join('');
+    host.innerHTML='<table class="wkroll pva-table"><thead><tr><th>Week (planned)</th><th class="num">Planned</th><th class="num">On-time</th><th class="num">Early</th><th class="num">Late</th><th class="num">Pending</th><th class="num" title="Courses whose ACTUAL delivery landed in this week (from any planned week)">Delivered here</th></tr></thead><tbody>'+rows+
+      '<tr class="wk-tot"><td>Grand Total</td><td class="num">'+tot.planned+'</td><td class="num">'+tot.ontime+'</td><td class="num">'+tot.early+'</td><td class="num">'+tot.late+'</td><td class="num">'+tot.pending+'</td><td class="num">'+tot.act+'</td></tr></tbody></table>';
+  }
+
+  /* ---- Cumulative Progress (Target vs Delivered as of a chosen week) ---- */
+  var cpCutoff=null;
+  function cpToday(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function cpThisWeek(){ return mondayISO(cpToday()); }
+  function cpWeeks(){ var s={}; pvaList().forEach(function(c){ var pd=plannedOf(c); if(pd){ var k=mondayISO(String(pd).slice(0,10)); if(k) s[k]=1; } }); return Object.keys(s).sort(); }
+  function cpCompute(W){
+    var arr=pvaList(), target=0,onplan=0,ahead=0;
+    arr.forEach(function(c){ var pd=plannedOf(c); var pk=pd?mondayISO(String(pd).slice(0,10)):null; if(!pk) return;
+      var ak=c.ad?mondayISO(String(c.ad).slice(0,10)):null; var delByW=!!(c.x&&ak&&ak<=W);
+      if(pk<=W){ target++; if(delByW) onplan++; } else if(delByW){ ahead++; }
+    });
+    return {target:target,onplan:onplan,ahead:ahead,pend:target-onplan,total:onplan+ahead};
+  }
+  function renderCumProgress(){
+    var host=document.getElementById('wk-cumprog'); if(!host) return;
+    var weeks=cpWeeks(); if(!weeks.length){ host.innerHTML=''; return; }
+    var tw=cpThisWeek();
+    var sel=document.getElementById('cp-cutoff');
+    if(sel){ var want=cpCutoff||(weeks.indexOf(tw)>=0?tw:weeks[weeks.length-1]);
+      if(!sel._filled){ sel._filled=true; sel.innerHTML=weeks.map(function(k){ return '<option value="'+k+'">'+wkLabel(k).replace('Week of ','')+'</option>'; }).join(''); }
+      sel.value=want; cpCutoff=want;
+    }
+    var W=cpCutoff||tw; if(weeks.indexOf(W)<0) W=weeks[weeks.length-1];
+    var m=cpCompute(W); var pct=m.target?Math.round(m.onplan/m.target*100):0;
+    function kpi(lbl,val,cls,sub){ return '<div class="cp-kpi '+(cls||'')+'"><div class="cp-k">'+lbl+'</div><div class="cp-v">'+val+'</div><div class="cp-sub">'+sub+'</div></div>'; }
+    host.innerHTML='<div class="cp-grid">'+
+      kpi('Target to date',m.target,'','planned by '+wkLabel(W).replace('Week of ',''))+
+      kpi('Delivered (total)',m.total,'cp-good','shipped so far = on-plan + ahead')+
+      kpi('On-plan',m.onplan,'cp-good','of target, delivered')+
+      kpi('Ahead of schedule',m.ahead,'cp-blue','due later, already done')+
+      kpi('Pending vs target',m.pend,'cp-warn','due by now, not delivered')+
+      kpi('% of target',pct+'%','','on-plan delivered')+
+    '</div>';
+  }
+  function buildCumSVG(){
+    var W=cpCutoff||cpThisWeek(); var m=cpCompute(W); var pct=m.target?Math.round(m.onplan/m.target*100):0;
+    var cells=[['Target to date',m.target,'#0A0E38','planned by end of week'],['Delivered (total)',m.total,'#1F7A3E','shipped so far'],['On-plan',m.onplan,'#1F7A3E','of target, delivered'],['Ahead of schedule',m.ahead,'#2127C2','due later, already done'],['Pending vs target',m.pend,'#B85C00','due by now, not delivered'],['% of target',pct+'%','#0A0E38','on-plan delivered']];
+    var pad=20,cw=252,ch=80,gap=12,cols=3;
+    function sx(s){return String(s==null?'':s).replace(/[&<>]/g,function(x){return({'&':'&amp;','<':'&lt;','>':'&gt;'})[x];});}
+    var Wd=pad*2+cols*cw+(cols-1)*gap, Hd=58+2*ch+gap+pad;
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+Wd+'" height="'+Hd+'" viewBox="0 0 '+Wd+' '+Hd+'" font-family="Arial,Helvetica,sans-serif">';
+    svg+='<rect width="'+Wd+'" height="'+Hd+'" fill="#ffffff"/>';
+    svg+='<text x="'+pad+'" y="32" font-size="16" font-weight="700" fill="#0A0E38">Cumulative Progress — as of '+sx(wkLabel(W).replace('Week of ',''))+'</text>';
+    cells.forEach(function(c,i){ var r=Math.floor(i/cols), col=i%cols; var x=pad+col*(cw+gap), y=50+r*(ch+gap);
+      svg+='<rect x="'+x+'" y="'+y+'" width="'+cw+'" height="'+ch+'" rx="8" fill="#F7F9FC" stroke="#DCE6F2"/>';
+      svg+='<text x="'+(x+12)+'" y="'+(y+22)+'" font-size="11" fill="#5A6480">'+sx(c[0])+'</text>';
+      svg+='<text x="'+(x+12)+'" y="'+(y+52)+'" font-size="26" font-weight="700" fill="'+c[2]+'">'+sx(c[1])+'</text>';
+      svg+='<text x="'+(x+12)+'" y="'+(y+70)+'" font-size="10" fill="#8A93A8">'+sx(c[3])+'</text>';
+    });
+    svg+='</svg>'; return {svg:svg,w:Wd,h:Hd};
+  }
+  function cpCopyImage(){
+    var o=buildCumSVG(), scale=2, blob0=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'}), url=URL.createObjectURL(blob0), img=new Image();
+    function flash(msg){ var b=document.getElementById('cp-copy-img'); if(!b)return; if(b._orig==null)b._orig=b.innerHTML; b.textContent=msg; setTimeout(function(){ b.innerHTML=b._orig; },2600); }
+    function save(blob){ var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Cumulative_Progress_Jul13.png'; document.body.appendChild(a); a.click(); document.body.removeChild(a); flash('Image downloaded'); }
+    img.onload=function(){ var cv=document.createElement('canvas'); cv.width=o.w*scale; cv.height=o.h*scale; var ctx=cv.getContext('2d'); ctx.setTransform(scale,0,0,scale,0,0); ctx.drawImage(img,0,0); URL.revokeObjectURL(url);
+      cv.toBlob(function(blob){ if(!blob){ flash('Copy failed'); return; } if(navigator.clipboard&&window.ClipboardItem){ navigator.clipboard.write([new window.ClipboardItem({'image/png':blob})]).then(function(){ flash('Copied! Paste into chat'); },function(){ save(blob); }); } else save(blob); },'image/png'); };
+    img.onerror=function(){ URL.revokeObjectURL(url); flash('Copy failed'); };
+    img.src=url;
+  }
+
+  window.renderWeeklyTab=function(){ renderCumProgress(); renderRollup(); renderSubjects(); renderPvaTable(); };
 
   function wire(){
     var host=document.getElementById('wk-subjects');
     if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var h=e.target.closest('.wsd-head'); if(!h)return; var k=h.parentElement.getAttribute('data-wk'); openWeeks[k]=!openWeeks[k]; renderSubjects(); }); }
+    var pva=document.getElementById('wk-pva');
+    if(pva&&!pva._wired){ pva._wired=true; pva.addEventListener('click',function(e){ var r=e.target.closest('.pva-row'); if(!r)return; var k=r.getAttribute('data-pva'); openPva[k]=!openPva[k]; renderPvaTable(); }); }
+    var cpsel=document.getElementById('cp-cutoff');
+    if(cpsel&&!cpsel._wired){ cpsel._wired=true; cpsel.addEventListener('change',function(){ cpCutoff=cpsel.value; renderCumProgress(); }); }
+    var cpc=document.getElementById('cp-copy-img');
+    if(cpc&&!cpc._wired){ cpc._wired=true; cpc.addEventListener('click',cpCopyImage); }
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire);else wire();
 })();
@@ -13090,7 +13311,14 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
   var sortKey='baseline', sortDir='asc';
   var bsMode='count';  /* 'count' = bars scaled by volume; 'pct' = 100% stacked */
   var COLS=[{k:'subject',l:'Subject'},{k:'grade',l:'Grade'},{k:'focus',l:'Focus Course'},{k:'baseline',l:'Deliver &amp; SO'},{k:'status',l:'Status'}];
-  function courseList(){ var base=(typeof window.filteredCoursesV8==='function')?window.filteredCoursesV8():DATA(); return base.slice(); }
+  var bsScope='all';  /* 'all' = delivered so far (cumulative); 'thisweek' = courses planned for the current week */
+  function bsMonday(iso){ var p=String(iso).slice(0,10).split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(isNaN(d.getTime()))return null; var dow=(d.getDay()+6)%7; d.setDate(d.getDate()-dow); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function bsPlanned(c){ return (c._w!=null)?c._w:(c.p&&c.p[6]); }
+  function bsThisWeek(){ var d=new Date(); return bsMonday(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')); }
+  function bsWeekLabel(mk){ if(!mk)return ''; var p=mk.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); var fri=new Date(d); fri.setDate(fri.getDate()+4); var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; var b=(d.getMonth()===fri.getMonth())?String(fri.getDate()):(M[fri.getMonth()]+' '+fri.getDate()); return M[d.getMonth()]+' '+d.getDate()+'–'+b+', '+d.getFullYear(); }
+  function courseList(){ var base=(typeof window.filteredCoursesV8==='function')?window.filteredCoursesV8():DATA(); var arr=base.slice();
+    if(bsScope==='thisweek'){ var W=bsThisWeek(); arr=arr.filter(function(c){ var pd=bsPlanned(c); return pd && bsMonday(pd)===W; }); }
+    return arr; }
 
   function renderChart(){
     var host=document.getElementById('bs-chart'); if(!host)return;
@@ -13107,7 +13335,8 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
       var pSeg=pend?'<div class="bs-seg pd" style="width:'+pW+'%" title="Pending '+pend+'">'+(pW>=10?pend:'')+'</div>':'';
       return '<div class="bs-row'+(isAll?' bs-allrow':'')+'"><div class="bs-st">'+esc(label)+'</div><div class="bs-track"><div class="bs-fill" style="width:'+trackW+'%">'+dSeg+pSeg+'</div></div><div class="bs-meta"><b>'+total+'</b> total &middot; '+pct(deliv,total)+'%</div></div>';
     }
-    host.innerHTML=bar('All states ('+states.length+')',T,D,true)+states.map(function(s){return bar(s,by[s].total,by[s].deliv,false);}).join('');
+    var cap=(bsScope==='thisweek')?'<div class="bs-scopecap">This week &middot; <b>'+bsWeekLabel(bsThisWeek())+'</b> <span>(courses planned this week)</span></div>':'';
+    host.innerHTML=cap+bar('All states ('+states.length+')',T,D,true)+states.map(function(s){return bar(s,by[s].total,by[s].deliv,false);}).join('');
   }
 
   function sortVal(c,k){ if(k==='subject')return (subjShort(c.s)||'').toLowerCase(); if(k==='grade')return gradeNum(c.gr); if(k==='focus')return (c.fn||c.cn||'').toLowerCase(); if(k==='baseline')return String((c.p&&c.p[6])||''); if(k==='status')return dl(c)?0:1; return ''; }
@@ -13153,7 +13382,7 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
     svg+='<text x="20" y="30" font-size="17" font-weight="700" fill="'+INK+'">Delivery by State — Completed vs Pending</text>';
     svg+='<rect x="20" y="46" width="11" height="11" rx="2" fill="'+GOOD+'"/><text x="37" y="56" font-size="11.5" fill="'+INK2+'">Delivered</text>';
     svg+='<rect x="112" y="46" width="11" height="11" rx="2" fill="'+WARN+'"/><text x="129" y="56" font-size="11.5" fill="'+INK2+'">Pending</text>';
-    svg+='<text x="'+(W-20)+'" y="56" font-size="11" text-anchor="end" fill="'+INK2+'">'+(bsMode==='pct'?'100% view':'By volume')+' · Jul 13 plan</text>';
+    svg+='<text x="'+(W-20)+'" y="56" font-size="11" text-anchor="end" fill="'+INK2+'">'+(bsScope==='thisweek'?('This week · '+bsWeekLabel(bsThisWeek())):'Delivered so far')+' · '+(bsMode==='pct'?'100% view':'By volume')+'</text>';
     var y=top;
     rows.forEach(function(r){
       var label=r[0], total=r[1], deliv=r[2], isAll=r[3], pend=total-deliv;
@@ -13187,7 +13416,7 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
     var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" font-family="Arial,Helvetica,sans-serif">';
     svg+='<rect width="'+W+'" height="'+H+'" fill="#ffffff"/>';
     svg+='<text x="'+padX+'" y="30" font-size="17" font-weight="700" fill="'+INK+'">Delivery by State — Course Detail</text>';
-    svg+='<text x="'+(W-padX)+'" y="30" font-size="11" text-anchor="end" fill="'+INK2+'">Jul 13 plan</text>';
+    svg+='<text x="'+(W-padX)+'" y="30" font-size="11" text-anchor="end" fill="'+INK2+'">'+(bsScope==='thisweek'?('This week · '+bsWeekLabel(bsThisWeek())):'Delivered so far')+'</text>';
     var y=top;
     svg+='<rect x="'+padX+'" y="'+y+'" width="'+totW+'" height="'+headH+'" fill="'+HEADBG+'"/>';
     cols.forEach(function(c,i){ svg+='<text x="'+cx(i,c.a)+'" y="'+(y+20)+'" font-size="11" font-weight="700" fill="'+NAVY+'" text-anchor="'+(c.a==='end'?'end':'start')+'">'+sx(c.l)+'</text>'; });
@@ -13234,6 +13463,8 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
     if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var th=e.target.closest('.bs-sortth'); if(th){ var k=th.getAttribute('data-col'); if(sortKey===k){sortDir=(sortDir==='asc'?'desc':'asc');}else{sortKey=k;sortDir='asc';} renderTable(); return; } var row=e.target.closest('.lst-strow'); if(!row)return; var st=row.getAttribute('data-st'); openStates[st]=!openStates[st]; renderTable(); }); }
     var modes=document.getElementById('bs-modes');
     if(modes&&!modes._wired){ modes._wired=true; modes.addEventListener('click',function(e){ var b=e.target.closest('.bs-modebtn'); if(!b)return; bsMode=b.getAttribute('data-bsmode'); Array.prototype.forEach.call(modes.querySelectorAll('.bs-modebtn'),function(x){ x.classList.toggle('active', x===b); }); renderChart(); }); }
+    var scope=document.getElementById('bs-scope');
+    if(scope&&!scope._wired){ scope._wired=true; scope.addEventListener('click',function(e){ var b=e.target.closest('.bs-modebtn'); if(!b)return; bsScope=b.getAttribute('data-bsscope'); Array.prototype.forEach.call(scope.querySelectorAll('.bs-modebtn'),function(x){ x.classList.toggle('active', x===b); }); renderChart(); renderTable(); }); }
     var cp=document.getElementById('bs-copy-img');
     if(cp&&!cp._wired){ cp._wired=true; cp.addEventListener('click',copyBsImage); }
     var cpt=document.getElementById('bs-copy-tbl');

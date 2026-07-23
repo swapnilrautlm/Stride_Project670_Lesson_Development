@@ -3459,7 +3459,7 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
     <select id="v8-f-subject" multiple size="1"><option value="all" selected>All subjects</option></select>
   </label>
   <label>State
-    <select id="v8-f-state"><option value="all">All states</option></select>
+    <select id="v8-f-state" multiple size="1" title="Hold Ctrl/Cmd to select multiple"><option value="all" selected>All states</option></select>
   </label>
   <label>Grade Group
     <select id="v8-f-gradegroup" multiple size="1" title="Hold Ctrl/Cmd to select multiple"><option value="all" selected>All grade groups</option></select>
@@ -3468,15 +3468,15 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
     <select id="v8-f-gradeband" multiple size="1" title="Hold Ctrl/Cmd to select multiple"><option value="all" selected>All bands</option></select>
   </label>
   <label>Type of Course
-    <select id="v8-f-type">
-      <option value="all">All</option>
+    <select id="v8-f-type" multiple size="1" title="Hold Ctrl/Cmd to select multiple">
+      <option value="all" selected>All</option>
       <option value="Full Year">Full Year</option>
       <option value="Sem">Sem</option>
     </select>
   </label>
   <label>Sem A/B
-    <select id="v8-f-semab">
-      <option value="all">All</option>
+    <select id="v8-f-semab" multiple size="1" title="Hold Ctrl/Cmd to select multiple">
+      <option value="all" selected>All</option>
       <option value="Full Year">Full Year</option>
       <option value="SEM A">SEM A</option>
       <option value="SEM B">SEM B</option>
@@ -3484,8 +3484,8 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
     </select>
   </label>
   <label>Derivative
-    <select id="v8-f-deriv">
-      <option value="all">All</option>
+    <select id="v8-f-deriv" multiple size="1" title="Hold Ctrl/Cmd to select multiple">
+      <option value="all" selected>All</option>
       <option value="Master">Master only</option>
       <option value="80%">80% derivatives</option>
       <option value="60%">60% derivatives</option>
@@ -3494,8 +3494,8 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
     </select>
   </label>
   <label>Month
-    <select id="v8-f-month">
-      <option value="all">All months</option>
+    <select id="v8-f-month" multiple size="1" title="Hold Ctrl/Cmd to select multiple">
+      <option value="all" selected>All months</option>
     </select>
   </label>
   <label>Deliver From
@@ -12135,7 +12135,7 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
   const GRADES_LIST_V8 = Array.from(new Set(COURSES_V8.map(function(c){return c.gr;}).filter(Boolean))).sort();
 
   window.STATE_V8 = window.STATE_V8 || {
-    filters: { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all', month:'all' }
+    filters: { subjects:['all'], state:['all'], gradeGroups:['all'], gradeBands:['all'], type:['all'], semAB:['all'], deriv:['all'], month:['all'] }
   };
   let v8AccGrouping = 'date';
   let v8AccSearch = '';
@@ -12155,10 +12155,11 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
 
   // ---------- Filter logic ----------
   function mondayKeyV8(iso){ var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); var dow=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-dow); return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
-  function applyFilterV8(c) {
+  function applyFilterV8(c, opts) {
     const f = window.STATE_V8.filters;
     if (!(f.subjects.includes('all') || f.subjects.includes(c.s))) return false;
-    if (f.state !== 'all' && c.st !== f.state) return false;
+    const stSel = f.state || ['all'];
+    if (!stSel.includes('all') && !stSel.includes(c.st)) return false;
 const ggSel = f.gradeGroups || ['all'];
     if (!ggSel.includes('all')) {
       const sm = (c.sm || '').toLowerCase();
@@ -12179,35 +12180,48 @@ const ggSel = f.gradeGroups || ['all'];
     }
     const gbSel = f.gradeBands || ['all'];
     if (!gbSel.includes('all') && !gbSel.includes(c.gb)) return false;
-    if (f.type !== 'all' && c.tp !== f.type) return false;
-    if (f.semAB !== 'all') {
-      if (String(c.sm || '').toLowerCase() !== f.semAB.toLowerCase()) return false;
+    const typeSel = f.type || ['all'];
+    if (!typeSel.includes('all') && typeSel.indexOf(c.tp) === -1) return false;
+    const semSel = f.semAB || ['all'];
+    if (!semSel.includes('all')) {
+      const smLower = String(c.sm || '').toLowerCase();
+      if (!semSel.some(function(v){ return v.toLowerCase() === smLower; })) return false;
     }
-    if (f.deriv === 'Master' && c.dv !== 'Master') return false;
-    if (f.deriv === 'Derivatives' && c.dv === 'Master') return false;
-    if (f.deriv === '80%' && c.dv !== '80%') return false;
-    if (f.deriv === '60%' && c.dv !== '60%') return false;
-    if (f.deriv === '40%' && c.dv !== '40%') return false;
-    if (f.month && f.month !== 'all') {
+    const derivSel = f.deriv || ['all'];
+    if (!derivSel.includes('all')) {
+      function matchDerivV8(v) {
+        if (v === 'Master') return c.dv === 'Master';
+        if (v === 'Derivatives') return c.dv !== 'Master';
+        return c.dv === v;
+      }
+      if (!derivSel.some(matchDerivV8)) return false;
+    }
+    const monthSel = f.month || ['all'];
+    if (!monthSel.includes('all')) {
       var d6 = c.p && c.p[6];
       if (!d6) return false;
       // p[6] is an iso-ish 'YYYY-MM-DD' string; compare first 7 chars
-      if (String(d6).slice(0,7) !== f.month) return false;
+      if (monthSel.indexOf(String(d6).slice(0,7)) === -1) return false;
     }
-    if (f.from || f.to) {
-      var dd = c.p && c.p[6];
-      if (!dd) return false;
-      var ds = String(dd).slice(0,10);
-      if (f.from && ds < f.from) return false;
-      if (f.to && ds > f.to) return false;
-    }
-    if (f.weeks && f.weeks.length) {
-      var dw = (c._w != null) ? c._w : (c.p && c.p[6]); if (!dw) return false;  // weeks filter = PLANNED week
-      if (f.weeks.indexOf(mondayKeyV8(String(dw).slice(0,10))) === -1) return false;
+    if (!(opts && opts.skipRange)) {
+      if (f.from || f.to) {
+        var dd = c.p && c.p[6];
+        if (!dd) return false;
+        var ds = String(dd).slice(0,10);
+        if (f.from && ds < f.from) return false;
+        if (f.to && ds > f.to) return false;
+      }
+      if (f.weeks && f.weeks.length) {
+        var dw = (c._w != null) ? c._w : (c.p && c.p[6]); if (!dw) return false;  // weeks filter = PLANNED week
+        if (f.weeks.indexOf(mondayKeyV8(String(dw).slice(0,10))) === -1) return false;
+      }
     }
     return true;
   }
   function filteredCoursesV8() { return COURSES_V8.filter(applyFilterV8); }
+  // Same content filters (Subject/State/Grade/Type/SemAB/Deriv/Month) but ignores the Weeks/Deliver-range filter itself —
+  // used by the Weeks/Cumulative widget so picking a week doesn't zero out every other week's own counts.
+  function filteredCoursesV8ForWeeks() { return COURSES_V8.filter(function(c){ return applyFilterV8(c, {skipRange:true}); }); }
   window.filteredCoursesV8 = filteredCoursesV8;
 
   function computeDeliverySeriesV8() {
@@ -12289,7 +12303,7 @@ const ggSel = f.gradeGroups || ['all'];
         return '<div class="row"><span class="name">' + subjShortV8(s) + '</span><div class="barwrap"><div class="bar ' + subjClassV8(s) + '" style="width:' + pct + '%"></div></div><span class="count">' + (dvv + ' of ' + v + '<span class="done-suffix' + (dvv > 0 ? ' done-pos' : '') + '">&middot; ' + pct + '%</span>') + '</span></div>';
       }).join('');
       const mk = m.key; // YYYY-MM
-      const isSel = (window.STATE_V8.filters.month === mk);
+      const isSel = (window.STATE_V8.filters.month || ['all']).indexOf(mk) !== -1;
       return '<div class="month-card v8-month-card' + (isSel ? ' v8-month-card-active' : '') + '" data-v8month="' + eEsc(mk) + '" role="button" tabindex="0" title="Click to filter the entire tab to ' + eEsc(monthLabelV8(m.date)) + '">' +
         '<div class="month-name">' + eEsc(monthLabelV8(m.date)) + '</div>' +
         '<div class="month-total">' + m.total.toLocaleString() + '</div>' +
@@ -12302,11 +12316,12 @@ const ggSel = f.gradeGroups || ['all'];
     Array.from(host.querySelectorAll('.v8-month-card')).forEach(function(card) {
       card.addEventListener('click', function() {
         const k = card.getAttribute('data-v8month');
-        const cur = window.STATE_V8.filters.month || 'all';
-        const next = (cur === k) ? 'all' : k; // click selected card again -> clear
+        const cur = window.STATE_V8.filters.month || ['all'];
+        const isOn = cur.indexOf(k) !== -1 && cur.indexOf('all') === -1;
+        const next = isOn ? ['all'] : [k]; // click selected card again -> clear back to All
         window.STATE_V8.filters.month = next;
         const sel = document.getElementById('v8-f-month');
-        if (sel) sel.value = next;
+        if (sel) Array.prototype.forEach.call(sel.options, function(o){ o.selected = (next.indexOf(o.value) !== -1); });
         renderV8All();
       });
       card.addEventListener('keydown', function(ev) {
@@ -12863,7 +12878,7 @@ const ggSel = f.gradeGroups || ['all'];
     const subj = document.getElementById('v8-f-subject');
     if (subj) subj.innerHTML = '<option value="all" selected>All subjects</option>' + SUBJECTS_V8.map(function(s){return '<option value="' + eEsc(s) + '">' + eEsc(s) + '</option>';}).join('');
     const st = document.getElementById('v8-f-state');
-    if (st) st.innerHTML = '<option value="all">All states</option>' + STATES_LIST_V8.map(function(s){return '<option value="' + eEsc(s) + '">' + eEsc(s) + '</option>';}).join('');
+    if (st) st.innerHTML = '<option value="all" selected>All states</option>' + STATES_LIST_V8.map(function(s){return '<option value="' + eEsc(s) + '">' + eEsc(s) + '</option>';}).join('');
     const gb = document.getElementById('v8-f-gradeband');
     if (gb) gb.innerHTML = '<option value="all" selected>All bands</option>' + GRADE_BANDS_V8.map(function(b){return '<option value="' + eEsc(b) + '">' + eEsc(b) + '</option>';}).join('');
     const gg = document.getElementById('v8-f-gradegroup');
@@ -12892,35 +12907,34 @@ const ggSel = f.gradeGroups || ['all'];
         const y = parseInt(k.slice(0,4),10), m = parseInt(k.slice(5,7),10);
         return '<option value="' + eEsc(k) + '">' + monthName[m-1] + ' ' + y + '</option>';
       }).join('');
-      const cur = window.STATE_V8.filters.month || 'all';
-      monthSel.innerHTML = '<option value="all">All months</option>' + opts;
-      monthSel.value = cur;
+      const cur = window.STATE_V8.filters.month || ['all'];
+      monthSel.innerHTML = '<option value="all"' + (cur.indexOf('all')!==-1?' selected':'') + '>All months</option>' + opts;
+      Array.prototype.forEach.call(monthSel.options, function(o){ if (cur.indexOf(o.value)!==-1) o.selected = true; });
     }
   }
+  function multiSelVals(id) {
+    const vals = Array.from(document.querySelectorAll('#' + id + ' option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
+    return vals.length ? vals : ['all'];
+  }
   function readV8Filters() {
-    const subj = Array.from(document.querySelectorAll('#v8-f-subject option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
-    window.STATE_V8.filters.subjects = subj.length ? subj : ['all'];
-    window.STATE_V8.filters.state = document.getElementById('v8-f-state').value;
-const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
-    window.STATE_V8.filters.gradeGroups = ggSel.length ? ggSel : ['all'];
-    const gbSel = Array.from(document.querySelectorAll('#v8-f-gradeband option')).filter(function(o){return o.selected;}).map(function(o){return o.value;});
-    window.STATE_V8.filters.gradeBands = gbSel.length ? gbSel : ['all'];
-    window.STATE_V8.filters.type = document.getElementById('v8-f-type').value;
-    window.STATE_V8.filters.semAB = document.getElementById('v8-f-semab').value;
-    window.STATE_V8.filters.deriv = document.getElementById('v8-f-deriv').value;
-    const mEl = document.getElementById('v8-f-month');
-    window.STATE_V8.filters.month = mEl ? mEl.value : 'all';
+    window.STATE_V8.filters.subjects = multiSelVals('v8-f-subject');
+    window.STATE_V8.filters.state = multiSelVals('v8-f-state');
+    window.STATE_V8.filters.gradeGroups = multiSelVals('v8-f-gradegroup');
+    window.STATE_V8.filters.gradeBands = multiSelVals('v8-f-gradeband');
+    window.STATE_V8.filters.type = multiSelVals('v8-f-type');
+    window.STATE_V8.filters.semAB = multiSelVals('v8-f-semab');
+    window.STATE_V8.filters.deriv = multiSelVals('v8-f-deriv');
+    window.STATE_V8.filters.month = multiSelVals('v8-f-month');
     var ffe = document.getElementById('v8-f-from'); window.STATE_V8.filters.from = (ffe && ffe.value) ? ffe.value : null;
     var fte = document.getElementById('v8-f-to'); window.STATE_V8.filters.to = (fte && fte.value) ? fte.value : null;
   }
   function resetV8Filters() {
-    window.STATE_V8.filters = { subjects:['all'], state:'all', gradeGroups:['all'], gradeBands:['all'], type:'all', semAB:'all', deriv:'all' };
+    window.STATE_V8.filters = { subjects:['all'], state:['all'], gradeGroups:['all'], gradeBands:['all'], type:['all'], semAB:['all'], deriv:['all'], month:['all'] };
     populateV8Filters();
-    document.getElementById('v8-f-type').value = 'all';
-    document.getElementById('v8-f-semab').value = 'all';
-    document.getElementById('v8-f-deriv').value = 'all';
-    const mEl = document.getElementById('v8-f-month');
-    if (mEl) mEl.value = 'all';
+    ['v8-f-type','v8-f-semab','v8-f-deriv'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) Array.prototype.forEach.call(el.options, function(o){ o.selected = (o.value === 'all'); });
+    });
     var ff = document.getElementById('v8-f-from'); if (ff) ff.value = '';
     var ft = document.getElementById('v8-f-to'); if (ft) ft.value = '';
     renderV8All();
@@ -12997,7 +13011,9 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
       window.P670_v8WeekCounts=function(){
         var agg={};
         // Keyed by PLANNED week; classify each planned course as delivered-earlier / on-time / late / pending
-        COURSES_V8.forEach(function(c){ var pd=plannedOfV8(c); if(!pd) return; var pk=mondayKeyOf(String(pd).slice(0,10)); if(!pk) return;
+        // Respects the page filter bar (Subject/State/Grade/Type/SemAB/Deriv/Month) but not the Weeks/date-range
+        // filter itself, so this widget stays a full week-by-week breakdown even when a week chip is toggled.
+        filteredCoursesV8ForWeeks().forEach(function(c){ var pd=plannedOfV8(c); if(!pd) return; var pk=mondayKeyOf(String(pd).slice(0,10)); if(!pk) return;
           if(!agg[pk])agg[pk]={plan:0,prev:0,done:0,late:0,pend:0};
           var a=agg[pk]; a.plan++;
           var ak=c.ad?mondayKeyOf(String(c.ad).slice(0,10)):null;

@@ -3524,7 +3524,7 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
 <section id="sec-delivery-jul13" class="page-break">
 
   <div class="banner v8-banner no-print">
-    <strong>Jul 13 Update.</strong> Updates Based on Deanna Course Delivery Proposal 7.8.26. The course list is unchanged at <strong>996 courses</strong>.
+    <strong>Jul 13 Update.</strong> Updates Based on Deanna Course Delivery Proposal 7.8.26. Course list is now <strong>997 courses</strong> &mdash; HST303 US History LA split into SEM A + SEM B (still 629 distinct).
   </div>
 
   <div class="v8-livetile no-print" id="v8-livetile">
@@ -3801,10 +3801,6 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
 </section>
 
 <section id="sec-course-inventory" class="page-break">
-
-  <div class="ci-banner no-print">
-    <strong>Static catalogue.</strong> Course Inventory totals describe the <strong>996 raw entries / 629 distinct courses</strong> in the June 1 list.
-  </div>
 
   <div class="section-eyebrow">Distinct Course Rollup</div>
   <p class="rollup-note">SEM A + SEM B for the same base course count as <strong>1 distinct course</strong>. Full Year and Sem Only count as 1 each.</p>
@@ -12089,6 +12085,31 @@ const ggSel = Array.from(document.querySelectorAll('#v7-f-gradegroup option')).f
   if(!window.P670_DATA_V8) return;
   var U2={"MTH128A Algebra 1 Focus DC":["2026-08-26","2026-08-27","2026-08-28","2026-08-31","2026-09-01","2026-09-02","2026-09-02",0],"MTH148A Integrated Math I Focus NC":["2026-08-03","2026-08-04","2026-08-05","2026-07-16","2026-08-06","2026-08-07","2026-08-07",0],"MTH308A Algebra 2 Focus WV":["2026-09-01","2026-09-02","2026-09-03","2026-09-04","2026-09-07","2026-09-08","2026-09-08",0],"Science 5 Focus AZ":["2026-07-17","2026-07-17","2026-07-17","2026-07-17","2026-07-21","2026-07-21","2026-07-21",1],"SCI203A Biology Focus DC":["2026-09-03","2026-09-03","2026-09-03","2026-09-03","2026-09-04","2026-09-04","2026-09-04",0],"Science 3 Focus LA":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"Science 5 Focus LA":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"Science 5 Focus OK":["2026-08-31","2026-08-31","2026-08-31","2026-08-31","2026-09-01","2026-09-01","2026-09-01",0],"Science 5 Focus TN":["2026-07-16","2026-07-16","2026-07-16","2026-07-16","2026-07-17","2026-07-17","2026-07-17",1],"SCI303A Chemistry Focus WV":["2026-08-31","2026-08-31","2026-08-31","2026-08-31","2026-09-01","2026-09-01","2026-09-01",0],"SCI303B Chemistry Focus WV":["2026-09-10","2026-09-10","2026-09-10","2026-09-10","2026-09-11","2026-09-11","2026-09-11",0],"ENG06B Language Arts 6 Focus ID":["2026-08-03","2026-08-03","2026-08-04","2026-08-04","2026-08-05","2026-08-05","2026-08-06",1],"ENG07B Language Arts 7 Focus ID":["2026-08-03","2026-08-03","2026-08-04","2026-08-04","2026-08-05","2026-08-05","2026-08-06",0],"ENG303A English 11 Focus WV":["2026-08-31","2026-09-01","2026-09-02","2026-09-03","2026-09-04","2026-09-04","2026-09-04",0]};
   window.P670_DATA_V8.courses.forEach(function(c){ var u=U2[c.fn]; if(u){ c.p=[u[0],u[1],u[2],u[3],u[4],u[5],u[6]]; c.a=[null,null,null,null,null,null,null]; c.x=u[7]?1:0; } });
+})();
+</script>
+
+<script>
+/* Jul 13: HST303 US History LA split into SEM A (existing course 955) + new SEM B → 997 courses; keep Course Inventory rollup totals in sync (distinct unchanged) */
+(function(){
+  var v8=window.P670_DATA_V8;
+  if(v8 && v8.courses){
+    var c=null; for(var i=0;i<v8.courses.length;i++){ if(v8.courses[i].id===955){ c=v8.courses[i]; break; } }
+    if(c){ c.fn='HST303A US History Focus LA'; c.cn='HST303A US History LAVCA'; c.sm='SEM A'; c.gr='HS (10) Sem A'; c.p=['2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-15','2026-07-15']; c.a=[null,null,null,null,null,null,null]; c.x=0; }
+    if(!v8.courses.some(function(x){return x.fn==='HST303B US History Focus LA';})){
+      v8.courses.push({id:1005,s:'Social Studies',st:'Louisiana',gr:'HS (10) Sem B',gg:'Highschool',gb:'High School',tp:'Sem',sm:'SEM B',dv:'Master',cn:'HST303B US History LAVCA',cc:'HI303SYLV01',bsp:21970,fg:null,fn:'HST303B US History Focus LA',an:null,p:['2026-08-24','2026-08-25','2026-08-26','2026-08-27','2026-08-31','2026-09-02','2026-09-04'],a:[null,null,null,null,null,null,null],x:0});
+    }
+  }
+  var v2=window.P670_DATA_V2;
+  if(v2 && v2.rollupDistinct && v2.rollupDistinct[8] && String(v2.rollupDistinct[8][0]).trim()==='Social Studies' && !v2._hst303split){
+    v2._hst303split=true;
+    var d=v2.rollupDistinct;  // [Subject,Raw,FullYear,SEM A,SEM B,Sem Only,Distinct Pairs,Distinct Total]
+    d[8][1]+=1; d[8][3]+=1; d[8][4]+=1; d[8][5]-=1; d[8][6]+=1;   // Social Studies row
+    d[9][1]+=1; d[9][3]+=1; d[9][4]+=1; d[9][5]-=1; d[9][6]+=1;   // TOTAL row
+    var m=v2.rollupMaster;    // [Subject,Master(Raw),Deriv(Raw),Total(Raw),Master(Dist),Deriv(Dist),Total(Dist)]
+    if(m && m[9] && String(m[9][0]).trim()==='Social Studies'){ m[9][1]+=1; m[9][3]+=1; m[10][1]+=1; m[10][3]+=1; }
+    // % Breakdown (Raw) — Master+1, Total+1 for Social Studies + TOTAL (distinct % unchanged); cols: [Subject,Master,40%,60%,80%,Total]
+    if(m && m[37] && String(m[37][0]).trim()==='Social Studies'){ m[37][1]+=1; m[37][5]+=1; m[38][1]+=1; m[38][5]+=1; }
+  }
 })();
 </script>
 

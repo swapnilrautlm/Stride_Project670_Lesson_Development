@@ -3538,6 +3538,7 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
 
   <div class="section-eyebrow">Delivery Plan &middot; "Deliver and SO" (LearningMate)</div>
   <div class="card">
+    <div class="v8-card-toolbar no-print"><button class="bs-copybtn" id="v8-copy-headline" type="button" title="Copy this summary as an image to paste into chat / email"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy image</button></div>
     <h3 class="card-title">Delivery Window</h3>
     <p class="card-sub">When does the final "Deliver and SO" milestone happen for each course? Filters above cascade through every widget below.</p>
     <div class="delivery-headline" id="v8-deliveryHeadline"></div>
@@ -3545,9 +3546,13 @@ body:not(.v7-active) #v7FilterBar { display:none !important; }
   <style>
     .deliv-chip{display:inline-block;background:var(--good-bg,#DCEFE2);color:var(--good,#1F7A3E);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:9px;margin-right:4px;vertical-align:middle;text-transform:uppercase;letter-spacing:.03em;}
     .acc-toolbar .acc-status select{font-family:inherit;font-size:12px;padding:6px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--card);color:var(--ink);}
+    #sec-delivery-jul13 .v8-card-toolbar { display:flex; justify-content:flex-end; margin-bottom:8px; }
+    #sec-delivery-jul13 .bs-copybtn { display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line-2); border-radius:8px; padding:5px 12px; font-family:inherit; font-size:12px; font-weight:600; color:var(--stride-blue); cursor:pointer; }
+    #sec-delivery-jul13 .bs-copybtn:hover { border-color:var(--stride-blue); background:rgba(33,39,194,0.04); }
   </style>
 
   <div class="section-eyebrow">By Month &middot; Subject Breakdown</div>
+  <div class="v8-card-toolbar no-print"><button class="bs-copybtn" id="v8-copy-monthcards" type="button" title="Copy this breakdown as an image to paste into chat / email"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy image</button></div>
   <div class="month-summary-row" id="v8-deliveryMonthCards"></div>
 
   <!-- Master vs Derivatives breakdown (filter-aware) -->
@@ -3661,6 +3666,9 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
 #sec-weekly .cp-cutoff select { font-family:inherit; font-size:13px; padding:6px 8px; border:1px solid var(--line); border-radius:7px; background:var(--card); color:var(--ink); }
 #sec-weekly .cp-controls .bs-copybtn { margin-left:auto; display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line-2); border-radius:8px; padding:6px 12px; font-family:inherit; font-size:12px; font-weight:600; color:var(--stride-blue); cursor:pointer; }
 #sec-weekly .cp-controls .bs-copybtn:hover { border-color:var(--stride-blue); background:rgba(33,39,194,0.04); }
+#sec-weekly .wk-card-toolbar { display:flex; justify-content:flex-end; margin-bottom:8px; }
+#sec-weekly .wk-card-toolbar .bs-copybtn { display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line-2); border-radius:8px; padding:5px 12px; font-family:inherit; font-size:12px; font-weight:600; color:var(--stride-blue); cursor:pointer; }
+#sec-weekly .wk-card-toolbar .bs-copybtn:hover { border-color:var(--stride-blue); background:rgba(33,39,194,0.04); }
 #sec-weekly .cp-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
 @media (max-width:1200px){ #sec-weekly .cp-grid { grid-template-columns:repeat(3,1fr); } }
 @media (max-width:700px){ #sec-weekly .cp-grid { grid-template-columns:repeat(2,1fr); } }
@@ -3766,12 +3774,16 @@ body.wk-active #filterBar, body.bs-active #filterBar { display:none !important; 
   </div>
   <div class="section-eyebrow">Weekly Roll-up &middot; Cumulative <span class="se-hint">(courses delivering each week + running total &mdash; Jul 13 plan)</span></div>
   <div class="card">
+    <div class="wk-card-toolbar no-print"><button class="bs-copybtn" id="wk-copy-rollup" type="button" title="Copy this table as an image to paste into chat / email"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy image</button></div>
     <div class="wk-wrap"><div id="wk-rollup"></div></div>
   </div>
   <div class="section-eyebrow">Weekly Subjects Delivering <span class="se-hint">(click any week to see each course's Deliver &amp; SO date and status)</span></div>
   <div class="card"><div id="wk-subjects"></div></div>
   <div class="section-eyebrow">Planned vs Actual by Week <span class="se-hint">(planned Deliver &amp; SO vs actual delivery &mdash; on-time / early / late / pending; click a week for the courses)</span></div>
-  <div class="card"><div class="wk-wrap"><div id="wk-pva"></div></div></div>
+  <div class="card">
+    <div class="wk-card-toolbar no-print"><button class="bs-copybtn" id="wk-copy-pva" type="button" title="Copy this table as an image to paste into chat / email"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy image</button></div>
+    <div class="wk-wrap"><div id="wk-pva"></div></div>
+  </div>
 </section>
 
 <section id="sec-bystate" class="page-break">
@@ -12330,6 +12342,111 @@ const ggSel = f.gradeGroups || ['all'];
     });
   }
 
+  // ---------- Copy-image helpers (Delivery Window + By Month cards) ----------
+  function v8Flash(id, msg) { var b = document.getElementById(id); if (!b) return; if (b._orig == null) b._orig = b.innerHTML; b.textContent = msg; setTimeout(function(){ b.innerHTML = b._orig; }, 2600); }
+  function v8CopySVG(o, filename, btnId) {
+    var scale = 2, svgBlob = new Blob([o.svg], { type: 'image/svg+xml;charset=utf-8' }), url = URL.createObjectURL(svgBlob), img = new Image();
+    function saveBlob(blob) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); v8Flash(btnId, 'Image downloaded'); }
+    img.onload = function() {
+      var canvas = document.createElement('canvas'); canvas.width = o.w * scale; canvas.height = o.h * scale;
+      var ctx = canvas.getContext('2d'); ctx.setTransform(scale, 0, 0, scale, 0, 0); ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(function(blob) {
+        if (!blob) { v8Flash(btnId, 'Copy failed'); return; }
+        if (navigator.clipboard && window.ClipboardItem) {
+          navigator.clipboard.write([new window.ClipboardItem({ 'image/png': blob })]).then(function(){ v8Flash(btnId, 'Copied! Paste into chat'); }, function(){ saveBlob(blob); });
+        } else { saveBlob(blob); }
+      }, 'image/png');
+    };
+    img.onerror = function() { URL.revokeObjectURL(url); v8Flash(btnId, 'Copy failed'); };
+    img.src = url;
+  }
+  function v8SvgEsc(s) { return String(s == null ? '' : s).replace(/[&<>]/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]; }); }
+
+  function buildV8HeadlineSVG() {
+    const series = computeDeliverySeriesV8();
+    if (!series.length) {
+      const svgEmpty = '<svg xmlns="http://www.w3.org/2000/svg" width="420" height="80" font-family="Arial,Helvetica,sans-serif"><rect width="420" height="80" fill="#ffffff"/><text x="20" y="44" font-size="13" fill="#0A1438">No "Deliver and SO" dates match current filters.</text></svg>';
+      return { svg: svgEmpty, w: 420, h: 80 };
+    }
+    const first = series[0].date, last = series[series.length - 1].date;
+    const spanDays = Math.round((last - first) / 86400000) + 1;
+    const monthly = computeMonthlyV8();
+    const byDay = computeByDayV8();
+    let bizDays = 0;
+    for (let d = new Date(first); d <= last; d = new Date(d.valueOf() + 86400000)) { const wd = d.getDay(); if (wd !== 0 && wd !== 6) bizDays++; }
+    let busiest = { total: 0 };
+    for (const e of byDay.values()) if (e.total > busiest.total) busiest = e;
+    const v8Deliv = series.filter(function(e){ return e.course && e.course.x; }).length;
+    const pctDeliv = series.length ? Math.round(v8Deliv / series.length * 100) : 0;
+    const cells = [
+      ['Start Date', fmtDateShortV8(first), '#2127C2', first.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + first.getFullYear()],
+      ['End Date', fmtDateShortV8(last), '#2127C2', last.toLocaleDateString(undefined,{weekday:'long'}) + ', ' + last.getFullYear()],
+      ['Window', spanDays + ' days', '#0A1438', bizDays + ' business days · ' + monthly.length + ' month' + (monthly.length === 1 ? '' : 's')],
+      ['Delivered', v8Deliv + ' / ' + series.length.toLocaleString(), '#1F7A3E', pctDeliv + '% delivered · ' + (series.length - v8Deliv) + ' forecast'],
+      ['Busiest Day', String(busiest.total), '#B85C00', busiest.date ? fmtDateV8(busiest.date) : '—']
+    ];
+    const pad = 20, cw = 216, ch = 96, gap = 12, cols = cells.length;
+    const Wd = pad * 2 + cols * cw + (cols - 1) * gap, Hd = 40 + ch + pad;
+    let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + Wd + '" height="' + Hd + '" viewBox="0 0 ' + Wd + ' ' + Hd + '" font-family="Arial,Helvetica,sans-serif">';
+    svg += '<rect width="' + Wd + '" height="' + Hd + '" fill="#ffffff"/>';
+    svg += '<text x="' + pad + '" y="26" font-size="15" font-weight="700" fill="#0A1438">Delivery Window · Jul 13 Plan</text>';
+    cells.forEach(function(c, i) {
+      const x = pad + i * (cw + gap), y = 36;
+      svg += '<rect x="' + x + '" y="' + y + '" width="' + cw + '" height="' + ch + '" rx="8" fill="#F7F9FC" stroke="#DCE6F2"/>';
+      svg += '<text x="' + (x + 12) + '" y="' + (y + 20) + '" font-size="10" font-weight="700" letter-spacing="0.4" fill="#6E7891">' + v8SvgEsc(String(c[0]).toUpperCase()) + '</text>';
+      svg += '<text x="' + (x + 12) + '" y="' + (y + 54) + '" font-size="24" font-weight="700" fill="' + c[2] + '">' + v8SvgEsc(c[1]) + '</text>';
+      svg += '<text x="' + (x + 12) + '" y="' + (y + 78) + '" font-size="10" fill="#8A93A8">' + c[3] + '</text>';
+    });
+    svg += '</svg>';
+    return { svg: svg, w: Wd, h: Hd };
+  }
+  function copyV8HeadlineImage() { v8CopySVG(buildV8HeadlineSVG(), 'Delivery_Window_Jul13.png', 'v8-copy-headline'); }
+
+  function buildV8MonthCardsSVG() {
+    const monthly = computeMonthlyV8();
+    const order = ['Math', 'ELA', 'Science', 'Social Studies'];
+    const subjColor = { Math: '#2127C2', ELA: '#000E64', Science: '#2A72CB', 'Social Studies': '#A04400' };
+    if (!monthly.length) {
+      const svgEmpty = '<svg xmlns="http://www.w3.org/2000/svg" width="420" height="80" font-family="Arial,Helvetica,sans-serif"><rect width="420" height="80" fill="#ffffff"/><text x="20" y="44" font-size="13" fill="#0A1438">No deliveries match current filters.</text></svg>';
+      return { svg: svgEmpty, w: 420, h: 80 };
+    }
+    const cols = Math.min(3, monthly.length), rows = Math.ceil(monthly.length / cols);
+    const cw = 340, gap = 16, pad = 20, titleH = 36, padXc = 14, cardH = 164;
+    const Wd = pad * 2 + cols * cw + (cols - 1) * gap;
+    const Hd = pad * 2 + titleH + rows * cardH + (rows - 1) * gap;
+    let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + Wd + '" height="' + Hd + '" viewBox="0 0 ' + Wd + ' ' + Hd + '" font-family="Arial,Helvetica,sans-serif">';
+    svg += '<rect width="' + Wd + '" height="' + Hd + '" fill="#ffffff"/>';
+    svg += '<text x="' + pad + '" y="' + (pad + 22) + '" font-size="16" font-weight="700" fill="#0A1438">By Month · Subject Breakdown (Jul 13 Plan)</text>';
+    monthly.forEach(function(m, idx) {
+      const col = idx % cols, row = Math.floor(idx / cols);
+      const x = pad + col * (cw + gap), y = pad + titleH + row * (cardH + gap);
+      svg += '<rect x="' + x + '" y="' + y + '" width="' + cw + '" height="' + cardH + '" rx="8" fill="#F7F9FC" stroke="#DCE6F2"/>';
+      svg += '<text x="' + (x + padXc) + '" y="' + (y + 22) + '" font-size="12" font-weight="700" fill="#0A1438">' + v8SvgEsc(monthLabelV8(m.date).toUpperCase()) + '</text>';
+      svg += '<text x="' + (x + cw - padXc) + '" y="' + (y + 22) + '" font-size="12" font-weight="700" text-anchor="end" fill="#2127C2">' + m.total.toLocaleString() + '</text>';
+      const sbY = y + 32, sbX0 = x + padXc, sbW = cw - 2 * padXc, tot = m.total || 1;
+      let sxRun = sbX0;
+      order.forEach(function(s) { const v = m.bySubject[s] || 0; const w = Math.round(v / tot * sbW); if (w > 0) { svg += '<rect x="' + sxRun + '" y="' + sbY + '" width="' + w + '" height="8" fill="' + subjColor[s] + '"/>'; sxRun += w; } });
+      let ry = y + 50;
+      order.forEach(function(s) {
+        const v = m.bySubject[s] || 0, dvv = (m.bySubjectDeliv && m.bySubjectDeliv[s]) || 0, pctv = v ? Math.round(dvv / v * 100) : 0;
+        svg += '<text x="' + (x + padXc) + '" y="' + (ry + 12) + '" font-size="10.5" fill="#2E3A5C">' + v8SvgEsc(subjShortV8(s)) + '</text>';
+        const barX = x + padXc + 42, barW = cw - 2 * padXc - 42 - 100;
+        svg += '<rect x="' + barX + '" y="' + (ry + 3) + '" width="' + barW + '" height="7" rx="3" fill="#E7ECF5"/>';
+        const fillW = Math.max(0, Math.round(barW * pctv / 100));
+        if (fillW > 0) svg += '<rect x="' + barX + '" y="' + (ry + 3) + '" width="' + fillW + '" height="7" rx="3" fill="' + subjColor[s] + '"/>';
+        svg += '<text x="' + (x + cw - padXc) + '" y="' + (ry + 12) + '" font-size="10.5" text-anchor="end" fill="#2E3A5C">' + dvv + ' of ' + v + ' · ' + pctv + '%</text>';
+        ry += 17;
+      });
+      const fy = ry + 12;
+      svg += '<text x="' + (x + padXc) + '" y="' + fy + '" font-size="10.5" font-weight="700" fill="#1F7A3E">' + m.deliv + ' delivered' + (m.total ? (' · ' + Math.round(m.deliv / m.total * 100) + '% complete') : '') + '</text>';
+      svg += '<text x="' + (x + cw - padXc) + '" y="' + fy + '" font-size="10.5" text-anchor="end" fill="#8A93A8">' + (m.total - m.deliv) + ' forecast</text>';
+    });
+    svg += '</svg>';
+    return { svg: svg, w: Wd, h: Hd };
+  }
+  function copyV8MonthCardsImage() { v8CopySVG(buildV8MonthCardsSVG(), 'By_Month_Subject_Breakdown_Jul13.png', 'v8-copy-monthcards'); }
+
   function renderCalendarsV8() {
     const host = document.getElementById('v8-deliveryCalendars');
     if (!host) return;
@@ -12980,6 +13097,10 @@ const ggSel = f.gradeGroups || ['all'];
       const el = document.getElementById(id);
       if (el) el.addEventListener('change', function(){ readV8Filters(); renderV8All(); });
     });
+    const v8cpHl = document.getElementById('v8-copy-headline');
+    if (v8cpHl) v8cpHl.addEventListener('click', copyV8HeadlineImage);
+    const v8cpMc = document.getElementById('v8-copy-monthcards');
+    if (v8cpMc) v8cpMc.addEventListener('click', copyV8MonthCardsImage);
     const reset = document.getElementById('v8-f-reset');
     if (reset) reset.addEventListener('click', resetV8Filters);
     if (reset) reset.addEventListener('click', function(){ Array.prototype.forEach.call(document.querySelectorAll('#v8-quickrange .qr-btn, #v8-weeks .qr-btn'), function(x){ x.classList.remove('active'); }); if (window.STATE_V8.filters.weeks) window.STATE_V8.filters.weeks.length = 0; });
@@ -13267,6 +13388,96 @@ const ggSel = f.gradeGroups || ['all'];
     host.innerHTML='<table class="wkroll pva-table">'+thead+'<tbody>'+rows+totrow+'</tbody></table>';
   }
 
+  /* ---- Copy-image helpers (Weekly Roll-up + Planned vs Actual) ---- */
+  function wkFlash(id,msg){ var b=document.getElementById(id); if(!b)return; if(b._orig==null)b._orig=b.innerHTML; b.textContent=msg; setTimeout(function(){ b.innerHTML=b._orig; },2600); }
+  function wkCopySVG(o,filename,btnId){
+    var scale=2, svgBlob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'}), url=URL.createObjectURL(svgBlob), img=new Image();
+    function saveBlob(blob){ var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); wkFlash(btnId,'Image downloaded'); }
+    img.onload=function(){
+      var canvas=document.createElement('canvas'); canvas.width=o.w*scale; canvas.height=o.h*scale;
+      var ctx=canvas.getContext('2d'); ctx.setTransform(scale,0,0,scale,0,0); ctx.drawImage(img,0,0);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(function(blob){
+        if(!blob){ wkFlash(btnId,'Copy failed'); return; }
+        if(navigator.clipboard && window.ClipboardItem){
+          navigator.clipboard.write([new window.ClipboardItem({'image/png':blob})]).then(function(){ wkFlash(btnId,'Copied! Paste into chat'); }, function(){ saveBlob(blob); });
+        } else { saveBlob(blob); }
+      },'image/png');
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); wkFlash(btnId,'Copy failed'); };
+    img.src=url;
+  }
+  function wkTableSVG(title, cols, rows, totVals){
+    var padX=20, top=44, headH=28, rowH=22;
+    var totW=cols.reduce(function(a,c){return a+c.w;},0);
+    var W=padX*2+totW, H=top+headH+(rows.length+1)*rowH+18;
+    var INK='#0A0E38', NAVY='#000E64', HEADBG='#E6EDF9', TOTBG='#F0F4FB', LINE='#DCE6F2', GOOD='#1F7A3E', WARN='#B85C00';
+    function sx(s){ return String(s==null?'':s).replace(/[&<>]/g,function(m){return({'&':'&amp;','<':'&lt;','>':'&gt;'})[m];}); }
+    function cx(i,a){ var x=padX; for(var j=0;j<i;j++)x+=cols[j].w; return a==='end'?x+cols[i].w-8:x+8; }
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" font-family="Arial,Helvetica,sans-serif">';
+    svg+='<rect width="'+W+'" height="'+H+'" fill="#ffffff"/>';
+    svg+='<text x="'+padX+'" y="26" font-size="16" font-weight="700" fill="'+INK+'">'+sx(title)+'</text>';
+    var y=top;
+    svg+='<rect x="'+padX+'" y="'+y+'" width="'+totW+'" height="'+headH+'" fill="'+HEADBG+'"/>';
+    cols.forEach(function(c,i){ svg+='<text x="'+cx(i,c.a)+'" y="'+(y+19)+'" font-size="10.5" font-weight="700" fill="'+NAVY+'" text-anchor="'+(c.a==='end'?'end':'start')+'">'+sx(c.l)+'</text>'; });
+    y+=headH;
+    rows.forEach(function(vals){
+      svg+='<text x="'+cx(0,'start')+'" y="'+(y+15)+'" font-size="11" fill="'+INK+'">'+sx(vals[0])+'</text>';
+      for(var i=1;i<cols.length;i++){ var fill=(cols[i].l==='Delivered'||cols[i].l==='Completed'||cols[i].l==='On-time')?GOOD:((cols[i].l==='Pending')?WARN:INK); svg+='<text x="'+cx(i,'end')+'" y="'+(y+15)+'" font-size="11" text-anchor="end" fill="'+fill+'">'+(vals[i]||0)+'</text>'; }
+      svg+='<line x1="'+padX+'" y1="'+(y+rowH)+'" x2="'+(padX+totW)+'" y2="'+(y+rowH)+'" stroke="'+LINE+'" stroke-width="1"/>';
+      y+=rowH;
+    });
+    svg+='<rect x="'+padX+'" y="'+y+'" width="'+totW+'" height="'+rowH+'" fill="'+TOTBG+'"/>';
+    svg+='<text x="'+cx(0,'start')+'" y="'+(y+15)+'" font-size="11" font-weight="700" fill="'+INK+'">'+sx(totVals[0])+'</text>';
+    for(var i=1;i<cols.length;i++){ svg+='<text x="'+cx(i,'end')+'" y="'+(y+15)+'" font-size="11" font-weight="700" text-anchor="end" fill="'+INK+'">'+(totVals[i]||0)+'</text>'; }
+    svg+='</svg>';
+    return {svg:svg,w:W,h:H};
+  }
+  function buildWkRollupSVG(){
+    var arr=courseList(), wk={};
+    arr.forEach(function(c){ var mk=mondayISO(String(c.p[6]).slice(0,10)); if(!mk)return; if(!wk[mk])wk[mk]={n:0,d:0}; wk[mk].n++; if(dl(c))wk[mk].d++; });
+    var keys=Object.keys(wk).sort();
+    var cum=0,tn=0,td=0;
+    var rows=keys.map(function(k){ var o=wk[k]; cum+=o.n; tn+=o.n; td+=o.d; return [wkLabel(k).replace('Week of ',''), o.n, o.d, o.n-o.d, cum]; });
+    var cols=[{l:'Week of',w:150,a:'start'},{l:'Courses Delivering',w:150,a:'end'},{l:'Delivered',w:100,a:'end'},{l:'Pending',w:90,a:'end'},{l:'Cumulative',w:110,a:'end'}];
+    var totVals=['Grand Total', tn, td, tn-td, cum];
+    return wkTableSVG('Weekly Roll-up · Cumulative', cols, rows, totVals);
+  }
+  function copyWkRollupImage(){ wkCopySVG(buildWkRollupSVG(), 'Weekly_Rollup_Cumulative_Jul13.png', 'wk-copy-rollup'); }
+  function buildWkPvaSVG(){
+    var arr=pvaList(), byP={}, actByWk={};
+    arr.forEach(function(c){ var z=classifyPva(c); if(!z.pWk)return;
+      if(!byP[z.pWk])byP[z.pWk]={planned:0,ontime:0,early:0,late:0,pending:0};
+      var g=byP[z.pWk]; g.planned++; g[z.status]++;
+      if(z.aWk){ actByWk[z.aWk]=(actByWk[z.aWk]||0)+1; }
+    });
+    var keys=Object.keys(byP).sort();
+    var internal=!!window.P670_INTERNAL;
+    var tot={planned:0,ontime:0,early:0,late:0,pending:0,act:0};
+    var doneHdr=internal?'On-time':'Completed';
+    var cols=[{l:'Week (planned)',w:170,a:'start'},{l:'Planned',w:80,a:'end'},{l:doneHdr,w:100,a:'end'},{l:'Early',w:70,a:'end'}];
+    if(internal) cols.push({l:'Late',w:70,a:'end'});
+    cols.push({l:'Pending',w:80,a:'end'});
+    cols.push({l:'Delivered here',w:110,a:'end'});
+    var rows=keys.map(function(k){
+      var g=byP[k], act=actByWk[k]||0;
+      tot.planned+=g.planned;tot.ontime+=g.ontime;tot.early+=g.early;tot.late+=g.late;tot.pending+=g.pending;tot.act+=act;
+      var doneCell=internal?g.ontime:(g.ontime+g.late);
+      var vals=[wkLabel(k).replace('Week of ',''), g.planned, doneCell, g.early||0];
+      if(internal) vals.push(g.late||0);
+      vals.push(g.pending||0);
+      vals.push(act);
+      return vals;
+    });
+    var totDone=internal?tot.ontime:(tot.ontime+tot.late);
+    var totVals=['Grand Total', tot.planned, totDone, tot.early];
+    if(internal) totVals.push(tot.late);
+    totVals.push(tot.pending);
+    totVals.push(tot.act);
+    return wkTableSVG('Planned vs Actual by Week', cols, rows, totVals);
+  }
+  function copyWkPvaImage(){ wkCopySVG(buildWkPvaSVG(), 'Planned_vs_Actual_by_Week_Jul13.png', 'wk-copy-pva'); }
+
   /* ---- Cumulative Progress (Target vs Delivered as of a chosen week) ---- */
   var cpCutoff=null;
   function cpToday(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -13339,6 +13550,10 @@ const ggSel = f.gradeGroups || ['all'];
     if(cpsel&&!cpsel._wired){ cpsel._wired=true; cpsel.addEventListener('change',function(){ cpCutoff=cpsel.value; renderCumProgress(); }); }
     var cpc=document.getElementById('cp-copy-img');
     if(cpc&&!cpc._wired){ cpc._wired=true; cpc.addEventListener('click',cpCopyImage); }
+    var wkcr=document.getElementById('wk-copy-rollup');
+    if(wkcr&&!wkcr._wired){ wkcr._wired=true; wkcr.addEventListener('click',copyWkRollupImage); }
+    var wkcp=document.getElementById('wk-copy-pva');
+    if(wkcp&&!wkcp._wired){ wkcp._wired=true; wkcp.addEventListener('click',copyWkPvaImage); }
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wire);else wire();
 })();
@@ -13359,6 +13574,17 @@ const ggSel = f.gradeGroups || ['all'];
   var bsMode='count';  /* 'count' = bars scaled by volume; 'pct' = 100% stacked */
   var COLS=[{k:'subject',l:'Subject'},{k:'grade',l:'Grade'},{k:'focus',l:'Focus Course'},{k:'baseline',l:'Deliver &amp; SO'},{k:'status',l:'Status'}];
   var bsScope='all';  /* 'all' = delivered so far (cumulative); 'thisweek' = courses planned for the current week */
+  var stSortKey='state', stSortDir='asc';  /* sort for the top-level By State · Course Detail summary table */
+  var ST_COLS=[{k:'state',l:'State'},{k:'total',l:'Total Courses'},{k:'deliv',l:'Delivered'},{k:'pending',l:'Pending'},{k:'pct',l:'% Complete'}];
+  function stSortVal(o,st,k){ if(k==='state')return st.toLowerCase(); if(k==='total')return o.total; if(k==='deliv')return o.deliv; if(k==='pending')return o.total-o.deliv; if(k==='pct')return pct(o.deliv,o.total); return ''; }
+  function sortStates(by,states){
+    return states.slice().sort(function(a,b){
+      var x=stSortVal(by[a],a,stSortKey), y=stSortVal(by[b],b,stSortKey);
+      var r=(x<y?-1:(x>y?1:0));
+      if(r===0) r=a.localeCompare(b);
+      return stSortDir==='asc'?r:-r;
+    });
+  }
   function bsMonday(iso){ var p=String(iso).slice(0,10).split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); if(isNaN(d.getTime()))return null; var dow=(d.getDay()+6)%7; d.setDate(d.getDate()-dow); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
   function bsPlanned(c){ return (c._w!=null)?c._w:(c.p&&c.p[6]); }
   function bsThisWeek(){ var d=new Date(); return bsMonday(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')); }
@@ -13399,10 +13625,11 @@ const ggSel = f.gradeGroups || ['all'];
     var host=document.getElementById('bs-table'); if(!host)return;
     var arr=courseList(), by={};
     arr.forEach(function(c){ var st=c.st||'(Unknown)'; if(!by[st])by[st]={total:0,deliv:0,courses:[]}; by[st].total++; if(dl(c))by[st].deliv++; by[st].courses.push(c); });
-    var states=Object.keys(by).sort();
+    var states=sortStates(by,Object.keys(by));
     var T=arr.length,D=arr.filter(dl).length,P=T-D;
     if(!T){ host.innerHTML='<p style="padding:18px;color:var(--ink-3);text-align:center">No courses match the current toggles.</p>'; return; }
-    var html='<table class="lst-table"><thead><tr><th>State</th><th class="num">Total Courses</th><th class="num">Delivered</th><th class="num">Pending</th><th class="num">% Complete</th></tr></thead><tbody>';
+    var stHead=ST_COLS.map(function(co){ var on=stSortKey===co.k; var ar=on?(stSortDir==='asc'?' &#9650;':' &#9660;'):''; var numCls=(co.k==='state')?'':' num'; return '<th class="bs-st-sortth'+numCls+'" style="cursor:pointer" data-stcol="'+co.k+'">'+co.l+ar+'</th>'; }).join('');
+    var html='<table class="lst-table"><thead><tr>'+stHead+'</tr></thead><tbody>';
     html+='<tr class="lst-total"><td>All states ('+states.length+')</td><td class="num">'+T+'</td><td class="num">'+D+'</td><td class="num">'+P+'</td><td class="num">'+pct(D,T)+'%</td></tr>';
     states.forEach(function(st){ var o=by[st], p=o.total-o.deliv, pc=pct(o.deliv,o.total), open=!!openStates[st], barW=Math.round(pc);
       html+='<tr class="lst-strow'+(open?' open':'')+'" data-st="'+esc(st)+'"><td><span class="lst-caret">'+(open?'&#9662;':'&#9656;')+'</span> <span class="lst-minibar"><span style="width:'+barW+'%"></span></span> <span class="lst-state">'+esc(st)+'</span></td><td class="num">'+o.total+'</td><td class="num">'+o.deliv+'</td><td class="num">'+p+'</td><td class="num">'+pc+'%</td></tr>';
@@ -13450,7 +13677,7 @@ const ggSel = f.gradeGroups || ['all'];
   function buildBsTableSVG(){
     var arr=courseList(), by={};
     arr.forEach(function(c){ var st=c.st||'(Unknown)'; if(!by[st])by[st]={total:0,deliv:0}; by[st].total++; if(dl(c))by[st].deliv++; });
-    var states=Object.keys(by).sort();
+    var states=sortStates(by,Object.keys(by));
     var T=arr.length, D=arr.filter(dl).length;
     var cols=[{l:'State',w:210,a:'start'},{l:'Total Courses',w:120,a:'end'},{l:'Delivered',w:100,a:'end'},{l:'Pending',w:90,a:'end'},{l:'% Complete',w:110,a:'end'}];
     var rows=[{c:'All states ('+states.length+')',t:T,d:D,p:T-D,pc:pct(D,T),tot:true}].concat(states.map(function(s){var o=by[s];return {c:s,t:o.total,d:o.deliv,p:o.total-o.deliv,pc:pct(o.deliv,o.total),tot:false};}));
@@ -13507,7 +13734,7 @@ const ggSel = f.gradeGroups || ['all'];
 
   function wire(){
     var host=document.getElementById('bs-table');
-    if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var th=e.target.closest('.bs-sortth'); if(th){ var k=th.getAttribute('data-col'); if(sortKey===k){sortDir=(sortDir==='asc'?'desc':'asc');}else{sortKey=k;sortDir='asc';} renderTable(); return; } var row=e.target.closest('.lst-strow'); if(!row)return; var st=row.getAttribute('data-st'); openStates[st]=!openStates[st]; renderTable(); }); }
+    if(host&&!host._wired){ host._wired=true; host.addEventListener('click',function(e){ var sth=e.target.closest('.bs-st-sortth'); if(sth){ var sk=sth.getAttribute('data-stcol'); if(stSortKey===sk){stSortDir=(stSortDir==='asc'?'desc':'asc');}else{stSortKey=sk;stSortDir='asc';} renderTable(); return; } var th=e.target.closest('.bs-sortth'); if(th){ var k=th.getAttribute('data-col'); if(sortKey===k){sortDir=(sortDir==='asc'?'desc':'asc');}else{sortKey=k;sortDir='asc';} renderTable(); return; } var row=e.target.closest('.lst-strow'); if(!row)return; var st=row.getAttribute('data-st'); openStates[st]=!openStates[st]; renderTable(); }); }
     var modes=document.getElementById('bs-modes');
     if(modes&&!modes._wired){ modes._wired=true; modes.addEventListener('click',function(e){ var b=e.target.closest('.bs-modebtn'); if(!b)return; bsMode=b.getAttribute('data-bsmode'); Array.prototype.forEach.call(modes.querySelectorAll('.bs-modebtn'),function(x){ x.classList.toggle('active', x===b); }); renderChart(); }); }
     var scope=document.getElementById('bs-scope');

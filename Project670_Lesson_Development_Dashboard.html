@@ -2136,6 +2136,7 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
 </style>
 </head>
 <body>
+<script>/* Internal view toggle: add ?internal to the URL to reveal internal-only figures (e.g. Late). Client URL (no param) hides them. */ window.P670_INTERNAL = /[?&]internal\b/i.test(location.search || '');</script>
 
 <div class="app">
 
@@ -12983,8 +12984,10 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
         });
         Array.prototype.forEach.call(host.querySelectorAll('.qr-btn'), function(b){ var k=b.getAttribute('data-week'); var a=agg[k]||{plan:0,prev:0,done:0,late:0,pend:0}; var rem=a.plan-a.prev; var mini=b.querySelector('.wk-mini'); if(!mini) return;
           function row(cls,lbl,v,ttl){ return '<span class="wkm-row'+(cls?' '+cls:'')+'"'+(ttl?' title="'+ttl+'"':'')+'><span class="wkm-k">'+lbl+'</span><span class="wkm-v">'+v+'</span></span>'; }
-          var h=row('','Ori. Plan',a.plan,'Originally planned for this week')+row('wkm-prev','Del. Earlier',a.prev,'Delivered in an earlier week')+row('','Revised',rem,'Revised this week = Ori. Plan minus Delivered earlier')+row('wkm-done','Completed',a.done,'Completed on-time this week')+row('wkm-pend','Pend',a.pend,'Pending — not yet delivered');
-          if(a.late>0) h+=row('wkm-late','Late',a.late,'Delivered in a later week');
+          var internal=!!window.P670_INTERNAL;
+          var completed=internal?a.done:(a.done+a.late);  // client: fold late-delivered into Completed
+          var h=row('','Ori. Plan',a.plan,'Originally planned for this week')+row('wkm-prev','Del. Earlier',a.prev,'Delivered in an earlier week')+row('','Revised',rem,'Revised this week = Ori. Plan minus Delivered earlier')+row('wkm-done','Completed',completed,internal?'Completed on-time this week':'Delivered (of the revised plan for this week)')+row('wkm-pend','Pend',a.pend,'Pending — not yet delivered');
+          if(internal && a.late>0) h+=row('wkm-late','Late',a.late,'Delivered in a later week');
           mini.innerHTML=h;
         });
         // cumulative chips (Planned / Completed / Pending) by planned week
@@ -13202,22 +13205,29 @@ const ggSel = Array.from(document.querySelectorAll('#v8-f-gradegroup option')).f
     });
     var keys=Object.keys(byP).sort();
     if(!keys.length){ host.innerHTML='<p style="padding:16px;color:var(--ink-3);text-align:center">No courses match the current filters.</p>'; return; }
+    var internal=!!window.P670_INTERNAL;
     var tot={planned:0,ontime:0,early:0,late:0,pending:0,act:0};
-    var LBL={ontime:'On-time',early:'Early',late:'Late',pending:'Pending'};
+    function statLabel(s){ if(!internal) return (s==='ontime'||s==='late')?'Completed':{early:'Early',pending:'Pending'}[s]; return {ontime:'On-time',early:'Early',late:'Late',pending:'Pending'}[s]; }
+    function statCls(s){ return (!internal && s==='late') ? 'pva-ontime' : ('pva-'+s); }
+    var colspan=internal?7:6;
     var rows=keys.map(function(k){ var g=byP[k]; var act=actByWk[k]||0; var open=!!openPva[k];
       tot.planned+=g.planned;tot.ontime+=g.ontime;tot.early+=g.early;tot.late+=g.late;tot.pending+=g.pending;tot.act+=act;
-      var head='<tr class="pva-row'+(open?' open':'')+'" data-pva="'+esc(k)+'"><td><span class="wsd-caret">'+(open?'&#9662;':'&#9656;')+'</span> '+wkLabel(k)+'</td><td class="num"><b>'+g.planned+'</b></td><td class="num pva-c-ontime">'+g.ontime+'</td><td class="num pva-c-early">'+(g.early||'')+'</td><td class="num pva-c-late">'+(g.late||'')+'</td><td class="num pva-c-pend">'+(g.pending||'')+'</td><td class="num">'+act+'</td></tr>';
+      var doneCell=internal?g.ontime:(g.ontime+g.late);  // client: Completed folds in late-delivered
+      var cells='<td class="num"><b>'+g.planned+'</b></td><td class="num pva-c-ontime">'+doneCell+'</td><td class="num pva-c-early">'+(g.early||'')+'</td>'+(internal?'<td class="num pva-c-late">'+(g.late||'')+'</td>':'')+'<td class="num pva-c-pend">'+(g.pending||'')+'</td><td class="num">'+act+'</td>';
+      var head='<tr class="pva-row'+(open?' open':'')+'" data-pva="'+esc(k)+'"><td><span class="wsd-caret">'+(open?'&#9662;':'&#9656;')+'</span> '+wkLabel(k)+'</td>'+cells+'</tr>';
       var body='';
       if(open){
         var cs=g.courses.slice().sort(function(a,b){ var o={ontime:0,pending:1,early:2,late:3}; return (o[a.z.status]-o[b.z.status])||(a.c.s||'').localeCompare(b.c.s||'')||(a.c.st||'').localeCompare(b.c.st||''); });
-        body='<tr class="pva-acc"><td colspan="7"><div class="pva-accbox"><table class="wsd-sub"><thead><tr><th>Subject</th><th>State</th><th>Grade</th><th>Focus Course</th><th>Planned</th><th>Actual</th><th>Status</th></tr></thead><tbody>'+
-          cs.map(function(o){ var c=o.c,z=o.z; return '<tr><td>'+esc(subjShort(c.s))+'</td><td>'+esc(c.st||'')+'</td><td>'+esc(c.gr||'')+'</td><td>'+esc(c.fn||c.cn||'')+'</td><td>'+fmtD(plannedOf(c))+'</td><td>'+(c.ad?fmtD(c.ad):'&mdash;')+'</td><td><span class="pva-stat pva-'+z.status+'">'+LBL[z.status]+'</span></td></tr>'; }).join('')+
+        body='<tr class="pva-acc"><td colspan="'+colspan+'"><div class="pva-accbox"><table class="wsd-sub"><thead><tr><th>Subject</th><th>State</th><th>Grade</th><th>Focus Course</th><th>Planned</th><th>Actual</th><th>Status</th></tr></thead><tbody>'+
+          cs.map(function(o){ var c=o.c,z=o.z; return '<tr><td>'+esc(subjShort(c.s))+'</td><td>'+esc(c.st||'')+'</td><td>'+esc(c.gr||'')+'</td><td>'+esc(c.fn||c.cn||'')+'</td><td>'+fmtD(plannedOf(c))+'</td><td>'+(c.ad?fmtD(c.ad):'&mdash;')+'</td><td><span class="pva-stat '+statCls(z.status)+'">'+statLabel(z.status)+'</span></td></tr>'; }).join('')+
           '</tbody></table></div></td></tr>';
       }
       return head+body;
     }).join('');
-    host.innerHTML='<table class="wkroll pva-table"><thead><tr><th>Week (planned)</th><th class="num">Planned</th><th class="num">On-time</th><th class="num">Early</th><th class="num">Late</th><th class="num">Pending</th><th class="num" title="Courses whose ACTUAL delivery landed in this week (from any planned week)">Delivered here</th></tr></thead><tbody>'+rows+
-      '<tr class="wk-tot"><td>Grand Total</td><td class="num">'+tot.planned+'</td><td class="num">'+tot.ontime+'</td><td class="num">'+tot.early+'</td><td class="num">'+tot.late+'</td><td class="num">'+tot.pending+'</td><td class="num">'+tot.act+'</td></tr></tbody></table>';
+    var doneHdr=internal?'On-time':'Completed', totDone=internal?tot.ontime:(tot.ontime+tot.late);
+    var thead='<thead><tr><th>Week (planned)</th><th class="num">Planned</th><th class="num">'+doneHdr+'</th><th class="num">Early</th>'+(internal?'<th class="num">Late</th>':'')+'<th class="num">Pending</th><th class="num" title="Courses whose ACTUAL delivery landed in this week (from any planned week)">Delivered here</th></tr></thead>';
+    var totrow='<tr class="wk-tot"><td>Grand Total</td><td class="num">'+tot.planned+'</td><td class="num">'+totDone+'</td><td class="num">'+tot.early+'</td>'+(internal?'<td class="num">'+tot.late+'</td>':'')+'<td class="num">'+tot.pending+'</td><td class="num">'+tot.act+'</td></tr>';
+    host.innerHTML='<table class="wkroll pva-table">'+thead+'<tbody>'+rows+totrow+'</tbody></table>';
   }
 
   /* ---- Cumulative Progress (Target vs Delivered as of a chosen week) ---- */

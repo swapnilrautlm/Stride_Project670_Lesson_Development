@@ -15799,14 +15799,14 @@ window.P670_DATA_ANC = {generatedAt:'embedded snapshot', records:[{"s":"Math","s
     Array.prototype.forEach.call(kpis,function(k){ var lb=k.querySelector('.cp-k'),nu=k.querySelector('.cp-v'),su=k.querySelector('.cp-sub'); cells.push([lb?lb.textContent:'',nu?nu.textContent:'',su?su.textContent:'']); });
     var pad=20,cw=250,ch=80,gap=12,cols=3,rows=Math.ceil((cells.length||1)/cols),W=pad*2+cols*cw+(cols-1)*gap,H=52+rows*ch+(rows-1)*gap+pad;
     var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" font-family="Arial,Helvetica,sans-serif"><rect width="'+W+'" height="'+H+'" fill="#fff"/>';
-    s+='<text x="'+pad+'" y="32" font-size="15" font-weight="700" fill="#0A1438">Ancillary Cumulative Progress ('+stepLabel()+')</text>';
+    s+='<text x="'+pad+'" y="32" font-size="15" font-weight="700" fill="#0A1438">'+sx('Ancillary Cumulative Progress ('+stepLabel()+')')+'</text>';
     cells.forEach(function(c,i){ var r=Math.floor(i/cols),col=i%cols,x=pad+col*(cw+gap),y=48+r*(ch+gap); s+='<rect x="'+x+'" y="'+y+'" width="'+cw+'" height="'+ch+'" rx="8" fill="#F7F9FC" stroke="#DCE6F2"/>'; s+='<text x="'+(x+12)+'" y="'+(y+22)+'" font-size="10.5" fill="#5A6480">'+sx(c[0])+'</text>'; s+='<text x="'+(x+12)+'" y="'+(y+52)+'" font-size="24" font-weight="700" fill="#0A1438">'+sx(c[1])+'</text>'; s+='<text x="'+(x+12)+'" y="'+(y+70)+'" font-size="9.5" fill="#8A93A8">'+sx(c[2])+'</text>'; });
     s+='</svg>'; return {svg:s,w:W,h:H}; }
 
   function buildMonthsSVG(){ var ms=monthly(); var cols=Math.min(3,ms.length||1),rows=Math.ceil((ms.length||1)/cols);
     var cw=300,gap=16,pad=20,titleH=32,cardH=150,W=pad*2+cols*cw+(cols-1)*gap,H=pad*2+titleH+rows*cardH+(rows-1)*gap;
     var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" font-family="Arial,Helvetica,sans-serif"><rect width="'+W+'" height="'+H+'" fill="#fff"/>';
-    s+='<text x="'+pad+'" y="'+(pad+20)+'" font-size="15" font-weight="700" fill="#0A1438">Ancillary by Month ('+stepLabel()+')</text>';
+    s+='<text x="'+pad+'" y="'+(pad+20)+'" font-size="15" font-weight="700" fill="#0A1438">'+sx('Ancillary by Month ('+stepLabel()+')')+'</text>';
     ms.forEach(function(m,idx){ var col=idx%cols,row=Math.floor(idx/cols),x=pad+col*(cw+gap),y=pad+titleH+row*(cardH+gap);
       s+='<rect x="'+x+'" y="'+y+'" width="'+cw+'" height="'+cardH+'" rx="8" fill="#F7F9FC" stroke="#DCE6F2"/>';
       s+='<text x="'+(x+12)+'" y="'+(y+22)+'" font-size="12" font-weight="700" fill="#0A1438">'+sx(monthLabel(m.date).toUpperCase())+'</text>';

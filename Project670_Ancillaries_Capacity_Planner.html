@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Project 670 · Ancillaries Capacity Planner</title>
+<style>
+:root{
+  --stride-blue:#2127C2; --stride-navy:#000E64; --stride-orange:#EF6100;
+  --ink:#0A1438; --ink-2:#2E3A5C; --ink-3:#6E7891; --line:#E4E9F2; --line-2:#C9D3E5;
+  --bg:#F4F7FC; --card:#FFFFFF; --good:#1F7A3E; --good-bg:#DCEFE2; --warn:#B85C00; --warn-bg:#FBE9DF;
+  --risk:#B0202A; --risk-bg:#FBE3E3; --grey-bg:#EDEDED;
+  --subj-math:#2127C2; --subj-ela:#000E64; --subj-sci:#2A72CB; --subj-ss:#A04400;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+.wrap{max-width:1400px;margin:0 auto;padding:18px 22px 60px}
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--stride-navy);padding-bottom:12px;margin-bottom:16px}
+.topbar h1{font-size:20px;margin:0;color:var(--stride-navy);font-weight:800}
+.topbar .sub{font-size:12px;color:var(--ink-3)}
+.livepill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:3px 10px}
+.livedot{width:7px;height:7px;border-radius:50%;background:var(--good)}
+.is-loading .livepill{color:var(--ink-3);border-color:var(--line)} .is-loading .livedot{background:var(--ink-3)}
+.btn{font-family:inherit;font-size:12px;font-weight:600;padding:6px 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--card);color:var(--stride-blue);cursor:pointer}
+.btn:hover{border-color:var(--stride-blue);background:rgba(33,39,194,.04)}
+.spacer{margin-left:auto}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi .label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+.kpi .num{font-size:28px;font-weight:800;color:var(--stride-navy)}
+.kpi .num.good{color:var(--good)} .kpi .num.warn{color:var(--warn)} .kpi .num.blue{color:var(--stride-blue)}
+.kpi .sub{font-size:10.5px;color:var(--ink-3)}
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:16px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:11px;font-weight:600;color:var(--ink-3)}
+.filters select,.filters input{font-family:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line-2);border-radius:7px;background:var(--card);color:var(--ink);min-width:150px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stride-orange);margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:20px;height:3px;background:var(--stride-orange);border-radius:2px}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.person{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.person .pname{font-size:14px;font-weight:800;color:var(--stride-navy);display:flex;justify-content:space-between;align-items:baseline}
+.person .pcount{font-size:20px;font-weight:800;color:var(--stride-blue)}
+.person .prow{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-2);margin-top:5px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:9px}
+.chip.done{background:var(--good-bg);color:var(--good)} .chip.wip{background:#E7ECFF;color:var(--stride-blue)}
+.chip.block{background:var(--risk-bg);color:var(--risk)} .chip.yts{background:var(--grey-bg);color:var(--ink-3)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tbl-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.tbl-tools input{font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--line-2);border-radius:7px;min-width:240px}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+thead th{background:#E6EDF9;color:var(--stride-navy);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;padding:8px 10px;text-align:left;cursor:pointer;white-space:nowrap;position:sticky;top:0}
+td{padding:7px 10px;border-top:1px solid var(--line);white-space:nowrap}
+tbody tr:hover td{background:rgba(220,230,242,.35)}
+.tblwrap{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.subj-pill{font-size:10px;font-weight:700;padding:1px 7px;border-radius:9px;color:#fff}
+.subj-pill.math{background:var(--subj-math)} .subj-pill.ela{background:var(--subj-ela)} .subj-pill.sci{background:var(--subj-sci)} .subj-pill.ss{background:var(--subj-ss)}
+.stat{font-size:10px;font-weight:700;padding:1px 8px;border-radius:9px}
+.stat.done{background:var(--good-bg);color:var(--good)} .stat.wip{background:#E7ECFF;color:var(--stride-blue)}
+.stat.block{background:var(--risk-bg);color:var(--risk)} .stat.yts{background:var(--grey-bg);color:var(--ink-3)}
+.empty{padding:40px;text-align:center;color:var(--ink-3);font-size:14px}
+.note{font-size:11px;color:var(--ink-3);margin-top:6px}
+/* Person × Workflow heatmap */
+.hmwrap{max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.hmtbl{border-collapse:separate;border-spacing:0;font-size:12px;width:100%}
+.hmtbl th,.hmtbl td{padding:6px 9px;text-align:center;white-space:nowrap;border-bottom:1px solid var(--line)}
+.hmtbl thead th{background:#E6EDF9;color:var(--stride-navy);font-size:10px;text-transform:uppercase;letter-spacing:.02em;position:sticky;top:0;z-index:2}
+.hmtbl th.rowh,.hmtbl td.rowh{text-align:left;font-weight:700;color:var(--stride-navy);position:sticky;left:0;background:var(--card);max-width:190px;overflow:hidden;text-overflow:ellipsis;z-index:1}
+.hmtbl thead th.rowh{z-index:3}
+.hmtbl td.hc{font-weight:700;color:var(--ink)}
+.hmtbl td.z{color:var(--line-2);font-weight:400}
+.hmtbl .tot{font-weight:800;color:var(--stride-blue);background:#F4F7FC}
+.hmtbl td.rowh.tot,.hmtbl tr:last-child td{border-bottom:none}
+/* State leaderboard */
+.lb{display:flex;align-items:center;gap:10px;padding:5px 2px;font-size:12.5px}
+.lb .lbname{width:140px;flex:none;font-weight:700;color:var(--stride-navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .lbbar{flex:1;height:14px;background:var(--grey-bg);border-radius:7px;overflow:hidden;min-width:80px}
+.lb .lbbar u{display:block;height:100%;background:var(--good);border-radius:7px}
+.lb .lbpct{width:44px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.lb .lbcnt{width:74px;text-align:right;color:var(--ink-3);font-size:11px;font-variant-numeric:tabular-nums}
+.lb-sort.active{border-color:var(--stride-blue);background:rgba(33,39,194,.06)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar" id="topbar">
+    <div>
+      <h1>Ancillaries Capacity Planner</h1>
+      <div class="sub">Project 670 &middot; who is working on which workflow, across all 30 state trackers &amp; subjects</div>
+    </div>
+    <span class="livepill" id="livepill"><span class="livedot"></span><span id="pilltext">Live data</span></span>
+    <span class="sub" id="syncinfo">Loading…</span>
+    <div class="spacer"></div>
+    <button class="btn" id="refreshBtn" type="button">Refresh</button>
+    <button class="btn" id="csvBtn" type="button">CSV</button>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="filters" id="filters">
+    <label>Person<select id="f-person"><option value="all">All people</option></select></label>
+    <label>State<select id="f-state"><option value="all">All states</option></select></label>
+    <label>Subject<select id="f-subject"><option value="all">All subjects</option></select></label>
+    <label>Workflow<select id="f-workflow"><option value="all">All workflows</option></select></label>
+    <label>Status group<select id="f-statusgroup">
+      <option value="all">All statuses</option>
+      <option value="yts">Not started (YTS/NA/blank)</option>
+      <option value="wip">In progress (WIP/Assigned)</option>
+      <option value="block">Blocked / Fixes required</option>
+      <option value="done">Completed</option>
+    </select></label>
+    <label style="margin-left:auto">&nbsp;<button class="btn" id="resetBtn" type="button">Reset filters</button></label>
+  </div>
+
+  <div class="eyebrow">Capacity by Person</div>
+  <div class="people" id="people"></div>
+
+  <div class="eyebrow">Person &times; Workflow &middot; task load</div>
+  <div class="card">
+    <div id="heatmap"></div>
+    <div class="note">Each cell is the number of tasks that person owns in that workflow &mdash; darker means more. Respects the filters above.</div>
+  </div>
+
+  <div class="eyebrow">State progress &middot; assigned work</div>
+  <div class="card">
+    <div class="tbl-tools"><span class="sub">Sort by</span>
+      <button class="btn lb-sort active" data-s="pct" type="button">% complete</button>
+      <button class="btn lb-sort" data-s="vol" type="button">Volume</button>
+    </div>
+    <div id="leaderboard"></div>
+    <div class="note">Share of each state's <b>assigned</b> tasks marked Complete. Only assigned tasks appear here (the feed excludes empty Assigned-To cells) &mdash; for overall course delivery, see the client dashboard.</div>
+  </div>
+
+  <div class="eyebrow">Assignments &middot; who is working on what</div>
+  <div class="card">
+    <div class="tbl-tools"><input type="text" id="search" placeholder="Search person, state, focus course…"/><span class="sub" id="rowcount"></span></div>
+    <div class="tblwrap"><div id="table"></div></div>
+  </div>
+</div>
+
+<script>
+/* Uses the SAME web app as the Ancillary tab (merged doGet), with ?feed=capacity.
+   If you redeploy to a new URL, update the base below (keep ?feed=capacity). */
+var WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyHKtVHbCs8GcO5ctpDzZ8WlTRDQle6jnbkOor6RxCCrlrBaCm-AvDtwyJ-G9hSn2ZI/exec?feed=capacity";
+
+var TASKS = [];
+var F = {person:'all',state:'all',subject:'all',workflow:'all',statusgroup:'all',search:''};
+var sortKey='person', sortDir='asc';
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(m){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m];}); }
+function subjClass(s){ return ({'Math':'math','ELA':'ela','Science':'sci','Social Studies':'ss','SST':'ss'})[s]||''; }
+function statusGroup(st){ st=String(st||'').toLowerCase();
+  if(/complete/.test(st)) return 'done';
+  if(st.indexOf('blocked')>=0 || /fixes required/.test(st)) return 'block';
+  if(st.indexOf('wip')>=0 || st.indexOf('assigned')>=0) return 'wip';
+  return 'yts'; }
+function statLabel(st){ return st && String(st).trim() ? st : 'YTS'; }
+function uniq(a){ var s={},o=[]; a.forEach(function(x){ if(x!=null&&x!==''&&!s[x]){s[x]=1;o.push(x);} }); return o.sort(); }
+
+function filtered(){
+  var q=F.search.toLowerCase();
+  return TASKS.filter(function(t){
+    if(F.person!=='all' && t.person!==F.person) return false;
+    if(F.state!=='all' && t.state!==F.state) return false;
+    if(F.subject!=='all' && t.subject!==F.subject) return false;
+    if(F.workflow!=='all' && t.workflow!==F.workflow) return false;
+    if(F.statusgroup!=='all' && statusGroup(t.status)!==F.statusgroup) return false;
+    if(q){ var hay=[t.person,t.state,t.subject,t.grade,t.focus,t.workflow,t.status].join(' ').toLowerCase(); if(hay.indexOf(q)<0) return false; }
+    return true;
+  });
+}
+
+function renderSummary(){
+  var rows=filtered();
+  var people=uniq(rows.map(function(t){return t.person;}));
+  var byG={done:0,wip:0,block:0,yts:0};
+  rows.forEach(function(t){ byG[statusGroup(t.status)]++; });
+  var host=document.getElementById('summary');
+  host.innerHTML=
+    kpi('Assigned tasks',rows.length,'blue','across all trackers')+
+    kpi('People',people.length,'','with at least one task')+
+    kpi('In progress',byG.wip,'blue','WIP / Assigned')+
+    kpi('Completed',byG.done,'good',pctTxt(byG.done,rows.length))+
+    kpi('Blocked / fixes',byG.block,'warn','need attention')+
+    kpi('Not started',byG.yts,'','YTS / NA / blank');
+}
+function kpi(l,n,cls,sub){ return '<div class="kpi"><div class="label">'+l+'</div><div class="num '+(cls||'')+'">'+n+'</div><div class="sub">'+(sub||'')+'</div></div>'; }
+function pctTxt(a,b){ return b?Math.round(a/b*100)+'% of shown':''; }
+
+function renderPeople(){
+  var rows=filtered(), by={};
+  rows.forEach(function(t){ var p=t.person||'(unassigned)'; if(!by[p])by[p]={total:0,done:0,wip:0,block:0,yts:0,wf:{}}; var o=by[p]; o.total++; o[statusGroup(t.status)]++; o.wf[t.workflow]=(o.wf[t.workflow]||0)+1; });
+  var names=Object.keys(by).sort(function(a,b){return by[b].total-by[a].total||a.localeCompare(b);});
+  var host=document.getElementById('people');
+  if(!names.length){ host.innerHTML='<div class="empty">No assignments match the current filters. Once teams fill in the <b>Assigned To</b> columns in the trackers, they will appear here.</div>'; return; }
+  host.innerHTML=names.map(function(p){ var o=by[p];
+    var chips=''; if(o.done)chips+='<span class="chip done">'+o.done+' done</span>'; if(o.wip)chips+='<span class="chip wip">'+o.wip+' WIP</span>'; if(o.block)chips+='<span class="chip block">'+o.block+' blocked</span>'; if(o.yts)chips+='<span class="chip yts">'+o.yts+' not started</span>';
+    var wf=Object.keys(o.wf).sort(function(a,b){return o.wf[b]-o.wf[a];}).slice(0,3).map(function(w){return esc(w)+' ('+o.wf[w]+')';}).join(', ');
+    return '<div class="person"><div class="pname"><span>'+esc(p)+'</span><span class="pcount">'+o.total+'</span></div>'+
+      '<div class="chips">'+chips+'</div>'+
+      '<div class="prow"><span>'+esc(wf)+(Object.keys(o.wf).length>3?' …':'')+'</span></div></div>';
+  }).join('');
+}
+
+var COLS=[['person','Person'],['state','State'],['subject','Subject'],['grade','Grade'],['focus','Focus Course'],['lesson','Lesson #'],['workflow','Workflow'],['status','Status'],['baseline','Baseline'],['plan','Plan'],['actual','Actual']];
+function renderTable(){
+  var rows=filtered().slice();
+  rows.sort(function(a,b){ var x=a[sortKey],y=b[sortKey]; if(sortKey==='lesson'){x=+x||0;y=+y||0;} else {x=String(x||'').toLowerCase();y=String(y||'').toLowerCase();} var r=(x<y?-1:(x>y?1:0)); if(r===0){r=String(a.person).localeCompare(String(b.person));} return sortDir==='asc'?r:-r; });
+  document.getElementById('rowcount').textContent=rows.length+' task'+(rows.length===1?'':'s');
+  var head=COLS.map(function(c){ var on=sortKey===c[0]; var ar=on?(sortDir==='asc'?' ▲':' ▼'):''; return '<th data-k="'+c[0]+'">'+c[1]+ar+'</th>'; }).join('');
+  var body=rows.map(function(t){ var g=statusGroup(t.status);
+    return '<tr><td><b>'+esc(t.person)+'</b></td><td>'+esc(t.state)+'</td><td><span class="subj-pill '+subjClass(t.subject)+'">'+esc(t.subject)+'</span></td><td>'+esc(t.grade)+'</td><td>'+esc(t.focus)+'</td><td>'+esc(t.lesson)+'</td><td>'+esc(t.workflow)+'</td><td><span class="stat '+g+'">'+esc(statLabel(t.status))+'</span></td><td>'+esc(t.baseline||'')+'</td><td>'+esc(t.plan||'')+'</td><td>'+esc(t.actual||'')+'</td></tr>';
+  }).join('');
+  var host=document.getElementById('table');
+  if(!rows.length){ host.innerHTML='<div class="empty">No assignments yet for the current filters.</div>'; return; }
+  host.innerHTML='<table><thead><tr>'+head+'</tr></thead><tbody>'+body+'</tbody></table>';
+  host.querySelectorAll('th').forEach(function(th){ th.addEventListener('click',function(){ var k=th.getAttribute('data-k'); if(sortKey===k)sortDir=(sortDir==='asc'?'desc':'asc'); else {sortKey=k;sortDir='asc';} renderTable(); }); });
+}
+
+function populateFilters(){
+  function fill(id,vals){ var el=document.getElementById(id); var cur=el.value; el.innerHTML=el.options[0].outerHTML+vals.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>';}).join(''); el.value=cur; }
+  fill('f-person',uniq(TASKS.map(function(t){return t.person;})));
+  fill('f-state',uniq(TASKS.map(function(t){return t.state;})));
+  fill('f-subject',uniq(TASKS.map(function(t){return t.subject;})));
+  fill('f-workflow',uniq(TASKS.map(function(t){return t.workflow;})));
+}
+/* ---- Person × Workflow heatmap ---- */
+var WF_ORDER=['Development','Review (LDG)','Media Review / Development (DSG)','CPE Review / Fixes (CPE)','Lesson Plans Development','Lesson Plans CPE'];
+var WF_SHORT={'Development':'Dev','Review (LDG)':'Review (LDG)','Media Review / Development (DSG)':'Media (DSG)','CPE Review / Fixes (CPE)':'CPE','Lesson Plans Development':'LP Dev','Lesson Plans CPE':'LP CPE'};
+function heatColor(n,max){ if(!n) return ''; var t=max?n/max:0; var a=[219,228,255],b=[33,39,194];
+  var r=Math.round(a[0]+(b[0]-a[0])*t),g=Math.round(a[1]+(b[1]-a[1])*t),bl=Math.round(a[2]+(b[2]-a[2])*t);
+  return 'background:rgb('+r+','+g+','+bl+');'+(t>0.55?'color:#fff;':''); }
+function renderHeatmap(){
+  var rows=filtered(), by={}, wfset={};
+  rows.forEach(function(t){ var p=t.person||'(unassigned)', w=t.workflow||'(none)'; if(!by[p])by[p]={}; by[p][w]=(by[p][w]||0)+1; wfset[w]=1; });
+  var host=document.getElementById('heatmap'); var people=Object.keys(by);
+  if(!people.length){ host.innerHTML='<div class="empty">No assignments yet &mdash; this grid fills in as teams add names to the Assigned-To columns.</div>'; return; }
+  var cols=WF_ORDER.filter(function(w){return wfset[w];}); Object.keys(wfset).forEach(function(w){ if(cols.indexOf(w)<0)cols.push(w); });
+  var ptot={},max=0; people.forEach(function(p){ var s=0; cols.forEach(function(w){ var n=by[p][w]||0; s+=n; if(n>max)max=n; }); ptot[p]=s; });
+  people.sort(function(a,b){return ptot[b]-ptot[a]||a.localeCompare(b);});
+  var colTot={}; cols.forEach(function(w){colTot[w]=0;});
+  var head='<th class="rowh">Person</th>'+cols.map(function(w){return '<th title="'+esc(w)+'">'+esc(WF_SHORT[w]||w)+'</th>';}).join('')+'<th class="tot">Total</th>';
+  var bodyR=people.map(function(p){
+    var tds=cols.map(function(w){ var n=by[p][w]||0; colTot[w]+=n; return '<td class="hc'+(n?'':' z')+'" style="'+heatColor(n,max)+'">'+(n||'&middot;')+'</td>'; }).join('');
+    return '<tr><td class="rowh" title="'+esc(p)+'">'+esc(p)+'</td>'+tds+'<td class="tot">'+ptot[p]+'</td></tr>';
+  }).join('');
+  var foot='<tr><td class="rowh tot">All</td>'+cols.map(function(w){return '<td class="tot">'+colTot[w]+'</td>';}).join('')+'<td class="tot">'+rows.length+'</td></tr>';
+  host.innerHTML='<div class="hmwrap"><table class="hmtbl"><thead><tr>'+head+'</tr></thead><tbody>'+bodyR+foot+'</tbody></table></div>';
+}
+
+/* ---- State progress leaderboard ---- */
+var lbSort='pct';
+function renderLeaderboard(){
+  var rows=filtered(), by={};
+  rows.forEach(function(t){ var s=t.state||'(none)'; if(!by[s])by[s]={total:0,done:0}; by[s].total++; if(statusGroup(t.status)==='done')by[s].done++; });
+  var states=Object.keys(by); var host=document.getElementById('leaderboard');
+  if(!states.length){ host.innerHTML='<div class="empty">No assigned tasks yet for the current filters.</div>'; return; }
+  states.forEach(function(s){ by[s].pct=by[s].total?by[s].done/by[s].total:0; });
+  states.sort(function(a,b){ if(lbSort==='vol')return by[b].total-by[a].total||a.localeCompare(b); return by[b].pct-by[a].pct||by[b].total-by[a].total||a.localeCompare(b); });
+  host.innerHTML=states.map(function(s){ var o=by[s], pct=Math.round(o.pct*100);
+    return '<div class="lb"><span class="lbname" title="'+esc(s)+'">'+esc(s)+'</span><div class="lbbar"><u style="width:'+pct+'%"></u></div><span class="lbpct">'+pct+'%</span><span class="lbcnt">'+o.done+'/'+o.total+'</span></div>';
+  }).join('');
+}
+
+function renderAll(){ renderSummary(); renderPeople(); renderHeatmap(); renderLeaderboard(); renderTable(); }
+
+function exportCSV(){
+  var rows=filtered(); var H=COLS.map(function(c){return c[1];});
+  var lines=[H.join(',')];
+  rows.forEach(function(t){ lines.push(COLS.map(function(c){ var v=String(t[c[0]]==null?'':t[c[0]]); return (v.indexOf(',')>=0||v.indexOf('"')>=0)?'"'+v.replace(/"/g,'""')+'"':v; }).join(',')); });
+  var blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='P670_Capacity_'+new Date().toISOString().slice(0,10)+'.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+/* ---- live JSONP ---- */
+var seq=0;
+function loadLive(){
+  var tb=document.getElementById('topbar'), si=document.getElementById('syncinfo'), pill=document.getElementById('pilltext');
+  if(!WEBAPP_URL){ si.textContent='Set WEBAPP_URL in this file to the deployed feed to load live data.'; pill.textContent='Not connected'; renderAll(); return; }
+  tb.classList.add('is-loading'); si.textContent='Loading from trackers… (first build ~20-30s)';
+  var cb='__capCB'+(++seq), done=false;
+  window[cb]=function(res){ done=true; tb.classList.remove('is-loading');
+    if(res&&res.ok&&res.tasks){ TASKS=res.tasks; populateFilters(); renderAll(); pill.textContent='Live data';
+      si.textContent='Synced from '+ (res.files||'?') +' trackers · '+res.count+' tasks · '+new Date().toLocaleString(); }
+    else { pill.textContent='Error'; si.textContent='Feed error: '+((res&&res.error)||'no data'); }
+    cleanup(); };
+  function cleanup(){ try{delete window[cb];}catch(e){window[cb]=undefined;} if(scr&&scr.parentNode)scr.parentNode.removeChild(scr); }
+  var scr=document.createElement('script'); scr.src=WEBAPP_URL+(WEBAPP_URL.indexOf('?')>-1?'&':'?')+'callback='+cb+'&t='+Date.now();
+  scr.onerror=function(){ tb.classList.remove('is-loading'); pill.textContent='Error'; si.textContent='Could not reach the feed URL.'; cleanup(); };
+  document.body.appendChild(scr);
+  setTimeout(function(){ if(!done){ tb.classList.remove('is-loading'); si.textContent='Still building from 30 trackers… give it a few seconds and click Refresh.'; } },120000);
+}
+
+document.getElementById('refreshBtn').addEventListener('click',function(){ if(WEBAPP_URL){ var u=WEBAPP_URL; WEBAPP_URL=u+(u.indexOf('?')>-1?'&':'?')+'refresh=1'; loadLive(); WEBAPP_URL=u; } else loadLive(); });
+document.getElementById('csvBtn').addEventListener('click',exportCSV);
+document.getElementById('resetBtn').addEventListener('click',function(){ F={person:'all',state:'all',subject:'all',workflow:'all',statusgroup:'all',search:''}; ['f-person','f-state','f-subject','f-workflow','f-statusgroup'].forEach(function(id){document.getElementById(id).value='all';}); document.getElementById('search').value=''; renderAll(); });
+[['f-person','person'],['f-state','state'],['f-subject','subject'],['f-workflow','workflow'],['f-statusgroup','statusgroup']].forEach(function(p){ document.getElementById(p[0]).addEventListener('change',function(){ F[p[1]]=this.value; renderAll(); }); });
+document.getElementById('search').addEventListener('input',function(){ F.search=this.value||''; renderAll(); });
+Array.prototype.forEach.call(document.querySelectorAll('.lb-sort'),function(b){ b.addEventListener('click',function(){ lbSort=b.getAttribute('data-s'); document.querySelectorAll('.lb-sort').forEach(function(x){x.classList.toggle('active',x===b);}); renderLeaderboard(); }); });
+
+loadLive();
+</script>
+</body>
+</html>

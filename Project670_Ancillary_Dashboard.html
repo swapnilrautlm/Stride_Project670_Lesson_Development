@@ -2136,6 +2136,99 @@ table.delivery-flat tbody tr.course-row:nth-child(even) td { background: #F6F9FD
 </style>
 </head>
 <body class="anc-active">
+<script>
+/* ===== P670 milestone celebration (confetti) — one-time per milestone, per browser (localStorage) ===== */
+(function(){
+  if(window.P670Milestones) return;
+  var STEPSIZE=100, reduce=false;
+  try{ reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  function ls(){ try{return window.localStorage;}catch(e){return null;} }
+  function getHW(k){ var s=ls(); if(!s)return null; var v=s.getItem(k); return v==null?null:(parseInt(v,10)||0); }
+  function setHW(k,v){ var s=ls(); if(s){ try{s.setItem(k,String(v));}catch(e){} } }
+  function buildThresholds(total){
+    total=Math.floor(total||0); if(total<=0) return [];
+    var set={}; for(var m=100;m<total;m+=100) set[m]=1;
+    var lastH=Math.floor((total-1)/100)*100, mid=lastH+50; if(mid>lastH && mid<total) set[mid]=1;  /* near-final, e.g. 950 before 997 */
+    set[total]=1;                                                                                   /* final = the last delivery; don't wait for 1000 */
+    return Object.keys(set).map(Number).sort(function(a,b){return a-b;});
+  }
+  function motivate(r,total){
+    if(r<=0) return 'Mission accomplished — every delivery is in! 🙌';
+    if(r<=25) return 'so close — final push! 💪';
+    if(r<=50) return 'the home stretch! 🏁';
+    if(r<=100) return 'almost there — keep going! 🚀';
+    var lines=['fantastic momentum, team! 🚀','keep it rolling! 🔥','great pace — well done! 👏','onward and upward! 📈'];
+    return lines[Math.abs(total-r)%lines.length];
+  }
+  function check(key,count,opts){
+    opts=opts||{}; count=Math.floor(Math.max(0,count||0));
+    var total=Math.floor(opts.total||0), thr=buildThresholds(total);
+    var reached=0; for(var i=0;i<thr.length;i++){ if(count>=thr[i]) reached=thr[i]; }
+    var hw=getHW(key);
+    if(hw==null){ setHW(key,reached); return false; }            /* silent baseline on first ever call */
+    if(reached>hw){ var fire=thr.filter(function(m){ return m>hw && m<=reached; }); setHW(key,reached); runSeq(fire,opts,total); return true; }
+    return false;
+  }
+  function runSeq(list,opts,total){ var i=0; (function nx(){ if(i>=list.length)return; var m=list[i++], fin=(total>0 && m===total); celebrate(m,opts,total,fin); setTimeout(nx, fin?6800:2900); })(); }
+  function celebrate(m,opts,total,isFinal){
+    var noun=opts.noun||'delivered', rem=Math.max(0,(total||0)-m);
+    var title=isFinal ? ('All '+m.toLocaleString()+' '+noun+' — complete!') : (m.toLocaleString()+' '+noun+'!');
+    var sub=isFinal ? 'Every delivery is in — the CEO’s cruise reaches the island! 🚢🌴'
+                    : (rem>0 ? (rem.toLocaleString()+' to go — '+motivate(rem,total||0)) : motivate(0,total||0));
+    card(isFinal?'🏆':'🎉', title, sub, isFinal);
+    if(!reduce){ var tier=m/100; confetti(isFinal?520:Math.min(90+tier*45,360), isFinal?7000:Math.min(2400+tier*260,5200));
+      if(isFinal){ setTimeout(function(){confetti(360,4000);},650); setTimeout(function(){confetti(360,4000);},1400); cruise(); } }
+  }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(m){return({'&':'&amp;','<':'&lt;','>':'&gt;'})[m];}); }
+  function card(emoji,title,sub,isFinal){
+    var old=document.getElementById('p670-cel'); if(old&&old.parentNode)old.parentNode.removeChild(old);
+    var host=document.createElement('div'); host.id='p670-cel'; host.setAttribute('role','status'); host.setAttribute('aria-live','polite');
+    host.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);z-index:2147483200;pointer-events:none;opacity:0;transition:opacity .3s cubic-bezier(.2,.8,.2,1),transform .3s cubic-bezier(.2,.8,.2,1);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';
+    var bg=isFinal?'linear-gradient(135deg,#1F7A3E 0%,#0A1438 100%)':'#0A1438';
+    host.innerHTML='<div style="background:'+bg+';color:#fff;border-radius:18px;padding:'+(isFinal?'30px 48px':'22px 40px')+';box-shadow:0 24px 70px rgba(10,20,56,.45);text-align:center;border:1px solid rgba(255,255,255,.14)">'
+      +'<div style="font-size:'+(isFinal?'64px':'48px')+';line-height:1">'+emoji+'</div>'
+      +'<div style="font-size:'+(isFinal?'30px':'24px')+';font-weight:800;margin-top:8px">'+esc(title)+'</div>'
+      +'<div style="font-size:'+(isFinal?'15px':'13.5px')+';opacity:.9;margin-top:6px">'+esc(sub)+'</div></div>';
+    document.body.appendChild(host);
+    requestAnimationFrame(function(){ host.style.opacity='1'; host.style.transform='translate(-50%,-50%) scale(1)'; });
+    setTimeout(function(){ host.style.opacity='0'; host.style.transform='translate(-50%,-50%) scale(.92)'; setTimeout(function(){ if(host.parentNode)host.parentNode.removeChild(host); },340); }, isFinal?6200:2600);
+  }
+  function confetti(n,dur){
+    var cv=document.createElement('canvas'), ctx=cv.getContext('2d'), dpr=window.devicePixelRatio||1;
+    cv.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:2147482000';
+    cv.width=innerWidth*dpr; cv.height=innerHeight*dpr; document.body.appendChild(cv);
+    var cols=['#2127C2','#EF6100','#1F7A3E','#00A3E0','#F5B400','#B0202A','#7A3FF2'], W=innerWidth, H=innerHeight, parts=[];
+    for(var i=0;i<n;i++){ parts.push({ x:W*(0.2+0.6*Math.random()), y:-20-Math.random()*H*0.3, vx:(Math.random()-0.5)*6, vy:3+Math.random()*5, g:0.12+Math.random()*0.08, s:6+Math.random()*7, rot:Math.random()*6.28, vr:(Math.random()-0.5)*0.4, c:cols[(Math.random()*cols.length)|0], sh:Math.random()<0.5?0:1 }); }
+    var t0=performance.now();
+    function frame(now){ var el=now-t0; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H); var fade=el>dur-600?Math.max(0,(dur-el)/600):1;
+      for(var i=0;i<parts.length;i++){ var p=parts[i]; p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.vx*=0.995;
+        ctx.save(); ctx.globalAlpha=fade; ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c;
+        if(p.sh) ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6); else { ctx.beginPath(); ctx.arc(0,0,p.s/2,0,6.28); ctx.fill(); } ctx.restore(); }
+      if(el<dur) requestAnimationFrame(frame); else if(cv.parentNode) cv.parentNode.removeChild(cv);
+    } requestAnimationFrame(frame);
+  }
+  function cruise(){
+    var lane=document.createElement('div'); lane.id='p670-cruise';
+    lane.style.cssText='position:fixed;left:0;right:0;bottom:8%;height:185px;z-index:2147483100;pointer-events:none;overflow:hidden;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;transition:opacity .6s';
+    var water=document.createElement('div'); water.style.cssText='position:absolute;left:0;right:0;bottom:0;height:42px;background:linear-gradient(180deg,rgba(0,163,224,0),rgba(0,163,224,.4))';
+    var island=document.createElement('div'); island.textContent='🌴🏝️🌴'; island.style.cssText='position:absolute;bottom:24px;left:14px;font-size:74px;line-height:1;filter:drop-shadow(0 6px 9px rgba(0,0,0,.22))';
+    var ship=document.createElement('div'); ship.textContent='🚢'; ship.style.cssText='position:absolute;bottom:30px;left:0;font-size:100px;line-height:1;will-change:transform;filter:drop-shadow(0 7px 11px rgba(0,0,0,.28))';
+    var banner=document.createElement('div'); banner.textContent='Land ho! The CEO’s cruise reaches the island 🌴🎉';
+    banner.style.cssText='position:absolute;bottom:145px;left:50%;transform:translateX(-50%);background:#0A1438;color:#fff;padding:7px 18px;border-radius:22px;font-weight:800;font-size:14px;box-shadow:0 8px 26px rgba(10,20,56,.4);white-space:nowrap';
+    lane.appendChild(water); lane.appendChild(island); lane.appendChild(ship); lane.appendChild(banner); document.body.appendChild(lane);
+    var W=innerWidth, startX=W+180, dockX=180, dur=6800, t0=performance.now(), settled=false;
+    function ease(p){ return 1-Math.pow(1-p,3); }   /* ease-out: decelerate into the island (landing) */
+    function fr(now){ var p=(now-t0)/dur;
+      if(p<1){ var x=dockX+(startX-dockX)*(1-ease(p)), bob=Math.sin(p*Math.PI*9)*7*(1-p*0.7), tilt=Math.sin(p*Math.PI*9)*2*(1-p);
+        ship.style.transform='translate('+x+'px,'+bob+'px) rotate('+tilt+'deg)'; requestAnimationFrame(fr); }
+      else if(!settled){ settled=true; ship.style.transform='translate('+dockX+'px,0) rotate(0deg)';
+        setTimeout(function(){ lane.style.opacity='0'; setTimeout(function(){ if(lane.parentNode)lane.parentNode.removeChild(lane); },650); },2400); }
+    }
+    requestAnimationFrame(fr);
+  }
+  window.P670Milestones={ check:check, thresholds:buildThresholds, demo:function(m,total){ var t=total||997; celebrate(m||300,{noun:'ancillary deliveries'},t,(m||300)>=t); }, reset:function(k){ var s=ls(); if(s){ if(k)s.removeItem(k); else Object.keys(s).forEach(function(x){ if(x.indexOf('p670_ms_')===0)s.removeItem(x); }); } } };
+})();
+</script>
 <div class="app">
   <!-- Brand bar -->
   <div class="brandbar">
@@ -2630,6 +2723,10 @@ window.P670_DATA_ANC = {generatedAt:'embedded snapshot 2026-07-30', records:[{"s
   function toTSV(a){ return a.map(function(r){return r.map(function(v){return String(v==null?'':v).replace(/\t/g,' ');}).join('\t');}).join('\n'); }
 
   function renderAll(){ try{renderHeadline();renderCum();renderMonthCards();renderStateBar();renderStateTable();renderWeekly();renderPva();renderWeeksBoxes();renderSchedule();}catch(e){console.error('anc render:',e.message);} }
+  /* milestone celebration: unfiltered grand total delivered for the CURRENT step (two independent tracks) */
+  function ancTotalDelivered(step){ var recs=DATA(),n=0; for(var i=0;i<recs.length;i++){ var c=recs[i]; if(step==='ot'){ if(c.otd && complete(c.ots)) n++; } else { if(c.ssd && (complete(c.sss)||!!c.ssa)) n++; } } return n; }
+  function ancTotalPossible(step){ var recs=DATA(),n=0; for(var i=0;i<recs.length;i++){ var c=recs[i]; if(step==='ot'){ if(c.otd) n++; } else { if(c.ssd) n++; } } return n; }
+  function ancCheckMilestones(){ if(!window.P670Milestones) return; window.P670Milestones.check('p670_ms_anc_'+STEP, ancTotalDelivered(STEP), {noun:stepLabel()+' ancillary deliveries', total:ancTotalPossible(STEP)}); }
   window.renderAncillaryTab=renderAll;
   window.ancLoadLive=function(){ try{ renderAll(); }catch(e){} loadLive(); };
 
@@ -2704,7 +2801,7 @@ window.P670_DATA_ANC = {generatedAt:'embedded snapshot 2026-07-30', records:[{"s
   /* ---------- live JSONP ---------- */
   var seq=0;
   function loadLive(){ if(!WEBAPP_URL) return; var tile=document.getElementById('anc-livetile'); if(tile)tile.classList.add('is-loading'); var cb='__ancCB'+(++seq); var done=false;
-    window[cb]=function(res){ done=true; try{ if(res&&res.ok&&res.records){ var _seen={},_clean=[]; (res.records||[]).forEach(function(rr){ if(!rr||!rr.fn)return; var k=(rr.st||'')+'|'+rr.fn; if(_seen[k])return; _seen[k]=1; _clean.push(rr); }); window.P670_DATA_ANC={generatedAt:res.generatedAt,records:_clean}; populate(); readF(); renderAll(); var t=document.getElementById('anc-synctime'); if(t)t.textContent=new Date().toLocaleString(); } }catch(e){console.error('anc live:',e.message);} if(tile)tile.classList.remove('is-loading'); cleanup(); };
+    window[cb]=function(res){ done=true; try{ if(res&&res.ok&&res.records){ var _seen={},_clean=[]; (res.records||[]).forEach(function(rr){ if(!rr||!rr.fn)return; var k=(rr.st||'')+'|'+rr.fn; if(_seen[k])return; _seen[k]=1; _clean.push(rr); }); window.P670_DATA_ANC={generatedAt:res.generatedAt,records:_clean}; populate(); readF(); renderAll(); ancCheckMilestones(); var t=document.getElementById('anc-synctime'); if(t)t.textContent=new Date().toLocaleString(); } }catch(e){console.error('anc live:',e.message);} if(tile)tile.classList.remove('is-loading'); cleanup(); };
     function cleanup(){ try{delete window[cb];}catch(e){window[cb]=undefined;} if(scr&&scr.parentNode)scr.parentNode.removeChild(scr); }
     var scr=document.createElement('script'); scr.src=WEBAPP_URL+(WEBAPP_URL.indexOf('?')>-1?'&':'?')+'callback='+cb+'&t='+Date.now();
     scr.onerror=function(){ if(tile)tile.classList.remove('is-loading'); cleanup(); }; document.body.appendChild(scr);
@@ -2715,7 +2812,7 @@ window.P670_DATA_ANC = {generatedAt:'embedded snapshot 2026-07-30', records:[{"s
     populate();
     ['anc-f-subject','anc-f-state','anc-f-gradegroup','anc-f-gradeband','anc-f-type','anc-f-semab','anc-f-deriv','anc-f-month','anc-f-from','anc-f-to'].forEach(function(id){ var el=document.getElementById(id); if(el)el.addEventListener('change',function(){ readF(); setQRactiveNone(); renderAll(); }); });
     var rs=document.getElementById('anc-f-reset'); if(rs)rs.addEventListener('click',function(){ F={subjects:['all'],state:['all'],gradeGroups:['all'],gradeBands:['all'],type:['all'],semAB:['all'],deriv:['all'],month:['all'],from:null,to:null,weeks:[]}; populate(); var ff=document.getElementById('anc-f-from'),ft=document.getElementById('anc-f-to'); if(ff)ff.value='';if(ft)ft.value=''; setQRactiveNone(); renderAll(); });
-    var tg=document.getElementById('anc-steptoggle'); if(tg)tg.addEventListener('click',function(e){ var b=e.target.closest('.anc-stepbtn'); if(!b)return; STEP=b.getAttribute('data-step'); Array.prototype.forEach.call(tg.querySelectorAll('.anc-stepbtn'),function(x){x.classList.toggle('active',x===b);}); renderAll(); });
+    var tg=document.getElementById('anc-steptoggle'); if(tg)tg.addEventListener('click',function(e){ var b=e.target.closest('.anc-stepbtn'); if(!b)return; STEP=b.getAttribute('data-step'); Array.prototype.forEach.call(tg.querySelectorAll('.anc-stepbtn'),function(x){x.classList.toggle('active',x===b);}); renderAll(); ancCheckMilestones(); });
     var sc=document.getElementById('anc-bs-scope'); if(sc)sc.addEventListener('click',function(e){ var b=e.target.closest('.bs-modebtn'); if(!b)return; bsScope=b.getAttribute('data-scope'); Array.prototype.forEach.call(sc.querySelectorAll('.bs-modebtn'),function(x){x.classList.toggle('active',x===b);}); renderStateBar(); renderStateTable(); });
     var md=document.getElementById('anc-bs-mode'); if(md)md.addEventListener('click',function(e){ var b=e.target.closest('.bs-modebtn'); if(!b)return; bsMode=b.getAttribute('data-mode'); Array.prototype.forEach.call(md.querySelectorAll('.bs-modebtn'),function(x){x.classList.toggle('active',x===b);}); renderStateBar(); });
     var cps=document.getElementById('anc-cp-cutoff'); if(cps)cps.addEventListener('change',function(){ cpCutoff=cps.value; renderCum(); });

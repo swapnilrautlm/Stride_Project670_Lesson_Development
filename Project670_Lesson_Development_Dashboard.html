@@ -15857,7 +15857,7 @@ window.P670_DATA_ANC = {generatedAt:'embedded snapshot 2026-07-30', records:[{"s
     var sst=document.getElementById('anc-sch-status'); if(sst)sst.addEventListener('change',function(){ schStatus=sst.value; renderSchedule(); });
     var sx1=document.getElementById('anc-sch-xlsx'); if(sx1)sx1.addEventListener('click',function(){ var tsv=toTSV(schExport()); if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(tsv).then(function(){flash('anc-sch-xlsx','Copied '+(schExport().length-1)+' rows');},function(){flash('anc-sch-xlsx','Copy failed');});}else flash('anc-sch-xlsx','Copy failed'); });
     var sc1=document.getElementById('anc-sch-csv'); if(sc1)sc1.addEventListener('click',function(){ var blob=new Blob([toCSV(schExport())],{type:'text/csv;charset=utf-8'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Ancillary_Schedule_'+stepLabel()+'.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a); flash('anc-sch-csv','Downloaded'); });
-    renderAll(); loadLive();
+    renderAll(); /* render embedded snapshot only; live fetch deferred until the Ancillary tab is opened (activate hook -> ancLoadLive) to avoid competing with the default Jul 27 status feed at page load */
     setInterval(function(){ if(document.body.classList.contains('anc-active')) loadLive(); }, 90000);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind); else setTimeout(bind,60);
